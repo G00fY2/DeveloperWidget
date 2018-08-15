@@ -3,5 +3,7 @@
   <color name="colorPrimary">#3F51B5</color>
   <color name="colorPrimaryDark">#303F9F</color>
   <color name="colorAccent">#FF4081</color>
-  <color name="transparent_black80">#CC000000</color>
+  <color name="textColor">#808080</color>
+  <color name="gray88">#e0e0e0</color>
+  <color name="disabledButton">#9e9e9e</color>
 </resources>
