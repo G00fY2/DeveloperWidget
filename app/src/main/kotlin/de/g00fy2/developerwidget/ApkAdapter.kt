@@ -3,17 +3,16 @@ package de.g00fy2.developerwidget
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.apk_item.view.app_icon_imageview
 import kotlinx.android.synthetic.main.apk_item.view.filename_textview
-import kotlinx.android.synthetic.main.apk_item.view.radio_button
-import java.io.File
-
 
 class ApkAdapter(apkActivity: ApkActivity) : RecyclerView.Adapter<ApkAdapter.ViewHolder>() {
 
   private var listener = apkActivity
-  private var apkFiles: MutableList<File> = ArrayList()
-  private var selectedFile: File? = null
+  private var apkFiles: MutableList<ApkFile> = ArrayList()
+  private var selectedFile: ApkFile? = null
 
   class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
@@ -22,14 +21,15 @@ class ApkAdapter(apkActivity: ApkActivity) : RecyclerView.Adapter<ApkAdapter.Vie
   }
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-    val file: File = apkFiles[position]
+    val file: ApkFile = apkFiles[position]
     holder.view.setOnClickListener {
       listener.fileSelected()
       selectedFile = file
       notifyDataSetChanged()
     }
-    holder.view.radio_button.isChecked = file == selectedFile
-    holder.view.filename_textview.text = file.name
+    holder.view.filename_textview.text = file.fileName
+    holder.view.app_icon_imageview.setImageDrawable(file.apkIcon)
+    animateSelectedIcon(holder.view.app_icon_imageview, file == selectedFile)
   }
 
   override fun getItemCount() = apkFiles.size
@@ -40,12 +40,19 @@ class ApkAdapter(apkActivity: ApkActivity) : RecyclerView.Adapter<ApkAdapter.Vie
     notifyDataSetChanged()
   }
 
-  fun add(apkFile: File) {
+  fun add(apkFile: ApkFile) {
     apkFiles.add(apkFile)
     notifyDataSetChanged()
   }
 
-  fun getSelectedFile(): File? {
+  fun getSelectedFile(): ApkFile? {
     return selectedFile
+  }
+
+  private fun animateSelectedIcon(imageView: ImageView, selected: Boolean) {
+    if (imageView.isSelected != selected) {
+      imageView.isSelected = selected
+      imageView.animate().scaleX(if (selected) 1.5f else 1f).scaleY(if (selected) 1.5f else 1f).setDuration(300).start()
+    }
   }
 }

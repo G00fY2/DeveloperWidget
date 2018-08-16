@@ -2,25 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
     android:gravity="center_vertical"
-    android:minHeight="48dp"
+    android:minHeight="56dp"
     android:orientation="horizontal"
     >
 
-  <RadioButton
-      android:id="@+id/radio_button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+  <ImageView
+      android:id="@+id/app_icon_imageview"
+      android:layout_width="28dp"
+      android:layout_height="28dp"
       android:layout_marginEnd="16dp"
       android:layout_marginLeft="16dp"
       android:layout_marginRight="16dp"
       android:layout_marginStart="16dp"
-      android:background="@null"
-      android:clickable="false"
-      android:focusable="false"
+      android:scaleType="centerInside"
       />
-
 
   <TextView
       android:id="@+id/filename_textview"
@@ -29,8 +25,7 @@
       android:layout_marginEnd="16dp"
       android:layout_marginRight="16dp"
       android:gravity="center"
-      android:textColor="@color/textColor"
+      style="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
       />
-
 
 </LinearLayout>
