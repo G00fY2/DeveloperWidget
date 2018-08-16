@@ -29,7 +29,7 @@
         android:id="@+id/device_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/textColor"
+        android:textColor="@color/widgetTextColor"
         android:textStyle="bold"
         />
 
@@ -37,7 +37,7 @@
         android:id="@+id/release"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/textColor"
+        android:textColor="@color/widgetTextColor"
         android:textStyle="bold"
         />
 
@@ -45,7 +45,7 @@
         android:id="@+id/sdk_int"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/textColor"
+        android:textColor="@color/widgetTextColor"
         android:textStyle="bold"
         />
   </LinearLayout>
@@ -87,7 +87,7 @@
           android:layout_marginLeft="8dp"
           android:layout_marginStart="8dp"
           android:text="Developer Settings"
-          android:textColor="@color/textColor"
+          android:textColor="@color/widgetTextColor"
           />
     </LinearLayout>
 
@@ -110,7 +110,7 @@
           android:layout_marginLeft="8dp"
           android:layout_marginStart="8dp"
           android:text="Install APK"
-          android:textColor="@color/textColor"
+          android:textColor="@color/widgetTextColor"
           />
     </LinearLayout>
   </LinearLayout>
