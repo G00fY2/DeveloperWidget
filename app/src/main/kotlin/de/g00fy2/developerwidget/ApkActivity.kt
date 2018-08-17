@@ -6,15 +6,16 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
+import android.view.View
 import android.view.Window
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_apk.cancel_textview
 import kotlinx.android.synthetic.main.activity_apk.install_textview
+import kotlinx.android.synthetic.main.activity_apk.is_scanning_spinner
 import kotlinx.android.synthetic.main.activity_apk.recyclerview
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
 import java.io.File
-
 
 class ApkActivity : Activity(), OnSelectFileListener {
 
@@ -45,30 +46,29 @@ class ApkActivity : Activity(), OnSelectFileListener {
   override fun onResume() {
     super.onResume()
     adapter.clear()
-    findAPKs(Environment.getExternalStorageDirectory())
+    launch(UI) {
+      is_scanning_spinner.visibility = View.VISIBLE
+      findAPKs(Environment.getExternalStorageDirectory())
+      is_scanning_spinner.visibility = View.GONE
+    }
   }
 
   private fun findAPKs(dir: File) {
-    doAsync {
-      val listFile = dir.listFiles()
+    val listFile = dir.listFiles()
 
-      if (listFile != null) {
-        for (i in listFile.indices) {
-          if (listFile[i].isDirectory) {
-            findAPKs(listFile[i])
-          } else {
-            if (listFile[i].name.endsWith(EXTENSION, true)) {
-              uiThread {
-                Log.d("APK found", (listFile[i].name))
-                val apkFile = fileToApkFile(listFile[i])
-                apkFiles.add(apkFile)
-                adapter.add(apkFile)
-              }
-            }
+    if (listFile != null) {
+      for (i in listFile.indices) {
+        if (listFile[i].isDirectory) {
+          findAPKs(listFile[i])
+        } else {
+          if (listFile[i].name.endsWith(EXTENSION, true)) {
+            Log.d("APK found", (listFile[i].name))
+            val apkFile = fileToApkFile(listFile[i])
+            apkFiles.add(apkFile)
+            adapter.add(apkFile)
           }
         }
       }
-
     }
   }
 

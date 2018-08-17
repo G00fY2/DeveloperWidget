@@ -7,15 +7,32 @@
     android:orientation="vertical"
     >
 
-  <TextView
+  <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
-      android:layout_marginEnd="16dp"
-      android:layout_marginStart="16dp"
-      android:gravity="center_vertical"
-      android:text="Install APK"
-      style="@style/TextAppearance.AppCompat.Title"
-      />
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:orientation="horizontal"
+      >
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="Install APK"
+        style="@style/TextAppearance.AppCompat.Title"
+        />
+    <ProgressBar
+        android:id="@+id/is_scanning_spinner"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:indeterminate="true"
+        />
+  </LinearLayout>
 
   <View
       android:layout_width="match_parent"
