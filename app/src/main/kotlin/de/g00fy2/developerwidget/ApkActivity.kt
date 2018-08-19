@@ -11,7 +11,6 @@ import android.os.Environment
 import android.util.Log
 import android.view.Window
 import androidx.recyclerview.widget.LinearLayoutManager
-import de.g00fy2.developerwidget.R.layout
 import kotlinx.android.synthetic.main.activity_apk.cancel_textview
 import kotlinx.android.synthetic.main.activity_apk.install_textview
 import kotlinx.android.synthetic.main.activity_apk.recyclerview
@@ -30,7 +29,7 @@ class ApkActivity : Activity(), OnSelectFileListener {
     super.onCreate(savedInstanceState)
     pm = packageManager
     requestWindowFeature(Window.FEATURE_NO_TITLE)
-    setContentView(layout.activity_apk)
+    setContentView(R.layout.activity_apk)
 
     val width = (resources.displayMetrics.widthPixels * 0.95).toInt()
     val height = (resources.displayMetrics.heightPixels * 0.80).toInt()
