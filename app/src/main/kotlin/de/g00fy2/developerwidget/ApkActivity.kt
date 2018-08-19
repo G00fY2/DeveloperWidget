@@ -2,7 +2,6 @@ package de.g00fy2.developerwidget
 
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -64,7 +63,7 @@ class ApkActivity : Activity(), OnSelectFileListener {
           } else {
             if (listFile[i].name.endsWith(EXTENSION, true)) {
               Log.d("APK found", (listFile[i].name))
-              val apkFile = fileToApkFile(listFile[i])
+              val apkFile = ApkFile(listFile[i], pm)
               apkFiles.add(apkFile)
               adapter.add(apkFile)
             }
@@ -74,16 +73,6 @@ class ApkActivity : Activity(), OnSelectFileListener {
     }
   }
 
-  private fun fileToApkFile(file: File): ApkFile {
-    val packageInfo: PackageInfo = pm.getPackageArchiveInfo(file.absolutePath, 0)
-    val pi = packageInfo.applicationInfo
-    val apkFile = ApkFile(file)
-    pi.sourceDir = file.absolutePath
-    pi.publicSourceDir = file.absolutePath
-    apkFile.fileName = file.nameWithoutExtension
-    apkFile.apkIcon = pi.loadIcon(pm)
-    return apkFile
-  }
 
   private fun installAPK() {
     val apk: ApkFile? = adapter.getSelectedFile()

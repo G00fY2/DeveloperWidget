@@ -1,12 +1,21 @@
 package de.g00fy2.developerwidget
 
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import java.io.File
 
-class ApkFile(var file: File) : Comparable<ApkFile> {
+class ApkFile(var file: File, pm: PackageManager) : Comparable<ApkFile> {
 
-  lateinit var fileName: String
-  lateinit var apkIcon: Drawable
+  var fileName: String
+  var apkIcon: Drawable
+
+  init {
+    val pi = pm.getPackageArchiveInfo(file.absolutePath, 0).applicationInfo
+    pi.sourceDir = file.absolutePath
+    pi.publicSourceDir = file.absolutePath
+    fileName = file.nameWithoutExtension
+    apkIcon = pi.loadIcon(pm)
+  }
 
   override fun compareTo(other: ApkFile): Int {
     return when {
