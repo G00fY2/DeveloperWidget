@@ -10,11 +10,14 @@ import android.os.Environment
 import android.util.Log
 import android.view.Window
 import androidx.recyclerview.widget.LinearLayoutManager
-import de.g00fy2.developerwidget.R.layout
+import de.g00fy2.developerwidget.R
 import kotlinx.android.synthetic.main.activity_apk.cancel_textview
 import kotlinx.android.synthetic.main.activity_apk.install_textview
 import kotlinx.android.synthetic.main.activity_apk.recyclerview
-import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.CoroutineStart
+import kotlinx.coroutines.experimental.Dispatchers
+import kotlinx.coroutines.experimental.GlobalScope
+import kotlinx.coroutines.experimental.android.Main
 import kotlinx.coroutines.experimental.launch
 import java.io.File
 
@@ -29,7 +32,7 @@ class ApkActivity : Activity(), OnSelectFileListener {
     super.onCreate(savedInstanceState)
     pm = packageManager
     requestWindowFeature(Window.FEATURE_NO_TITLE)
-    setContentView(layout.activity_apk)
+    setContentView(R.layout.activity_apk)
 
     val width = (resources.displayMetrics.widthPixels * 0.95).toInt()
     val height = (resources.displayMetrics.heightPixels * 0.80).toInt()
@@ -43,18 +46,12 @@ class ApkActivity : Activity(), OnSelectFileListener {
     recyclerview.setHasFixedSize(true)
     recyclerview.layoutManager = LinearLayoutManager(this)
     recyclerview.adapter = adapter
-  }
 
-  override fun onResume() {
-    super.onResume()
-    adapter.clear()
-    launch(UI) {
-      findAPKs(Environment.getExternalStorageDirectory())
-    }
+    findAPKs(Environment.getExternalStorageDirectory())
   }
 
   private fun findAPKs(dir: File) {
-    launch(UI) {
+    GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT, null, {
       val listFile = dir.listFiles()
 
       if (listFile != null) {
@@ -71,7 +68,7 @@ class ApkActivity : Activity(), OnSelectFileListener {
           }
         }
       }
-    }
+    })
   }
 
 

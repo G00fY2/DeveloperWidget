@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import de.g00fy2.developerwidget.R.layout
+import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.apkinstall.ApkAdapter.ViewHolder
 import kotlinx.android.synthetic.main.apk_item.view.app_icon_imageview
 import kotlinx.android.synthetic.main.apk_item.view.filename_textview
@@ -26,7 +26,7 @@ class ApkAdapter(apkActivity: ApkActivity) : RecyclerView.Adapter<ViewHolder>() 
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
     return ViewHolder(
-        LayoutInflater.from(parent.context).inflate(layout.apk_item, parent, false))
+        LayoutInflater.from(parent.context).inflate(R.layout.apk_item, parent, false))
   }
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
