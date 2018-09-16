@@ -13,7 +13,7 @@
       android:layout_marginLeft="16dp"
       android:layout_marginStart="16dp"
       android:gravity="center_vertical"
-      android:text="Install APK"
+      android:text="@string/install_apk"
       style="@style/TextAppearance.AppCompat.Title"
       />
 
@@ -29,6 +29,15 @@
       android:layout_height="0dp"
       android:layout_weight="1"
       android:scrollbars="vertical"
+      />
+  <TextView
+      android:id="@+id/empty_recyclerview_textview"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:gravity="center"
+      android:textSize="14sp"
+      android:visibility="gone"
       />
   <View
       android:layout_width="match_parent"
@@ -58,7 +67,7 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingStart="16dp"
-        android:text="Cancel"
+        android:text="@string/cancel"
         style="@style/DialogButtonAppearance"
         />
     <TextView
@@ -74,7 +83,7 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingStart="16dp"
-        android:text="Install"
+        android:text="@string/install"
         style="@style/DialogButtonAppearance"
         />
   </LinearLayout>

@@ -1,17 +1,27 @@
 package de.g00fy2.developerwidget.apkinstall
 
+import android.Manifest
+import android.Manifest.permission
+import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
+import android.view.View
 import android.view.Window
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.g00fy2.developerwidget.R
+import de.g00fy2.developerwidget.R.string
 import kotlinx.android.synthetic.main.activity_apk.cancel_textview
+import kotlinx.android.synthetic.main.activity_apk.empty_recyclerview_textview
 import kotlinx.android.synthetic.main.activity_apk.install_textview
 import kotlinx.android.synthetic.main.activity_apk.recyclerview
 import kotlinx.coroutines.experimental.CoroutineStart
@@ -47,7 +57,34 @@ class ApkActivity : Activity(), OnSelectFileListener {
     recyclerview.layoutManager = LinearLayoutManager(this)
     recyclerview.adapter = adapter
 
-    findAPKs(Environment.getExternalStorageDirectory())
+    requestPermissions()
+  }
+
+  override fun onResume() {
+    super.onResume()
+    resetRecyclerView()
+    if (hasPermissions()) {
+      toggleEmptyRecyclerView(false)
+      findAPKs(Environment.getExternalStorageDirectory())
+    } else {
+      toggleEmptyRecyclerView(true)
+    }
+  }
+
+  @TargetApi(VERSION_CODES.M)
+  private fun requestPermissions() {
+    if (!hasPermissions()) {
+      requestPermissions(arrayOf(permission.READ_EXTERNAL_STORAGE), 1)
+    }
+  }
+
+  private fun hasPermissions(): Boolean {
+    return if (VERSION.SDK_INT >= VERSION_CODES.M) {
+      ContextCompat.checkSelfPermission(this,
+          Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+    } else {
+      true
+    }
   }
 
   private fun findAPKs(dir: File) {
@@ -64,6 +101,7 @@ class ApkActivity : Activity(), OnSelectFileListener {
               val apkFile = ApkFile(listFile[i], pm)
               apkFiles.add(apkFile)
               adapter.add(apkFile)
+              toggleEmptyRecyclerView(false)
             }
           }
         }
@@ -71,16 +109,44 @@ class ApkActivity : Activity(), OnSelectFileListener {
     })
   }
 
-
   private fun installAPK() {
     val apk: ApkFile? = adapter.getSelectedFile()
     if (apk != null) {
       val intent = Intent(Intent.ACTION_VIEW)
-      intent.setDataAndType(Uri.fromFile(apk.file),
-          APK_MIME_TYPE)
-      intent.flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) Intent.FLAG_GRANT_READ_URI_PERMISSION else Intent.FLAG_ACTIVITY_NEW_TASK
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        intent.setDataAndType(getFileUri(apk.file), APK_MIME_TYPE)
+        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+      } else {
+        intent.setDataAndType(Uri.fromFile(apk.file), APK_MIME_TYPE)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+      }
       startActivity(intent)
     }
+  }
+
+  private fun resetRecyclerView() {
+    install_textview.isEnabled = false
+    apkFiles.clear()
+    adapter.clear()
+  }
+
+  private fun toggleEmptyRecyclerView(missingPermissions: Boolean) {
+    if (apkFiles.size > 0) {
+      empty_recyclerview_textview.visibility = View.GONE
+      recyclerview.visibility = View.VISIBLE
+    } else {
+      if (missingPermissions) {
+        empty_recyclerview_textview.text = getString(string.missing_permissions)
+      } else {
+        empty_recyclerview_textview.text = getString(string.no_apk_found)
+      }
+      empty_recyclerview_textview.visibility = View.VISIBLE
+      recyclerview.visibility = View.GONE
+    }
+  }
+
+  private fun getFileUri(file: File): Uri {
+    return FileProvider.getUriForFile(this, applicationContext.packageName + ".fileprovider", file)
   }
 
   override fun fileSelected() {

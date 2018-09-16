@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_shape_transparent"
+    android:baselineAligned="false"
     android:orientation="horizontal"
     android:padding="@dimen/widget_margin"
     >
@@ -86,7 +87,7 @@
           android:layout_height="wrap_content"
           android:layout_marginLeft="8dp"
           android:layout_marginStart="8dp"
-          android:text="Developer Settings"
+          android:text="@string/developer_settings"
           android:textColor="@color/widgetTextColor"
           />
     </LinearLayout>
@@ -109,7 +110,7 @@
           android:layout_height="wrap_content"
           android:layout_marginLeft="8dp"
           android:layout_marginStart="8dp"
-          android:text="Install APK"
+          android:text="@string/install_apk"
           android:textColor="@color/widgetTextColor"
           />
     </LinearLayout>
