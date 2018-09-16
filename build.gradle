@@ -1,9 +1,10 @@
 buildscript {
-  ext.kotlin_version = '1.2.60'
-  ext.coroutines_version='0.24.0'
+  ext.kotlin_version = '1.2.70'
+  ext.coroutines_version='0.26.0'
   repositories {
     google()
     jcenter()
+    mavenCentral()
   }
   dependencies {
     classpath 'com.android.tools.build:gradle:3.1.4'
@@ -15,6 +16,7 @@ allprojects {
   repositories {
     google()
     jcenter()
+    mavenCentral()
   }
 }
 
