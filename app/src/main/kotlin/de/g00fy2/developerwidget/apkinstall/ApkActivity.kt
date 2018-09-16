@@ -1,4 +1,4 @@
-package de.g00fy2.developerwidget
+package de.g00fy2.developerwidget.apkinstall
 
 import android.app.Activity
 import android.content.Intent
@@ -10,6 +10,7 @@ import android.os.Environment
 import android.util.Log
 import android.view.Window
 import androidx.recyclerview.widget.LinearLayoutManager
+import de.g00fy2.developerwidget.R.layout
 import kotlinx.android.synthetic.main.activity_apk.cancel_textview
 import kotlinx.android.synthetic.main.activity_apk.install_textview
 import kotlinx.android.synthetic.main.activity_apk.recyclerview
@@ -28,7 +29,7 @@ class ApkActivity : Activity(), OnSelectFileListener {
     super.onCreate(savedInstanceState)
     pm = packageManager
     requestWindowFeature(Window.FEATURE_NO_TITLE)
-    setContentView(R.layout.activity_apk)
+    setContentView(layout.activity_apk)
 
     val width = (resources.displayMetrics.widthPixels * 0.95).toInt()
     val height = (resources.displayMetrics.heightPixels * 0.80).toInt()
@@ -78,7 +79,8 @@ class ApkActivity : Activity(), OnSelectFileListener {
     val apk: ApkFile? = adapter.getSelectedFile()
     if (apk != null) {
       val intent = Intent(Intent.ACTION_VIEW)
-      intent.setDataAndType(Uri.fromFile(apk.file), APK_MIME_TYPE)
+      intent.setDataAndType(Uri.fromFile(apk.file),
+          APK_MIME_TYPE)
       intent.flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) Intent.FLAG_GRANT_READ_URI_PERMISSION else Intent.FLAG_ACTIVITY_NEW_TASK
       startActivity(intent)
     }

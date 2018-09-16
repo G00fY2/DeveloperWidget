@@ -1,4 +1,4 @@
-package de.g00fy2.developerwidget
+package de.g00fy2.developerwidget.apkinstall
 
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable

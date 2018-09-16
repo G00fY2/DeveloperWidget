@@ -1,4 +1,4 @@
-package de.g00fy2.developerwidget
+package de.g00fy2.developerwidget.apkinstall
 
 import android.graphics.Typeface
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import de.g00fy2.developerwidget.R.layout
-import de.g00fy2.developerwidget.ApkAdapter.ViewHolder
+import de.g00fy2.developerwidget.apkinstall.ApkAdapter.ViewHolder
 import kotlinx.android.synthetic.main.apk_item.view.app_icon_imageview
 import kotlinx.android.synthetic.main.apk_item.view.filename_textview
 

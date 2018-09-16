@@ -14,16 +14,8 @@
       android:theme="@style/AppTheme"
       tools:ignore="GoogleAppIndexingWarning">
 
-    <activity android:name=".MainActivity">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
-
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
-    </activity>
-
     <activity
-        android:name=".ApkActivity"
+        android:name=".apkinstall.ApkActivity"
         android:excludeFromRecents="true"
         android:noHistory="true"
         android:theme="@style/DialogTheme"/>
@@ -40,7 +32,6 @@
     <activity android:name=".widget.WidgetConfigActivity">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
-        <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
       </intent-filter>
     </activity>
 
