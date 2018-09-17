@@ -10,7 +10,7 @@
     <item name="actionBarTheme">@style/ThemeOverlay.MyApp.ActionBar</item>
     <item name="android:windowLightStatusBar">true</item>
     <item name="android:navigationBarColor">@android:color/white</item>
-    <item name="android:navigationBarDividerColor">@color/bottomDivider</item>
+    <item name="android:navigationBarDividerColor">@color/gray88</item>
     <item name="android:windowLightNavigationBar">true</item>
   </style>
 </resources>
