@@ -20,6 +20,7 @@
       android:layout_marginTop="4dp"
       android:layout_weight="1"
       android:background="@android:color/white"
+      android:gravity="center_vertical"
       android:orientation="vertical"
       android:paddingEnd="4dp"
       android:paddingLeft="4dp"
@@ -34,6 +35,16 @@
         android:textStyle="bold"
         />
 
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
+        android:src="@drawable/background_shape_transparent"
+        />
+
     <TextView
         android:id="@+id/release"
         android:layout_width="wrap_content"
@@ -41,6 +52,17 @@
         android:textColor="@color/widgetTextColor"
         android:textStyle="bold"
         />
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
+        android:src="@drawable/background_shape_transparent"
+        />
+
 
     <TextView
         android:id="@+id/sdk_int"
@@ -74,6 +96,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         >
@@ -97,6 +120,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         >
