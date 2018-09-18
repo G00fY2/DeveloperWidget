@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
   <style name="AppTheme" parent="Theme.AppCompat.Light">
-    <!-- Customize your theme here. -->
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
@@ -10,7 +9,7 @@
     <item name="actionBarTheme">@style/ThemeOverlay.MyApp.ActionBar</item>
     <item name="android:windowLightStatusBar">true</item>
     <item name="android:navigationBarColor">@android:color/white</item>
-    <item name="android:navigationBarDividerColor">@color/gray88</item>
-    <item name="android:windowLightNavigationBar">true</item>
+    <item name="android:navigationBarDividerColor" tools:ignore="NewApi">@color/gray88</item>
+    <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
   </style>
 </resources>
