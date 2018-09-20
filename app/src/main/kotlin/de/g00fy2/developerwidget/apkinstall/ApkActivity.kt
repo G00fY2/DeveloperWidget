@@ -17,13 +17,14 @@ import android.view.View
 import android.view.Window
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.R.string
 import kotlinx.android.synthetic.main.activity_apk.cancel_textview
 import kotlinx.android.synthetic.main.activity_apk.empty_recyclerview_textview
 import kotlinx.android.synthetic.main.activity_apk.install_textview
-import kotlinx.android.synthetic.main.activity_apk.progressbar_layout
+import kotlinx.android.synthetic.main.activity_apk.progressbar
 import kotlinx.android.synthetic.main.activity_apk.recyclerview
 import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.Dispatchers
@@ -145,7 +146,7 @@ class ApkActivity : Activity(), CoroutineScope, OnSelectFileListener {
 
   private fun initState() {
     install_textview.isEnabled = false
-    progressbar_layout.visibility = View.VISIBLE
+    progressbar.visibility = View.VISIBLE
     recyclerview.visibility = View.GONE
     empty_recyclerview_textview.visibility = View.GONE
     apkFiles.clear()
@@ -153,7 +154,11 @@ class ApkActivity : Activity(), CoroutineScope, OnSelectFileListener {
   }
 
   private fun toggleResultView(missingPermissions: Boolean) {
-    progressbar_layout.visibility = View.GONE
+    ViewCompat.animate(progressbar).alpha(0f).setDuration(200).withEndAction {
+      progressbar.visibility = View.GONE
+      progressbar.alpha = 1f
+    }.start()
+
     if (apkFiles.size > 0) {
       empty_recyclerview_textview.visibility = View.GONE
       recyclerview.visibility = View.VISIBLE

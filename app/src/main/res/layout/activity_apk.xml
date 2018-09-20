@@ -23,30 +23,28 @@
       android:background="@color/gray88"
       />
 
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/recyclerview"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1"
-      android:scrollbars="vertical"
-      android:visibility="gone"
-      />
-  <TextView
-      android:id="@+id/empty_recyclerview_textview"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1"
-      android:gravity="center"
-      android:textSize="14sp"
-      android:visibility="gone"
-      />
   <FrameLayout
-      android:id="@+id/progressbar_layout"
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:layout_weight="1"
       >
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/empty_recyclerview_textview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:visibility="gone"
+        />
     <ProgressBar
+        android:id="@+id/progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
