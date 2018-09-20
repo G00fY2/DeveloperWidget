@@ -8,7 +8,7 @@ import android.content.Intent
 import android.widget.RemoteViews
 import de.g00fy2.developerwidget.apkinstall.ApkActivity
 import de.g00fy2.developerwidget.R
-import de.g00fy2.developerwidget.dataprovider.DeviceDataProvider
+import de.g00fy2.developerwidget.util.DeviceDataUtils
 
 
 class WidgetProvider : AppWidgetProvider() {
@@ -21,12 +21,11 @@ class WidgetProvider : AppWidgetProvider() {
 
   companion object {
     internal fun updateWidget(context: Context, appWidgetManager: AppWidgetManager, widgetId: Int) {
-      val deviceDataProvider = DeviceDataProvider(context)
       val views = RemoteViews(context.packageName, R.layout.appwidget_layout)
 
-      views.setTextViewText(R.id.device_info, deviceDataProvider.deviceInfo)
-      views.setTextViewText(R.id.release, deviceDataProvider.versionAndCodename)
-      views.setTextViewText(R.id.sdk_int, deviceDataProvider.sdkVersion)
+      views.setTextViewText(R.id.device_info, DeviceDataUtils.deviceInfo)
+      views.setTextViewText(R.id.release, DeviceDataUtils.versionAndCodename)
+      views.setTextViewText(R.id.sdk_int, DeviceDataUtils.sdkVersion)
 
       val settingsIntent = Intent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
       val settingsPendingIntent = PendingIntent.getActivity(context, 0, settingsIntent, 0)
