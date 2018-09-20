@@ -23,23 +23,27 @@ import de.g00fy2.developerwidget.R.string
 import kotlinx.android.synthetic.main.activity_apk.cancel_textview
 import kotlinx.android.synthetic.main.activity_apk.empty_recyclerview_textview
 import kotlinx.android.synthetic.main.activity_apk.install_textview
+import kotlinx.android.synthetic.main.activity_apk.progressbar_layout
 import kotlinx.android.synthetic.main.activity_apk.recyclerview
-import kotlinx.coroutines.experimental.CoroutineStart
+import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.GlobalScope
+import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.android.Main
 import kotlinx.coroutines.experimental.launch
 import java.io.File
+import kotlin.coroutines.experimental.CoroutineContext
 
 
-class ApkActivity : Activity(), OnSelectFileListener {
+class ApkActivity : Activity(), CoroutineScope, OnSelectFileListener {
 
   private lateinit var pm: PackageManager
   private var apkFiles: MutableList<ApkFile> = ArrayList()
   private lateinit var adapter: ApkAdapter
+  private lateinit var job: Job
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    job = Job()
     pm = packageManager
     requestWindowFeature(Window.FEATURE_NO_TITLE)
     setContentView(R.layout.activity_apk)
@@ -62,14 +66,27 @@ class ApkActivity : Activity(), OnSelectFileListener {
 
   override fun onResume() {
     super.onResume()
-    resetRecyclerView()
+    initState()
     if (hasPermissions()) {
-      toggleEmptyRecyclerView(false)
-      findAPKs(Environment.getExternalStorageDirectory())
+      launch {
+        findAPKs(Environment.getExternalStorageDirectory())
+      }.invokeOnCompletion {
+        adapter.addAll(apkFiles)
+        toggleResultView(false)
+        Log.d("coroutines", "parent job finished")
+      }
     } else {
-      toggleEmptyRecyclerView(true)
+      toggleResultView(true)
     }
   }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    job.cancel()
+  }
+
+  override val coroutineContext: CoroutineContext
+    get() = Dispatchers.Main + job
 
   @TargetApi(VERSION_CODES.M)
   private fun requestPermissions() {
@@ -87,8 +104,8 @@ class ApkActivity : Activity(), OnSelectFileListener {
     }
   }
 
-  private fun findAPKs(dir: File) {
-    GlobalScope.launch(Dispatchers.Main, CoroutineStart.DEFAULT, null, {
+  private suspend fun findAPKs(dir: File) {
+    val scanJob = launch {
       val listFile = dir.listFiles()
 
       if (listFile != null) {
@@ -100,13 +117,15 @@ class ApkActivity : Activity(), OnSelectFileListener {
               Log.d("APK found", (listFile[i].name))
               val apkFile = ApkFile(listFile[i], pm)
               apkFiles.add(apkFile)
-              adapter.add(apkFile)
-              toggleEmptyRecyclerView(false)
             }
           }
         }
       }
-    })
+    }
+    scanJob.join()
+    scanJob.invokeOnCompletion {
+      Log.d("coroutines", "child job finished")
+    }
   }
 
   private fun installAPK() {
@@ -124,13 +143,17 @@ class ApkActivity : Activity(), OnSelectFileListener {
     }
   }
 
-  private fun resetRecyclerView() {
+  private fun initState() {
     install_textview.isEnabled = false
+    progressbar_layout.visibility = View.VISIBLE
+    recyclerview.visibility = View.GONE
+    empty_recyclerview_textview.visibility = View.GONE
     apkFiles.clear()
     adapter.clear()
   }
 
-  private fun toggleEmptyRecyclerView(missingPermissions: Boolean) {
+  private fun toggleResultView(missingPermissions: Boolean) {
+    progressbar_layout.visibility = View.GONE
     if (apkFiles.size > 0) {
       empty_recyclerview_textview.visibility = View.GONE
       recyclerview.visibility = View.VISIBLE

@@ -64,6 +64,12 @@ class ApkAdapter(apkActivity: ApkActivity) : RecyclerView.Adapter<ViewHolder>() 
     notifyDataSetChanged()
   }
 
+  fun addAll(apkFiles: MutableList<ApkFile>) {
+    this.apkFiles = apkFiles
+    apkFiles.sort()
+    notifyDataSetChanged()
+  }
+
   fun getSelectedFile(): ApkFile? {
     if (selectedPosition >= 0) {
       return apkFiles[selectedPosition]
