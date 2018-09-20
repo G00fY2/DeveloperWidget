@@ -56,7 +56,6 @@ class ApkActivity : Activity(), CoroutineScope, OnSelectFileListener {
     cancel_textview.setOnClickListener { finish() }
     install_textview.setOnClickListener { installAPK() }
 
-
     adapter = ApkAdapter(this)
     recyclerview.setHasFixedSize(true)
     recyclerview.layoutManager = LinearLayoutManager(this)
@@ -88,6 +87,10 @@ class ApkActivity : Activity(), CoroutineScope, OnSelectFileListener {
 
   override val coroutineContext: CoroutineContext
     get() = Dispatchers.Main + job
+
+  override fun fileSelected() {
+    install_textview.isEnabled = true
+  }
 
   @TargetApi(VERSION_CODES.M)
   private fun requestPermissions() {
@@ -175,10 +178,6 @@ class ApkActivity : Activity(), CoroutineScope, OnSelectFileListener {
 
   private fun getFileUri(file: File): Uri {
     return FileProvider.getUriForFile(this, applicationContext.packageName + ".fileprovider", file)
-  }
-
-  override fun fileSelected() {
-    install_textview.isEnabled = true
   }
 
   companion object {
