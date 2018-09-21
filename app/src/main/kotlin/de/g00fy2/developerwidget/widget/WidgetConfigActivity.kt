@@ -26,6 +26,7 @@ class WidgetConfigActivity : AppCompatActivity() {
 
     setResult(Activity.RESULT_CANCELED)
     setContentView(R.layout.activity_widget_config)
+    supportActionBar?.elevation = 0f
     findViewById<View>(R.id.apply).setOnClickListener(onApplyClickListener)
 
     val intent = intent
