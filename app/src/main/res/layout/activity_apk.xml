@@ -36,7 +36,7 @@
         android:visibility="gone"
         />
     <TextView
-        android:id="@+id/empty_recyclerview_textview"
+        android:id="@+id/no_result_textview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"

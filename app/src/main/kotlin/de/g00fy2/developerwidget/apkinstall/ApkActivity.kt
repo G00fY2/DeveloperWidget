@@ -22,8 +22,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.R.string
 import kotlinx.android.synthetic.main.activity_apk.cancel_textview
-import kotlinx.android.synthetic.main.activity_apk.empty_recyclerview_textview
 import kotlinx.android.synthetic.main.activity_apk.install_textview
+import kotlinx.android.synthetic.main.activity_apk.no_result_textview
 import kotlinx.android.synthetic.main.activity_apk.progressbar
 import kotlinx.android.synthetic.main.activity_apk.recyclerview
 import kotlinx.coroutines.CoroutineScope
@@ -151,29 +151,33 @@ class ApkActivity : Activity(), CoroutineScope, OnSelectFileListener {
   private fun initState() {
     install_textview.isEnabled = false
     progressbar.visibility = View.VISIBLE
-    recyclerview.visibility = View.GONE
-    empty_recyclerview_textview.visibility = View.GONE
+    recyclerview.visibility = View.INVISIBLE
+    no_result_textview.visibility = View.INVISIBLE
     apkFiles.clear()
     adapter.clear()
   }
 
   private fun toggleResultView(missingPermissions: Boolean) {
-    ViewCompat.animate(progressbar).alpha(0f).setDuration(200).withEndAction {
-      progressbar.visibility = View.GONE
-      progressbar.alpha = 1f
-    }.start()
+    if (missingPermissions) {
+      progressbar.visibility = View.INVISIBLE
+    } else {
+      ViewCompat.animate(progressbar).alpha(0f).setDuration(200).withEndAction {
+        progressbar.visibility = View.INVISIBLE
+        progressbar.alpha = 1f
+      }.start()
+    }
 
     if (apkFiles.size > 0) {
-      empty_recyclerview_textview.visibility = View.GONE
+      no_result_textview.visibility = View.INVISIBLE
       recyclerview.visibility = View.VISIBLE
     } else {
       if (missingPermissions) {
-        empty_recyclerview_textview.text = getString(string.missing_permissions)
+        no_result_textview.text = getString(string.missing_permissions)
       } else {
-        empty_recyclerview_textview.text = getString(string.no_apk_found)
+        no_result_textview.text = getString(string.no_apk_found)
       }
-      empty_recyclerview_textview.visibility = View.VISIBLE
-      recyclerview.visibility = View.GONE
+      recyclerview.visibility = View.INVISIBLE
+      no_result_textview.visibility = View.VISIBLE
     }
   }
 
