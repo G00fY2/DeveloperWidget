@@ -21,5 +21,4 @@
   <style name="ThemeOverlay.MyApp.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
     <item name="android:textColorPrimary">@color/colorAccent</item>
   </style>
-
 </resources>
