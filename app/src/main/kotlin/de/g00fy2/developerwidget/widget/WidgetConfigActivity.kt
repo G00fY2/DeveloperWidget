@@ -8,7 +8,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import de.g00fy2.developerwidget.R
 
-
 class WidgetConfigActivity : AppCompatActivity() {
 
   private var widgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID

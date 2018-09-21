@@ -6,10 +6,9 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
-import de.g00fy2.developerwidget.apkinstall.ApkActivity
 import de.g00fy2.developerwidget.R
+import de.g00fy2.developerwidget.apkinstall.ApkActivity
 import de.g00fy2.developerwidget.util.DeviceDataUtils
-
 
 class WidgetProvider : AppWidgetProvider() {
 

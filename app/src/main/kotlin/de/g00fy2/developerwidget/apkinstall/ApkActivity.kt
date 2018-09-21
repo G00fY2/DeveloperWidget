@@ -26,14 +26,13 @@ import kotlinx.android.synthetic.main.activity_apk.empty_recyclerview_textview
 import kotlinx.android.synthetic.main.activity_apk.install_textview
 import kotlinx.android.synthetic.main.activity_apk.progressbar
 import kotlinx.android.synthetic.main.activity_apk.recyclerview
-import kotlinx.coroutines.experimental.CoroutineScope
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.Job
-import kotlinx.coroutines.experimental.android.Main
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.android.Main
+import kotlinx.coroutines.launch
 import java.io.File
-import kotlin.coroutines.experimental.CoroutineContext
-
+import kotlin.coroutines.CoroutineContext
 
 class ApkActivity : Activity(), CoroutineScope, OnSelectFileListener {
 
@@ -101,8 +100,10 @@ class ApkActivity : Activity(), CoroutineScope, OnSelectFileListener {
 
   private fun hasPermissions(): Boolean {
     return if (VERSION.SDK_INT >= VERSION_CODES.M) {
-      ContextCompat.checkSelfPermission(this,
-          Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+      ContextCompat.checkSelfPermission(
+        this,
+        Manifest.permission.READ_EXTERNAL_STORAGE
+      ) == PackageManager.PERMISSION_GRANTED
     } else {
       true
     }
