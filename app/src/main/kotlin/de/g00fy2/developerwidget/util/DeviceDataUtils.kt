@@ -8,9 +8,9 @@ class DeviceDataUtils {
     val deviceInfo: String
       get() {
         if (Build.MODEL.contains(Build.MANUFACTURER)) {
-          return Build.MODEL
+          return Build.MODEL.capitalize()
         }
-        return Build.MANUFACTURER + " " + Build.MODEL
+        return Build.MANUFACTURER.capitalize() + " " + Build.MODEL
       }
 
     val versionAndCodename: String
