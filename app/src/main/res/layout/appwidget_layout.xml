@@ -3,7 +3,7 @@
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_shape_transparent"
+    android:background="@drawable/widget_background_shape"
     android:baselineAligned="false"
     android:orientation="horizontal"
     android:padding="@dimen/widget_margin"
@@ -42,7 +42,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="2dp"
-        android:src="@drawable/background_shape_transparent"
+        android:src="@drawable/widget_background_shape"
         />
 
     <TextView
@@ -60,7 +60,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="2dp"
-        android:src="@drawable/background_shape_transparent"
+        android:src="@drawable/widget_background_shape"
         />
 
 

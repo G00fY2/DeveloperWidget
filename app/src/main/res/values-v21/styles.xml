@@ -7,5 +7,6 @@
     <item name="colorAccent">@color/colorAccent</item>
     <item name="android:windowCloseOnTouchOutside">false</item>
     <item name="android:colorEdgeEffect">@android:color/black</item>
+    <item name="android:windowBackground">@drawable/dialog_background_shape</item>
   </style>
 </resources>
