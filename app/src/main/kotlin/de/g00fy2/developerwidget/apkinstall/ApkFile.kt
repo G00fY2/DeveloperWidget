@@ -13,7 +13,7 @@ class ApkFile(var file: File, pm: PackageManager) : Comparable<ApkFile> {
     val pi = pm.getPackageArchiveInfo(file.absolutePath, 0).applicationInfo
     pi.sourceDir = file.absolutePath
     pi.publicSourceDir = file.absolutePath
-    fileName = file.nameWithoutExtension
+    fileName = file.name
     apkIcon = pi.loadIcon(pm)
   }
 

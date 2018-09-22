@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.apkinstall.ApkAdapter.ViewHolder
 import kotlinx.android.synthetic.main.apk_item.view.app_icon_imageview
+import kotlinx.android.synthetic.main.apk_item.view.file_date_textview
+import kotlinx.android.synthetic.main.apk_item.view.file_size_textview
 import kotlinx.android.synthetic.main.apk_item.view.filename_textview
 
 class ApkAdapter(apkActivity: ApkActivity) : RecyclerView.Adapter<ViewHolder>() {
@@ -20,6 +22,8 @@ class ApkAdapter(apkActivity: ApkActivity) : RecyclerView.Adapter<ViewHolder>() 
 
   class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     val filename: TextView = view.filename_textview
+    val fileDate: TextView = view.file_date_textview
+    val fileSize: TextView = view.file_size_textview
     val appIcon: ImageView = view.app_icon_imageview
   }
 
@@ -42,6 +46,8 @@ class ApkAdapter(apkActivity: ApkActivity) : RecyclerView.Adapter<ViewHolder>() 
 
     val file: ApkFile = apkFiles[position]
     holder.filename.text = file.fileName
+    holder.fileDate.text = "22.09.2018"
+    holder.fileSize.text = "14,6 MB"
     holder.appIcon.setImageDrawable(file.apkIcon)
     val selected = position == selectedPosition
 
