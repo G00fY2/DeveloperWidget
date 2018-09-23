@@ -26,7 +26,8 @@ class ApkFile(private var file: File, context: Context) : Comparable<ApkFile> {
   }
 
   fun getFilePath(): String {
-    return file.parent.replace(Environment.getExternalStorageDirectory().absolutePath, "")
+    val path = file.parent.substring(Environment.getExternalStorageDirectory().absolutePath.length)
+    return if (path.isEmpty()) "/" else path
   }
 
   fun getFileUri(context: Context): Uri {
