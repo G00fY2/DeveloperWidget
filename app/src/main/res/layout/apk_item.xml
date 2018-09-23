@@ -41,7 +41,16 @@
       android:layout_width="0dp"
       android:layout_height="0dp"
       app:barrierDirection="top"
-      app:constraint_referenced_ids="file_size_textview,file_date_textview"
+      app:constraint_referenced_ids="file_date_textview,file_appname_textview,file_size_textview"
+      />
+
+  <TextView
+      android:id="@+id/file_date_textview"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="12sp"
+      app:layout_constraintStart_toStartOf="@+id/filename_textview"
+      app:layout_constraintTop_toBottomOf="@+id/barrier"
       />
 
   <TextView
@@ -51,15 +60,26 @@
       android:textSize="12sp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="@+id/filename_textview"
+      app:layout_constraintTop_toBottomOf="@+id/file_appname_textview"
       />
 
   <TextView
-      android:id="@+id/file_date_textview"
+      android:id="@+id/file_version_textview"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:textSize="12sp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="@+id/filename_textview"
+      app:layout_constraintTop_toBottomOf="@+id/file_date_textview"
+      />
+
+  <TextView
+      android:id="@+id/file_appname_textview"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="12sp"
+      app:layout_constraintEnd_toEndOf="@+id/filename_textview"
+      app:layout_constraintTop_toBottomOf="@+id/barrier"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

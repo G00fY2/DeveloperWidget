@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.apkinstall.ApkAdapter.ViewHolder
 import kotlinx.android.synthetic.main.apk_item.view.app_icon_imageview
+import kotlinx.android.synthetic.main.apk_item.view.file_appname_textview
 import kotlinx.android.synthetic.main.apk_item.view.file_date_textview
 import kotlinx.android.synthetic.main.apk_item.view.file_size_textview
+import kotlinx.android.synthetic.main.apk_item.view.file_version_textview
 import kotlinx.android.synthetic.main.apk_item.view.filename_textview
 
 class ApkAdapter(private var apkActivity: ApkActivity) : RecyclerView.Adapter<ViewHolder>() {
@@ -22,6 +24,8 @@ class ApkAdapter(private var apkActivity: ApkActivity) : RecyclerView.Adapter<Vi
   class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     val filename: TextView = view.filename_textview
     val fileDate: TextView = view.file_date_textview
+    val fileAppName: TextView = view.file_appname_textview
+    val fileVersion: TextView = view.file_version_textview
     val fileSize: TextView = view.file_size_textview
     val appIcon: ImageView = view.app_icon_imageview
   }
@@ -45,8 +49,11 @@ class ApkAdapter(private var apkActivity: ApkActivity) : RecyclerView.Adapter<Vi
 
     val apkFile: ApkFile = apkFiles[position]
     holder.filename.text = apkFile.getFileName()
-    holder.fileDate.text = apkFile.getLastModified(apkActivity)
+    holder.fileAppName.text = apkFile.getAppName(apkActivity)
+    holder.fileVersion.text =
+        String.format(apkActivity.getString(R.string.apk_version), apkFile.getVersionName(), apkFile.getVersionCode())
     holder.fileSize.text = apkFile.getSize()
+    holder.fileDate.text = apkFile.getLastModified(apkActivity)
     holder.appIcon.setImageDrawable(apkFile.getIcon(apkActivity))
 
     val selected = position == selectedPosition

@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.text.format.DateFormat
 import androidx.core.content.FileProvider
 import java.io.File
@@ -22,6 +23,10 @@ class ApkFile(private var file: File, context: Context) : Comparable<ApkFile> {
 
   fun getFileName(): String {
     return file.name
+  }
+
+  fun getFilePath(): String {
+    return file.parent.replace(Environment.getExternalStorageDirectory().absolutePath, "")
   }
 
   fun getFileUri(context: Context): Uri {
@@ -71,5 +76,4 @@ class ApkFile(private var file: File, context: Context) : Comparable<ApkFile> {
       else -> 0
     }
   }
-
 }
