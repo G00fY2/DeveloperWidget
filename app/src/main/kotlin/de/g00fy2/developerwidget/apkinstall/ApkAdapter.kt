@@ -14,9 +14,8 @@ import kotlinx.android.synthetic.main.apk_item.view.file_date_textview
 import kotlinx.android.synthetic.main.apk_item.view.file_size_textview
 import kotlinx.android.synthetic.main.apk_item.view.filename_textview
 
-class ApkAdapter(apkActivity: ApkActivity) : RecyclerView.Adapter<ViewHolder>() {
+class ApkAdapter(private var apkActivity: ApkActivity) : RecyclerView.Adapter<ViewHolder>() {
 
-  private var listener = apkActivity
   private var apkFiles: MutableList<ApkFile> = ArrayList()
   private var selectedPosition = -1
 
@@ -36,7 +35,7 @@ class ApkAdapter(apkActivity: ApkActivity) : RecyclerView.Adapter<ViewHolder>() 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     holder.view.setOnClickListener {
       if (selectedPosition < 0) {
-        listener.fileSelected()
+        apkActivity.fileSelected()
       } else {
         notifyItemChanged(selectedPosition)
       }
@@ -44,13 +43,13 @@ class ApkAdapter(apkActivity: ApkActivity) : RecyclerView.Adapter<ViewHolder>() 
       notifyItemChanged(position)
     }
 
-    val file: ApkFile = apkFiles[position]
-    holder.filename.text = file.fileName
-    holder.fileDate.text = "22.09.2018"
-    holder.fileSize.text = "14,6 MB"
-    holder.appIcon.setImageDrawable(file.apkIcon)
-    val selected = position == selectedPosition
+    val apkFile: ApkFile = apkFiles[position]
+    holder.filename.text = apkFile.getFileName()
+    holder.fileDate.text = apkFile.getLastModified(apkActivity)
+    holder.fileSize.text = apkFile.getSize()
+    holder.appIcon.setImageDrawable(apkFile.getIcon(apkActivity))
 
+    val selected = position == selectedPosition
     holder.filename.setTypeface(null, if (selected) Typeface.BOLD else Typeface.NORMAL)
     holder.appIcon.scaleX = if (selected) 1.5f else 1f
     holder.appIcon.scaleY = if (selected) 1.5f else 1f

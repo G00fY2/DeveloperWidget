@@ -6,7 +6,6 @@ import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
@@ -16,7 +15,6 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.g00fy2.developerwidget.R
@@ -36,7 +34,6 @@ import kotlin.coroutines.CoroutineContext
 
 class ApkActivity : Activity(), CoroutineScope, OnSelectFileListener {
 
-  private lateinit var pm: PackageManager
   private var apkFiles: MutableList<ApkFile> = ArrayList()
   private lateinit var adapter: ApkAdapter
   private lateinit var job: Job
@@ -44,7 +41,6 @@ class ApkActivity : Activity(), CoroutineScope, OnSelectFileListener {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     job = Job()
-    pm = packageManager
     requestWindowFeature(Window.FEATURE_NO_TITLE)
     setContentView(R.layout.activity_apk)
 
@@ -120,7 +116,7 @@ class ApkActivity : Activity(), CoroutineScope, OnSelectFileListener {
           } else {
             if (listFile[i].name.endsWith(EXTENSION, true)) {
               Log.d("APK found", (listFile[i].name))
-              val apkFile = ApkFile(listFile[i], pm)
+              val apkFile = ApkFile(listFile[i], this@ApkActivity)
               apkFiles.add(apkFile)
             }
           }
@@ -137,13 +133,9 @@ class ApkActivity : Activity(), CoroutineScope, OnSelectFileListener {
     val apk: ApkFile? = adapter.getSelectedFile()
     if (apk != null) {
       val intent = Intent(Intent.ACTION_VIEW)
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        intent.setDataAndType(getFileUri(apk.file), APK_MIME_TYPE)
-        intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-      } else {
-        intent.setDataAndType(Uri.fromFile(apk.file), APK_MIME_TYPE)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-      }
+      intent.setDataAndType(apk.getFileUri(this), APK_MIME_TYPE)
+      intent.flags =
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) Intent.FLAG_GRANT_READ_URI_PERMISSION else Intent.FLAG_ACTIVITY_NEW_TASK
       startActivity(intent)
     }
   }
@@ -179,10 +171,6 @@ class ApkActivity : Activity(), CoroutineScope, OnSelectFileListener {
       recyclerview.visibility = View.INVISIBLE
       no_result_textview.visibility = View.VISIBLE
     }
-  }
-
-  private fun getFileUri(file: File): Uri {
-    return FileProvider.getUriForFile(this, applicationContext.packageName + ".fileprovider", file)
   }
 
   companion object {
