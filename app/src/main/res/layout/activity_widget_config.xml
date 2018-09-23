@@ -1,41 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="de.g00fy2.developerwidget.widget.WidgetConfigActivity"
     >
-  <LinearLayout
-      android:id="@+id/top_linear_layout"
+  <View
+      android:id="@+id/top_view"
       android:layout_width="match_parent"
       android:layout_height="164dp"
       android:background="@color/colorPrimary"
-      android:orientation="horizontal"
-      >
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/apply"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginStart="16dp"
-        android:text="@string/add_widget"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        app:backgroundTint="@color/colorAccent"
-        />
-  </LinearLayout>
+      app:layout_constraintTop_toTopOf="parent"
+      />
+  <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/apply"
+      android:layout_width="150dp"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="16dp"
+      android:layout_marginLeft="16dp"
+      android:layout_marginStart="16dp"
+      android:text="@string/add_widget"
+      android:textAllCaps="false"
+      android:textColor="@android:color/white"
+      android:textSize="16sp"
+      app:backgroundTint="@color/colorAccent"
+      app:layout_constraintBottom_toBottomOf="@+id/top_view"
+      app:layout_constraintStart_toStartOf="@+id/top_view"
+      />
+
   <View
       android:layout_width="match_parent"
       android:layout_height="1dp"
-      android:layout_below="@id/top_linear_layout"
       android:background="@color/gray88"
+      app:layout_constraintTop_toBottomOf="@+id/top_view"
       />
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
