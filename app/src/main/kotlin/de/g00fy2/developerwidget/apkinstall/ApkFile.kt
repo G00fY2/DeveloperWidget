@@ -10,6 +10,7 @@ import android.os.Environment
 import android.text.format.DateFormat
 import androidx.core.content.FileProvider
 import java.io.File
+import java.text.NumberFormat
 import java.util.Date
 import kotlin.math.round
 
@@ -46,7 +47,7 @@ class ApkFile(private var file: File, context: Context) : Comparable<ApkFile> {
   fun getSize(): String {
     val fileSizeKB: Int = round(file.length() / 1024.0).toInt()
     val fileSizeMB: Double = round(file.length() / 1048576.0 * 100.0) / 100.0
-    return if (fileSizeMB < 1) fileSizeKB.toString() + " KB" else fileSizeMB.toString() + " MB"
+    return if (fileSizeMB < 1) fileSizeKB.toString() + " KB" else NumberFormat.getInstance().format(fileSizeMB) + " MB"
   }
 
   fun getLastModified(context: Context): String {
