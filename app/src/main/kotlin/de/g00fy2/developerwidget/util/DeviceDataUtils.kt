@@ -7,10 +7,11 @@ class DeviceDataUtils {
   companion object {
     val deviceInfo: String
       get() {
-        if (Build.MODEL.contains(Build.MANUFACTURER)) {
-          return Build.MODEL.capitalize()
+        return if (Build.MODEL.contains(Build.MANUFACTURER)) {
+          Build.MODEL.capitalize()
+        } else {
+          Build.MANUFACTURER.capitalize() + " " + Build.MODEL
         }
-        return Build.MANUFACTURER.capitalize() + " " + Build.MODEL
       }
 
     val versionAndCodename: String

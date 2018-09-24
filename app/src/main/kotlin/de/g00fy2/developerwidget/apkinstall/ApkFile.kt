@@ -23,9 +23,7 @@ class ApkFile(private var file: File, context: Context) : Comparable<ApkFile> {
     packageInfo.applicationInfo.publicSourceDir = file.absolutePath
   }
 
-  fun getFileName(): String {
-    return file.name
-  }
+  fun getFileName(): String = file.name
 
   fun getFilePath(): String {
     val path = file.parent.substring(Environment.getExternalStorageDirectory().absolutePath.length)
@@ -40,9 +38,7 @@ class ApkFile(private var file: File, context: Context) : Comparable<ApkFile> {
     }
   }
 
-  fun isDebuggableApp(): Boolean {
-    return packageInfo.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
-  }
+  fun isDebuggableApp(): Boolean = packageInfo.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
 
   fun getSize(): String {
     val fileSizeKB: Int = round(file.length() / 1024.0).toInt()
@@ -56,31 +52,23 @@ class ApkFile(private var file: File, context: Context) : Comparable<ApkFile> {
     )
   }
 
-  fun getIcon(context: Context): Drawable {
-    return packageInfo.applicationInfo.loadIcon(context.packageManager)
-  }
+  fun getIcon(context: Context): Drawable = packageInfo.applicationInfo.loadIcon(context.packageManager)
 
   fun getAppName(context: Context): String {
     return context.packageManager.getApplicationLabel(packageInfo.applicationInfo).toString()
   }
 
-  fun getAppPackage(): String {
-    return packageInfo.packageName
-  }
+  fun getAppPackage(): String = packageInfo.packageName
 
-  fun getVersionName(): String {
-    return packageInfo.versionName
-  }
+  fun getVersionName(): String = packageInfo.versionName
 
   fun getVersionCode(): String {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) packageInfo.longVersionCode.toString() else packageInfo.versionCode.toString()
   }
 
-  override fun compareTo(other: ApkFile): Int {
-    return when {
-      file.lastModified() > other.file.lastModified() -> -1
-      file.lastModified() < other.file.lastModified() -> 1
-      else -> 0
-    }
+  override fun compareTo(other: ApkFile): Int = when {
+    file.lastModified() > other.file.lastModified() -> -1
+    file.lastModified() < other.file.lastModified() -> 1
+    else -> 0
   }
 }

@@ -86,9 +86,10 @@ class ApkAdapter(private var apkActivity: ApkActivity) : RecyclerView.Adapter<Vi
   }
 
   fun getSelectedFile(): ApkFile? {
-    if (selectedPosition >= 0) {
-      return apkFiles[selectedPosition]
+    return if (selectedPosition >= 0) {
+      apkFiles[selectedPosition]
+    } else {
+      null
     }
-    return null
   }
 }
