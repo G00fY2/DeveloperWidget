@@ -32,11 +32,6 @@ import kotlinx.coroutines.launch
 import java.io.File
 import kotlin.coroutines.CoroutineContext
 
-interface OnFileSelectedListener {
-
-  fun fileSelected()
-}
-
 class ApkActivity : Activity(), CoroutineScope, OnFileSelectedListener {
 
   private var apkFiles: MutableList<ApkFile> = ArrayList()
