@@ -32,7 +32,12 @@ import kotlinx.coroutines.launch
 import java.io.File
 import kotlin.coroutines.CoroutineContext
 
-class ApkActivity : Activity(), CoroutineScope, OnSelectFileListener {
+interface OnFileSelectedListener {
+
+  fun fileSelected()
+}
+
+class ApkActivity : Activity(), CoroutineScope, OnFileSelectedListener {
 
   private var apkFiles: MutableList<ApkFile> = ArrayList()
   private lateinit var adapter: ApkAdapter
@@ -82,10 +87,6 @@ class ApkActivity : Activity(), CoroutineScope, OnSelectFileListener {
 
   override val coroutineContext: CoroutineContext
     get() = Dispatchers.Main + job
-
-  override fun fileSelected() {
-    install_textview.isEnabled = true
-  }
 
   @TargetApi(VERSION_CODES.M)
   private fun requestPermissions() {
@@ -171,6 +172,10 @@ class ApkActivity : Activity(), CoroutineScope, OnSelectFileListener {
       recyclerview.visibility = View.INVISIBLE
       no_result_textview.visibility = View.VISIBLE
     }
+  }
+
+  override fun fileSelected() {
+    install_textview.isEnabled = true
   }
 
   companion object {
