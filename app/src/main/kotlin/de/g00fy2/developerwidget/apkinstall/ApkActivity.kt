@@ -118,7 +118,7 @@ class ApkActivity : Activity(), CoroutineScope, OnFileSelectedListener {
             if (listFile[i].name.endsWith(EXTENSION, true)) {
               Log.d("APK found", (listFile[i].name))
               val apkFile = ApkFile(listFile[i], this@ApkActivity)
-              apkFiles.add(apkFile)
+              if (apkFile.isValidApk()) apkFiles.add(apkFile)
             }
           }
         }

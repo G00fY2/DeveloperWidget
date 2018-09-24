@@ -16,12 +16,20 @@ import kotlin.math.round
 
 class ApkFile(private var file: File, context: Context) : Comparable<ApkFile> {
 
-  private var packageInfo: PackageInfo = context.packageManager.getPackageArchiveInfo(file.absolutePath, 0)
+  private lateinit var packageInfo: PackageInfo
+  private var validApk: Boolean = true
 
   init {
-    packageInfo.applicationInfo.sourceDir = file.absolutePath
-    packageInfo.applicationInfo.publicSourceDir = file.absolutePath
+    try {
+      packageInfo = context.packageManager.getPackageArchiveInfo(file.absolutePath, 0)
+      packageInfo.applicationInfo.sourceDir = file.absolutePath
+      packageInfo.applicationInfo.publicSourceDir = file.absolutePath
+    } catch (e: IllegalStateException) {
+      validApk = false
+    }
   }
+
+  fun isValidApk(): Boolean = validApk
 
   fun getFileName(): String = file.name
 
