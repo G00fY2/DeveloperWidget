@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
   compileSdkVersion 28
+  buildToolsVersion "28.0.3"
   defaultConfig {
     applicationId "de.g00fy2.developerwidget"
     minSdkVersion 14
