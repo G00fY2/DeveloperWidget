@@ -41,7 +41,7 @@
       android:layout_width="0dp"
       android:layout_height="0dp"
       app:barrierDirection="top"
-      app:constraint_referenced_ids="file_date_textview,file_appname_textview,file_size_textview"
+      app:constraint_referenced_ids="file_date_textview,file_appname_textview,file_size_textview,file_debug_imageview"
       />
 
   <TextView
@@ -80,6 +80,18 @@
       android:textSize="12sp"
       app:layout_constraintEnd_toEndOf="@+id/filename_textview"
       app:layout_constraintTop_toBottomOf="@+id/barrier"
+      />
+
+  <ImageView
+      android:id="@+id/file_debug_imageview"
+      android:layout_width="16dp"
+      android:layout_height="0dp"
+      android:padding="2dp"
+      android:scaleType="fitCenter"
+      android:src="@drawable/ic_debug"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@+id/file_version_textview"
+      app:layout_constraintTop_toBottomOf="@+id/file_date_textview"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

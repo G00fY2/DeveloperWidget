@@ -1,6 +1,7 @@
 package de.g00fy2.developerwidget.apkinstall
 
 import android.content.Context
+import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -36,6 +37,10 @@ class ApkFile(private var file: File, context: Context) : Comparable<ApkFile> {
     } else {
       Uri.fromFile(file)
     }
+  }
+
+  fun isDebuggableApp(): Boolean {
+    return packageInfo.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
   }
 
   fun getSize(): String {
