@@ -30,25 +30,38 @@ class ApkAdapter(private var apkActivity: ApkActivity) : RecyclerView.Adapter<Vi
     val fileSize: TextView = view.file_size_textview
     val appIcon: ImageView = view.app_icon_imageview
     val debugIcon: ImageView = view.file_debug_imageview
+
+    fun scaleIconAndText(selected: Boolean) {
+      filename.setTypeface(null, if (selected) Typeface.BOLD else Typeface.NORMAL)
+      fileDate.setTypeface(null, if (selected) Typeface.BOLD else Typeface.NORMAL)
+      fileAppName.setTypeface(null, if (selected) Typeface.BOLD else Typeface.NORMAL)
+      fileVersion.setTypeface(null, if (selected) Typeface.BOLD else Typeface.NORMAL)
+      fileSize.setTypeface(null, if (selected) Typeface.BOLD else Typeface.NORMAL)
+      appIcon.scaleX = if (selected) 1.5f else 1f
+      appIcon.scaleY = if (selected) 1.5f else 1f
+    }
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-    return ViewHolder(
+    val holder = ViewHolder(
       LayoutInflater.from(parent.context).inflate(R.layout.apk_item, parent, false)
     )
+    holder.itemView.setOnClickListener {
+      val adapterPosition = holder.adapterPosition
+      if (adapterPosition != RecyclerView.NO_POSITION && adapterPosition != selectedPosition) {
+        if (selectedPosition < 0) {
+          apkActivity.fileSelected()
+        } else {
+          notifyItemChanged(selectedPosition, APK_DESELECTED)
+        }
+        selectedPosition = adapterPosition
+        notifyItemChanged(selectedPosition, APK_SELECTED)
+      }
+    }
+    return holder
   }
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-    holder.view.setOnClickListener {
-      if (selectedPosition < 0) {
-        apkActivity.fileSelected()
-      } else {
-        notifyItemChanged(selectedPosition)
-      }
-      selectedPosition = position
-      notifyItemChanged(position)
-    }
-
     val apkFile: ApkFile = apkFiles[position]
     holder.filename.text = apkFile.getFileName()
     holder.fileAppName.text = apkFile.getAppName(apkActivity)
@@ -58,11 +71,21 @@ class ApkAdapter(private var apkActivity: ApkActivity) : RecyclerView.Adapter<Vi
     holder.debugIcon.visibility = if (apkFile.isDebuggableApp()) View.VISIBLE else View.INVISIBLE
     holder.fileDate.text = apkFile.getLastModified(apkActivity)
     holder.appIcon.setImageDrawable(apkFile.getIcon(apkActivity))
+    holder.scaleIconAndText(position == selectedPosition)
+  }
 
-    val selected = position == selectedPosition
-    holder.filename.setTypeface(null, if (selected) Typeface.BOLD else Typeface.NORMAL)
-    holder.appIcon.scaleX = if (selected) 1.5f else 1f
-    holder.appIcon.scaleY = if (selected) 1.5f else 1f
+  override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: List<Any>) {
+    when {
+      payloads.isEmpty() -> {
+        onBindViewHolder(holder, position)
+      }
+      payloads.contains(APK_SELECTED) -> {
+        holder.scaleIconAndText(true)
+      }
+      payloads.contains(APK_DESELECTED) -> {
+        holder.scaleIconAndText(false)
+      }
+    }
   }
 
   override fun getItemCount() = apkFiles.size
@@ -91,5 +114,10 @@ class ApkAdapter(private var apkActivity: ApkActivity) : RecyclerView.Adapter<Vi
     } else {
       null
     }
+  }
+
+  companion object {
+    const val APK_DESELECTED = 0
+    const val APK_SELECTED = 1
   }
 }
