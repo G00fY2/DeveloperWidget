@@ -1,6 +1,5 @@
 package de.g00fy2.developerwidget.apkinstall
 
-import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,14 +30,8 @@ class ApkAdapter(private var apkActivity: ApkActivity) : RecyclerView.Adapter<Vi
     val appIcon: ImageView = view.app_icon_imageview
     val debugIcon: ImageView = view.file_debug_imageview
 
-    fun scaleIconAndText(selected: Boolean) {
-      filename.setTypeface(null, if (selected) Typeface.BOLD else Typeface.NORMAL)
-      fileDate.setTypeface(null, if (selected) Typeface.BOLD else Typeface.NORMAL)
-      fileAppName.setTypeface(null, if (selected) Typeface.BOLD else Typeface.NORMAL)
-      fileVersion.setTypeface(null, if (selected) Typeface.BOLD else Typeface.NORMAL)
-      fileSize.setTypeface(null, if (selected) Typeface.BOLD else Typeface.NORMAL)
-      appIcon.scaleX = if (selected) 1.5f else 1f
-      appIcon.scaleY = if (selected) 1.5f else 1f
+    fun setBackground(selected: Boolean) {
+      itemView.setBackgroundResource(if (selected) R.color.transparentAccent else android.R.color.transparent)
     }
   }
 
@@ -71,7 +64,7 @@ class ApkAdapter(private var apkActivity: ApkActivity) : RecyclerView.Adapter<Vi
     holder.debugIcon.visibility = if (apkFile.isDebuggableApp()) View.VISIBLE else View.INVISIBLE
     holder.fileDate.text = apkFile.getLastModified(apkActivity)
     holder.appIcon.setImageDrawable(apkFile.getIcon(apkActivity))
-    holder.scaleIconAndText(position == selectedPosition)
+    holder.setBackground(position == selectedPosition)
   }
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: List<Any>) {
@@ -80,10 +73,10 @@ class ApkAdapter(private var apkActivity: ApkActivity) : RecyclerView.Adapter<Vi
         onBindViewHolder(holder, position)
       }
       payloads.contains(APK_SELECTED) -> {
-        holder.scaleIconAndText(true)
+        holder.setBackground(true)
       }
       payloads.contains(APK_DESELECTED) -> {
-        holder.scaleIconAndText(false)
+        holder.setBackground(false)
       }
     }
   }
@@ -109,7 +102,7 @@ class ApkAdapter(private var apkActivity: ApkActivity) : RecyclerView.Adapter<Vi
   }
 
   fun getSelectedFile(): ApkFile? {
-    return if (selectedPosition >= 0) {
+    return if (selectedPosition >= 0 && selectedPosition < apkFiles.size) {
       apkFiles[selectedPosition]
     } else {
       null
