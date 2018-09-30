@@ -14,7 +14,7 @@
       app:layout_constraintTop_toTopOf="parent"
       />
   <androidx.appcompat.widget.AppCompatButton
-      android:id="@+id/apply"
+      android:id="@+id/apply_button"
       android:layout_width="150dp"
       android:layout_height="wrap_content"
       android:layout_marginBottom="16dp"

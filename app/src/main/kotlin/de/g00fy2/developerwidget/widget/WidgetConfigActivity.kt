@@ -4,12 +4,25 @@ import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import de.g00fy2.developerwidget.R
+import de.g00fy2.developerwidget.web.GithubProjectInfo
+import kotlinx.android.synthetic.main.activity_widget_config.apply_button
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.android.Main
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import java.io.IOException
+import kotlin.coroutines.CoroutineContext
 
-class WidgetConfigActivity : AppCompatActivity() {
+class WidgetConfigActivity : AppCompatActivity(), CoroutineScope {
 
+  private lateinit var job: Job
   private var widgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID
   private var onApplyClickListener: View.OnClickListener = View.OnClickListener {
     val appWidgetManager = AppWidgetManager.getInstance(this)
@@ -23,11 +36,11 @@ class WidgetConfigActivity : AppCompatActivity() {
 
   public override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-
+    job = Job()
     setResult(Activity.RESULT_CANCELED)
     setContentView(R.layout.activity_widget_config)
     supportActionBar?.elevation = 0f
-    findViewById<View>(R.id.apply).setOnClickListener(onApplyClickListener)
+    apply_button.setOnClickListener(onApplyClickListener)
 
     val intent = intent
     val extras = intent.extras
@@ -38,6 +51,26 @@ class WidgetConfigActivity : AppCompatActivity() {
     if (widgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
       finish()
       return
+    }
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    job.cancel()
+  }
+
+  override val coroutineContext: CoroutineContext
+    get() = Dispatchers.Main + job
+
+  private fun getGithubReleaseInformation() {
+    launch {
+      try {
+        val releaseInfo = async(Dispatchers.IO) {
+          GithubProjectInfo().getGithubReleaseInfo().await()
+        }.await()
+      } catch (e: IOException) {
+        Log.d("WidgetConfigActivity", "IOException")
+      }
     }
   }
 }
