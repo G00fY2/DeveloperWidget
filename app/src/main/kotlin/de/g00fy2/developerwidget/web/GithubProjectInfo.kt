@@ -13,8 +13,7 @@ import java.io.IOException
 class GithubProjectInfo {
 
   private val client = OkHttpClient()
-  private val moshi = Moshi.Builder().build()
-  private val adapter: JsonAdapter<Release> = moshi.adapter(Release::class.java)
+  private val adapter: JsonAdapter<Release> = Moshi.Builder().build().adapter(Release::class.java)
 
   fun getGithubReleaseInfo(): Deferred<Release?> {
     return GlobalScope.async {
