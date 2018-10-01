@@ -5,17 +5,17 @@ import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.widget.RemoteViews
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.apkinstall.ApkActivity
 import de.g00fy2.developerwidget.util.DeviceDataUtils
+import timber.log.Timber
 
 class WidgetProvider : AppWidgetProvider() {
 
   override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
     for (widgetId in appWidgetIds) {
-      Log.d("AppWidgetProvider", "onUpdate")
+      Timber.d("onUpdate")
       updateWidget(context, appWidgetManager, widgetId)
     }
   }

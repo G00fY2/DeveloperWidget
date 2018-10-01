@@ -11,7 +11,6 @@ import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import android.view.View
 import android.view.Window
 import androidx.core.content.ContextCompat
@@ -29,6 +28,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.android.Main
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.io.File
 import kotlin.coroutines.CoroutineContext
 
@@ -68,7 +68,7 @@ class ApkActivity : Activity(), CoroutineScope, OnFileSelectedListener {
       }.invokeOnCompletion {
         adapter.addAll(apkFiles)
         toggleResultView(false)
-        Log.d("coroutines", "parent job finished")
+        Timber.d("parent job finished")
       }
     } else {
       toggleResultView(true)
@@ -111,7 +111,7 @@ class ApkActivity : Activity(), CoroutineScope, OnFileSelectedListener {
             findAPKs(listFile[i])
           } else {
             if (listFile[i].name.endsWith(EXTENSION, true)) {
-              Log.d("APK found", (listFile[i].name))
+              Timber.d("APK found %s", (listFile[i].name))
               val apkFile = ApkFile(listFile[i], this@ApkActivity)
               if (apkFile.isValidApk()) apkFiles.add(apkFile)
             }
@@ -121,7 +121,7 @@ class ApkActivity : Activity(), CoroutineScope, OnFileSelectedListener {
     }
     scanJob.join()
     scanJob.invokeOnCompletion {
-      Log.d("coroutines", "child job finished")
+      Timber.d("child job finished")
     }
   }
 
