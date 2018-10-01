@@ -8,6 +8,7 @@
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
   <application
+      android:name=".DevWidgetApp"
       android:allowBackup="false"
       android:icon="@mipmap/ic_launcher"
       android:label="@string/app_name"
@@ -35,6 +36,12 @@
         <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
       </intent-filter>
     </activity>
+
+    <activity
+        android:name=".about.AboutActivity"
+        android:excludeFromRecents="true"
+        android:label="@string/about"
+        android:noHistory="true"/>
 
     <provider
         android:name="androidx.core.content.FileProvider"

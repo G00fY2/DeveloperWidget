@@ -4,20 +4,18 @@ import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import de.g00fy2.developerwidget.R
-import de.g00fy2.developerwidget.web.GithubProjectInfo
+import de.g00fy2.developerwidget.about.AboutActivity
 import kotlinx.android.synthetic.main.activity_widget_config.apply_button
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.android.Main
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import java.io.IOException
 import kotlin.coroutines.CoroutineContext
 
 class WidgetConfigActivity : AppCompatActivity(), CoroutineScope {
@@ -62,15 +60,20 @@ class WidgetConfigActivity : AppCompatActivity(), CoroutineScope {
   override val coroutineContext: CoroutineContext
     get() = Dispatchers.Main + job
 
-  private fun getGithubReleaseInformation() {
-    launch {
-      try {
-        val releaseInfo = async(Dispatchers.IO) {
-          GithubProjectInfo().getGithubReleaseInfo().await()
-        }.await()
-      } catch (e: IOException) {
-        Log.d("WidgetConfigActivity", "IOException")
+  override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    val inflater: MenuInflater = menuInflater
+    inflater.inflate(R.menu.configuration_menu, menu)
+    return true
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    return when (item.itemId) {
+      R.id.about_button -> {
+        val intent = Intent(this, AboutActivity::class.java)
+        startActivity(intent)
+        true
       }
+      else -> super.onOptionsItemSelected(item)
     }
   }
 }

@@ -10,9 +10,8 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 
-class GithubProjectInfo {
+class GithubProjectInfo(private var client: OkHttpClient) {
 
-  private val client = OkHttpClient()
   private val adapter: JsonAdapter<Release> = Moshi.Builder().build().adapter(Release::class.java)
 
   fun getGithubReleaseInfo(): Deferred<Release?> {
@@ -29,6 +28,6 @@ class GithubProjectInfo {
 
   companion object {
     const val GITHUB_PROJECT_RELEASES =
-      "https://api.github.com/repos/G00fY2/DeveloperWidget/releases/latest"
+      "https://api.github.com/repos/G00fY2/version-compare/releases/latest"
   }
 }

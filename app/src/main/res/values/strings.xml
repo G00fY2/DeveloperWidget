@@ -8,4 +8,5 @@
   <string name="developer_settings">Developer Settings</string>
   <string name="add_widget">Add developer widget</string>
   <string name="apk_version">%s (%s)</string>
+  <string name="about">About</string>
 </resources>
