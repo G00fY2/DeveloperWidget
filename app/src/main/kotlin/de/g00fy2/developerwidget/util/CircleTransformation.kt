@@ -8,7 +8,6 @@ import android.graphics.Shader
 import com.squareup.picasso3.RequestHandler
 import com.squareup.picasso3.Transformation
 
-
 class CircleTransformation : Transformation {
 
   override fun transform(source: RequestHandler.Result): RequestHandler.Result {
@@ -45,7 +44,6 @@ class CircleTransformation : Transformation {
       source
     }
   }
-
 
   override fun key(): String {
     return "circleTransformation()"
