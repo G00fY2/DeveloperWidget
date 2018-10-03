@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-class Author {
+class Organization {
 
   var login: String? = null
   var id: Int? = null

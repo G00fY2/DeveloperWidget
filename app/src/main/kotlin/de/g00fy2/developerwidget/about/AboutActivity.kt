@@ -9,7 +9,7 @@ import com.squareup.picasso3.Picasso.Builder
 import de.g00fy2.developerwidget.BuildConfig
 import de.g00fy2.developerwidget.R.layout
 import de.g00fy2.developerwidget.util.CircleTransformation
-import de.g00fy2.developerwidget.web.GithubProjectInfo
+import de.g00fy2.developerwidget.web.GithubAPI
 import de.g00fy2.developerwidget.web.model.Release
 import kotlinx.android.synthetic.main.activity_about.author_imageview
 import kotlinx.coroutines.CoroutineScope
@@ -31,7 +31,7 @@ class AboutActivity : AppCompatActivity(), CoroutineScope {
   private lateinit var job: Job
   private lateinit var okHttpClient: OkHttpClient
   private lateinit var picasso: Picasso
-  private lateinit var githubProjectInfo: GithubProjectInfo
+  private lateinit var githubAPI: GithubAPI
 
   public override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -47,7 +47,7 @@ class AboutActivity : AppCompatActivity(), CoroutineScope {
         )
       ).build()
     picasso = Builder(this).client(okHttpClient).indicatorsEnabled(BuildConfig.DEBUG).build()
-    githubProjectInfo = GithubProjectInfo(okHttpClient)
+    githubAPI = GithubAPI(okHttpClient)
 
     getGithubReleaseInformation()
   }
@@ -74,7 +74,7 @@ class AboutActivity : AppCompatActivity(), CoroutineScope {
       val releaseInfo: Release?
       try {
         releaseInfo = async(Dispatchers.IO) {
-          githubProjectInfo.getGithubReleaseInfo().await()
+          githubAPI.getGithubReleaseInfo().await()
         }.await()
 
         picasso.load(releaseInfo?.author?.avatarUrl).transform(CircleTransformation()).into(author_imageview)

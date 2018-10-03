@@ -5,6 +5,7 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 class Release {
+
   var url: String? = null
   @Json(name = "html_url")
   var htmlUrl: String? = null

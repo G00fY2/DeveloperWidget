@@ -5,6 +5,7 @@ import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 class Asset {
+
   var url: String? = null
   @Json(name = "browser_download_url")
   var browserDownloadUrl: String? = null
