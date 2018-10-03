@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,9 +8,11 @@
     android:baselineAligned="false"
     android:orientation="horizontal"
     android:padding="@dimen/widget_margin"
+    tools:ignore="ContentDescription"
     >
 
   <LinearLayout
+      android:id="@+id/device_info_linearlayout"
       android:layout_width="0dp"
       android:layout_height="match_parent"
       android:layout_marginBottom="4dp"
@@ -28,7 +31,7 @@
       android:paddingStart="4dp"
       >
     <TextView
-        android:id="@+id/device_info"
+        android:id="@+id/device_info_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/widgetTextColor"
@@ -46,7 +49,7 @@
         />
 
     <TextView
-        android:id="@+id/release"
+        android:id="@+id/release_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/widgetTextColor"
@@ -65,7 +68,7 @@
 
 
     <TextView
-        android:id="@+id/sdk_int"
+        android:id="@+id/sdk_int_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/widgetTextColor"
@@ -92,7 +95,7 @@
       >
 
     <LinearLayout
-        android:id="@+id/developer_settings"
+        android:id="@+id/developer_settings_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -116,7 +119,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/install_apk"
+        android:id="@+id/install_apk_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

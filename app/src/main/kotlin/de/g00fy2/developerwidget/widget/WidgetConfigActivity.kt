@@ -21,6 +21,7 @@ import kotlin.coroutines.CoroutineContext
 class WidgetConfigActivity : AppCompatActivity(), CoroutineScope {
 
   private lateinit var job: Job
+  private var updateExistingWidget = false
   private var widgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID
   private var onApplyClickListener: View.OnClickListener = View.OnClickListener {
     val appWidgetManager = AppWidgetManager.getInstance(this)
@@ -38,17 +39,21 @@ class WidgetConfigActivity : AppCompatActivity(), CoroutineScope {
     setResult(Activity.RESULT_CANCELED)
     setContentView(R.layout.activity_widget_config)
     supportActionBar?.elevation = 0f
-    apply_button.setOnClickListener(onApplyClickListener)
 
-    val intent = intent
     val extras = intent.extras
     if (extras != null) {
       widgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
+      updateExistingWidget = extras.getBoolean(EXTRA_APPWIDGET_UPDATE_EXISTING)
     }
 
     if (widgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
       finish()
       return
+    }
+
+    apply_button.setOnClickListener(onApplyClickListener)
+    if (updateExistingWidget) {
+      apply_button.setText(R.string.update_widget)
     }
   }
 
@@ -75,5 +80,9 @@ class WidgetConfigActivity : AppCompatActivity(), CoroutineScope {
       }
       else -> super.onOptionsItemSelected(item)
     }
+  }
+
+  companion object {
+    const val EXTRA_APPWIDGET_UPDATE_EXISTING = "updateExistingWidget"
   }
 }

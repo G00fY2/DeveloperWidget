@@ -31,7 +31,9 @@
           android:resource="@xml/appwidget_info"/>
     </receiver>
 
-    <activity android:name=".widget.WidgetConfigActivity">
+    <activity
+        android:name=".widget.WidgetConfigActivity"
+        android:excludeFromRecents="true">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
       </intent-filter>

@@ -7,6 +7,7 @@
   <string name="no_apk_found">No APK files found.</string>
   <string name="developer_settings">Developer Settings</string>
   <string name="add_widget">Add developer widget</string>
+  <string name="update_widget">Update developer widget</string>
   <string name="apk_version">%s (%s)</string>
   <string name="about">About</string>
 </resources>
