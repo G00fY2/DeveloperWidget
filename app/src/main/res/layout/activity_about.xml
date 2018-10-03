@@ -2,17 +2,100 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    tools:ignore="ContentDescription"
     >
+  <View
+      android:id="@+id/top_view"
+      android:layout_width="wrap_content"
+      android:layout_height="164dp"
+      android:background="@color/colorPrimary"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+  <FrameLayout
+      android:id="@+id/app_icon_framelayout"
+      android:layout_width="64dp"
+      android:layout_height="64dp"
+      android:layout_marginLeft="24dp"
+      android:layout_marginStart="24dp"
+      android:layout_marginTop="16dp"
+      android:background="@drawable/appicon_circle_background"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      >
+    <ImageView
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_launcher_foreground"
+        />
+  </FrameLayout>
+  <TextView
+      android:id="@+id/app_name_textview"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="16dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="8dp"
+      android:text="@string/app_name"
+      android:textStyle="bold"
+      app:layout_constraintBottom_toTopOf="@+id/app_version_textview"
+      app:layout_constraintStart_toEndOf="@+id/app_icon_framelayout"
+      app:layout_constraintTop_toTopOf="@+id/app_icon_framelayout"
+      app:layout_constraintVertical_chainStyle="packed"
+      />
+  <TextView
+      android:id="@+id/app_version_textview"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="8dp"
+      android:layout_marginLeft="16dp"
+      android:layout_marginStart="16dp"
+      app:layout_constraintBottom_toBottomOf="@+id/app_icon_framelayout"
+      app:layout_constraintStart_toEndOf="@+id/app_icon_framelayout"
+      app:layout_constraintTop_toBottomOf="@+id/app_name_textview"
+      tools:text="Version 1.0.0 (10)"
+      />
+  <View
+      android:id="@+id/text_divider"
+      android:layout_width="200dp"
+      android:layout_height="1dp"
+      android:layout_marginTop="16dp"
+      android:background="@color/gray88"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/app_version_textview"
+      />
+  <TextView
+      android:id="@+id/app_desc_textview"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:layout_marginLeft="16dp"
+      android:layout_marginRight="16dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
+      android:gravity="center"
+
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/text_divider"
+      tools:text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
+      />
+
   <ImageView
       android:id="@+id/author_imageview"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginLeft="16dp"
+      android:layout_marginStart="16dp"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/top_view"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

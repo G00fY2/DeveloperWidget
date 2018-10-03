@@ -28,11 +28,4 @@
       app:layout_constraintBottom_toBottomOf="@+id/top_view"
       app:layout_constraintStart_toStartOf="@+id/top_view"
       />
-
-  <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:background="@color/gray88"
-      app:layout_constraintTop_toBottomOf="@+id/top_view"
-      />
 </androidx.constraintlayout.widget.ConstraintLayout>

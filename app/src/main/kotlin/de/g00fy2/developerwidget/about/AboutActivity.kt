@@ -7,10 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso3.Picasso
 import com.squareup.picasso3.Picasso.Builder
 import de.g00fy2.developerwidget.BuildConfig
+import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.R.layout
 import de.g00fy2.developerwidget.util.CircleTransformation
+import de.g00fy2.developerwidget.util.SharedPreferencesHelper
 import de.g00fy2.developerwidget.web.GithubAPI
 import de.g00fy2.developerwidget.web.model.Release
+import de.g00fy2.developerwidget.web.model.Repository
+import kotlinx.android.synthetic.main.activity_about.app_desc_textview
+import kotlinx.android.synthetic.main.activity_about.app_version_textview
 import kotlinx.android.synthetic.main.activity_about.author_imageview
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,6 +37,7 @@ class AboutActivity : AppCompatActivity(), CoroutineScope {
   private lateinit var okHttpClient: OkHttpClient
   private lateinit var picasso: Picasso
   private lateinit var githubAPI: GithubAPI
+  private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
 
   public override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -39,17 +45,17 @@ class AboutActivity : AppCompatActivity(), CoroutineScope {
     setContentView(layout.activity_about)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
     supportActionBar?.elevation = 0f
+    setupDependencies()
+    initView()
+    getGithubInformation()
+  }
 
-    okHttpClient = OkHttpClient.Builder().cache(Cache(this.cacheDir, 10L * 1024 * 1024))
-      .addNetworkInterceptor(
-        HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Timber.d(it) }).setLevel(
-          HttpLoggingInterceptor.Level.BODY
-        )
-      ).build()
-    picasso = Builder(this).client(okHttpClient).indicatorsEnabled(BuildConfig.DEBUG).build()
-    githubAPI = GithubAPI(okHttpClient)
-
-    getGithubReleaseInformation()
+  private fun initView() {
+    app_version_textview.text =
+        String.format(getString(R.string.app_version), BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
+    app_desc_textview.text = sharedPreferencesHelper.getString(SharedPreferencesHelper.GITHUB_PROJECT_DESC) ?: ""
+    picasso.load(sharedPreferencesHelper.getString(SharedPreferencesHelper.GITHUB_AUTHOR_IMAGE_URL))
+      .transform(CircleTransformation()).into(author_imageview)
   }
 
   override fun onDestroy() {
@@ -69,14 +75,36 @@ class AboutActivity : AppCompatActivity(), CoroutineScope {
     }
   }
 
-  private fun getGithubReleaseInformation() {
+  private fun setupDependencies() {
+    sharedPreferencesHelper = SharedPreferencesHelper(this)
+    okHttpClient = OkHttpClient.Builder().cache(Cache(this.cacheDir, 10L * 1024 * 1024))
+      .addNetworkInterceptor(
+        HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Timber.d(it) }).setLevel(
+          HttpLoggingInterceptor.Level.BODY
+        )
+      ).build()
+    picasso = Builder(this).client(okHttpClient).indicatorsEnabled(BuildConfig.DEBUG).build()
+    githubAPI = GithubAPI(okHttpClient)
+  }
+
+  private fun getGithubInformation() {
     launch {
       val releaseInfo: Release?
+      val repositoryInfo: Repository?
       try {
         releaseInfo = async(Dispatchers.IO) {
           githubAPI.getGithubReleaseInfo().await()
         }.await()
+        repositoryInfo = async(Dispatchers.IO) {
+          githubAPI.getGithubRepositoryInfo().await()
+        }.await()
 
+        sharedPreferencesHelper.putString(SharedPreferencesHelper.GITHUB_PROJECT_DESC, repositoryInfo?.description)
+        sharedPreferencesHelper.putString(
+          SharedPreferencesHelper.GITHUB_AUTHOR_IMAGE_URL,
+          releaseInfo?.author?.avatarUrl
+        )
+        app_desc_textview.text = repositoryInfo?.description ?: ""
         picasso.load(releaseInfo?.author?.avatarUrl).transform(CircleTransformation()).into(author_imageview)
       } catch (e: IOException) {
         Timber.d(e)

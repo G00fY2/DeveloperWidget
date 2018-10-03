@@ -9,5 +9,6 @@
   <string name="add_widget">Add developer widget</string>
   <string name="update_widget">Update developer widget</string>
   <string name="apk_version">%s (%s)</string>
+  <string name="app_version">Version %s (%s)</string>
   <string name="about">About</string>
 </resources>
