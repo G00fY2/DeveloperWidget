@@ -52,7 +52,6 @@ class ApkActivity : Activity(), CoroutineScope, OnFileSelectedListener {
     install_textview.setOnClickListener { installAPK() }
 
     adapter = ApkAdapter(this)
-    recyclerview.setHasFixedSize(true)
     recyclerview.layoutManager = LinearLayoutManager(this)
     recyclerview.adapter = adapter
 
