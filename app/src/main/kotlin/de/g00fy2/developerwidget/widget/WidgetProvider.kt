@@ -39,6 +39,7 @@ class WidgetProvider : AppWidgetProvider() {
       views.setOnClickPendingIntent(R.id.developer_settings_linearlayout, settingsPendingIntent)
 
       val apkIntent = Intent(context, ApkActivity::class.java)
+      apkIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
       val apkPendingIntent = PendingIntent.getActivity(context, 0, apkIntent, 0)
       views.setOnClickPendingIntent(R.id.install_apk_linearlayout, apkPendingIntent)
 

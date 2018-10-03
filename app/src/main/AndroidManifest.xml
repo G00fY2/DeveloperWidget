@@ -20,6 +20,7 @@
         android:name=".apkinstall.ApkActivity"
         android:excludeFromRecents="true"
         android:noHistory="true"
+        android:taskAffinity=""
         android:theme="@style/DialogTheme"/>
 
     <receiver android:name=".widget.WidgetProvider">
