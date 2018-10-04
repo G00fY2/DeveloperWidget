@@ -11,4 +11,11 @@
   <string name="apk_version">%s (%s)</string>
   <string name="app_version">Version %s (%s)</string>
   <string name="about">About</string>
+  <string name="license">License</string>
+  <string name="mit_license">MIT-License</string>
+  <string name="source_code">Source code</string>
+  <string name="changelog">Changelog</string>
+  <string name="open_source_licenses">Open source licenses</string>
+  <string name="build_number">Build number</string>
+  <string name="author">Author</string>
 </resources>
