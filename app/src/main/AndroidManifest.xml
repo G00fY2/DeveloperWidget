@@ -34,7 +34,8 @@
 
     <activity
         android:name=".widget.WidgetConfigActivity"
-        android:excludeFromRecents="true">
+        android:excludeFromRecents="true"
+        android:screenOrientation="portrait">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
       </intent-filter>
@@ -44,7 +45,8 @@
         android:name=".about.AboutActivity"
         android:excludeFromRecents="true"
         android:label="@string/about"
-        android:noHistory="true"/>
+        android:noHistory="true"
+        android:screenOrientation="portrait"/>
 
     <provider
         android:name="androidx.core.content.FileProvider"
