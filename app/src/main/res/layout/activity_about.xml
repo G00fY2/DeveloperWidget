@@ -28,7 +28,7 @@
         android:layout_marginLeft="72dp"
         android:layout_marginStart="72dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/app_icon_circle_background"
+        android:background="@drawable/app_icon_background_shape"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         >
@@ -98,6 +98,11 @@
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/top_view"
         >
+      <de.g00fy2.developerwidget.about.views.AboutItemLayout
+          android:id="@+id/privacy_item"
+          android:layout_width="match_parent"
+          android:layout_height="64dp"
+      />
       <de.g00fy2.developerwidget.about.views.AboutItemLayout
           android:id="@+id/license_item"
           android:layout_width="match_parent"

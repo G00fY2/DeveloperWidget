@@ -11,6 +11,7 @@
   <string name="apk_version">%s (%s)</string>
   <string name="app_version">Version %s (%s)</string>
   <string name="about">About</string>
+  <string name="privacy_policy">Privacy Policy</string>
   <string name="license">License</string>
   <string name="mit_license">MIT-License</string>
   <string name="source_code">Source code</string>

@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_about.build_number
 import kotlinx.android.synthetic.main.activity_about.changelog_item
 import kotlinx.android.synthetic.main.activity_about.license_item
 import kotlinx.android.synthetic.main.activity_about.open_source_licenses
+import kotlinx.android.synthetic.main.activity_about.privacy_item
 import kotlinx.android.synthetic.main.activity_about.source_code_item
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -60,6 +61,7 @@ class AboutActivity : AppCompatActivity(), CoroutineScope {
         String.format(getString(R.string.app_version), BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
     app_desc_textview.text = sharedPreferencesHelper.getString(SharedPreferencesHelper.GITHUB_PROJECT_DESC) ?: ""
 
+    privacy_item.setIcon(R.drawable.ic_privacy_logo).setTitle(R.string.privacy_policy)
     license_item.setIcon(R.drawable.ic_open_source_logo).setTitle(R.string.license).setDescription(R.string.mit_license)
     source_code_item.setIcon(R.drawable.ic_github_logo_shape).setTitle(R.string.source_code)
     changelog_item.setIcon(R.drawable.ic_changes_logo).setTitle(R.string.changelog)
