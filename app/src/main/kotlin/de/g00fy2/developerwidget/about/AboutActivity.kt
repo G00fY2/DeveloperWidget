@@ -49,12 +49,14 @@ class AboutActivity : AppCompatActivity() {
     privacy_item.setIcon(R.drawable.ic_privacy_logo).setTitle(R.string.privacy_policy).setUrl(Constants.PRIVACY_POLICY)
     license_item.setIcon(R.drawable.ic_open_source_logo).setTitle(R.string.license).setDescription(R.string.mit_license)
     source_code_item.setIcon(R.drawable.ic_github_logo_shape).setTitle(R.string.source_code)
+      .setUrl(Constants.GITHUB_PROJECT)
     changelog_item.setIcon(R.drawable.ic_changes_logo).setTitle(R.string.changelog)
 
     author_header.setTitle(R.string.author)
-    twitter_item.setIcon(R.drawable.ic_github_logo_shape).setTitle(R.string.twitter).setUrl(Constants.TWITTER_USER)
+    twitter_item.setIcon(R.drawable.ic_twitter_logo).setTitle(R.string.twitter).setUrl(Constants.TWITTER_USER)
       .setDescription(R.string.twitter_username)
-    github_item.setIcon(R.drawable.ic_twitter_logo).setTitle(R.string.github).setDescription(R.string.github_username)
+    github_item.setIcon(R.drawable.ic_github_logo_shape).setTitle(R.string.github)
+      .setDescription(R.string.github_username)
       .setUrl(Constants.GITHUB_USER)
 
     licenses_header.setTitle(R.string.licenses)
