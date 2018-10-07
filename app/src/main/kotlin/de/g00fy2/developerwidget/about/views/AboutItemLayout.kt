@@ -99,8 +99,7 @@ class AboutItemLayout : ConstraintLayout {
           "You are now " + missingSteps + (if (missingSteps > 1) " steps" else " step") + " away from being a developer.",
           Toast.LENGTH_SHORT
         ).show()
-      }
-      if (clickCount == 7) {
+      } else if (clickCount == 7) {
         Toast.makeText(context, "You are a real developer!", Toast.LENGTH_SHORT).show()
       }
     }
