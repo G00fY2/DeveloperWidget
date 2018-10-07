@@ -20,5 +20,4 @@ class AboutHeaderLayout : FrameLayout {
     header_textview.setText(titleRes)
     return this
   }
-
 }

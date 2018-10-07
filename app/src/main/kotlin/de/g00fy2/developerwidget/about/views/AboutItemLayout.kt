@@ -31,17 +31,6 @@ class AboutItemLayout : ConstraintLayout {
     }
   }
 
-  private fun openUrl() {
-    if (url.startsWith("http", true)) {
-      try {
-        val uri = Uri.parse(url)
-        context.startActivity(Intent(Intent.ACTION_VIEW, uri))
-      } catch (e: Exception) {
-        Timber.d(e)
-      }
-    }
-  }
-
   fun setIcon(@DrawableRes iconRes: Int): AboutItemLayout {
     icon_imageview.setImageResource(iconRes)
     icon_imageview.visibility = View.VISIBLE
@@ -73,5 +62,16 @@ class AboutItemLayout : ConstraintLayout {
   fun setUrl(url: String): AboutItemLayout {
     this.url = url
     return this
+  }
+
+  private fun openUrl() {
+    if (url.startsWith("http", true)) {
+      try {
+        val uri = Uri.parse(url)
+        context.startActivity(Intent(Intent.ACTION_VIEW, uri))
+      } catch (e: Exception) {
+        Timber.d(e)
+      }
+    }
   }
 }
