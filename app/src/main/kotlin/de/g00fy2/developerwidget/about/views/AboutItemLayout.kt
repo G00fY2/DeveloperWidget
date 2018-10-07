@@ -6,6 +6,7 @@ import android.net.Uri
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -18,6 +19,9 @@ import timber.log.Timber
 class AboutItemLayout : ConstraintLayout {
 
   private var url: String = ""
+  private var honorClicking = false
+  private var clickCount = 0
+  private var clickStart: Long = 0
 
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -28,6 +32,7 @@ class AboutItemLayout : ConstraintLayout {
     description_textview.visibility = View.GONE
     setOnClickListener {
       openUrl()
+      honorClicking()
     }
   }
 
@@ -64,6 +69,10 @@ class AboutItemLayout : ConstraintLayout {
     return this
   }
 
+  fun enableHonorClicking(enable: Boolean) {
+    honorClicking = enable
+  }
+
   private fun openUrl() {
     if (url.startsWith("http", true)) {
       try {
@@ -71,6 +80,28 @@ class AboutItemLayout : ConstraintLayout {
         context.startActivity(Intent(Intent.ACTION_VIEW, uri))
       } catch (e: Exception) {
         Timber.d(e)
+      }
+    }
+  }
+
+  private fun honorClicking() {
+    if (honorClicking) {
+      val current = System.currentTimeMillis()
+      if (current - clickStart > 4000) {
+        clickCount = 0
+      }
+      clickCount++
+      clickStart = current
+      if (clickCount in 3..6) {
+        val missingSteps = (7 - clickCount)
+        Toast.makeText(
+          context,
+          "You are now " + missingSteps + (if (missingSteps > 1) " steps" else " step") + " away from being a developer.",
+          Toast.LENGTH_SHORT
+        ).show()
+      }
+      if (clickCount == 7) {
+        Toast.makeText(context, "You are a real developer!", Toast.LENGTH_SHORT).show()
       }
     }
   }

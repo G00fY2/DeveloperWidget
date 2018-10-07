@@ -79,6 +79,7 @@ class AboutActivity : AppCompatActivity(), CoroutineScope {
     open_source_licenses_item.setTitle(R.string.open_source_licenses)
     build_number_item.setIcon(R.drawable.ic_about_logo).setTitle(R.string.build_number)
       .setDescription(BuildConfig.VERSION_NAME + "." + BuildConfig.VERSION_CODE + "." + BuildConfig.BUILD_TYPE)
+      .enableHonorClicking(true)
   }
 
   override fun onDestroy() {
