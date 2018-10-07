@@ -105,17 +105,17 @@
           android:layout_height="64dp"
           />
       <de.g00fy2.developerwidget.about.views.AboutItemLayout
-          android:id="@+id/license_item"
-          android:layout_width="match_parent"
-          android:layout_height="64dp"
-          />
-      <de.g00fy2.developerwidget.about.views.AboutItemLayout
           android:id="@+id/source_code_item"
           android:layout_width="match_parent"
           android:layout_height="64dp"
           />
       <de.g00fy2.developerwidget.about.views.AboutItemLayout
           android:id="@+id/changelog_item"
+          android:layout_width="match_parent"
+          android:layout_height="64dp"
+          />
+      <de.g00fy2.developerwidget.about.views.AboutItemLayout
+          android:id="@+id/license_item"
           android:layout_width="match_parent"
           android:layout_height="64dp"
           />

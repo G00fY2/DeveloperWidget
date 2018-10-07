@@ -43,8 +43,8 @@ class AboutActivity : AppCompatActivity() {
       changeActionbarElevation()
     }
     app_version_textview.text =
-        String.format(getString(R.string.app_version), BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
-    app_desc_textview.text = sharedPreferencesHelper.getString(SharedPreferencesHelper.GITHUB_PROJECT_DESC) ?: ""
+        String.format(getString(R.string.app_version), BuildConfig.VERSION_NAME)
+    app_desc_textview.text = "App description." // TODO
 
     privacy_item.setIcon(R.drawable.ic_privacy_logo).setTitle(R.string.privacy_policy)
     license_item.setIcon(R.drawable.ic_open_source_logo).setTitle(R.string.license).setDescription(R.string.mit_license)

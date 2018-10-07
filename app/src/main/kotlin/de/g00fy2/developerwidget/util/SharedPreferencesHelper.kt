@@ -23,9 +23,4 @@ class SharedPreferencesHelper(context: Context) {
     return sharedPreferences.getString(widgetId.toString() + "_" + key, null)
   }
 
-  companion object {
-    const val GITHUB_AUTHOR_IMAGE_URL = "cache_author_image_url"
-    const val GITHUB_PROJECT_DESC = "cache_project_desc"
-  }
-
 }
