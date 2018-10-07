@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+  <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+
+    <item name="android:colorEdgeEffect">@android:color/black</item>
+    <item name="actionBarTheme">@style/ThemeOverlay.MyApp.ActionBar</item>
+  </style>
+
   <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
