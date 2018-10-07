@@ -19,4 +19,9 @@
   <string name="open_source_licenses">Open source licenses</string>
   <string name="build_number">Build number</string>
   <string name="author">Author</string>
+  <string name="twitter">Twitter</string>
+  <string name="twitter_username">mr_G00fY2</string>
+  <string name="github">Github</string>
+  <string name="github_username">G00fY2</string>
+  <string name="licenses">Third Party Licenses</string>
 </resources>

@@ -102,7 +102,7 @@
           android:id="@+id/privacy_item"
           android:layout_width="match_parent"
           android:layout_height="64dp"
-      />
+          />
       <de.g00fy2.developerwidget.about.views.AboutItemLayout
           android:id="@+id/license_item"
           android:layout_width="match_parent"
@@ -118,24 +118,40 @@
           android:layout_width="match_parent"
           android:layout_height="64dp"
           />
-      <de.g00fy2.developerwidget.about.views.AboutItemLayout
-          android:id="@+id/open_source_licenses"
-          android:layout_width="match_parent"
-          android:layout_height="64dp"
-          />
-      <de.g00fy2.developerwidget.about.views.AboutItemLayout
-          android:id="@+id/build_number"
-          android:layout_width="match_parent"
-          android:layout_height="64dp"
-          />
-      <View
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:background="@color/gray88"
-          />
-      <include
-          layout="@layout/about_item_header"
+      <de.g00fy2.developerwidget.about.views.AboutHeaderLayout
           android:id="@+id/author_header"
+          android:layout_width="match_parent"
+          android:layout_height="48dp"
+          />
+      <de.g00fy2.developerwidget.about.views.AboutItemLayout
+          android:id="@+id/twitter_item"
+          android:layout_width="match_parent"
+          android:layout_height="64dp"
+          />
+      <de.g00fy2.developerwidget.about.views.AboutItemLayout
+          android:id="@+id/github_item"
+          android:layout_width="match_parent"
+          android:layout_height="64dp"
+          />
+      <de.g00fy2.developerwidget.about.views.AboutHeaderLayout
+          android:id="@+id/licenses_header"
+          android:layout_width="match_parent"
+          android:layout_height="48dp"
+          />
+      <de.g00fy2.developerwidget.about.views.AboutItemLayout
+          android:id="@+id/open_source_licenses_item"
+          android:layout_width="match_parent"
+          android:layout_height="64dp"
+          />
+      <de.g00fy2.developerwidget.about.views.AboutItemLayout
+          android:id="@+id/image_licenses_item"
+          android:layout_width="match_parent"
+          android:layout_height="64dp"
+          />
+      <de.g00fy2.developerwidget.about.views.AboutItemLayout
+          android:id="@+id/build_number_item"
+          android:layout_width="match_parent"
+          android:layout_height="64dp"
           />
     </LinearLayout>
   </androidx.constraintlayout.widget.ConstraintLayout>
