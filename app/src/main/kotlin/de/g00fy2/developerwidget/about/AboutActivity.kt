@@ -46,7 +46,7 @@ class AboutActivity : AppCompatActivity() {
         String.format(getString(R.string.app_version), BuildConfig.VERSION_NAME)
     app_desc_textview.text = "App description." // TODO
 
-    privacy_item.setIcon(R.drawable.ic_privacy_logo).setTitle(R.string.privacy_policy)
+    privacy_item.setIcon(R.drawable.ic_privacy_logo).setTitle(R.string.privacy_policy).setUrl(Constants.PRIVACY_POLICY)
     license_item.setIcon(R.drawable.ic_open_source_logo).setTitle(R.string.license).setDescription(R.string.mit_license)
     source_code_item.setIcon(R.drawable.ic_github_logo_shape).setTitle(R.string.source_code)
     changelog_item.setIcon(R.drawable.ic_changes_logo).setTitle(R.string.changelog)
@@ -59,7 +59,7 @@ class AboutActivity : AppCompatActivity() {
 
     licenses_header.setTitle(R.string.licenses)
     open_source_licenses_item.setTitle(R.string.open_source_licenses)
-    image_licenses_item.setTitle(R.string.icon_credits)
+    image_licenses_item.setTitle(R.string.icon_credits).setUrl(Constants.ICON_CREDITS)
     build_number_item.setTitle(R.string.build_number)
       .setDescription(BuildConfig.VERSION_NAME + "." + BuildConfig.VERSION_CODE + "." + BuildConfig.BUILD_TYPE)
       .enableHonorClicking(true)
