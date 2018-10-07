@@ -3,13 +3,13 @@ package de.g00fy2.developerwidget.about
 import android.R.id
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso3.Picasso
 import com.squareup.picasso3.Picasso.Builder
 import de.g00fy2.developerwidget.BuildConfig
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.R.layout
+import de.g00fy2.developerwidget.util.Constants
 import de.g00fy2.developerwidget.util.SharedPreferencesHelper
 import de.g00fy2.developerwidget.web.GithubAPI
 import de.g00fy2.developerwidget.web.model.Release
@@ -17,12 +17,15 @@ import de.g00fy2.developerwidget.web.model.Repository
 import kotlinx.android.synthetic.main.activity_about.app_desc_textview
 import kotlinx.android.synthetic.main.activity_about.app_version_textview
 import kotlinx.android.synthetic.main.activity_about.author_header
-import kotlinx.android.synthetic.main.activity_about.build_number
+import kotlinx.android.synthetic.main.activity_about.build_number_item
 import kotlinx.android.synthetic.main.activity_about.changelog_item
+import kotlinx.android.synthetic.main.activity_about.github_item
 import kotlinx.android.synthetic.main.activity_about.license_item
-import kotlinx.android.synthetic.main.activity_about.open_source_licenses
+import kotlinx.android.synthetic.main.activity_about.licenses_header
+import kotlinx.android.synthetic.main.activity_about.open_source_licenses_item
 import kotlinx.android.synthetic.main.activity_about.privacy_item
 import kotlinx.android.synthetic.main.activity_about.source_code_item
+import kotlinx.android.synthetic.main.activity_about.twitter_item
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -65,10 +68,17 @@ class AboutActivity : AppCompatActivity(), CoroutineScope {
     license_item.setIcon(R.drawable.ic_open_source_logo).setTitle(R.string.license).setDescription(R.string.mit_license)
     source_code_item.setIcon(R.drawable.ic_github_logo_shape).setTitle(R.string.source_code)
     changelog_item.setIcon(R.drawable.ic_changes_logo).setTitle(R.string.changelog)
-    open_source_licenses.setIcon(R.drawable.ic_open_source_logo).setTitle(R.string.open_source_licenses)
-    build_number.setIcon(R.drawable.ic_about_logo).setTitle(R.string.build_number)
+
+    author_header.setTitle(R.string.author)
+    twitter_item.setIcon(R.drawable.ic_github_logo_shape).setTitle(R.string.twitter).setUrl(Constants.TWITTER_USER)
+      .setDescription(R.string.twitter_username)
+    github_item.setIcon(R.drawable.ic_twitter_logo).setTitle(R.string.github).setDescription(R.string.github_username)
+      .setUrl(Constants.GITHUB_USER)
+
+    licenses_header.setTitle(R.string.licenses)
+    open_source_licenses_item.setTitle(R.string.open_source_licenses)
+    build_number_item.setIcon(R.drawable.ic_about_logo).setTitle(R.string.build_number)
       .setDescription(BuildConfig.VERSION_NAME + "." + BuildConfig.VERSION_CODE + "." + BuildConfig.BUILD_TYPE)
-    (author_header as TextView).setText(R.string.author)
   }
 
   override fun onDestroy() {

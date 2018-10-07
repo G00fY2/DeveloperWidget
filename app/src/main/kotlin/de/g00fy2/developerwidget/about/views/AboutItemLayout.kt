@@ -1,6 +1,8 @@
 package de.g00fy2.developerwidget.about.views
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +13,11 @@ import de.g00fy2.developerwidget.R.layout
 import kotlinx.android.synthetic.main.about_item.view.description_textview
 import kotlinx.android.synthetic.main.about_item.view.icon_imageview
 import kotlinx.android.synthetic.main.about_item.view.title_textview
+import timber.log.Timber
 
 class AboutItemLayout : ConstraintLayout {
+
+  private var url: String = ""
 
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -21,6 +26,20 @@ class AboutItemLayout : ConstraintLayout {
     icon_imageview.visibility = View.INVISIBLE
     title_textview.visibility = View.GONE
     description_textview.visibility = View.GONE
+    setOnClickListener {
+      openUrl()
+    }
+  }
+
+  private fun openUrl() {
+    if (url.startsWith("http", true)) {
+      try {
+        val uri = Uri.parse(url)
+        context.startActivity(Intent(Intent.ACTION_VIEW, uri))
+      } catch (e: Exception) {
+        Timber.d(e)
+      }
+    }
   }
 
   fun setIcon(@DrawableRes iconRes: Int): AboutItemLayout {
@@ -51,6 +70,8 @@ class AboutItemLayout : ConstraintLayout {
     return this
   }
 
-  // TODO add onClick actions
-
+  fun setUrl(url: String): AboutItemLayout {
+    this.url = url
+    return this
+  }
 }
