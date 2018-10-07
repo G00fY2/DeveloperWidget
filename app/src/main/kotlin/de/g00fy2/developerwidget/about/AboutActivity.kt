@@ -9,12 +9,15 @@ import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.R.layout
 import de.g00fy2.developerwidget.util.Constants
 import de.g00fy2.developerwidget.util.SharedPreferencesHelper
+import de.g00fy2.developerwidget.util.ViewUtils
+import kotlinx.android.synthetic.main.activity_about.about_root_scrollview
 import kotlinx.android.synthetic.main.activity_about.app_desc_textview
 import kotlinx.android.synthetic.main.activity_about.app_version_textview
 import kotlinx.android.synthetic.main.activity_about.author_header
 import kotlinx.android.synthetic.main.activity_about.build_number_item
 import kotlinx.android.synthetic.main.activity_about.changelog_item
 import kotlinx.android.synthetic.main.activity_about.github_item
+import kotlinx.android.synthetic.main.activity_about.image_licenses_item
 import kotlinx.android.synthetic.main.activity_about.license_item
 import kotlinx.android.synthetic.main.activity_about.licenses_header
 import kotlinx.android.synthetic.main.activity_about.open_source_licenses_item
@@ -36,6 +39,9 @@ class AboutActivity : AppCompatActivity() {
   }
 
   private fun initView() {
+    about_root_scrollview.viewTreeObserver.addOnScrollChangedListener {
+      changeActionbarElevation()
+    }
     app_version_textview.text =
         String.format(getString(R.string.app_version), BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
     app_desc_textview.text = sharedPreferencesHelper.getString(SharedPreferencesHelper.GITHUB_PROJECT_DESC) ?: ""
@@ -53,9 +59,23 @@ class AboutActivity : AppCompatActivity() {
 
     licenses_header.setTitle(R.string.licenses)
     open_source_licenses_item.setTitle(R.string.open_source_licenses)
+    image_licenses_item.setTitle(R.string.icon_credits)
     build_number_item.setTitle(R.string.build_number)
       .setDescription(BuildConfig.VERSION_NAME + "." + BuildConfig.VERSION_CODE + "." + BuildConfig.BUILD_TYPE)
       .enableHonorClicking(true)
+  }
+
+  private fun changeActionbarElevation() {
+    val scrollViewY = about_root_scrollview.scrollY.toFloat()
+    if (scrollViewY <= 0f) {
+      supportActionBar?.elevation = 0f
+    } else {
+      var elevationDp = scrollViewY / 4 // divide scrollY to increase fade in range
+      if (elevationDp > 4f) {
+        elevationDp = 4f
+      }
+      supportActionBar?.elevation = ViewUtils.dpToPx(elevationDp, this)
+    }
   }
 
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {

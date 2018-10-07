@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/about_root_scrollview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -147,6 +148,11 @@
           android:id="@+id/image_licenses_item"
           android:layout_width="match_parent"
           android:layout_height="64dp"
+          />
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray88"
           />
       <de.g00fy2.developerwidget.about.views.AboutItemLayout
           android:id="@+id/build_number_item"
