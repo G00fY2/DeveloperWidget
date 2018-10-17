@@ -1,8 +1,6 @@
 package de.g00fy2.developerwidget.about.views
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -14,11 +12,10 @@ import de.g00fy2.developerwidget.R.layout
 import kotlinx.android.synthetic.main.about_item.view.description_textview
 import kotlinx.android.synthetic.main.about_item.view.icon_imageview
 import kotlinx.android.synthetic.main.about_item.view.title_textview
-import timber.log.Timber
 
 class AboutItemLayout : ConstraintLayout {
 
-  private var url: String = ""
+  private var action: () -> Unit = {}
   private var honorClicking = false
   private var clickCount = 0
   private var clickStart: Long = 0
@@ -31,7 +28,7 @@ class AboutItemLayout : ConstraintLayout {
     title_textview.visibility = View.GONE
     description_textview.visibility = View.GONE
     setOnClickListener {
-      openUrl()
+      action()
       honorClicking()
     }
   }
@@ -64,24 +61,13 @@ class AboutItemLayout : ConstraintLayout {
     return this
   }
 
-  fun setUrl(url: String): AboutItemLayout {
-    this.url = url
+  fun setAction(action: () -> Unit): AboutItemLayout {
+    this.action = action
     return this
   }
 
   fun enableHonorClicking(enable: Boolean) {
     honorClicking = enable
-  }
-
-  private fun openUrl() {
-    if (url.startsWith("http", true)) {
-      try {
-        val uri = Uri.parse(url)
-        context.startActivity(Intent(Intent.ACTION_VIEW, uri))
-      } catch (e: Exception) {
-        Timber.d(e)
-      }
-    }
   }
 
   private fun honorClicking() {
