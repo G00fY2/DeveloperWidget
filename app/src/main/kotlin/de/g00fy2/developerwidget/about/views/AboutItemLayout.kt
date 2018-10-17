@@ -28,25 +28,25 @@ class AboutItemLayout : ConstraintLayout {
     }
   }
 
-  fun setIcon(@DrawableRes iconRes: Int): AboutItemLayout {
+  fun icon(@DrawableRes iconRes: Int): AboutItemLayout {
     icon_imageview.setImageResource(iconRes)
     icon_imageview.visibility = View.VISIBLE
     return this
   }
 
-  fun setTitle(@StringRes titleRes: Int): AboutItemLayout {
+  fun title(@StringRes titleRes: Int): AboutItemLayout {
     title_textview.setText(titleRes)
     title_textview.visibility = View.VISIBLE
     return this
   }
 
-  fun setDescription(@StringRes descriptionRes: Int): AboutItemLayout {
+  fun description(@StringRes descriptionRes: Int): AboutItemLayout {
     description_textview.setText(descriptionRes)
     description_textview.visibility = View.VISIBLE
     return this
   }
 
-  fun setDescription(description: String): AboutItemLayout {
+  fun description(description: String): AboutItemLayout {
     if (!description.isBlank()) {
       description_textview.text = description
       description_textview.visibility = View.VISIBLE
@@ -56,8 +56,12 @@ class AboutItemLayout : ConstraintLayout {
     return this
   }
 
-  fun setAction(action: () -> Unit): AboutItemLayout {
+  fun action(action: () -> Unit): AboutItemLayout {
     this.action = action
     return this
+  }
+
+  inline fun init(func: AboutItemLayout.() -> Unit) {
+    func()
   }
 }

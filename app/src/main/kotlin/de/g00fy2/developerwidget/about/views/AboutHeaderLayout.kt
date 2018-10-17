@@ -16,8 +16,12 @@ class AboutHeaderLayout : FrameLayout {
     LayoutInflater.from(context).inflate(layout.about_item_header, this, true)
   }
 
-  fun setTitle(@StringRes titleRes: Int): FrameLayout {
+  fun title(@StringRes titleRes: Int): AboutHeaderLayout {
     header_textview.setText(titleRes)
     return this
+  }
+
+  inline fun init(func: AboutHeaderLayout.() -> Unit) {
+    func()
   }
 }

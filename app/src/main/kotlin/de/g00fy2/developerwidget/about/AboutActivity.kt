@@ -52,27 +52,52 @@ class AboutActivity : AppCompatActivity() {
         String.format(getString(R.string.app_version), BuildConfig.VERSION_NAME)
     app_desc_textview.text = "App description." // TODO
 
-    privacy_item.setIcon(R.drawable.ic_privacy_logo).setTitle(R.string.privacy_policy)
-      .setAction { openUrl(Constants.PRIVACY_POLICY) }
-    license_item.setIcon(R.drawable.ic_open_source_logo).setTitle(R.string.license).setDescription(R.string.mit_license)
-    source_code_item.setIcon(R.drawable.ic_github_logo_shape).setTitle(R.string.source_code)
-      .setAction { openUrl(Constants.GITHUB_PROJECT) }
-    changelog_item.setIcon(R.drawable.ic_changes_logo).setTitle(R.string.changelog)
-
-    author_header.setTitle(R.string.author)
-    twitter_item.setIcon(R.drawable.ic_twitter_logo).setTitle(R.string.twitter)
-      .setAction { openUrl(Constants.TWITTER_USER) }
-      .setDescription(R.string.twitter_username)
-    github_item.setIcon(R.drawable.ic_github_logo_shape).setTitle(R.string.github)
-      .setDescription(R.string.github_username)
-      .setAction { openUrl(Constants.GITHUB_USER) }
-
-    licenses_header.setTitle(R.string.licenses)
-    open_source_licenses_item.setTitle(R.string.open_source_licenses)
-    image_licenses_item.setTitle(R.string.icon_credits).setAction { openUrl(Constants.ICON_CREDITS) }
-    build_number_item.setTitle(R.string.build_number)
-      .setDescription(BuildConfig.VERSION_NAME + "." + BuildConfig.VERSION_CODE + "." + BuildConfig.BUILD_TYPE)
-      .setAction { honorClicking() }
+    privacy_item.init {
+      icon(R.drawable.ic_privacy_logo).title(R.string.privacy_policy)
+      action { openUrl(Constants.PRIVACY_POLICY) }
+    }
+    license_item.init {
+      icon(R.drawable.ic_open_source_logo).title(R.string.license)
+      description(R.string.mit_license)
+    }
+    source_code_item.init {
+      icon(R.drawable.ic_github_logo_shape)
+      title(R.string.source_code)
+      action { openUrl(Constants.GITHUB_PROJECT) }
+    }
+    changelog_item.init {
+      icon(R.drawable.ic_changes_logo)
+      title(R.string.changelog)
+    }
+    author_header.init {
+      title(R.string.author)
+    }
+    twitter_item.init {
+      icon(R.drawable.ic_twitter_logo)
+      title(R.string.twitter)
+      description(R.string.twitter_username)
+      action { openUrl(Constants.TWITTER_USER) }
+    }
+    github_item.init {
+      icon(R.drawable.ic_github_logo_shape).title(R.string.github)
+      description(R.string.github_username)
+      action { openUrl(Constants.GITHUB_USER) }
+    }
+    licenses_header.init {
+      title(R.string.licenses)
+    }
+    open_source_licenses_item.init {
+      title(R.string.open_source_licenses)
+    }
+    image_licenses_item.init {
+      title(R.string.icon_credits)
+      action { openUrl(Constants.ICON_CREDITS) }
+    }
+    build_number_item.init {
+      title(R.string.build_number)
+      description(BuildConfig.VERSION_NAME + "." + BuildConfig.VERSION_CODE + "." + BuildConfig.BUILD_TYPE)
+      action { honorClicking() }
+    }
   }
 
   private fun changeActionbarElevation() {
