@@ -53,11 +53,13 @@ class AboutActivity : AppCompatActivity() {
     app_desc_textview.text = "App description." // TODO
 
     privacy_item.init {
-      icon(R.drawable.ic_privacy_logo).title(R.string.privacy_policy)
+      icon(R.drawable.ic_privacy_logo)
+      title(R.string.privacy_policy)
       action { openUrl(Constants.PRIVACY_POLICY) }
     }
     license_item.init {
-      icon(R.drawable.ic_open_source_logo).title(R.string.license)
+      icon(R.drawable.ic_open_source_logo)
+      title(R.string.license)
       description(R.string.mit_license)
     }
     source_code_item.init {
@@ -79,7 +81,8 @@ class AboutActivity : AppCompatActivity() {
       action { openUrl(Constants.TWITTER_USER) }
     }
     github_item.init {
-      icon(R.drawable.ic_github_logo_shape).title(R.string.github)
+      icon(R.drawable.ic_github_logo_shape)
+      title(R.string.github)
       description(R.string.github_username)
       action { openUrl(Constants.GITHUB_USER) }
     }
