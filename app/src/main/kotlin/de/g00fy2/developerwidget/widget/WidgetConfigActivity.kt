@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.about.AboutActivity
@@ -15,7 +14,6 @@ import kotlinx.android.synthetic.main.activity_widget_config.apply_button
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.android.Main
 import kotlin.coroutines.CoroutineContext
 
 class WidgetConfigActivity : AppCompatActivity(), CoroutineScope {
@@ -23,15 +21,6 @@ class WidgetConfigActivity : AppCompatActivity(), CoroutineScope {
   private lateinit var job: Job
   private var updateExistingWidget = false
   private var widgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID
-  private var onApplyClickListener: View.OnClickListener = View.OnClickListener {
-    val appWidgetManager = AppWidgetManager.getInstance(this)
-    WidgetProvider.updateWidget(this, appWidgetManager, widgetId)
-
-    val resultValue = Intent()
-    resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
-    setResult(Activity.RESULT_OK, resultValue)
-    finish()
-  }
 
   public override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -51,7 +40,15 @@ class WidgetConfigActivity : AppCompatActivity(), CoroutineScope {
       return
     }
 
-    apply_button.setOnClickListener(onApplyClickListener)
+    apply_button.setOnClickListener {
+      val appWidgetManager = AppWidgetManager.getInstance(this)
+      WidgetProvider.updateWidget(this, appWidgetManager, widgetId)
+
+      val resultValue = Intent()
+      resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
+      setResult(Activity.RESULT_OK, resultValue)
+      finish()
+    }
     if (updateExistingWidget) {
       apply_button.setText(R.string.update_widget)
     }
