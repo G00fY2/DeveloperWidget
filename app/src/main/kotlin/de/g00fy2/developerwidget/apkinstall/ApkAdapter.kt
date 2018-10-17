@@ -1,5 +1,6 @@
 package de.g00fy2.developerwidget.apkinstall
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.apk_item.view.file_size_textview
 import kotlinx.android.synthetic.main.apk_item.view.file_version_textview
 import kotlinx.android.synthetic.main.apk_item.view.filename_textview
 
-class ApkAdapter(private var apkActivity: ApkActivity) : RecyclerView.Adapter<ViewHolder>() {
+class ApkAdapter(private var context: Context) : RecyclerView.Adapter<ViewHolder>() {
 
   private var apkFiles: MutableList<ApkFile> = ArrayList()
   private var selectedPosition = -1
@@ -58,13 +59,13 @@ class ApkAdapter(private var apkActivity: ApkActivity) : RecyclerView.Adapter<Vi
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     val apkFile: ApkFile = apkFiles[position]
     holder.filename.text = apkFile.getFileName()
-    holder.fileAppName.text = apkFile.getAppName(apkActivity)
+    holder.fileAppName.text = apkFile.getAppName(context)
     holder.fileVersion.text =
-        String.format(apkActivity.getString(R.string.apk_version), apkFile.getVersionName(), apkFile.getVersionCode())
+        String.format(context.getString(R.string.apk_version), apkFile.getVersionName(), apkFile.getVersionCode())
     holder.fileSize.text = apkFile.getSize()
     holder.debugIcon.visibility = if (apkFile.isDebuggableApp()) View.VISIBLE else View.INVISIBLE
-    holder.fileDate.text = apkFile.getLastModified(apkActivity)
-    holder.appIcon.setImageDrawable(apkFile.getIcon(apkActivity))
+    holder.fileDate.text = apkFile.getLastModified(context)
+    holder.appIcon.setImageDrawable(apkFile.getIcon(context))
     holder.setBackground(position == selectedPosition)
   }
 
