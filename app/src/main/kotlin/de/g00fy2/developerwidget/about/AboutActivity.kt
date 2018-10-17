@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import de.g00fy2.developerwidget.BuildConfig
 import de.g00fy2.developerwidget.R
@@ -30,6 +31,8 @@ import timber.log.Timber
 
 class AboutActivity : AppCompatActivity() {
 
+  private var clickCount = 0
+  private var clickStart: Long = 0
   private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
 
   public override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +72,7 @@ class AboutActivity : AppCompatActivity() {
     image_licenses_item.setTitle(R.string.icon_credits).setAction { openUrl(Constants.ICON_CREDITS) }
     build_number_item.setTitle(R.string.build_number)
       .setDescription(BuildConfig.VERSION_NAME + "." + BuildConfig.VERSION_CODE + "." + BuildConfig.BUILD_TYPE)
-      .enableHonorClicking(true)
+      .setAction { honorClicking() }
   }
 
   private fun changeActionbarElevation() {
@@ -93,6 +96,27 @@ class AboutActivity : AppCompatActivity() {
       } catch (e: Exception) {
         Timber.d(e)
       }
+    }
+  }
+
+  private fun honorClicking() {
+    val current = System.currentTimeMillis()
+    if (current - clickStart > 2000) {
+      clickCount = 0
+    }
+    clickCount++
+    if (clickCount <= 7) {
+      clickStart = current
+    }
+    if (clickCount in 3..6) {
+      val missingSteps = (7 - clickCount)
+      Toast.makeText(
+        this,
+        "You are now " + missingSteps + (if (missingSteps > 1) " steps" else " step") + " away from being a developer.",
+        Toast.LENGTH_SHORT
+      ).show()
+    } else if (clickCount == 7) {
+      Toast.makeText(this, "You are a real developer!", Toast.LENGTH_SHORT).show()
     }
   }
 
