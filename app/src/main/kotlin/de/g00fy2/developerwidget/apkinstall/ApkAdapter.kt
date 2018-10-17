@@ -20,6 +20,7 @@ class ApkAdapter(private var apkActivity: ApkActivity) : RecyclerView.Adapter<Vi
 
   private var apkFiles: MutableList<ApkFile> = ArrayList()
   private var selectedPosition = -1
+  private var apkSelectedListener: (() -> Unit) = {}
 
   class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     val filename: TextView = view.filename_textview
@@ -43,7 +44,7 @@ class ApkAdapter(private var apkActivity: ApkActivity) : RecyclerView.Adapter<Vi
       val adapterPosition = holder.adapterPosition
       if (adapterPosition != RecyclerView.NO_POSITION && adapterPosition != selectedPosition) {
         if (selectedPosition < 0) {
-          apkActivity.fileSelected()
+          apkSelectedListener()
         } else {
           notifyItemChanged(selectedPosition, APK_DESELECTED)
         }
@@ -82,6 +83,10 @@ class ApkAdapter(private var apkActivity: ApkActivity) : RecyclerView.Adapter<Vi
   }
 
   override fun getItemCount() = apkFiles.size
+
+  fun setOnApkSelectedListener(listener: () -> Unit) {
+    apkSelectedListener = listener
+  }
 
   fun clear() {
     apkFiles.clear()

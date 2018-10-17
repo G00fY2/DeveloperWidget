@@ -26,13 +26,12 @@ import kotlinx.android.synthetic.main.activity_apk.recyclerview
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.android.Main
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.io.File
 import kotlin.coroutines.CoroutineContext
 
-class ApkActivity : Activity(), CoroutineScope, OnFileSelectedListener {
+class ApkActivity : Activity(), CoroutineScope {
 
   private var apkFiles: MutableList<ApkFile> = ArrayList()
   private lateinit var adapter: ApkAdapter
@@ -52,6 +51,7 @@ class ApkActivity : Activity(), CoroutineScope, OnFileSelectedListener {
     install_textview.setOnClickListener { installAPK() }
 
     adapter = ApkAdapter(this)
+    adapter.setOnApkSelectedListener { install_textview.isEnabled = true }
     recyclerview.layoutManager = LinearLayoutManager(this)
     recyclerview.adapter = adapter
 
@@ -166,10 +166,6 @@ class ApkActivity : Activity(), CoroutineScope, OnFileSelectedListener {
       recyclerview.visibility = View.INVISIBLE
       no_result_textview.visibility = View.VISIBLE
     }
-  }
-
-  override fun fileSelected() {
-    install_textview.isEnabled = true
   }
 
   companion object {
