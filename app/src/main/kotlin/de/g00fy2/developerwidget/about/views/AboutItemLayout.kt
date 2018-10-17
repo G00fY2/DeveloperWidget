@@ -73,11 +73,13 @@ class AboutItemLayout : ConstraintLayout {
   private fun honorClicking() {
     if (honorClicking) {
       val current = System.currentTimeMillis()
-      if (current - clickStart > 4000) {
+      if (current - clickStart > 2000) {
         clickCount = 0
       }
       clickCount++
-      clickStart = current
+      if (clickCount <= 7) {
+        clickStart = current
+      }
       if (clickCount in 3..6) {
         val missingSteps = (7 - clickCount)
         Toast.makeText(
