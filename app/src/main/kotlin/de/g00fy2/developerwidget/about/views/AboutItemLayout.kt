@@ -14,18 +14,10 @@ import kotlinx.android.synthetic.main.about_item.view.title_textview
 
 class AboutItemLayout : ConstraintLayout {
 
-  private var action: () -> Unit = {}
-
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
   constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
     LayoutInflater.from(context).inflate(layout.about_item, this, true)
-    icon_imageview.visibility = View.INVISIBLE
-    title_textview.visibility = View.GONE
-    description_textview.visibility = View.GONE
-    setOnClickListener {
-      action()
-    }
   }
 
   fun icon(@DrawableRes iconRes: Int): AboutItemLayout {
@@ -57,7 +49,9 @@ class AboutItemLayout : ConstraintLayout {
   }
 
   fun action(action: () -> Unit): AboutItemLayout {
-    this.action = action
+    setOnClickListener {
+      action()
+    }
     return this
   }
 
