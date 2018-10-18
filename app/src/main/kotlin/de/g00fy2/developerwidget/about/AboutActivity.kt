@@ -62,6 +62,7 @@ class AboutActivity : AppCompatActivity() {
       icon(R.drawable.ic_open_source_logo)
       title(R.string.license)
       description(R.string.mit_license)
+      action { openUrl(Constants.MIT_LICENSE) }
     }
     source_code_item.init {
       icon(R.drawable.ic_github_logo_shape)
@@ -71,6 +72,7 @@ class AboutActivity : AppCompatActivity() {
     changelog_item.init {
       icon(R.drawable.ic_changes_logo)
       title(R.string.changelog)
+      action { openUrl(Constants.CHANGES) }
     }
     author_header.init {
       title(R.string.author)
@@ -92,6 +94,7 @@ class AboutActivity : AppCompatActivity() {
     }
     open_source_licenses_item.init {
       title(R.string.open_source_licenses)
+      action { openUrl(Constants.OSS_LICENSES) }
     }
     image_licenses_item.init {
       title(R.string.icon_credits)
