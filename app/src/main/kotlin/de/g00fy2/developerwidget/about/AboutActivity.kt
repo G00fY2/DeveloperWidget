@@ -33,6 +33,7 @@ class AboutActivity : AppCompatActivity() {
 
   private var clickCount = 0
   private var clickStart: Long = 0
+  private var toast: Toast? = null
   private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
 
   public override fun onCreate(savedInstanceState: Bundle?) {
@@ -129,22 +130,25 @@ class AboutActivity : AppCompatActivity() {
 
   private fun honorClicking() {
     val current = System.currentTimeMillis()
-    if (current - clickStart > 2000) {
+    if (current - clickStart > 3000) {
       clickCount = 0
     }
     clickCount++
     if (clickCount <= 7) {
       clickStart = current
+      toast?.cancel()
     }
     if (clickCount in 3..6) {
       val missingSteps = (7 - clickCount)
-      Toast.makeText(
+      toast = Toast.makeText(
         this,
         "You are now " + missingSteps + (if (missingSteps > 1) " steps" else " step") + " away from being a developer.",
         Toast.LENGTH_SHORT
-      ).show()
+      )
+      toast?.show()
     } else if (clickCount == 7) {
-      Toast.makeText(this, "You are a real developer!", Toast.LENGTH_SHORT).show()
+      toast = Toast.makeText(this, "You are a real developer!", Toast.LENGTH_SHORT)
+      toast?.show()
     }
   }
 
