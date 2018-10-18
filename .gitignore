@@ -22,6 +22,8 @@ out/
 .gradle
 .gradle/
 build/
+gradle-app.setting
+.gradletasknamecache
 
 # Signing files
 .signing/
@@ -61,25 +63,35 @@ obj/
 *.iws
 /out/
 
-# User-specific configurations
+# User-specific or generated
 .idea/libraries/
 .idea/workspace.xml
 .idea/tasks.xml
+.idea/gradle.xml
+.idea/usage.statistics.xml
+.idea/assetWizardSettings.xml
 .idea/.name
 .idea/compiler.xml
 .idea/copyright/profiles_settings.xml
 .idea/encodings.xml
 .idea/misc.xml
+.idea/caches
+.idea/modules
 .idea/modules.xml
 .idea/scopes/scope_settings.xml
 .idea/dictionaries
+.idea/shelf
 .idea/vcs.xml
 .idea/jsLibraryMappings.xml
+.idea/datasources
 .idea/datasources.xml
 .idea/dataSources.ids
+.idea/datasources.local.xml
 .idea/sqlDataSources.xml
 .idea/dynamic.xml
 .idea/uiDesigner.xml
+.idea/dbnavigator.xml
+.idea/contentModel.xml
 
 # Keystore files
 *.jks
