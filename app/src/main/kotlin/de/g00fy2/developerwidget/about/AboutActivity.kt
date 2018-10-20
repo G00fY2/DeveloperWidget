@@ -12,7 +12,6 @@ import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.R.layout
 import de.g00fy2.developerwidget.util.Constants
 import de.g00fy2.developerwidget.util.SharedPreferencesHelper
-import de.g00fy2.developerwidget.util.ViewUtils
 import kotlinx.android.synthetic.main.activity_about.about_root_scrollview
 import kotlinx.android.synthetic.main.activity_about.app_desc_textview
 import kotlinx.android.synthetic.main.activity_about.app_version_textview
@@ -30,6 +29,7 @@ import kotlinx.android.synthetic.main.activity_about.twitter_item
 import timber.log.Timber
 
 class AboutActivity : AppCompatActivity() {
+  private val Float.px: Float get() = (this * resources.displayMetrics.density)
 
   private var clickCount = 0
   private var clickStart: Long = 0
@@ -116,7 +116,7 @@ class AboutActivity : AppCompatActivity() {
       if (elevationDp > 4f) {
         elevationDp = 4f
       }
-      supportActionBar?.elevation = ViewUtils.dpToPx(elevationDp, this)
+      supportActionBar?.elevation = elevationDp.px
     }
   }
 
