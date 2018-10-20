@@ -4,7 +4,7 @@
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/widget_background_shape"
+    android:background="@drawable/bg_widget_shape"
     android:baselineAligned="false"
     android:orientation="horizontal"
     android:padding="@dimen/widget_margin"
@@ -45,7 +45,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="2dp"
-        android:src="@drawable/widget_background_shape"
+        android:src="@drawable/bg_widget_shape"
         />
 
     <TextView
@@ -63,7 +63,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="2dp"
-        android:src="@drawable/widget_background_shape"
+        android:src="@drawable/bg_widget_shape"
         />
 
 

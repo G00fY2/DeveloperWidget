@@ -15,7 +15,7 @@
     <item name="colorAccent">@color/colorAccent</item>
     <item name="colorControlHighlight">@color/transparentAccent</item>
     <item name="android:windowCloseOnTouchOutside">false</item>
-    <item name="android:windowBackground">@drawable/dialog_background_shape</item>
+    <item name="android:windowBackground">@drawable/bg_dialog_shape</item>
   </style>
 
   <style name="DialogButtonAppearance" parent="TextAppearance.AppCompat.Widget.Button">
