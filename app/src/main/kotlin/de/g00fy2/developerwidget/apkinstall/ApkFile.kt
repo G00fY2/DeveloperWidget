@@ -30,7 +30,7 @@ class ApkFile(private var file: File, context: Context) : Comparable<ApkFile> {
     }
   }
 
-  fun isValidApk(): Boolean = validApk
+  fun isValid(): Boolean = validApk
 
   fun getFileName(): String = file.name
 
@@ -47,7 +47,7 @@ class ApkFile(private var file: File, context: Context) : Comparable<ApkFile> {
     }
   }
 
-  fun isDebuggableApp(): Boolean = packageInfo.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
+  fun isDebuggable(): Boolean = packageInfo.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
 
   fun getSize(): String {
     val fileSizeKB: Int = round(file.length() / 1024.0).toInt()

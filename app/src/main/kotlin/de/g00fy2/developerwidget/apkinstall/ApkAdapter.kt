@@ -63,7 +63,7 @@ class ApkAdapter(private var context: Context) : RecyclerView.Adapter<ViewHolder
     holder.fileVersion.text =
         String.format(context.getString(R.string.apk_version), apkFile.getVersionName(), apkFile.getVersionCode())
     holder.fileSize.text = apkFile.getSize()
-    holder.debugIcon.visibility = if (apkFile.isDebuggableApp()) View.VISIBLE else View.INVISIBLE
+    holder.debugIcon.visibility = if (apkFile.isDebuggable()) View.VISIBLE else View.INVISIBLE
     holder.fileDate.text = apkFile.getLastModified(context)
     holder.appIcon.setImageDrawable(apkFile.getIcon(context))
     holder.setBackground(position == selectedPosition)

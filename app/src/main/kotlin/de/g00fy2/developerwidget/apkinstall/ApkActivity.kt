@@ -112,7 +112,7 @@ class ApkActivity : Activity(), CoroutineScope {
             if (listFile[i].name.endsWith(EXTENSION, true)) {
               Timber.d("APK found %s", (listFile[i].name))
               val apkFile = ApkFile(listFile[i], this@ApkActivity)
-              if (apkFile.isValidApk()) apkFiles.add(apkFile)
+              if (apkFile.isValid()) apkFiles.add(apkFile)
             }
           }
         }

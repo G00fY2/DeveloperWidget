@@ -24,9 +24,9 @@ class WidgetProvider : AppWidgetProvider() {
     internal fun updateWidget(context: Context, appWidgetManager: AppWidgetManager, widgetId: Int) {
       val views = RemoteViews(context.packageName, R.layout.appwidget_layout)
 
-      views.setTextViewText(R.id.device_info_textview, DeviceDataUtils.deviceInfo)
-      views.setTextViewText(R.id.release_textview, DeviceDataUtils.versionAndCodename)
-      views.setTextViewText(R.id.sdk_int_textview, DeviceDataUtils.sdkVersion)
+      views.setTextViewText(R.id.device_info_textview, DeviceDataUtils.deviceName)
+      views.setTextViewText(R.id.release_textview, DeviceDataUtils.androidVersion)
+      views.setTextViewText(R.id.sdk_int_textview, DeviceDataUtils.androidApiLevel)
 
       val configIntent = Intent(context, WidgetConfigActivity::class.java)
       configIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
