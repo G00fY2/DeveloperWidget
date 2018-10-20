@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Environment
 import android.text.format.DateFormat
 import androidx.core.content.FileProvider
+import androidx.core.content.pm.PackageInfoCompat
 import java.io.File
 import java.text.NumberFormat
 import java.util.Date
@@ -71,7 +72,7 @@ class ApkFile(private var file: File, context: Context) : Comparable<ApkFile> {
   fun getVersionName(): String = packageInfo.versionName
 
   fun getVersionCode(): String {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) packageInfo.longVersionCode.toString() else packageInfo.versionCode.toString()
+    return PackageInfoCompat.getLongVersionCode(packageInfo).toString()
   }
 
   override fun compareTo(other: ApkFile): Int = when {
