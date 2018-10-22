@@ -3,6 +3,7 @@ package de.g00fy2.developerwidget.apkinstall
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -31,7 +32,7 @@ class ApkFile(private var file: File, context: Context) : Comparable<ApkFile> {
 
   fun isValid() = validApk
 
-  fun getFileName() = file.name
+  fun getFileName(): String = file.name
 
   fun getFilePath(): String {
     val path = file.parent.substring(Environment.getExternalStorageDirectory().absolutePath.length)
@@ -60,13 +61,13 @@ class ApkFile(private var file: File, context: Context) : Comparable<ApkFile> {
     )
   }
 
-  fun getIcon(context: Context) = packageInfo.applicationInfo.loadIcon(context.packageManager)
+  fun getIcon(context: Context): Drawable = packageInfo.applicationInfo.loadIcon(context.packageManager)
 
   fun getAppName(context: Context) = context.packageManager.getApplicationLabel(packageInfo.applicationInfo).toString()
 
-  fun getAppPackage() = packageInfo.packageName
+  fun getAppPackage(): String = packageInfo.packageName
 
-  fun getVersionName() = packageInfo.versionName
+  fun getVersionName(): String = packageInfo.versionName
 
   fun getVersionCode() = PackageInfoCompat.getLongVersionCode(packageInfo).toString()
 
