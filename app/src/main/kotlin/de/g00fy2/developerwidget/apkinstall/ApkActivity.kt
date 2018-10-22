@@ -65,9 +65,9 @@ class ApkActivity : Activity(), CoroutineScope {
       launch {
         findAPKs(Environment.getExternalStorageDirectory())
       }.invokeOnCompletion {
-        adapter.addAll(apkFiles)
-        toggleResultView(false)
         Timber.d("parent job finished")
+        adapter.addAll(apkFiles)
+        toggleResultView()
       }
     } else {
       toggleResultView(true)
@@ -107,7 +107,7 @@ class ApkActivity : Activity(), CoroutineScope {
           if (listFile[i].isDirectory) {
             findAPKs(listFile[i])
           } else {
-            if (listFile[i].name.endsWith(EXTENSION, true)) {
+            if (listFile[i].name.endsWith(APK_EXTENSION, true)) {
               Timber.d("APK found %s", (listFile[i].name))
               val apkFile = ApkFile(listFile[i], this@ApkActivity)
               if (apkFile.isValid()) apkFiles.add(apkFile)
@@ -118,7 +118,7 @@ class ApkActivity : Activity(), CoroutineScope {
     }
     scanJob.join()
     scanJob.invokeOnCompletion {
-      Timber.d("child job finished")
+      Timber.d("scanned folder $dir")
     }
   }
 
@@ -142,7 +142,7 @@ class ApkActivity : Activity(), CoroutineScope {
     adapter.clear()
   }
 
-  private fun toggleResultView(missingPermissions: Boolean) {
+  private fun toggleResultView(missingPermissions: Boolean = false) {
     if (missingPermissions) {
       progressbar.visibility = View.INVISIBLE
     } else {
@@ -167,7 +167,7 @@ class ApkActivity : Activity(), CoroutineScope {
   }
 
   companion object {
-    const val EXTENSION = ".apk"
+    const val APK_EXTENSION = ".apk"
     const val APK_MIME_TYPE = "application/vnd.android.package-archive"
   }
 }
