@@ -49,9 +49,7 @@ class WidgetConfigActivity : AppCompatActivity(), CoroutineScope {
       setResult(Activity.RESULT_OK, resultValue)
       finish()
     }
-    if (updateExistingWidget) {
-      apply_button.setText(R.string.update_widget)
-    }
+    if (updateExistingWidget) apply_button.setText(R.string.update_widget)
   }
 
   override fun onDestroy() {

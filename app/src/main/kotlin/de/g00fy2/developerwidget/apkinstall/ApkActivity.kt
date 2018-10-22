@@ -84,9 +84,7 @@ class ApkActivity : Activity(), CoroutineScope {
 
   @TargetApi(VERSION_CODES.M)
   private fun requestPermissions() {
-    if (!hasPermissions()) {
-      requestPermissions(arrayOf(permission.READ_EXTERNAL_STORAGE), 1)
-    }
+    if (!hasPermissions()) requestPermissions(arrayOf(permission.READ_EXTERNAL_STORAGE), 1)
   }
 
   private fun hasPermissions(): Boolean {

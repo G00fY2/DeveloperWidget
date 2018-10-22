@@ -7,20 +7,11 @@ class SharedPreferencesHelper(context: Context) {
 
   private var sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.applicationContext)
 
-  fun getString(key: String): String? {
-    return sharedPreferences.getString(key, null)
-  }
+  fun getString(key: String): String? = sharedPreferences.getString(key, null)
 
-  fun putString(key: String, value: String?) {
-    return sharedPreferences.edit().putString(key, value).apply()
-  }
+  fun putString(key: String, value: String?) = sharedPreferences.edit().putString(key, value).apply()
 
-  fun putString(widgetId: Int, key: String, value: String?) {
-    return sharedPreferences.edit().putString(widgetId.toString() + "_" + key, value).apply()
-  }
+  fun putWidgetString(widgetId: Int, key: String, value: String?) = putString(widgetId.toString() + "_" + key, value)
 
-  fun getString(widgetId: Int, key: String): String? {
-    return sharedPreferences.getString(widgetId.toString() + "_" + key, null)
-  }
-
+  fun getWidgetString(widgetId: Int, key: String) = getString(widgetId.toString() + "_" + key)
 }

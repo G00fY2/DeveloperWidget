@@ -21,7 +21,5 @@ class AboutHeaderLayout : FrameLayout {
     return this
   }
 
-  inline fun init(func: AboutHeaderLayout.() -> Unit) {
-    func()
-  }
+  inline fun init(func: AboutHeaderLayout.() -> Unit) = func()
 }

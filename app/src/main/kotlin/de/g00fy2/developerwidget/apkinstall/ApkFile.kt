@@ -3,7 +3,6 @@ package de.g00fy2.developerwidget.apkinstall
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -30,9 +29,9 @@ class ApkFile(private var file: File, context: Context) : Comparable<ApkFile> {
     }
   }
 
-  fun isValid(): Boolean = validApk
+  fun isValid() = validApk
 
-  fun getFileName(): String = file.name
+  fun getFileName() = file.name
 
   fun getFilePath(): String {
     val path = file.parent.substring(Environment.getExternalStorageDirectory().absolutePath.length)
@@ -47,7 +46,7 @@ class ApkFile(private var file: File, context: Context) : Comparable<ApkFile> {
     }
   }
 
-  fun isDebuggable(): Boolean = packageInfo.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
+  fun isDebuggable() = packageInfo.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
 
   fun getSize(): String {
     val fileSizeKB: Int = round(file.length() / 1024.0).toInt()
@@ -61,19 +60,15 @@ class ApkFile(private var file: File, context: Context) : Comparable<ApkFile> {
     )
   }
 
-  fun getIcon(context: Context): Drawable = packageInfo.applicationInfo.loadIcon(context.packageManager)
+  fun getIcon(context: Context) = packageInfo.applicationInfo.loadIcon(context.packageManager)
 
-  fun getAppName(context: Context): String {
-    return context.packageManager.getApplicationLabel(packageInfo.applicationInfo).toString()
-  }
+  fun getAppName(context: Context) = context.packageManager.getApplicationLabel(packageInfo.applicationInfo).toString()
 
-  fun getAppPackage(): String = packageInfo.packageName
+  fun getAppPackage() = packageInfo.packageName
 
-  fun getVersionName(): String = packageInfo.versionName
+  fun getVersionName() = packageInfo.versionName
 
-  fun getVersionCode(): String {
-    return PackageInfoCompat.getLongVersionCode(packageInfo).toString()
-  }
+  fun getVersionCode() = PackageInfoCompat.getLongVersionCode(packageInfo).toString()
 
   override fun compareTo(other: ApkFile): Int = when {
     file.lastModified() > other.file.lastModified() -> -1

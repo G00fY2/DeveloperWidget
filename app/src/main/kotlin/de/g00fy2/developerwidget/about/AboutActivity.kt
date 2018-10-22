@@ -113,9 +113,7 @@ class AboutActivity : AppCompatActivity() {
       supportActionBar?.elevation = 0f
     } else {
       var elevationDp = scrollViewY / 4 // divide scrollY to increase fade in range
-      if (elevationDp > 4f) {
-        elevationDp = 4f
-      }
+      if (elevationDp > 4f) elevationDp = 4f
       supportActionBar?.elevation = elevationDp.px
     }
   }
@@ -133,9 +131,7 @@ class AboutActivity : AppCompatActivity() {
 
   private fun honorClicking() {
     val current = System.currentTimeMillis()
-    if (current - clickStart > 3000) {
-      clickCount = 0
-    }
+    if (current - clickStart > 3000) clickCount = 0
     clickCount++
     if (clickCount <= 7) {
       clickStart = current

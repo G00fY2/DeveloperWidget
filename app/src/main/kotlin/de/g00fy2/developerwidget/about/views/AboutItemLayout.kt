@@ -55,7 +55,5 @@ class AboutItemLayout : ConstraintLayout {
     return this
   }
 
-  inline fun init(func: AboutItemLayout.() -> Unit) {
-    func()
-  }
+  inline fun init(func: AboutItemLayout.() -> Unit) = func()
 }
