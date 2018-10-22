@@ -92,6 +92,8 @@ obj/
 .idea/uiDesigner.xml
 .idea/dbnavigator.xml
 .idea/contentModel.xml
+.idea/kotlinc.xml
+.idea/inspectionProfiles
 
 # Keystore files
 *.jks
