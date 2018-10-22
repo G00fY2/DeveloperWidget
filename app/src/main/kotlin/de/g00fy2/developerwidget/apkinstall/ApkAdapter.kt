@@ -26,11 +26,11 @@ class ApkAdapter(private var context: Context) : RecyclerView.Adapter<ViewHolder
   class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
     val filename: TextView = view.filename_textview
     val fileDate: TextView = view.file_date_textview
-    val fileAppName: TextView = view.file_appname_textview
-    val fileVersion: TextView = view.file_version_textview
+    val appName: TextView = view.file_appname_textview
+    val appVersion: TextView = view.file_version_textview
     val fileSize: TextView = view.file_size_textview
     val appIcon: ImageView = view.app_icon_imageview
-    val debugIcon: ImageView = view.file_debug_imageview
+    val appDebuggableIcon: ImageView = view.file_debug_imageview
 
     fun setBackground(selected: Boolean) {
       itemView.setBackgroundResource(if (selected) R.color.transparentAccent else android.R.color.transparent)
@@ -59,11 +59,11 @@ class ApkAdapter(private var context: Context) : RecyclerView.Adapter<ViewHolder
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     val apkFile: ApkFile = apkFiles[position]
     holder.filename.text = apkFile.getFileName()
-    holder.fileAppName.text = apkFile.getAppName(context)
-    holder.fileVersion.text =
+    holder.appName.text = apkFile.getAppName(context)
+    holder.appVersion.text =
         String.format(context.getString(R.string.apk_version), apkFile.getVersionName(), apkFile.getVersionCode())
     holder.fileSize.text = apkFile.getSize()
-    holder.debugIcon.visibility = if (apkFile.isDebuggable()) View.VISIBLE else View.INVISIBLE
+    holder.appDebuggableIcon.visibility = if (apkFile.isDebuggable()) View.VISIBLE else View.INVISIBLE
     holder.fileDate.text = apkFile.getLastModified(context)
     holder.appIcon.setImageDrawable(apkFile.getIcon(context))
     holder.setBackground(position == selectedPosition)
