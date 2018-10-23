@@ -3,6 +3,7 @@ package de.g00fy2.developerwidget.widget
 import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -70,6 +71,9 @@ class WidgetConfigActivity : AppCompatActivity(), CoroutineScope {
     return when (item.itemId) {
       R.id.about_button -> {
         val intent = Intent(this, AboutActivity::class.java)
+        if (!updateExistingWidget && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+          intent.flags = Intent.FLAG_ACTIVITY_MULTIPLE_TASK or Intent.FLAG_ACTIVITY_NEW_DOCUMENT
+        }
         startActivity(intent)
         true
       }
