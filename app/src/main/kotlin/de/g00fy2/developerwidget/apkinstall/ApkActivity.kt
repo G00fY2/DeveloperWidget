@@ -126,7 +126,7 @@ class ApkActivity : Activity(), CoroutineScope {
     val apk: ApkFile? = adapter.getSelectedFile()
     if (apk != null) {
       val intent = Intent(Intent.ACTION_VIEW)
-      intent.setDataAndType(apk.fileUri(), APK_MIME_TYPE)
+      intent.setDataAndType(apk.fileUri, APK_MIME_TYPE)
       intent.flags =
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) Intent.FLAG_GRANT_READ_URI_PERMISSION else Intent.FLAG_ACTIVITY_NEW_TASK
       startActivity(intent)
