@@ -20,9 +20,9 @@ import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.R.string
 import kotlinx.android.synthetic.main.activity_apk.cancel_textview
 import kotlinx.android.synthetic.main.activity_apk.install_textview
-import kotlinx.android.synthetic.main.activity_apk.no_result_textview
 import kotlinx.android.synthetic.main.activity_apk.progressbar
 import kotlinx.android.synthetic.main.activity_apk.recyclerview
+import kotlinx.android.synthetic.main.activity_apk.result_textview
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -34,6 +34,7 @@ import kotlin.coroutines.CoroutineContext
 class ApkActivity : Activity(), CoroutineScope {
 
   private var apkFiles: MutableList<ApkFile> = ArrayList()
+  private var rootPathLength = 0
   private lateinit var adapter: ApkAdapter
   private lateinit var job: Job
 
@@ -63,10 +64,11 @@ class ApkActivity : Activity(), CoroutineScope {
     initState()
     if (hasPermissions()) {
       launch {
-        findAPKs(Environment.getExternalStorageDirectory())
+        val root = Environment.getExternalStorageDirectory()
+        rootPathLength = root.absolutePath.length
+        findAPKs(root)
       }.invokeOnCompletion {
         Timber.d("parent job finished")
-        adapter.addAll(apkFiles)
         toggleResultView()
       }
     } else {
@@ -100,8 +102,8 @@ class ApkActivity : Activity(), CoroutineScope {
 
   private suspend fun findAPKs(dir: File) {
     val scanJob = launch {
+      result_textview.text = dir.path.substring(rootPathLength)
       val listFile = dir.listFiles()
-
       if (listFile != null) {
         for (i in listFile.indices) {
           if (listFile[i].isDirectory) {
@@ -135,9 +137,10 @@ class ApkActivity : Activity(), CoroutineScope {
 
   private fun initState() {
     install_textview.isEnabled = false
+    progressbar.alpha = 1f
     progressbar.visibility = View.VISIBLE
-    recyclerview.visibility = View.INVISIBLE
-    no_result_textview.visibility = View.INVISIBLE
+    result_textview.visibility = View.VISIBLE
+    recyclerview.overScrollMode = View.OVER_SCROLL_NEVER
     apkFiles.clear()
     adapter.clear()
   }
@@ -145,25 +148,21 @@ class ApkActivity : Activity(), CoroutineScope {
   private fun toggleResultView(missingPermissions: Boolean = false) {
     if (missingPermissions) {
       progressbar.visibility = View.INVISIBLE
-    } else {
-      ViewCompat.animate(progressbar).alpha(0f).setDuration(200).withEndAction {
-        progressbar.visibility = View.INVISIBLE
-        progressbar.alpha = 1f
-      }.start()
+      result_textview.text = getString(string.missing_permissions)
+      return
     }
 
     if (apkFiles.size > 0) {
-      no_result_textview.visibility = View.INVISIBLE
-      recyclerview.visibility = View.VISIBLE
+      adapter.addAll(apkFiles)
+      recyclerview.overScrollMode = View.OVER_SCROLL_ALWAYS
+      result_textview.visibility = View.INVISIBLE
     } else {
-      if (missingPermissions) {
-        no_result_textview.text = getString(string.missing_permissions)
-      } else {
-        no_result_textview.text = getString(string.no_apk_found)
-      }
-      recyclerview.visibility = View.INVISIBLE
-      no_result_textview.visibility = View.VISIBLE
+      result_textview.text = getString(string.no_apk_found)
     }
+
+    ViewCompat.animate(progressbar).alpha(0f).setDuration(400).withEndAction {
+      progressbar.visibility = View.INVISIBLE
+    }.start()
   }
 
   companion object {
