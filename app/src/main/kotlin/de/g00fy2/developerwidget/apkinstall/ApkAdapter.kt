@@ -58,14 +58,14 @@ class ApkAdapter(private var context: Context) : RecyclerView.Adapter<ViewHolder
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     val apkFile: ApkFile = apkFiles[position]
-    holder.filename.text = apkFile.getFileName()
-    holder.appName.text = apkFile.getAppName(context)
+    holder.filename.text = apkFile.filename
+    holder.appName.text = apkFile.appName
     holder.appVersion.text =
-        String.format(context.getString(R.string.apk_version), apkFile.getVersionName(), apkFile.getVersionCode())
-    holder.fileSize.text = apkFile.getSize()
-    holder.appDebuggableIcon.visibility = if (apkFile.isDebuggable()) View.VISIBLE else View.INVISIBLE
-    holder.fileDate.text = apkFile.getLastModified(context)
-    holder.appIcon.setImageDrawable(apkFile.getIcon(context))
+        String.format(context.getString(R.string.apk_version), apkFile.versionName, apkFile.versionCode)
+    holder.fileSize.text = apkFile.size
+    holder.appDebuggableIcon.visibility = if (apkFile.debuggable) View.VISIBLE else View.INVISIBLE
+    holder.fileDate.text = apkFile.lastModified
+    holder.appIcon.setImageDrawable(apkFile.icon())
     holder.setBackground(position == selectedPosition)
   }
 
