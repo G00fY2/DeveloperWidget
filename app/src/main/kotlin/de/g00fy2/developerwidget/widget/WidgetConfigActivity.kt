@@ -30,10 +30,9 @@ class WidgetConfigActivity : AppCompatActivity(), CoroutineScope {
     setContentView(R.layout.activity_widget_config)
     supportActionBar?.elevation = 0f
 
-    val extras = intent.extras
-    if (extras != null) {
-      widgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
-      updateExistingWidget = extras.getBoolean(EXTRA_APPWIDGET_UPDATE_EXISTING)
+    intent.extras?.let {
+      widgetId = it.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
+      updateExistingWidget = it.getBoolean(EXTRA_APPWIDGET_UPDATE_EXISTING)
     }
 
     if (widgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {

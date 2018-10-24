@@ -99,15 +99,14 @@ class ApkActivity : Activity(), CoroutineScope {
   private suspend fun findAPKs(dir: File) {
     val scanJob = launch {
       result_textview.text = dir.path.substring(rootPathLength)
-      val listFile = dir.listFiles()
-      if (listFile != null) {
-        for (i in listFile.indices) {
-          if (listFile[i].isDirectory) {
-            findAPKs(listFile[i])
+      dir.listFiles()?.let {
+        for (i in it.indices) {
+          if (it[i].isDirectory) {
+            findAPKs(it[i])
           } else {
-            if (listFile[i].name.endsWith(APK_EXTENSION, true)) {
-              Timber.d("APK found %s", (listFile[i].name))
-              val apkFile = ApkFile(listFile[i], this@ApkActivity)
+            if (it[i].name.endsWith(APK_EXTENSION, true)) {
+              Timber.d("APK found %s", (it[i].name))
+              val apkFile = ApkFile(it[i], this@ApkActivity)
               if (apkFile.valid) apkFiles.add(apkFile)
             }
           }
@@ -121,10 +120,9 @@ class ApkActivity : Activity(), CoroutineScope {
   }
 
   private fun installAPK() {
-    val apk: ApkFile? = adapter.getSelectedFile()
-    if (apk != null) {
+    adapter.getSelectedFile()?.let {
       val intent = Intent(Intent.ACTION_VIEW)
-      intent.setDataAndType(apk.fileUri, APK_MIME_TYPE)
+      intent.setDataAndType(it.fileUri, APK_MIME_TYPE)
       intent.flags =
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) Intent.FLAG_GRANT_READ_URI_PERMISSION else Intent.FLAG_ACTIVITY_NEW_TASK
       startActivity(intent)
