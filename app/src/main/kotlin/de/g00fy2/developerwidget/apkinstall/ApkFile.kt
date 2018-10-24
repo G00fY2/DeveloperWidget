@@ -10,7 +10,6 @@ import androidx.core.content.FileProvider
 import androidx.core.content.pm.PackageInfoCompat
 import java.io.File
 import java.text.NumberFormat
-import java.util.Date
 import kotlin.math.round
 
 class ApkFile(file: File, context: Context) : Comparable<ApkFile> {
@@ -29,9 +28,9 @@ class ApkFile(file: File, context: Context) : Comparable<ApkFile> {
 
   init {
     fileName = file.name
-    lastModified = DateFormat.getDateFormat(context).let { dateFormat ->
-      dateFormat.format(Date(lastModifiedTimestamp)) + " " + dateFormat.format(
-        Date(lastModifiedTimestamp)
+    lastModified = run {
+      DateFormat.getDateFormat(context).format(lastModifiedTimestamp) + " " + DateFormat.getTimeFormat(context).format(
+        lastModifiedTimestamp
       )
     }
     size = run {
