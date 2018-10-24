@@ -47,7 +47,7 @@ class ApkActivity : Activity(), CoroutineScope {
     cancel_textview.setOnClickListener { finish() }
     install_textview.setOnClickListener { installAPK() }
 
-    adapter = ApkAdapter(this)
+    adapter = ApkAdapter()
     adapter.setOnApkSelectedListener { install_textview.isEnabled = true }
     recyclerview.layoutManager = LinearLayoutManager(this)
     recyclerview.adapter = adapter
