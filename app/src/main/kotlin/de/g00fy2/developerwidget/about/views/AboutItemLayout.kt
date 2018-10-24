@@ -8,9 +8,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import de.g00fy2.developerwidget.R.layout
-import kotlinx.android.synthetic.main.about_item.view.description_textview
-import kotlinx.android.synthetic.main.about_item.view.icon_imageview
-import kotlinx.android.synthetic.main.about_item.view.title_textview
+import kotlinx.android.synthetic.main.about_item.view.*
 
 class AboutItemLayout : ConstraintLayout {
 

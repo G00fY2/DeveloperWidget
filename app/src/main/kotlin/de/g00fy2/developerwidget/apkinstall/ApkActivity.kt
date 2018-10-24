@@ -18,11 +18,7 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.R.string
-import kotlinx.android.synthetic.main.activity_apk.cancel_textview
-import kotlinx.android.synthetic.main.activity_apk.install_textview
-import kotlinx.android.synthetic.main.activity_apk.progressbar
-import kotlinx.android.synthetic.main.activity_apk.recyclerview
-import kotlinx.android.synthetic.main.activity_apk.result_textview
+import kotlinx.android.synthetic.main.activity_apk.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

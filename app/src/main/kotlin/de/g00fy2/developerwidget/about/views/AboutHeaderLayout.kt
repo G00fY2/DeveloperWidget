@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.annotation.StringRes
 import de.g00fy2.developerwidget.R.layout
-import kotlinx.android.synthetic.main.about_item_header.view.header_textview
+import kotlinx.android.synthetic.main.about_item_header.view.*
 
 class AboutHeaderLayout : FrameLayout {
 

@@ -12,20 +12,7 @@ import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.R.layout
 import de.g00fy2.developerwidget.util.Constants
 import de.g00fy2.developerwidget.util.SharedPreferencesHelper
-import kotlinx.android.synthetic.main.activity_about.about_root_scrollview
-import kotlinx.android.synthetic.main.activity_about.app_desc_textview
-import kotlinx.android.synthetic.main.activity_about.app_version_textview
-import kotlinx.android.synthetic.main.activity_about.author_header
-import kotlinx.android.synthetic.main.activity_about.build_number_item
-import kotlinx.android.synthetic.main.activity_about.changelog_item
-import kotlinx.android.synthetic.main.activity_about.github_item
-import kotlinx.android.synthetic.main.activity_about.image_licenses_item
-import kotlinx.android.synthetic.main.activity_about.license_item
-import kotlinx.android.synthetic.main.activity_about.licenses_header
-import kotlinx.android.synthetic.main.activity_about.open_source_licenses_item
-import kotlinx.android.synthetic.main.activity_about.privacy_item
-import kotlinx.android.synthetic.main.activity_about.source_code_item
-import kotlinx.android.synthetic.main.activity_about.twitter_item
+import kotlinx.android.synthetic.main.activity_about.*
 import timber.log.Timber
 
 class AboutActivity : AppCompatActivity() {

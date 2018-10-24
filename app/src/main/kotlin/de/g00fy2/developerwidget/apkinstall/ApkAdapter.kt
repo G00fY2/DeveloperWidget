@@ -9,13 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.apkinstall.ApkAdapter.ViewHolder
-import kotlinx.android.synthetic.main.apk_item.view.app_icon_imageview
-import kotlinx.android.synthetic.main.apk_item.view.file_appname_textview
-import kotlinx.android.synthetic.main.apk_item.view.file_date_textview
-import kotlinx.android.synthetic.main.apk_item.view.file_debug_imageview
-import kotlinx.android.synthetic.main.apk_item.view.file_size_textview
-import kotlinx.android.synthetic.main.apk_item.view.file_version_textview
-import kotlinx.android.synthetic.main.apk_item.view.filename_textview
+import kotlinx.android.synthetic.main.apk_item.view.*
 
 class ApkAdapter(private var context: Context) : RecyclerView.Adapter<ViewHolder>() {
 

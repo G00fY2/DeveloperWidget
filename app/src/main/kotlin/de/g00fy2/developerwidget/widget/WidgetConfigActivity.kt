@@ -11,7 +11,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.about.AboutActivity
-import kotlinx.android.synthetic.main.activity_widget_config.apply_button
+import kotlinx.android.synthetic.main.activity_widget_config.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
