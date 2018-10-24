@@ -60,9 +60,10 @@ class ApkActivity : Activity(), CoroutineScope {
     initState()
     if (hasPermissions()) {
       launch {
-        val root = Environment.getExternalStorageDirectory()
-        rootPathLength = root.absolutePath.length
-        findAPKs(root)
+        Environment.getExternalStorageDirectory().let {
+          rootPathLength = it.absolutePath.length
+          findAPKs(it)
+        }
       }.invokeOnCompletion {
         Timber.d("parent job finished")
         toggleResultView()
@@ -97,7 +98,7 @@ class ApkActivity : Activity(), CoroutineScope {
   }
 
   private suspend fun findAPKs(dir: File) {
-    val scanJob = launch {
+    launch {
       result_textview.text = dir.path.substring(rootPathLength)
       dir.listFiles()?.let {
         for (i in it.indices) {
@@ -106,26 +107,28 @@ class ApkActivity : Activity(), CoroutineScope {
           } else {
             if (it[i].name.endsWith(APK_EXTENSION, true)) {
               Timber.d("APK found %s", (it[i].name))
-              val apkFile = ApkFile(it[i], this@ApkActivity)
-              if (apkFile.valid) apkFiles.add(apkFile)
+              ApkFile(it[i], this@ApkActivity).let { apkFile ->
+                if (apkFile.valid) apkFiles.add(apkFile)
+              }
             }
           }
         }
       }
-    }
-    scanJob.join()
-    scanJob.invokeOnCompletion {
-      Timber.d("scanned folder $dir")
+    }.apply {
+      join()
+      invokeOnCompletion {
+        Timber.d("scanned folder $dir")
+      }
     }
   }
 
   private fun installAPK() {
-    adapter.getSelectedFile()?.let {
-      val intent = Intent(Intent.ACTION_VIEW)
-      intent.setDataAndType(it.fileUri, APK_MIME_TYPE)
-      intent.flags =
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) Intent.FLAG_GRANT_READ_URI_PERMISSION else Intent.FLAG_ACTIVITY_NEW_TASK
-      startActivity(intent)
+    adapter.getSelectedFile()?.let { apkFile ->
+      Intent(Intent.ACTION_VIEW).also { intent ->
+        intent.setDataAndType(apkFile.fileUri, APK_MIME_TYPE)
+        intent.flags =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) Intent.FLAG_GRANT_READ_URI_PERMISSION else Intent.FLAG_ACTIVITY_NEW_TASK
+      }.let { intent -> startActivity(intent) }
     }
   }
 
