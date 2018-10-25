@@ -17,7 +17,7 @@ class ApkAdapter : RecyclerView.Adapter<ViewHolder>() {
 
   class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
     fun setBackground(selected: Boolean) {
-      itemView.setBackgroundResource(if (selected) R.color.transparentAccent else android.R.color.transparent)
+      itemView.setBackgroundResource(if (selected) R.color.transparentAccent else 0)
     }
   }
 
