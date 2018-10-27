@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.apk_item.*
 
 class ApkAdapter : RecyclerView.Adapter<ViewHolder>() {
 
-  private var apkFiles: MutableList<ApkFile> = ArrayList()
+  private var apkFiles: MutableList<ApkFile> = ArrayList(0)
   private var selectedPosition = RecyclerView.NO_POSITION
   private var apkSelectedListener: (() -> Unit) = {}
 
