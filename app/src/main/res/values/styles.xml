@@ -1,11 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
   <style name="AppTheme" parent="Theme.AppCompat.Light">
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
-    <item name="android:windowBackground">@android:color/white</item>
 
+    <item name="android:windowBackground">@android:color/white</item>
     <item name="actionBarTheme">@style/ThemeOverlay.MyApp.ActionBar</item>
   </style>
 
@@ -13,9 +14,10 @@
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
+
+    <item name="android:windowBackground">@drawable/bg_dialog_shape</item>
     <item name="colorControlHighlight">@color/transparentAccent</item>
     <item name="android:windowCloseOnTouchOutside">false</item>
-    <item name="android:windowBackground">@drawable/bg_dialog_shape</item>
   </style>
 
   <style name="DialogButtonAppearance" parent="TextAppearance.AppCompat.Widget.Button">

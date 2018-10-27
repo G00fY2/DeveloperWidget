@@ -5,10 +5,12 @@
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
-    <item name="android:windowBackground">@android:color/white</item>
 
-    <item name="android:colorEdgeEffect">@android:color/black</item>
+    <item name="android:windowBackground">@android:color/white</item>
     <item name="actionBarTheme">@style/ThemeOverlay.MyApp.ActionBar</item>
+    <!--api 21-->
+    <item name="android:colorEdgeEffect">@android:color/black</item>
+    <!--api 23-->
     <item name="android:windowLightStatusBar">true</item>
   </style>
 </resources>
