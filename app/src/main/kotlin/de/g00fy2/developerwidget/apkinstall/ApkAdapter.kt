@@ -83,7 +83,7 @@ class ApkAdapter : RecyclerView.Adapter<ViewHolder>() {
   }
 
   fun getSelectedFile(): ApkFile? {
-    return if (selectedPosition != RecyclerView.NO_POSITION && selectedPosition < apkFiles.size) {
+    return if (selectedPosition != RecyclerView.NO_POSITION && selectedPosition < itemCount) {
       apkFiles[selectedPosition]
     } else {
       null
