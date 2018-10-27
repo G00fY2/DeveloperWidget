@@ -15,9 +15,9 @@ class ApkAdapter : RecyclerView.Adapter<ViewHolder>() {
   private var selectedPosition = RecyclerView.NO_POSITION
   private var apkSelectedListener: (() -> Unit) = {}
 
-  class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
-    fun setBackground(selected: Boolean) {
-      itemView.setBackgroundResource(if (selected) R.color.transparentAccent else 0)
+  inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    fun setBackground(position: Int) {
+      itemView.setBackgroundResource(if (position == selectedPosition) R.color.transparentAccent else 0)
     }
   }
 
@@ -28,10 +28,10 @@ class ApkAdapter : RecyclerView.Adapter<ViewHolder>() {
           if (selectedPosition == RecyclerView.NO_POSITION) {
             apkSelectedListener()
           } else {
-            notifyItemChanged(selectedPosition, APK_DESELECTED)
+            notifyItemChanged(selectedPosition, true)
           }
           selectedPosition = adapterPosition
-          notifyItemChanged(selectedPosition, APK_SELECTED)
+          notifyItemChanged(selectedPosition, true)
         }
       }
     }
@@ -48,21 +48,15 @@ class ApkAdapter : RecyclerView.Adapter<ViewHolder>() {
       app_debug_imageview.visibility = if (apkFile.debuggable) View.VISIBLE else View.INVISIBLE
       file_date_textview.text = apkFile.lastModified
       app_icon_imageview.setImageDrawable(apkFile.appIcon)
-      setBackground(position == selectedPosition)
+      setBackground(position)
     }
   }
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: List<Any>) {
-    when {
-      payloads.isEmpty() -> {
-        onBindViewHolder(holder, position)
-      }
-      payloads.contains(APK_SELECTED) -> {
-        holder.setBackground(true)
-      }
-      payloads.contains(APK_DESELECTED) -> {
-        holder.setBackground(false)
-      }
+    if (payloads.isEmpty()) {
+      onBindViewHolder(holder, position)
+    } else {
+      holder.setBackground(position)
     }
   }
 
@@ -88,10 +82,5 @@ class ApkAdapter : RecyclerView.Adapter<ViewHolder>() {
     } else {
       null
     }
-  }
-
-  companion object {
-    const val APK_DESELECTED = 0
-    const val APK_SELECTED = 1
   }
 }
