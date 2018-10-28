@@ -13,7 +13,7 @@ class ApkAdapter : RecyclerView.Adapter<ViewHolder>() {
 
   private var apkFiles: MutableList<ApkFile> = ArrayList(0)
   private var selectedPosition = RecyclerView.NO_POSITION
-  private var apkSelectedListener: (() -> Unit) = {}
+  private var onApkSelected: (() -> Unit) = {}
 
   inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
     fun setBackground(position: Int) {
@@ -26,7 +26,7 @@ class ApkAdapter : RecyclerView.Adapter<ViewHolder>() {
       itemView.setOnClickListener {
         if (adapterPosition != RecyclerView.NO_POSITION && adapterPosition != selectedPosition) {
           if (selectedPosition == RecyclerView.NO_POSITION) {
-            apkSelectedListener()
+            onApkSelected()
           } else {
             notifyItemChanged(selectedPosition, true)
           }
@@ -62,7 +62,7 @@ class ApkAdapter : RecyclerView.Adapter<ViewHolder>() {
 
   override fun getItemCount() = apkFiles.size
 
-  fun setOnApkSelectedListener(listener: () -> Unit) = run { apkSelectedListener = listener }
+  fun setOnApkSelected(onApkSelected: () -> Unit) = run { this.onApkSelected = onApkSelected }
 
   fun clear() {
     apkFiles.clear()

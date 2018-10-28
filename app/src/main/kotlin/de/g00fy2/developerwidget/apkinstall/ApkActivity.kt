@@ -48,7 +48,7 @@ class ApkActivity : Activity(), CoroutineScope {
     install_textview.setOnClickListener { installAPK() }
 
     adapter = ApkAdapter()
-    adapter.setOnApkSelectedListener { install_textview.isEnabled = true }
+    adapter.setOnApkSelected { install_textview.isEnabled = true }
     recyclerview.setHasFixedSize(true)
     recyclerview.layoutManager = LinearLayoutManager(this)
     recyclerview.adapter = adapter
@@ -63,7 +63,7 @@ class ApkActivity : Activity(), CoroutineScope {
       launch {
         Environment.getExternalStorageDirectory().let {
           rootPathLength = it.absolutePath.length
-          findAPKs(it)
+          searchAPKs(it)
         }
       }.invokeOnCompletion {
         Timber.d("parent job finished")
@@ -98,17 +98,18 @@ class ApkActivity : Activity(), CoroutineScope {
     }
   }
 
-  private suspend fun findAPKs(dir: File) {
+  private suspend fun searchAPKs(dir: File) {
     launch {
       result_textview.text = dir.path.substring(rootPathLength)
       dir.listFiles()?.let {
         for (i in it.indices) {
-          if (it[i].isDirectory) {
-            findAPKs(it[i])
+          val file = it[i]
+          if (file.isDirectory) {
+            searchAPKs(file)
           } else {
-            if (it[i].name.endsWith(APK_EXTENSION, true)) {
-              Timber.d("APK found %s", (it[i].name))
-              ApkFile(it[i], this@ApkActivity).let { apkFile ->
+            if (file.extension.equals(APK_EXTENSION, true)) {
+              Timber.d("APK found %s", (file.name))
+              ApkFile(file, this@ApkActivity).let { apkFile ->
                 if (apkFile.valid) apkFiles.add(apkFile)
               }
             }
@@ -164,7 +165,7 @@ class ApkActivity : Activity(), CoroutineScope {
   }
 
   companion object {
-    const val APK_EXTENSION = ".apk"
+    const val APK_EXTENSION = "apk"
     const val APK_MIME_TYPE = "application/vnd.android.package-archive"
   }
 }
