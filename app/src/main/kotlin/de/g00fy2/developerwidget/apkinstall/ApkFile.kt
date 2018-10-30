@@ -12,58 +12,71 @@ import java.io.File
 import java.text.NumberFormat
 import kotlin.math.round
 
-class ApkFile(file: File, context: Context) : Comparable<ApkFile> {
+class ApkFile private constructor() : Comparable<ApkFile> {
 
-  private val lastModifiedTimestamp = file.lastModified()
-  var fileName = ""; private set
-  var lastModified = ""; private set
-  var size = ""; private set
-  var valid = false; private set
-  var appName = ""; private set
-  var versionName = ""; private set
-  var versionCode = ""; private set
-  var debuggable = false; private set
+  var lastModifiedTimestamp: Long = 0; private set
+  var fileName: String = ""; private set
+  var lastModified: String = ""; private set
+  var size: String = ""; private set
+  var valid: Boolean = false; private set
+  var appName: String = ""; private set
+  var versionName: String = ""; private set
+  var versionCode: String = ""; private set
+  var debuggable: Boolean = false; private set
   var appIcon: Drawable? = null; private set
   var fileUri: Uri? = null; private set
-
-  init {
-    fileName = file.name
-    lastModified = run {
-      DateFormat.getDateFormat(context).format(lastModifiedTimestamp) + " " + DateFormat.getTimeFormat(context).format(
-        lastModifiedTimestamp
-      )
-    }
-    size = run {
-      val fileSizeKB: Int = round(file.length() / 1024.0).toInt()
-      val fileSizeMB: Double = round(file.length() / 1048576.0 * 100.0) / 100.0
-      if (fileSizeMB < 1) fileSizeKB.toString() + " KB" else NumberFormat.getInstance().format(fileSizeMB) + " MB"
-    }
-
-    context.packageManager.getPackageArchiveInfo(file.absolutePath, 0)?.let { packageInfo ->
-      versionName = packageInfo.versionName
-      versionCode = PackageInfoCompat.getLongVersionCode(packageInfo).toString()
-      packageInfo.applicationInfo?.let { applicationInfo ->
-        valid = true
-        file.absolutePath.let { path ->
-          applicationInfo.sourceDir = path
-          applicationInfo.publicSourceDir = path
-        }
-        appName = context.packageManager.getApplicationLabel(applicationInfo).toString()
-        appIcon = context.packageManager.getApplicationIcon(applicationInfo)
-        debuggable = applicationInfo.flags.and(ApplicationInfo.FLAG_DEBUGGABLE) != 0
-      }
-    }
-
-    fileUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-      FileProvider.getUriForFile(context, context.applicationContext.packageName + ".fileprovider", file)
-    } else {
-      Uri.fromFile(file)
-    }
-  }
 
   override fun compareTo(other: ApkFile): Int = when {
     lastModifiedTimestamp > other.lastModifiedTimestamp -> -1
     lastModifiedTimestamp < other.lastModifiedTimestamp -> 1
     else -> 0
+  }
+
+  class Builder(private val context: Context) {
+
+    private val dateFormat = DateFormat.getDateFormat(context)
+    private val timeFormat = DateFormat.getTimeFormat(context)
+    private val packageManager = context.packageManager
+
+    fun build(file: File): ApkFile {
+      return ApkFile().apply {
+        lastModifiedTimestamp = file.lastModified()
+        fileName = file.name
+        lastModified = dateFormat.format(lastModifiedTimestamp) + " " + timeFormat.format(lastModifiedTimestamp)
+        size = run {
+          file.length().let { bytes ->
+            (round(bytes / 1048576.0 * 100.0) / 100.0).let { sizeMB ->
+              if (sizeMB < 1) {
+                round(bytes / 1024.0).toInt().toString() + " KB"
+              } else {
+                NumberFormat.getInstance().format(sizeMB) + " MB"
+
+              }
+            }
+          }
+        }
+
+        file.absolutePath.let { filePath ->
+          packageManager.getPackageArchiveInfo(filePath, 0)?.let { packageInfo ->
+            versionName = packageInfo.versionName
+            versionCode = PackageInfoCompat.getLongVersionCode(packageInfo).toString()
+            packageInfo.applicationInfo
+          }?.let { appInfo ->
+            valid = true
+            appInfo.sourceDir = filePath
+            appInfo.publicSourceDir = filePath
+            appName = packageManager.getApplicationLabel(appInfo).toString()
+            appIcon = packageManager.getApplicationIcon(appInfo)
+            debuggable = appInfo.flags.and(ApplicationInfo.FLAG_DEBUGGABLE) != 0
+          }
+        }
+
+        fileUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+          FileProvider.getUriForFile(context, context.applicationContext.packageName + ".fileprovider", file)
+        } else {
+          Uri.fromFile(file)
+        }
+      }
+    }
   }
 }

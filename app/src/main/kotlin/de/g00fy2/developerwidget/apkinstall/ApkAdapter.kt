@@ -72,7 +72,6 @@ class ApkAdapter : RecyclerView.Adapter<ViewHolder>() {
 
   fun addAll(apkFiles: MutableList<ApkFile>) {
     this.apkFiles = apkFiles
-    apkFiles.sort()
     notifyDataSetChanged()
   }
 

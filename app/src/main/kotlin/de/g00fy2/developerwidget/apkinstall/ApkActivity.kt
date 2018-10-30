@@ -17,20 +17,18 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.g00fy2.developerwidget.R
-import de.g00fy2.developerwidget.R.string
 import kotlinx.android.synthetic.main.activity_apk.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import timber.log.Timber
+import kotlinx.coroutines.withContext
 import java.io.File
 import kotlin.coroutines.CoroutineContext
 
 class ApkActivity : Activity(), CoroutineScope {
 
-  private var apkFiles: MutableList<ApkFile> = ArrayList()
-  private var rootPathLength = 0
+  private lateinit var apkFileBuilder: ApkFile.Builder
   private lateinit var adapter: ApkAdapter
   private lateinit var job: Job
 
@@ -52,7 +50,7 @@ class ApkActivity : Activity(), CoroutineScope {
     recyclerview.setHasFixedSize(true)
     recyclerview.layoutManager = LinearLayoutManager(this)
     recyclerview.adapter = adapter
-
+    apkFileBuilder = ApkFile.Builder(this)
     requestPermissions()
   }
 
@@ -61,16 +59,11 @@ class ApkActivity : Activity(), CoroutineScope {
     initState()
     if (hasPermissions()) {
       launch {
-        Environment.getExternalStorageDirectory().let {
-          rootPathLength = it.absolutePath.length
-          searchAPKs(it)
-        }
-      }.invokeOnCompletion {
-        Timber.d("parent job finished")
-        toggleResultView()
+        val apkFiles = searchAPKs(Environment.getExternalStorageDirectory())
+        toggleResultView(apkFiles)
       }
     } else {
-      toggleResultView(true)
+      toggleResultView(missingPermissions = true)
     }
   }
 
@@ -98,29 +91,15 @@ class ApkActivity : Activity(), CoroutineScope {
     }
   }
 
-  private suspend fun searchAPKs(dir: File) {
-    launch {
-      result_textview.text = dir.path.substring(rootPathLength)
-      dir.listFiles()?.let {
-        for (i in it.indices) {
-          val file = it[i]
-          if (file.isDirectory) {
-            searchAPKs(file)
-          } else {
-            if (file.extension.equals(APK_EXTENSION, true)) {
-              Timber.d("APK found %s", (file.name))
-              ApkFile(file, this@ApkActivity).let { apkFile ->
-                if (apkFile.valid) apkFiles.add(apkFile)
-              }
-            }
-          }
-        }
-      }
-    }.apply {
-      join()
-      invokeOnCompletion {
-        Timber.d("scanned folder $dir")
-      }
+  private suspend fun searchAPKs(dir: File): MutableList<ApkFile> {
+    return withContext(Dispatchers.IO) {
+      dir.walk()
+        .filter { !it.isDirectory }
+        .filter { it.extension.equals(APK_EXTENSION, true) }
+        .map { apkFileBuilder.build(it) }
+        .filter { it.valid }
+        .sorted()
+        .toMutableList()
     }
   }
 
@@ -138,25 +117,25 @@ class ApkActivity : Activity(), CoroutineScope {
     install_textview.isEnabled = false
     progressbar.alpha = 1f
     progressbar.visibility = View.VISIBLE
-    result_textview.visibility = View.VISIBLE
+    no_result_textview.visibility = View.INVISIBLE
     recyclerview.overScrollMode = View.OVER_SCROLL_NEVER
-    apkFiles.clear()
     adapter.clear()
   }
 
-  private fun toggleResultView(missingPermissions: Boolean = false) {
+  private fun toggleResultView(apkFiles: MutableList<ApkFile> = ArrayList(), missingPermissions: Boolean = false) {
     if (missingPermissions) {
       progressbar.visibility = View.INVISIBLE
-      result_textview.text = getString(string.missing_permissions)
+      no_result_textview.visibility = View.VISIBLE
+      no_result_textview.text = getString(R.string.missing_permissions)
       return
     }
 
-    if (apkFiles.size > 0) {
+    if (apkFiles.isNotEmpty()) {
       adapter.addAll(apkFiles)
       recyclerview.overScrollMode = View.OVER_SCROLL_ALWAYS
-      result_textview.visibility = View.INVISIBLE
     } else {
-      result_textview.text = getString(string.no_apk_found)
+      no_result_textview.visibility = View.VISIBLE
+      no_result_textview.text = getString(R.string.no_apk_found)
     }
 
     ViewCompat.animate(progressbar).alpha(0f).setDuration(400).withEndAction {
