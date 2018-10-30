@@ -62,7 +62,7 @@ class ApkAdapter : RecyclerView.Adapter<ViewHolder>() {
 
   override fun getItemCount() = apkFiles.size
 
-  fun setOnApkSelected(onApkSelected: () -> Unit) = run { this.onApkSelected = onApkSelected }
+  fun setOnApkSelected(onApkSelected: () -> Unit) = { this.onApkSelected = onApkSelected }()
 
   fun clear() {
     apkFiles.clear()

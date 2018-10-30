@@ -43,18 +43,17 @@ class ApkFile private constructor() : Comparable<ApkFile> {
         lastModifiedTimestamp = file.lastModified()
         fileName = file.name
         lastModified = dateFormat.format(lastModifiedTimestamp) + " " + timeFormat.format(lastModifiedTimestamp)
-        size = run {
+        size = {
           file.length().let { bytes ->
             (round(bytes / 1048576.0 * 100.0) / 100.0).let { sizeMB ->
               if (sizeMB < 1) {
                 round(bytes / 1024.0).toInt().toString() + " KB"
               } else {
                 NumberFormat.getInstance().format(sizeMB) + " MB"
-
               }
             }
           }
-        }
+        }()
 
         file.absolutePath.let { filePath ->
           packageManager.getPackageArchiveInfo(filePath, 0)?.let { packageInfo ->
