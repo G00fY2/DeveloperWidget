@@ -17,6 +17,7 @@
     <activity
         android:name=".apkinstall.ApkActivity"
         android:excludeFromRecents="true"
+        android:noHistory="true"
         android:taskAffinity="${applicationId}.apkinstall"
         android:theme="@style/DialogTheme"/>
 
