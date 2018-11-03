@@ -49,7 +49,7 @@
           android:indeterminate="true"
           />
       <TextView
-          android:id="@+id/no_result_textview"
+          android:id="@+id/progress_textview"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="8dp"

@@ -4,8 +4,9 @@
   <string name="install_apk">Install APK</string>
   <string name="cancel">Cancel</string>
   <string name="install">Install</string>
-  <string name="missing_permissions">Missing permissions.</string>
-  <string name="no_apk_found">No APK files found.</string>
+  <string name="missing_permissions">Missing permissions</string>
+  <string name="no_apk_found">No APK files found</string>
+  <string name="scanning_apks">Scanning APK files</string>
   <string name="developer_settings">Developer Settings</string>
   <string name="add_widget">Add developer widget</string>
   <string name="update_widget">Update developer widget</string>

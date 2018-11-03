@@ -104,7 +104,8 @@ class ApkActivity : BaseActivity() {
     install_textview.isEnabled = false
     progressbar.alpha = 1f
     progressbar.visibility = View.VISIBLE
-    no_result_textview.visibility = View.INVISIBLE
+    progress_textview.visibility = View.VISIBLE
+    progress_textview.text = getString(R.string.scanning_apks)
     recyclerview.overScrollMode = View.OVER_SCROLL_NEVER
     adapter.clear()
   }
@@ -112,17 +113,16 @@ class ApkActivity : BaseActivity() {
   private fun toggleResultView(apkFiles: MutableList<ApkFile> = ArrayList(), missingPermissions: Boolean = false) {
     if (missingPermissions) {
       progressbar.visibility = View.INVISIBLE
-      no_result_textview.visibility = View.VISIBLE
-      no_result_textview.text = getString(R.string.missing_permissions)
+      progress_textview.text = getString(R.string.missing_permissions)
       return
     }
 
     if (apkFiles.isNotEmpty()) {
       adapter.addAll(apkFiles)
       recyclerview.overScrollMode = View.OVER_SCROLL_ALWAYS
+      progress_textview.visibility = View.INVISIBLE
     } else {
-      no_result_textview.visibility = View.VISIBLE
-      no_result_textview.text = getString(R.string.no_apk_found)
+      progress_textview.text = getString(R.string.no_apk_found)
     }
 
     ViewCompat.animate(progressbar).alpha(0f).setDuration(400).withEndAction {
