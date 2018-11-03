@@ -7,7 +7,7 @@ import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
-import de.g00fy2.developerwidget.R.layout
+import de.g00fy2.developerwidget.R
 import kotlinx.android.synthetic.main.about_item.view.*
 
 class AboutItemLayout : ConstraintLayout {
@@ -15,7 +15,7 @@ class AboutItemLayout : ConstraintLayout {
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
   constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-    LayoutInflater.from(context).inflate(layout.about_item, this, true)
+    LayoutInflater.from(context).inflate(R.layout.about_item, this, true)
   }
 
   fun icon(@DrawableRes iconRes: Int): AboutItemLayout {

@@ -6,16 +6,17 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import de.g00fy2.developerwidget.BuildConfig
 import de.g00fy2.developerwidget.R
-import de.g00fy2.developerwidget.R.layout
+import de.g00fy2.developerwidget.base.BaseActivity
 import de.g00fy2.developerwidget.util.Constants
 import de.g00fy2.developerwidget.util.SharedPreferencesHelper
 import kotlinx.android.synthetic.main.activity_about.*
 import timber.log.Timber
 
-class AboutActivity : AppCompatActivity() {
+class AboutActivity : BaseActivity() {
+
+  override val layoutRes = R.layout.activity_about
   private val Float.px: Float get() = (this * resources.displayMetrics.density)
 
   private var clickCount = 0
@@ -25,11 +26,19 @@ class AboutActivity : AppCompatActivity() {
 
   public override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(layout.activity_about)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
     supportActionBar?.elevation = 0f
     sharedPreferencesHelper = SharedPreferencesHelper(this)
     initView()
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    return if (item?.itemId == id.home) {
+      finish()
+      true
+    } else {
+      super.onOptionsItemSelected(item)
+    }
   }
 
   private fun initView() {
@@ -135,15 +144,6 @@ class AboutActivity : AppCompatActivity() {
     } else if (clickCount == 7) {
       toast = Toast.makeText(this, "You are a real developer!", Toast.LENGTH_SHORT)
       toast?.show()
-    }
-  }
-
-  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-    return if (item?.itemId == id.home) {
-      finish()
-      true
-    } else {
-      super.onOptionsItemSelected(item)
     }
   }
 }

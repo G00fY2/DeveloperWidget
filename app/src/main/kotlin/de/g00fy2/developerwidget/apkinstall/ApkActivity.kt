@@ -3,7 +3,6 @@ package de.g00fy2.developerwidget.apkinstall
 import android.Manifest
 import android.Manifest.permission
 import android.annotation.TargetApi
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -17,26 +16,22 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.g00fy2.developerwidget.R
+import de.g00fy2.developerwidget.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_apk.*
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
-import kotlin.coroutines.CoroutineContext
 
-class ApkActivity : Activity(), CoroutineScope {
+class ApkActivity : BaseActivity() {
 
+  override val layoutRes = R.layout.activity_apk
   private lateinit var apkFileBuilder: ApkFile.Builder
   private lateinit var adapter: ApkAdapter
-  private lateinit var job: Job
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    job = Job()
     requestWindowFeature(Window.FEATURE_NO_TITLE)
-    setContentView(R.layout.activity_apk)
+    super.onCreate(savedInstanceState)
 
     val width = (resources.displayMetrics.widthPixels * 0.95).toInt()
     val height = (resources.displayMetrics.heightPixels * 0.80).toInt()
@@ -66,14 +61,6 @@ class ApkActivity : Activity(), CoroutineScope {
       toggleResultView(missingPermissions = true)
     }
   }
-
-  override fun onDestroy() {
-    super.onDestroy()
-    job.cancel()
-  }
-
-  override val coroutineContext: CoroutineContext
-    get() = Dispatchers.Main + job
 
   @TargetApi(VERSION_CODES.M)
   private fun requestPermissions() {

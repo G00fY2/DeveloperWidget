@@ -7,7 +7,7 @@
     <item name="colorAccent">@color/colorAccent</item>
 
     <item name="android:windowBackground">@android:color/white</item>
-    <item name="actionBarTheme">@style/ThemeOverlay.MyApp.ActionBar</item>
+    <item name="actionBarTheme">@style/AccentActionBar</item>
     <!--api 21-->
     <item name="android:colorEdgeEffect">@android:color/black</item>
   </style>
@@ -17,6 +17,7 @@
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
 
+    <item name="windowNoTitle">true</item>
     <item name="android:windowBackground">@drawable/bg_dialog_shape</item>
     <item name="colorControlHighlight">@color/transparentAccent</item>
     <item name="android:windowCloseOnTouchOutside">false</item>

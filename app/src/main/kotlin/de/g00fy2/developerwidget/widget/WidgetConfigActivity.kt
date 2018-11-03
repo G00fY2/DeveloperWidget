@@ -6,28 +6,21 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.about.AboutActivity
+import de.g00fy2.developerwidget.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_widget_config.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlin.coroutines.CoroutineContext
 
-class WidgetConfigActivity : AppCompatActivity(), CoroutineScope {
+class WidgetConfigActivity : BaseActivity() {
 
-  private lateinit var job: Job
+  override val layoutRes = R.layout.activity_widget_config
   private var updateExistingWidget = false
   private var widgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID
 
   public override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    job = Job()
     setResult(Activity.RESULT_CANCELED)
-    setContentView(R.layout.activity_widget_config)
     supportActionBar?.elevation = 0f
 
     intent.extras?.let {
@@ -52,17 +45,8 @@ class WidgetConfigActivity : AppCompatActivity(), CoroutineScope {
     if (updateExistingWidget) apply_button.setText(R.string.update_widget)
   }
 
-  override fun onDestroy() {
-    super.onDestroy()
-    job.cancel()
-  }
-
-  override val coroutineContext: CoroutineContext
-    get() = Dispatchers.Main + job
-
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
-    val inflater: MenuInflater = menuInflater
-    inflater.inflate(R.menu.configuration_menu, menu)
+    menuInflater.inflate(R.menu.configuration_menu, menu)
     return true
   }
 
