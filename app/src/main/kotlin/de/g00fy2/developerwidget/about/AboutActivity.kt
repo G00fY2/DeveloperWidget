@@ -90,10 +90,12 @@ class AboutActivity : BaseActivity() {
     }
     open_source_licenses_item.init {
       title(R.string.open_source_licenses)
+      description(R.string.open_source_licenses_description)
       action { openUrl(Constants.OSS_LICENSES) }
     }
     image_licenses_item.init {
       title(R.string.icon_credits)
+      description(R.string.icon_credits_description)
       action { openUrl(Constants.ICON_CREDITS) }
     }
     build_number_item.init {
