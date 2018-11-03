@@ -54,9 +54,6 @@ class WidgetConfigActivity : BaseActivity() {
     return when (item.itemId) {
       R.id.about_button -> {
         val intent = Intent(this, AboutActivity::class.java)
-        if (!updateExistingWidget && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-          intent.flags = Intent.FLAG_ACTIVITY_MULTIPLE_TASK or Intent.FLAG_ACTIVITY_NEW_DOCUMENT
-        }
         startActivity(intent)
         true
       }

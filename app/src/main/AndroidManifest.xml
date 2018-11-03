@@ -18,8 +18,9 @@
         android:name=".apkinstall.ApkActivity"
         android:excludeFromRecents="true"
         android:label="@string/install_apk"
+        android:launchMode="singleTask"
         android:noHistory="true"
-        android:taskAffinity="${applicationId}.apkinstall"
+        android:taskAffinity=""
         android:theme="@style/DialogTheme"/>
 
     <receiver android:name=".widget.WidgetProvider">
@@ -34,6 +35,7 @@
     <activity
         android:name=".widget.WidgetConfigActivity"
         android:autoRemoveFromRecents="true"
+        android:launchMode="singleTask"
         android:screenOrientation="portrait"
         tools:targetApi="lollipop">
       <intent-filter>
