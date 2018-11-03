@@ -4,6 +4,7 @@ import android.app.Application
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
+@Suppress("unused")
 class DevWidgetApp : Application() {
 
   override fun onCreate() {

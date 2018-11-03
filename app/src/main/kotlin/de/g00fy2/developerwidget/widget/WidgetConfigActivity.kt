@@ -3,7 +3,6 @@ package de.g00fy2.developerwidget.widget
 import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
