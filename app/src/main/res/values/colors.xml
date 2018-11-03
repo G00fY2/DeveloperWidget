@@ -8,4 +8,5 @@
   <color name="transparentWhite88">#e0ffffff</color>
   <color name="disabledButton">#9e9e9e</color>
   <color name="transparentAccent">#401a73e8</color>
+  <color name="ic_launcher_background">@color/colorAccent</color>
 </resources>
