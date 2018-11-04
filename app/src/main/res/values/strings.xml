@@ -29,4 +29,34 @@
   <string name="licenses">Third Party Licenses</string>
   <string name="icon_credits">Icon credits</string>
   <string name="icon_credits_description">Attribution to the authors of the used icons</string>
+
+  <string name="board">Board</string>
+  <string name="device">Device</string>
+  <string name="hardware">Hardware</string>
+  <string name="product">Product</string>
+  <string name="model">Model</string>
+  <string name="manufacture">Manufacture</string>
+  <string name="device_name">Device Name</string>
+  <string name="bootloader">Bootloader</string>
+  <string name="id">ID</string>
+  <string name="abis32">ABIS32</string>
+  <string name="abis64">ABIS64</string>
+  <string name="abis">ABIS</string>
+  <string name="codename">Codename</string>
+  <string name="preview_sdk">Preview SDK</string>
+  <string name="security_patch_level">Security Patch Level</string>
+  <string name="release">Android</string>
+  <string name="sdk">API Level</string>
+  <string name="vm_version">VM Version</string>
+  <string name="kernel">Kernel</string>
+  <string name="nfc">NFC</string>
+  <string name="gps">GPS</string>
+  <string name="bluetooth">Bluetooth</string>
+  <string name="low_ram_flag">Low Ram device</string>
+  <string name="resolution">Resolution</string>
+  <string name="ratio">Ratio</string>
+  <string name="dpi">xdpi / ydpi</string>
+  <string name="ram">Ram</string>
+  <string name="google_play_version">Google Play Service Version</string>
+  <string name="webview_implementation">WebView Implementation</string>
 </resources>

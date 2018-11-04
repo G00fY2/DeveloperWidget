@@ -8,7 +8,7 @@ import android.content.Intent
 import android.widget.RemoteViews
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.apkinstall.ApkActivity
-import de.g00fy2.developerwidget.util.DeviceDataUtils
+import de.g00fy2.developerwidget.widget.devicedata.DeviceDataProvider
 import timber.log.Timber
 
 class WidgetProvider : AppWidgetProvider() {
@@ -24,9 +24,17 @@ class WidgetProvider : AppWidgetProvider() {
     internal fun updateWidget(context: Context, appWidgetManager: AppWidgetManager, widgetId: Int) {
       val views = RemoteViews(context.packageName, R.layout.appwidget_layout)
 
-      views.setTextViewText(R.id.device_info_textview, DeviceDataUtils.deviceName)
-      views.setTextViewText(R.id.release_textview, DeviceDataUtils.androidVersion)
-      views.setTextViewText(R.id.sdk_int_textview, DeviceDataUtils.androidApiLevel)
+      DeviceDataProvider.staticDeviceData().let {
+        it[DeviceDataProvider.DEVICE_NAME]?.let { name ->
+          views.setTextViewText(R.id.device_info_textview, name.value)
+        }
+        it[DeviceDataProvider.RELEASE]?.let { release ->
+          views.setTextViewText(R.id.release_textview, context.getString(release.title) + " " + release.value)
+        }
+        it[DeviceDataProvider.SDK]?.let { sdk ->
+          views.setTextViewText(R.id.sdk_int_textview, context.getString(sdk.title) + " " + sdk.value)
+        }
+      }
 
       val configIntent = Intent(context, WidgetConfigActivity::class.java)
       configIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
