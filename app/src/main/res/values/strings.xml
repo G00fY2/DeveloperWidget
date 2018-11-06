@@ -39,7 +39,7 @@
   <string name="device_name">Device Name</string>
   <string name="bootloader">Bootloader</string>
   <string name="id">ID</string>
-  <string name="abis">ABI</string>
+  <string name="abi">ABI</string>
   <string name="codename">Codename</string>
   <string name="preview_sdk">Preview SDK</string>
   <string name="security_patch_level">Security Patch Level</string>
@@ -56,6 +56,7 @@
   <string name="dpi">xdpi / ydpi</string>
   <string name="ram">Ram</string>
   <string name="cpu_cores">CPU cores</string>
+  <string name="cpu_frequencies">CPU Freq</string>
   <string name="google_play_version">Google Play Service Version</string>
   <string name="webview_implementation">WebView Implementation</string>
 </resources>

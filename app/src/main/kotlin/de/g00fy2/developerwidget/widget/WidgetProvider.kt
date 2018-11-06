@@ -8,7 +8,7 @@ import android.content.Intent
 import android.widget.RemoteViews
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.apkinstall.ApkActivity
-import de.g00fy2.developerwidget.widget.devicedata.DeviceDataProvider
+import de.g00fy2.developerwidget.data.DeviceDataProvider
 import timber.log.Timber
 
 class WidgetProvider : AppWidgetProvider() {

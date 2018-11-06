@@ -1,4 +1,4 @@
-package de.g00fy2.developerwidget.widget.devicedata
+package de.g00fy2.developerwidget.data
 
 import androidx.annotation.StringRes
 
@@ -10,11 +10,12 @@ class DeviceDataItem(value: String, @StringRes title: Int, category: Category, u
   var userEditable = userEditable; private set
 
   enum class Category(val title: String) {
+    CPU("CPU"),
     DEVICE("Device"),
-    SYSTEM("System"),
     DISPLAY("Display"),
-    MEMORY("Memory"),
     FEATURES("Features"),
-    SOFTWARE("Software")
+    MEMORY("Memory"),
+    SOFTWARE("Software"),
+    SYSTEM("System")
   }
 }
