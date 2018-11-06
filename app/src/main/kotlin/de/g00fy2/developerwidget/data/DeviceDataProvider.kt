@@ -74,11 +74,8 @@ class DeviceDataProvider {
       )
       data[GPS] = DeviceDataItem(HardwareFeatureProvider.hasGPS(activity).toString(), R.string.gps, Category.FEATURES)
       data[NFC] = DeviceDataItem(HardwareFeatureProvider.hasNFC(activity).toString(), R.string.nfc, Category.FEATURES)
-      data[LOW_RAM_FLAG] = DeviceDataItem(
-        HardwareFeatureProvider.hasLowRamFlag(activity).toString(),
-        R.string.low_ram_flag,
-        Category.MEMORY
-      )
+      data[LOW_RAM_FLAG] =
+          DeviceDataItem(RamDataProvider.hasLowRamFlag(activity).toString(), R.string.low_ram_flag, Category.MEMORY)
 
       return data
     }

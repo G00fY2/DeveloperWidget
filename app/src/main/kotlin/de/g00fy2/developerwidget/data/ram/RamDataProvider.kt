@@ -2,6 +2,7 @@ package de.g00fy2.developerwidget.data.ram
 
 import android.app.ActivityManager
 import android.content.Context
+import android.os.Build.VERSION
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES
 import java.io.IOException
@@ -31,6 +32,14 @@ class RamDataProvider {
           e.printStackTrace()
         }
         return ""
+      }
+    }
+
+    fun hasLowRamFlag(context: Context): Boolean {
+      return if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
+        (context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).isLowRamDevice
+      } else {
+        false
       }
     }
   }

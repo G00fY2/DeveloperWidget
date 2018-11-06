@@ -30,13 +30,5 @@ class HardwareFeatureProvider {
         BluetoothAdapter.getDefaultAdapter()?.let { true } ?: false
       }
     }
-
-    fun hasLowRamFlag(context: Context): Boolean {
-      return if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
-        (context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).isLowRamDevice
-      } else {
-        false
-      }
-    }
   }
 }
