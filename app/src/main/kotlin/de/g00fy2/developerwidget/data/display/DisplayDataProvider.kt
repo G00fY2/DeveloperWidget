@@ -42,10 +42,8 @@ class DisplayDataProvider {
     }
 
     private fun gcd(p: Int, q: Int): Int {
-      return if (q == 0)
-        p
-      else
-        gcd(q, p % q)
+      return if (q == 0) p
+      else gcd(q, p % q)
     }
   }
 }

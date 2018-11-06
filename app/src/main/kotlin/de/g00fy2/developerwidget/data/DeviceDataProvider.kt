@@ -58,6 +58,8 @@ class DeviceDataProvider {
       data[DPI] = DeviceDataItem(dpi.x.toString() + "/" + dpi.y, R.string.dpi, Category.DISPLAY)
 
       data[RAM] = DeviceDataItem(RamDataProvider.getTotalRam(activity), R.string.ram, Category.MEMORY)
+      data[LOW_RAM_FLAG] =
+          DeviceDataItem(RamDataProvider.hasLowRamFlag(activity).toString(), R.string.low_ram_flag, Category.MEMORY)
 
       data[ABI] = DeviceDataItem(CPUDataProvider.getPrimaryABI(), R.string.abi, Category.CPU)
       data[CPU_CORES] = DeviceDataItem(CPUDataProvider.getCPUCoreNum().toString(), R.string.cpu_cores, Category.CPU)
@@ -74,8 +76,6 @@ class DeviceDataProvider {
       )
       data[GPS] = DeviceDataItem(HardwareFeatureProvider.hasGPS(activity).toString(), R.string.gps, Category.FEATURES)
       data[NFC] = DeviceDataItem(HardwareFeatureProvider.hasNFC(activity).toString(), R.string.nfc, Category.FEATURES)
-      data[LOW_RAM_FLAG] =
-          DeviceDataItem(RamDataProvider.hasLowRamFlag(activity).toString(), R.string.low_ram_flag, Category.MEMORY)
 
       return data
     }
