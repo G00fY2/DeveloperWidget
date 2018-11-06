@@ -20,6 +20,10 @@ import android.webkit.WebView
 import com.g00fy2.versioncompare.Version
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.widget.devicedata.DeviceDataItem.Category
+import java.io.File
+import java.io.IOException
+import java.io.RandomAccessFile
+import java.util.regex.Pattern
 
 class DeviceDataProvider {
 
@@ -35,29 +39,18 @@ class DeviceDataProvider {
 
       data[MODEL] = DeviceDataItem(Build.MODEL, R.string.model, Category.DEVICE)
       data[MANUFACTURE] = DeviceDataItem(Build.MANUFACTURER, R.string.manufacture, Category.DEVICE)
-
-      val deviceName = if (Build.MODEL.contains(Build.MANUFACTURER)) {
-        Build.MODEL.capitalize()
-      } else {
-        Build.MANUFACTURER.capitalize() + " " + Build.MODEL.capitalize()
-      }
-      data[DEVICE_NAME] = DeviceDataItem(deviceName, R.string.device_name, Category.DEVICE)
+      data[DEVICE_NAME] = DeviceDataItem(getCombinedDeviceName(), R.string.device_name, Category.DEVICE)
 
       data[BOOTLOADER] = DeviceDataItem(Build.BOOTLOADER, R.string.bootloader, Category.DEVICE)
       data[ID] = DeviceDataItem(Build.ID, R.string.id, Category.DEVICE)
 
-      if (SDK_INT >= VERSION_CODES.LOLLIPOP) {
-        data[ABIS32] =
-            DeviceDataItem(Build.SUPPORTED_32_BIT_ABIS.joinToString(), R.string.abis32, Category.DEVICE)
-        data[ABIS64] =
-            DeviceDataItem(Build.SUPPORTED_64_BIT_ABIS.joinToString(), R.string.abis64, Category.DEVICE)
-        data[ABIS] = DeviceDataItem(Build.SUPPORTED_ABIS.joinToString(), R.string.abis, Category.DEVICE)
-      } else {
-        @Suppress("DEPRECATION")
-        data[ABIS] = DeviceDataItem(Build.CPU_ABI + ", " + Build.CPU_ABI2, R.string.abis, Category.DEVICE)
-      }
-
+      data[ABIS] = DeviceDataItem(getPrimaryABI(), R.string.abis, Category.DEVICE)
       data[CODENAME] = DeviceDataItem(Build.VERSION.CODENAME, R.string.codename, Category.SYSTEM)
+
+      data[RELEASE] = DeviceDataItem(Build.VERSION.RELEASE, R.string.release, Category.SYSTEM)
+      data[SDK] = DeviceDataItem(Build.VERSION.SDK_INT.toString(), R.string.sdk, Category.SYSTEM)
+
+      data[VM_VERSION] = DeviceDataItem(getVMVersion(), R.string.vm_version, Category.SYSTEM)
 
       if (SDK_INT >= VERSION_CODES.M) {
         data[PREVIEW_SDK] =
@@ -65,13 +58,6 @@ class DeviceDataProvider {
         data[SECURITY_PATCH_LEVEL] =
             DeviceDataItem(Build.VERSION.SECURITY_PATCH, R.string.security_patch_level, Category.SYSTEM)
       }
-
-      data[RELEASE] = DeviceDataItem(Build.VERSION.RELEASE, R.string.release, Category.SYSTEM)
-      data[SDK] = DeviceDataItem(Build.VERSION.SDK_INT.toString(), R.string.sdk, Category.SYSTEM)
-
-      val vmVersion = System.getProperty("java.vm.version") // 2.1.0
-      val vmName = if (Version(vmVersion).isAtLeast("2")) "ART" else "Dalvik"
-      data[VM_VERSION] = DeviceDataItem("$vmName $vmVersion", R.string.vm_version, Category.SYSTEM)
 
       System.getProperty("os.version")
         ?.let { data[KERNEL] = DeviceDataItem(it, R.string.kernel, Category.SYSTEM) }
@@ -82,33 +68,15 @@ class DeviceDataProvider {
     fun getHardwareData(activity: Activity): Map<String, DeviceDataItem> {
       val data = HashMap<String, DeviceDataItem>()
 
-      val display = activity.windowManager.defaultDisplay
-      val size = Point()
-      val displayMetric = DisplayMetrics()
-      if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) {
-        display.getRealSize(size)
-        display.getRealMetrics(displayMetric)
-      } else {
-        display.getSize(size)
-        display.getMetrics(displayMetric)
-      }
+      val res = getResolution(activity)
+      data[RESOLUTION] = DeviceDataItem(res.x.toString() + " x " + res.y, R.string.resolution, Category.DISPLAY)
+      data[RATIO] = DeviceDataItem(getDisplayRatio(res), R.string.ratio, Category.DISPLAY)
 
-      data[RESOLUTION] = DeviceDataItem(size.x.toString() + " x " + size.y, R.string.resolution, Category.DISPLAY)
+      val dpi = geDisplayDpi(activity)
+      data[DPI] = DeviceDataItem(dpi.x.toString() + "/" + dpi.y, R.string.dpi, Category.DISPLAY)
 
-      val gcd = gcd(size.x, size.y)
-      val ratio =
-        if (size.x < size.y) (size.y / gcd).toString() + ":" + (size.x / gcd) else (size.x / gcd).toString() + ":" + (size.y / gcd)
-
-      data[RATIO] = DeviceDataItem(ratio, R.string.ratio, Category.DISPLAY)
-      data[DPI] =
-          DeviceDataItem(displayMetric.ydpi.toString() + "/" + displayMetric.ydpi, R.string.dpi, Category.DISPLAY)
-
-      if (SDK_INT >= VERSION_CODES.JELLY_BEAN) {
-        val memInfo = ActivityManager.MemoryInfo()
-        (activity.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).getMemoryInfo(memInfo)
-        val ram = 8 * (Math.round(memInfo.totalMem / (1024.0 * 1024.0) / 8))
-        data[RAM] = DeviceDataItem(ram.toString(), R.string.ram, Category.MEMORY)
-      }
+      data[RAM] = DeviceDataItem(getTotalRam(activity), R.string.ram, Category.MEMORY)
+      data[CPU_CORES] = DeviceDataItem(getCPUCoreNum().toString(), R.string.cpu_cores, Category.DEVICE)
 
       data[BLUETOOTH] = DeviceDataItem(hasBluetooth(activity).toString(), R.string.bluetooth, Category.FEATURES)
       data[GPS] = DeviceDataItem(hasGPS(activity).toString(), R.string.gps, Category.FEATURES)
@@ -127,6 +95,12 @@ class DeviceDataProvider {
           DeviceDataItem(getWebViewImplementation(context), R.string.webview_implementation, Category.SOFTWARE)
 
       return data
+    }
+
+    private fun getVMVersion(): String {
+      val vmVersion = System.getProperty("java.vm.version")
+      val vmName = if (Version(vmVersion).isAtLeast("2")) "ART" else "Dalvik"
+      return "$vmName $vmVersion"
     }
 
     private fun getGooglePlayServicesVersion(context: Context): String {
@@ -153,6 +127,106 @@ class DeviceDataProvider {
         else -> context.packageManager.getPackageInfo("com.google.android.webview", 0)
       }?.let { context.packageManager.getApplicationLabel(it.applicationInfo).toString() + " " + it.versionName }
         ?: ""
+    }
+
+    private fun getResolution(activity: Activity): Point {
+      val display = activity.windowManager.defaultDisplay
+      val size = Point()
+      if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) {
+        display.getRealSize(size)
+      } else {
+        display.getSize(size)
+      }
+      return size
+    }
+
+    private fun geDisplayDpi(activity: Activity): Point {
+      val display = activity.windowManager.defaultDisplay
+      val displayMetric = DisplayMetrics()
+      if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) {
+        display.getRealMetrics(displayMetric)
+      } else {
+        display.getMetrics(displayMetric)
+      }
+      return Point(Math.round(displayMetric.xdpi), Math.round(displayMetric.ydpi))
+    }
+
+    private fun getDisplayRatio(resolution: Point): String {
+      val gcd = gcd(resolution.x, resolution.y)
+      return if (resolution.x < resolution.y) {
+        (resolution.y / gcd).toString() + ":" + (resolution.x / gcd)
+      } else {
+        (resolution.x / gcd).toString() + ":" + (resolution.y / gcd)
+      }
+    }
+
+    private fun getTotalRam(context: Context): String {
+      if (SDK_INT >= VERSION_CODES.JELLY_BEAN) {
+        val memInfo = ActivityManager.MemoryInfo()
+        (context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).getMemoryInfo(memInfo)
+        return (8 * (Math.round(memInfo.totalMem / (1024.0 * 1024.0) / 8))).toString()
+      } else {
+        try {
+          RandomAccessFile("/proc/meminfo", "r").use {
+            val matcher = Pattern.compile("(\\d+)").matcher(it.readLine())
+            var memTotal: String? = null
+            while (matcher.find()) memTotal = matcher.group(1)
+            memTotal?.let { value ->
+              return (8 * (Math.round(value.toLong() / 1024.0 / 8))).toString()
+            }
+          }
+        } catch (e: IOException) {
+          e.printStackTrace()
+        }
+        return ""
+      }
+    }
+
+    private fun getPrimaryABI(): String {
+      return if (SDK_INT >= VERSION_CODES.LOLLIPOP) {
+        Build.SUPPORTED_ABIS.firstOrNull() ?: ""
+      } else {
+        @Suppress("DEPRECATION")
+        Build.CPU_ABI
+      }
+    }
+
+    private fun getCPUCoreNum(): Int {
+      val pattern = Pattern.compile("cpu[0-9]+")
+      return Math.max(
+        File("/sys/devices/system/cpu/")
+          .walk()
+          .count { pattern.matcher(it.name).matches() },
+        Runtime.getRuntime().availableProcessors()
+      )
+    }
+
+    // Todo make use of
+    fun getGroupedCPUCoreFrequencies(): Map<String, Int> {
+      val pattern = Pattern.compile("cpu[0-9]+/cpufreq/(cpuinfo_max_freq|cpuinfo_min_freq)")
+      return File("/sys/devices/system/cpu/")
+        .walk()
+        .sorted()
+        .filter { pattern.matcher(it.path).find() }
+        .map {
+          RandomAccessFile(it.path, "r").use { reader ->
+            (reader.readLine().toLong() / 1000).toInt()
+          }
+        }
+        .windowed(2, 2)
+        .map { Pair(it[0], it[1]) }
+        .toList()
+        .sortedByDescending { it.first }
+        .groupingBy { it.second.toString() + "MHz - " + it.first + "MHz" }
+        .eachCount()
+    }
+
+    private fun getCombinedDeviceName(): String {
+      return if (Build.MODEL.contains(Build.MANUFACTURER, true)) {
+        Build.MODEL.capitalize()
+      } else {
+        Build.MANUFACTURER.capitalize() + " " + Build.MODEL.capitalize()
+      }
     }
 
     private fun hasNFC(context: Context): Boolean {
@@ -197,8 +271,6 @@ class DeviceDataProvider {
     val DEVICE_NAME = "DEVICE_NAME"
     val BOOTLOADER = "BOOTLOADER"
     val ID = "ID"
-    val ABIS32 = "ABIS32"
-    val ABIS64 = "ABIS64"
     val ABIS = "ABIS"
     val CODENAME = "CODENAME"
     val PREVIEW_SDK = "PREVIEW_SDK"
@@ -211,6 +283,7 @@ class DeviceDataProvider {
     val RATIO = "RATIO"
     val DPI = "DPI"
     val RAM = "RAM"
+    val CPU_CORES = "CPU_CORES"
     val NFC = "NFC"
     val GPS = "GPS"
     val BLUETOOTH = "BLUETOOTH"
