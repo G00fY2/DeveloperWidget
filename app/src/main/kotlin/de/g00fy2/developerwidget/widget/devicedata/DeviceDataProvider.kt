@@ -208,11 +208,7 @@ class DeviceDataProvider {
         .walk()
         .sorted()
         .filter { pattern.matcher(it.path).find() }
-        .map {
-          RandomAccessFile(it.path, "r").use { reader ->
-            (reader.readLine().toLong() / 1000).toInt()
-          }
-        }
+        .map { RandomAccessFile(it.path, "r").use { reader -> (reader.readLine().toLong() / 1000).toInt() } }
         .windowed(2, 2)
         .map { Pair(it[0], it[1]) }
         .toList()
