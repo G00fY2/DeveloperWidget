@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Context
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.data.DeviceDataItem.Category
-import de.g00fy2.developerwidget.data.build.BuildDataProvider
+import de.g00fy2.developerwidget.data.devicebuild.BuildDataProvider
 import de.g00fy2.developerwidget.data.cpu.CPUDataProvider
 import de.g00fy2.developerwidget.data.display.DisplayDataProvider
 import de.g00fy2.developerwidget.data.hardwarefeature.HardwareFeatureProvider
