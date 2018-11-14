@@ -17,7 +17,6 @@ import timber.log.Timber
 class AboutActivity : BaseActivity() {
 
   override val layoutRes = R.layout.activity_about
-  private val Float.px: Float get() = (this * resources.displayMetrics.density)
 
   private var clickCount = 0
   private var clickStart: Long = 0
@@ -42,9 +41,8 @@ class AboutActivity : BaseActivity() {
   }
 
   private fun initView() {
-    about_root_scrollview.viewTreeObserver.addOnScrollChangedListener {
-      changeActionbarElevation()
-    }
+    setActionbarElevationListener(about_root_scrollview)
+
     app_version_textview.text =
         String.format(getString(R.string.app_version), BuildConfig.VERSION_NAME)
     app_desc_textview.text = "App description." // TODO
@@ -102,17 +100,6 @@ class AboutActivity : BaseActivity() {
       title(R.string.build_number)
       description(BuildConfig.VERSION_NAME + "." + BuildConfig.VERSION_CODE + "." + BuildConfig.BUILD_TYPE)
       action { honorClicking() }
-    }
-  }
-
-  private fun changeActionbarElevation() {
-    val scrollViewY = about_root_scrollview.scrollY.toFloat()
-    if (scrollViewY <= 0f) {
-      supportActionBar?.elevation = 0f
-    } else {
-      var elevationDp = scrollViewY / 4 // divide scrollY to increase fade in range
-      if (elevationDp > 4f) elevationDp = 4f
-      supportActionBar?.elevation = elevationDp.px
     }
   }
 
