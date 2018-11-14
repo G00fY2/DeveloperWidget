@@ -26,11 +26,7 @@ class ApkFile private constructor() : Comparable<ApkFile> {
   var appIcon: Drawable? = null; private set
   var fileUri: Uri? = null; private set
 
-  override fun compareTo(other: ApkFile): Int = when {
-    lastModifiedTimestamp > other.lastModifiedTimestamp -> -1
-    lastModifiedTimestamp < other.lastModifiedTimestamp -> 1
-    else -> 0
-  }
+  override fun compareTo(other: ApkFile) = compareValues(other.lastModifiedTimestamp, lastModifiedTimestamp)
 
   class Builder(private val context: Context) {
 
