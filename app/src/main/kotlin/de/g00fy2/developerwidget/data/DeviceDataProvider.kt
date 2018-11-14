@@ -4,8 +4,8 @@ import android.app.Activity
 import android.content.Context
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.data.DeviceDataItem.Category
-import de.g00fy2.developerwidget.data.devicebuild.BuildDataProvider
 import de.g00fy2.developerwidget.data.cpu.CPUDataProvider
+import de.g00fy2.developerwidget.data.devicebuild.BuildDataProvider
 import de.g00fy2.developerwidget.data.display.DisplayDataProvider
 import de.g00fy2.developerwidget.data.hardwarefeature.HardwareFeatureProvider
 import de.g00fy2.developerwidget.data.ram.RamDataProvider
@@ -16,7 +16,7 @@ class DeviceDataProvider {
 
   companion object {
 
-    fun staticDeviceData(): Map<String, DeviceDataItem> {
+    fun getStaticDeviceData(): Map<String, DeviceDataItem> {
       val data = HashMap<String, DeviceDataItem>()
 
       data[BOARD] = DeviceDataItem(BuildDataProvider.getBoard(), R.string.board, Category.DEVICE)
@@ -63,11 +63,8 @@ class DeviceDataProvider {
 
       data[ABI] = DeviceDataItem(CPUDataProvider.getPrimaryABI(), R.string.abi, Category.CPU)
       data[CPU_CORES] = DeviceDataItem(CPUDataProvider.getCPUCoreNum().toString(), R.string.cpu_cores, Category.CPU)
-
-      CPUDataProvider.getGroupedCPUCoreFrequencies().forEach {
-        data[CPU_FREQUENCIES] =
-            DeviceDataItem(it.value.toString() + " x " + it.key, R.string.cpu_frequencies, Category.CPU)
-      }
+      data[CPU_FREQUENCIES] =
+          DeviceDataItem(CPUDataProvider.getGroupedCPUCoreFrequencies(), R.string.cpu_frequencies, Category.CPU)
 
       data[BLUETOOTH] = DeviceDataItem(
         HardwareFeatureProvider.hasBluetooth(activity).toString(),
@@ -99,34 +96,34 @@ class DeviceDataProvider {
       return data
     }
 
-    val BOARD = "BOARD"
-    val DEVICE = "DEVICE"
-    val HARDWARE = "HARDWARE"
-    val PRODUCT = "PRODUCT"
-    val MODEL = "MODEL"
-    val MANUFACTURE = "MANUFACTURE"
-    val DEVICE_NAME = "DEVICE_NAME"
-    val BOOTLOADER = "BOOTLOADER"
-    val ID = "ID"
-    val ABI = "ABI"
-    val CODENAME = "CODENAME"
-    val PREVIEW_SDK = "PREVIEW_SDK"
-    val SECURITY_PATCH_LEVEL = "SECURITY_PATCH_LEVEL"
-    val RELEASE = "RELEASE"
-    val SDK = "SDK"
-    val VM_VERSION = "VM_VERSION"
-    val KERNEL = "KERNEL"
-    val RESOLUTION = "RESOLUTION"
-    val RATIO = "RATIO"
-    val DPI = "DPI"
-    val RAM = "RAM"
-    val CPU_CORES = "CPU_CORES"
-    val CPU_FREQUENCIES = "CPU_FREQUENCIES"
-    val NFC = "NFC"
-    val GPS = "GPS"
-    val BLUETOOTH = "BLUETOOTH"
-    val LOW_RAM_FLAG = "LOW_RAM_FLAG"
-    val GOOGLE_PLAY_VERSION = "GOOGLE_PLAY_VERSION"
-    val WEBVIEW_IMPLEMENTATION = "WEBVIEW_IMPLEMENTATION"
+    const val BOARD = "BOARD"
+    const val DEVICE = "DEVICE"
+    const val HARDWARE = "HARDWARE"
+    const val PRODUCT = "PRODUCT"
+    const val MODEL = "MODEL"
+    const val MANUFACTURE = "MANUFACTURE"
+    const val DEVICE_NAME = "DEVICE_NAME"
+    const val BOOTLOADER = "BOOTLOADER"
+    const val ID = "ID"
+    const val ABI = "ABI"
+    const val CODENAME = "CODENAME"
+    const val PREVIEW_SDK = "PREVIEW_SDK"
+    const val SECURITY_PATCH_LEVEL = "SECURITY_PATCH_LEVEL"
+    const val RELEASE = "RELEASE"
+    const val SDK = "SDK"
+    const val VM_VERSION = "VM_VERSION"
+    const val KERNEL = "KERNEL"
+    const val RESOLUTION = "RESOLUTION"
+    const val RATIO = "RATIO"
+    const val DPI = "DPI"
+    const val RAM = "RAM"
+    const val CPU_CORES = "CPU_CORES"
+    const val CPU_FREQUENCIES = "CPU_FREQUENCIES"
+    const val NFC = "NFC"
+    const val GPS = "GPS"
+    const val BLUETOOTH = "BLUETOOTH"
+    const val LOW_RAM_FLAG = "LOW_RAM_FLAG"
+    const val GOOGLE_PLAY_VERSION = "GOOGLE_PLAY_VERSION"
+    const val WEBVIEW_IMPLEMENTATION = "WEBVIEW_IMPLEMENTATION"
   }
 }

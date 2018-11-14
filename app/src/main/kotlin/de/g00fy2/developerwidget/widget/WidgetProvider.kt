@@ -24,7 +24,7 @@ class WidgetProvider : AppWidgetProvider() {
     internal fun updateWidget(context: Context, appWidgetManager: AppWidgetManager, widgetId: Int) {
       val views = RemoteViews(context.packageName, R.layout.appwidget_layout)
 
-      DeviceDataProvider.staticDeviceData().let {
+      DeviceDataProvider.getStaticDeviceData().let {
         it[DeviceDataProvider.DEVICE_NAME]?.let { name ->
           views.setTextViewText(R.id.device_info_textview, name.value)
         }

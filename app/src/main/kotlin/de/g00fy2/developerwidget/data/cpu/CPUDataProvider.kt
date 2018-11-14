@@ -30,7 +30,7 @@ class CPUDataProvider {
       )
     }
 
-    fun getGroupedCPUCoreFrequencies(): Map<String, Int> {
+    fun getGroupedCPUCoreFrequencies(): String {
       val pattern = Pattern.compile("cpu[0-9]+/cpufreq/(cpuinfo_max_freq|cpuinfo_min_freq)")
       return File("/sys/devices/system/cpu/")
         .walk()
@@ -41,8 +41,10 @@ class CPUDataProvider {
         .map { Pair(it[0], it[1]) }
         .toList()
         .sortedByDescending { it.first }
-        .groupingBy { it.second.toString() + "MHz - " + it.first + "MHz" }
+        .groupingBy { it.first.toString() + "MHz - " + it.second + "MHz" }
         .eachCount()
+        .map { it.value.toString() + " x " + it.key }
+        .joinToString(separator = "\n")
     }
   }
 }

@@ -17,7 +17,7 @@ class RamDataProvider {
       if (SDK_INT >= VERSION_CODES.JELLY_BEAN) {
         val memInfo = ActivityManager.MemoryInfo()
         (context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).getMemoryInfo(memInfo)
-        return (8 * (Math.round(memInfo.totalMem / (1024.0 * 1024.0) / 8))).toString()
+        return Math.round(memInfo.totalMem / (1024.0 * 1024.0)).toString() + " MB"
       } else {
         try {
           RandomAccessFile("/proc/meminfo", "r").use {
@@ -25,7 +25,7 @@ class RamDataProvider {
             var memTotal: String? = null
             while (matcher.find()) memTotal = matcher.group(1)
             memTotal?.let { value ->
-              return (8 * (Math.round(value.toLong() / 1024.0 / 8))).toString()
+              return Math.round(value.toLong() / 1024.0 / 8).toString() + " MB"
             }
           }
         } catch (e: IOException) {
