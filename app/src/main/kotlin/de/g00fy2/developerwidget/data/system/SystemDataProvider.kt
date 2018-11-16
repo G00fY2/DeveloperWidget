@@ -9,13 +9,9 @@ class SystemDataProvider {
 
   companion object {
 
-    fun getAndroidVersion(): String {
-      return VERSION.RELEASE
-    }
+    fun getAndroidVersion(): String = VERSION.RELEASE
 
-    fun getSDKLevel(): String {
-      return VERSION.SDK_INT.toString()
-    }
+    fun getSDKLevel(): String = VERSION.SDK_INT.toString()
 
     fun getPreviewSDK(): String {
       return if (SDK_INT >= VERSION_CODES.M) {
@@ -39,8 +35,6 @@ class SystemDataProvider {
       return "$vmName $vmVersion"
     }
 
-    fun getKernelVersion(): String {
-      return System.getProperty("os.version") ?: ""
-    }
+    fun getKernelVersion(): String = System.getProperty("os.version") ?: ""
   }
 }

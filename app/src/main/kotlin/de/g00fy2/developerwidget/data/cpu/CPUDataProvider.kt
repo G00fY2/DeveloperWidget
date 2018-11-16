@@ -13,6 +13,7 @@ class CPUDataProvider {
   companion object {
 
     private const val CPU_SYS_FOLDER = "/sys/devices/system/cpu/"
+    private val CPU_PATTERN = Pattern.compile("cpu[0-9]+")
 
     fun getPrimaryABI(): String {
       return if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
@@ -24,12 +25,11 @@ class CPUDataProvider {
     }
 
     fun getCPUCoreNum(): Int {
-      val pattern = Pattern.compile("cpu[0-9]+")
       return Math.max(
         File(CPU_SYS_FOLDER)
           .walk()
           .maxDepth(1)
-          .count { pattern.matcher(it.name).matches() },
+          .count { CPU_PATTERN.matcher(it.name).matches() },
         Runtime.getRuntime().availableProcessors()
       )
     }
@@ -46,7 +46,7 @@ class CPUDataProvider {
         .eachCount()
         .map { it.value.toString() + " x " + it.key }
         .plus(if (frequencies.size < cores) (cores - frequencies.size).toString() + " x offline" else "")
-        .filter { !it.isBlank() }
+        .filter { it.isNotEmpty() }
         .joinToString(separator = "\n")
     }
 

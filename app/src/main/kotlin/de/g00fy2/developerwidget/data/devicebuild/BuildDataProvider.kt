@@ -14,22 +14,22 @@ class BuildDataProvider {
       }
     }
 
-    fun getBoard() = Build.BOARD
+    fun getBoard(): String = Build.BOARD
 
-    fun getDevice() = Build.DEVICE
+    fun getDevice(): String = Build.DEVICE
 
-    fun getHardware() = Build.HARDWARE
+    fun getHardware(): String = Build.HARDWARE
 
-    fun getProduct() = Build.PRODUCT
+    fun getProduct(): String = Build.PRODUCT
 
-    fun getModel() = Build.MODEL
+    fun getModel(): String = Build.MODEL
 
-    fun getManufacture() = Build.MANUFACTURER
+    fun getManufacture(): String = Build.MANUFACTURER
 
-    fun getBootloader() = Build.BOOTLOADER
+    fun getBootloader(): String = Build.BOOTLOADER
 
-    fun getID() = Build.ID
+    fun getID(): String = Build.ID
 
-    fun getCodename() = Build.VERSION.CODENAME
+    fun getCodename(): String = Build.VERSION.CODENAME
   }
 }

@@ -59,7 +59,7 @@ class DeviceDataProvider {
 
       data[RAM] = DeviceDataItem(RamDataProvider.getTotalRam(activity), R.string.ram, Category.MEMORY)
       data[LOW_RAM_FLAG] =
-          DeviceDataItem(RamDataProvider.hasLowRamFlag(activity).toString(), R.string.low_ram_flag, Category.MEMORY)
+          DeviceDataItem(RamDataProvider.hasLowRamFlag(activity), R.string.low_ram_flag, Category.MEMORY)
 
       data[ABI] = DeviceDataItem(CPUDataProvider.getPrimaryABI(), R.string.abi, Category.CPU)
       data[CPU_CORES] = DeviceDataItem(CPUDataProvider.getCPUCoreNum().toString(), R.string.cpu_cores, Category.CPU)

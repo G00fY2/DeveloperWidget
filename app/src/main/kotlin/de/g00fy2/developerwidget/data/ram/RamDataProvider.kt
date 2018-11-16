@@ -17,7 +17,7 @@ class RamDataProvider {
       if (SDK_INT >= VERSION_CODES.JELLY_BEAN) {
         val memInfo = ActivityManager.MemoryInfo()
         (context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).getMemoryInfo(memInfo)
-        return Math.round(memInfo.totalMem / (1024.0 * 1024.0)).toString() + " MB"
+        return (2 * (Math.round(memInfo.totalMem / (1024.0 * 1024.0) / 2))).toString() + " MB"
       } else {
         try {
           RandomAccessFile("/proc/meminfo", "r").use {
@@ -25,7 +25,7 @@ class RamDataProvider {
             var memTotal: String? = null
             while (matcher.find()) memTotal = matcher.group(1)
             memTotal?.let { value ->
-              return Math.round(value.toLong() / 1024.0 / 8).toString() + " MB"
+              return (2 * (Math.round(value.toLong() / 1024.0 / 2))).toString() + " MB"
             }
           }
         } catch (e: IOException) {
@@ -35,11 +35,11 @@ class RamDataProvider {
       }
     }
 
-    fun hasLowRamFlag(context: Context): Boolean {
+    fun hasLowRamFlag(context: Context): String {
       return if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
-        (context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).isLowRamDevice
+        (context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).isLowRamDevice.toString()
       } else {
-        false
+        ""
       }
     }
   }
