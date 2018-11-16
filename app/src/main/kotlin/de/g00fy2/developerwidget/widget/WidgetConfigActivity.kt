@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.webkit.WebView
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.about.AboutActivity
@@ -61,6 +62,7 @@ class WidgetConfigActivity : BaseActivity() {
   override fun onResume() {
     super.onResume()
     launch {
+      WebView(this@WidgetConfigActivity)
       adapter.clear()
       adapter.addAll(getDeviceData())
     }

@@ -16,7 +16,7 @@ class SystemAppsDataProvider {
       return try {
         context.packageManager.getPackageInfo("com.google.android.gms", 0).versionName
       } catch (e: NameNotFoundException) {
-        "not installed"
+        ""
       }
     }
 
@@ -26,9 +26,9 @@ class SystemAppsDataProvider {
         VERSION.SDK_INT >= VERSION_CODES.O -> WebView.getCurrentWebViewPackage()
         VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP -> {
           try {
-            val webViewFactory = Class.forName("android.webkit.WebViewFactory")
-            val method = webViewFactory.getMethod("getLoadedPackageInfo")
-            method.invoke(null, null) as PackageInfo
+            Class.forName("android.webkit.WebViewFactory")
+              .getMethod("getLoadedPackageInfo")
+              .invoke(null) as PackageInfo?
           } catch (t: Throwable) {
             null
           }
