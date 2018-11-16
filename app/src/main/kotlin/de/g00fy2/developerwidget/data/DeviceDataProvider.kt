@@ -55,7 +55,7 @@ class DeviceDataProvider {
       data[RATIO] = DeviceDataItem(DisplayDataProvider.getDisplayRatio(res), R.string.ratio, Category.DISPLAY)
 
       val dpi = DisplayDataProvider.geDisplayDpi(activity)
-      data[DPI] = DeviceDataItem(dpi.x.toString() + "/" + dpi.y, R.string.dpi, Category.DISPLAY)
+      data[DPI] = DeviceDataItem(dpi.x.toString() + " / " + dpi.y + " dpi", R.string.dpi, Category.DISPLAY)
 
       data[RAM] = DeviceDataItem(RamDataProvider.getTotalRam(activity), R.string.ram, Category.MEMORY)
       data[LOW_RAM_FLAG] =
