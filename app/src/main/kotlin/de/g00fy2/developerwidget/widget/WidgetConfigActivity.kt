@@ -3,6 +3,8 @@ package de.g00fy2.developerwidget.widget
 import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.content.Intent
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -42,6 +44,11 @@ class WidgetConfigActivity : BaseActivity() {
     recyclerview.isNestedScrollingEnabled = false
     recyclerview.adapter = adapter
 
+    // set up webview pre oreo to get implementation information
+    if (VERSION.SDK_INT in VERSION_CODES.LOLLIPOP until VERSION_CODES.O) {
+      WebView(this)
+    }
+
     if (widgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
       finish()
       return
@@ -62,7 +69,6 @@ class WidgetConfigActivity : BaseActivity() {
   override fun onResume() {
     super.onResume()
     launch {
-      WebView(this@WidgetConfigActivity)
       adapter.clear()
       adapter.addAll(getDeviceData())
     }
