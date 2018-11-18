@@ -30,6 +30,14 @@
   <string name="icon_credits">Icon credits</string>
   <string name="icon_credits_description">Attribution to the authors of the used icons</string>
 
+  <string name="device_title">Device</string>
+  <string name="system_title">System</string>
+  <string name="cpu_title">CPU</string>
+  <string name="memory_title">Memory</string>
+  <string name="display_title">Display</string>
+  <string name="features_title">Features</string>
+  <string name="software_title">Software</string>
+
   <string name="board">Board</string>
   <string name="device">Device</string>
   <string name="hardware">Hardware</string>

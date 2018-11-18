@@ -96,6 +96,14 @@ class DeviceDataProvider {
       return data
     }
 
+    fun getHeaderItems(): Map<String, DeviceDataItem> {
+      val data = HashMap<String, DeviceDataItem>()
+      DeviceDataItem.Category.values().forEach {
+        data[it.title] = DeviceDataItem(it, true)
+      }
+      return data
+    }
+
     const val BOARD = "BOARD"
     const val DEVICE = "DEVICE"
     const val HARDWARE = "HARDWARE"

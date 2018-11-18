@@ -96,8 +96,9 @@ class WidgetConfigActivity : BaseActivity() {
         .getStaticDeviceData()
         .plus(DeviceDataProvider.getHardwareData(this@WidgetConfigActivity))
         .plus(DeviceDataProvider.getSoftwareInfo(this@WidgetConfigActivity))
+        .plus(DeviceDataProvider.getHeaderItems())
         .toList()
-        .filter { (_, value) -> !value.value.isBlank() }
+        .filter { (_, value) -> value.value.isNotBlank() || value.isHeader }
         .sortedBy { (_, value) -> value }
     }
   }
