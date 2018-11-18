@@ -5,24 +5,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import de.g00fy2.developerwidget.R
-import de.g00fy2.developerwidget.apkinstall.ApkAdapter.ViewHolder
-import kotlinx.android.extensions.LayoutContainer
+import de.g00fy2.developerwidget.apkinstall.ApkAdapter.ApkViewHolder
+import de.g00fy2.developerwidget.base.BaseAdapter
+import de.g00fy2.developerwidget.base.BaseViewHolder
 import kotlinx.android.synthetic.main.apk_item.*
 
-class ApkAdapter : RecyclerView.Adapter<ViewHolder>() {
+class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>() {
 
-  private var apkFiles: MutableList<ApkFile> = ArrayList(0)
   private var selectedPosition = RecyclerView.NO_POSITION
   private var onApkSelected: (() -> Unit) = {}
 
-  inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+  inner class ApkViewHolder(containerView: View) : BaseViewHolder(containerView) {
     fun setBackground(position: Int) {
       itemView.setBackgroundResource(if (position == selectedPosition) R.color.transparentAccent else 0)
     }
   }
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-    return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.apk_item, parent, false)).apply {
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ApkViewHolder {
+    return ApkViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.apk_item, parent, false)).apply {
       itemView.setOnClickListener {
         if (adapterPosition != RecyclerView.NO_POSITION && adapterPosition != selectedPosition) {
           if (selectedPosition == RecyclerView.NO_POSITION) {
@@ -37,9 +37,9 @@ class ApkAdapter : RecyclerView.Adapter<ViewHolder>() {
     }
   }
 
-  override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-    holder.apply {
-      val apkFile = apkFiles[position]
+  override fun onBindViewHolder(holderApk: ApkViewHolder, position: Int) {
+    holderApk.apply {
+      val apkFile = getItem(position)
       filename_textview.text = apkFile.fileName
       app_name_textview.text = apkFile.appName
       app_version_textview.text =
@@ -52,32 +52,24 @@ class ApkAdapter : RecyclerView.Adapter<ViewHolder>() {
     }
   }
 
-  override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: List<Any>) {
+  override fun onBindViewHolder(holderApk: ApkViewHolder, position: Int, payloads: List<Any>) {
     if (payloads.isEmpty()) {
-      onBindViewHolder(holder, position)
+      onBindViewHolder(holderApk, position)
     } else {
-      holder.setBackground(position)
+      holderApk.setBackground(position)
     }
   }
 
-  override fun getItemCount() = apkFiles.size
+  override fun clear() {
+    super.clear()
+    selectedPosition = RecyclerView.NO_POSITION
+  }
 
   fun setOnApkSelected(onApkSelected: () -> Unit) = { this.onApkSelected = onApkSelected }()
 
-  fun clear() {
-    apkFiles.clear()
-    selectedPosition = RecyclerView.NO_POSITION
-    notifyDataSetChanged()
-  }
-
-  fun addAll(apkFiles: MutableList<ApkFile>) {
-    this.apkFiles = apkFiles
-    notifyDataSetChanged()
-  }
-
   fun getSelectedFile(): ApkFile? {
     return if (selectedPosition != RecyclerView.NO_POSITION && selectedPosition < itemCount) {
-      apkFiles[selectedPosition]
+      getItem(selectedPosition)
     } else {
       null
     }
