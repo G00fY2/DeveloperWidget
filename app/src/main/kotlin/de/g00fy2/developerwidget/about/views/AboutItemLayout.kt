@@ -37,7 +37,7 @@ class AboutItemLayout : ConstraintLayout {
   }
 
   fun description(description: String): AboutItemLayout {
-    if (!description.isBlank()) {
+    if (description.isNotBlank()) {
       description_textview.text = description
       description_textview.visibility = View.VISIBLE
     } else {
