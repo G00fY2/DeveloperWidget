@@ -99,7 +99,7 @@ class WidgetConfigActivity : BaseActivity() {
         .plus(DeviceDataProvider.getHeaderItems())
         .toList()
         .filter { (_, value) -> value.value.isNotBlank() || value.isHeader }
-        .sortedBy { (_, value) -> value }
+        .sortedWith(compareBy({ it.second.category.ordinal }, { !it.second.isHeader }, { getString(it.second.title) }))
     }
   }
 

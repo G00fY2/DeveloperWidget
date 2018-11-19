@@ -3,17 +3,9 @@ package de.g00fy2.developerwidget.data
 import androidx.annotation.StringRes
 import de.g00fy2.developerwidget.R
 
-class DeviceDataItem(
-  value: String,
-  @StringRes title: Int,
-  category: Category,
-  isHeader: Boolean = false
-) : Comparable<DeviceDataItem> {
+class DeviceDataItem(value: String, @StringRes title: Int, category: Category, isHeader: Boolean = false) {
 
   constructor(category: Category, isHeader: Boolean) : this("", category.titleRes, category, isHeader)
-
-  override fun compareTo(other: DeviceDataItem) =
-    compareValuesBy(this, other, { it.category.ordinal }, { !it.isHeader }, { it.title })
 
   var value = value; private set
   var title = title; private set
