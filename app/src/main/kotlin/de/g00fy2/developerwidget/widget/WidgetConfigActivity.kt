@@ -70,11 +70,7 @@ class WidgetConfigActivity : BaseActivity() {
     super.onResume()
     launch {
       getDeviceData().let {
-        if (adapter.itemCount > 0) {
-          adapter.updateData(it)
-        } else {
-          adapter.addAll(it)
-        }
+        adapter.addAll(it)
       }
     }
   }
