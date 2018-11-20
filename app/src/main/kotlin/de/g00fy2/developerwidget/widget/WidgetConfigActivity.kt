@@ -69,8 +69,13 @@ class WidgetConfigActivity : BaseActivity() {
   override fun onResume() {
     super.onResume()
     launch {
-      adapter.clear()
-      adapter.addAll(getDeviceData())
+      getDeviceData().let {
+        if (adapter.itemCount > 0) {
+          adapter.updateData(it)
+        } else {
+          adapter.addAll(it)
+        }
+      }
     }
   }
 
@@ -90,7 +95,7 @@ class WidgetConfigActivity : BaseActivity() {
     }
   }
 
-  private suspend fun getDeviceData(): Collection<Pair<String, DeviceDataItem>> {
+  private suspend fun getDeviceData(): MutableList<Pair<String, DeviceDataItem>> {
     return withContext(Dispatchers.IO) {
       DeviceDataProvider
         .getStaticDeviceData()
@@ -99,7 +104,13 @@ class WidgetConfigActivity : BaseActivity() {
         .plus(DeviceDataProvider.getHeaderItems())
         .toList()
         .filter { (_, value) -> value.value.isNotBlank() || value.isHeader }
-        .sortedWith(compareBy({ it.second.category.ordinal }, { !it.second.isHeader }, { getString(it.second.title) }))
+        .sortedWith(
+          compareBy(
+            { it.second.category.ordinal },
+            { !it.second.isHeader },
+            { getString(it.second.title) })
+        )
+        .toMutableList()
     }
   }
 
