@@ -1,6 +1,5 @@
 package de.g00fy2.developerwidget.data.hardwarefeature
 
-import android.app.ActivityManager
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.content.Context
@@ -13,9 +12,8 @@ class HardwareFeatureProvider {
 
   companion object {
 
-    fun hasNFC(context: Context): Boolean {
-      return (context.getSystemService(Context.NFC_SERVICE) as NfcManager).defaultAdapter?.let { true } ?: false
-    }
+    fun hasNFC(context: Context): Boolean =
+      (context.getSystemService(Context.NFC_SERVICE) as NfcManager).defaultAdapter?.let { true } ?: false
 
     fun hasGPS(context: Context): Boolean {
       return (context.getSystemService(Context.LOCATION_SERVICE) as LocationManager).allProviders?.contains(
