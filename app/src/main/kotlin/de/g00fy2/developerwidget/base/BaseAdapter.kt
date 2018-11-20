@@ -12,7 +12,7 @@ abstract class BaseAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerView.Adapt
   fun getItem(position: Int): T = items[position]
 
   open fun clear() {
-    if (items.size > 0) {
+    if (items.isNotEmpty()) {
       items.clear()
       notifyDataSetChanged()
     }
@@ -23,7 +23,7 @@ abstract class BaseAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerView.Adapt
   }
 
   fun addAll(newItems: MutableList<T>, diffResult: DiffResult? = null) {
-    val emptyList = items.size == 0 || newItems.size == 0
+    val emptyList = items.isEmpty() || newItems.isEmpty()
     items = newItems
     if (diffResult == null || emptyList) notifyDataSetChanged() else diffResult.dispatchUpdatesTo(this)
 
