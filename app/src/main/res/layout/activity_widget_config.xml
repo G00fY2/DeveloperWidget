@@ -13,7 +13,7 @@
     <View
         android:id="@+id/top_view"
         android:layout_width="match_parent"
-        android:layout_height="164dp"
+        android:layout_height="200dp"
         android:background="@color/colorPrimary"
         app:layout_constraintTop_toTopOf="parent"
         />
@@ -24,13 +24,14 @@
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
+        android:padding="4dp"
         android:text="@string/add_widget"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="16sp"
-        app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="@+id/top_view"
         app:layout_constraintStart_toStartOf="@+id/top_view"
+        style="@style/ConfigureButtonAppearance"
         />
 
     <androidx.recyclerview.widget.RecyclerView

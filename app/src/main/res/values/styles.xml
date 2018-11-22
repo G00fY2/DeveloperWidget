@@ -25,6 +25,11 @@
     <item name="android:textColor">@color/dialog_button_color</item>
   </style>
 
+  <style name="ConfigureButtonAppearance" parent="Widget.AppCompat.Button.Colored">
+    <item name="android:background">@drawable/bg_button_shape</item>
+    <item name="android:foreground">?android:attr/selectableItemBackground</item>
+  </style>
+
   <style name="AccentActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
     <item name="android:textColorPrimary">@color/colorAccent</item>
   </style>
