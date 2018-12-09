@@ -13,9 +13,29 @@
     <View
         android:id="@+id/top_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="164dp"
         android:background="@color/colorPrimary"
         app:layout_constraintTop_toTopOf="parent"
+        />
+    <TextView
+        android:id="@+id/device_title_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/device_subtitle_textview"
+        app:layout_constraintStart_toStartOf="@+id/apply_button"
+        app:layout_constraintTop_toTopOf="@+id/top_view"
+        app:layout_constraintVertical_chainStyle="packed"
+        />
+    <TextView
+        android:id="@+id/device_subtitle_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/apply_button"
+        app:layout_constraintStart_toStartOf="@+id/device_title_textview"
+        app:layout_constraintTop_toBottomOf="@+id/device_title_textview"
         />
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/apply_button"

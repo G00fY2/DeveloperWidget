@@ -70,7 +70,8 @@ class WidgetConfigActivity : BaseActivity() {
     super.onResume()
     launch {
       getDeviceData().let {
-        adapter.addAll(it)
+        setWidgetFields(it.toMap())
+        adapter.addAll(it.toMutableList())
       }
     }
   }
@@ -91,7 +92,14 @@ class WidgetConfigActivity : BaseActivity() {
     }
   }
 
-  private suspend fun getDeviceData(): MutableList<Pair<String, DeviceDataItem>> {
+  private fun setWidgetFields(data: Map<String, DeviceDataItem>) {
+    device_title_textview.text = data[DeviceDataProvider.DEVICE_NAME]?.value ?: ""
+    var subtitle = data[DeviceDataProvider.RELEASE]?.let { getString(it.title) + " " + it.value + " | " } ?: ""
+    subtitle += data[DeviceDataProvider.SDK]?.let { getString(it.title) + " " + it.value }
+    device_subtitle_textview.text = subtitle
+  }
+
+  private suspend fun getDeviceData(): List<Pair<String, DeviceDataItem>> {
     return withContext(Dispatchers.IO) {
       DeviceDataProvider
         .getStaticDeviceData()
@@ -106,7 +114,6 @@ class WidgetConfigActivity : BaseActivity() {
             { !it.second.isHeader },
             { getString(it.second.title) })
         )
-        .toMutableList()
     }
   }
 
