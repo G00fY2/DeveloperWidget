@@ -6,7 +6,7 @@ buildscript {
     jcenter()
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.3.0-rc02'
+    classpath 'com.android.tools.build:gradle:3.4.0-alpha08'
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
   }
 }
@@ -14,7 +14,19 @@ buildscript {
 allprojects {
   repositories {
     google()
-    jcenter()
+    maven {
+      url MAVEN_CENTRAL_URL
+      content {
+        includeGroupByRegex "org\\.jetbrains.*"
+        includeModule "com.google.guava", "listenablefuture"
+        includeModule "com.jakewharton.timber", "timber"
+      }
+    }
+    jcenter {
+      content {
+        includeModule "com.g00fy2", "versioncompare"
+      }
+    }
   }
 }
 
