@@ -18,7 +18,8 @@ allprojects {
       url MAVEN_CENTRAL_URL
       content {
         includeGroupByRegex "org\\.jetbrains.*"
-        includeModule "com.google.guava", "listenablefuture"
+        includeGroup "com.google.guava"
+        includeGroup "org.sonatype.oss"
         includeModule "com.jakewharton.timber", "timber"
       }
     }
