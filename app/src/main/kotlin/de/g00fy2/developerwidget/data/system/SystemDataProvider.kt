@@ -31,7 +31,7 @@ class SystemDataProvider {
 
     fun getVMVersion(): String {
       val vmVersion = System.getProperty("java.vm.version")
-      val vmName = if (Version(vmVersion).isAtLeast("2")) "ART" else "Dalvik"
+      val vmName = if (Version(vmVersion).isAtLeast("2", true)) "ART" else "Dalvik"
       return "$vmName $vmVersion"
     }
 
