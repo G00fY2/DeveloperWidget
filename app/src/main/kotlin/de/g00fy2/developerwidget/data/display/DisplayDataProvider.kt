@@ -5,6 +5,7 @@ import android.graphics.Point
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.util.DisplayMetrics
+import java.text.NumberFormat
 
 class DisplayDataProvider {
 
@@ -33,12 +34,21 @@ class DisplayDataProvider {
     }
 
     fun getDisplayRatio(resolution: Point): String {
-      val gcd = gcd(resolution.x, resolution.y)
-      return if (resolution.x < resolution.y) {
-        (resolution.y / gcd).toString() + ":" + (resolution.x / gcd)
-      } else {
-        (resolution.x / gcd).toString() + ":" + (resolution.y / gcd)
-      }
+      val resX = Math.min(resolution.x, resolution.y)
+      val resY = Math.max(resolution.x, resolution.y)
+      val gcd = gcd(resX, resY)
+
+      val result = (resY / gcd).toString() + ":" + (resX / gcd)
+      val altResult =
+        if ((resolution.x / gcd) > 9 && ((resolution.y / gcd / 2.0f) % 1.0f) == 0.5f && ((resolution.x / gcd / 2.0f) % 1.0f) == 0.0f) {
+          NumberFormat.getInstance().let {
+            it.format((resolution.y / gcd / 2.0f)).toString() + ":" + it.format((resolution.x / gcd / 2.0f))
+          }
+        } else {
+          ""
+        }
+
+      return result + if (altResult.isBlank()) "" else " ($altResult)"
     }
 
     private fun gcd(p: Int, q: Int): Int {
