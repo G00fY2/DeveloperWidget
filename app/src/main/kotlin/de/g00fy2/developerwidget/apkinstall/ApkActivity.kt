@@ -40,8 +40,7 @@ class ApkActivity : BaseActivity() {
     cancel_textview.setOnClickListener { finish() }
     install_textview.setOnClickListener { installAPK() }
 
-    adapter = ApkAdapter()
-    adapter.setOnApkSelected { install_textview.isEnabled = true }
+    adapter = ApkAdapter().setOnApkSelected { install_textview.isEnabled = true }
     recyclerview.setHasFixedSize(true)
     recyclerview.layoutManager = LinearLayoutManager(this)
     recyclerview.adapter = adapter

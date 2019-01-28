@@ -65,7 +65,10 @@ class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>() {
     selectedPosition = RecyclerView.NO_POSITION
   }
 
-  fun setOnApkSelected(onApkSelected: () -> Unit) = { this.onApkSelected = onApkSelected }()
+  fun setOnApkSelected(onApkSelected: () -> Unit): ApkAdapter {
+    this.onApkSelected = onApkSelected
+    return this
+  }
 
   fun getSelectedFile(): ApkFile? {
     return if (selectedPosition != RecyclerView.NO_POSITION && selectedPosition < itemCount) {
