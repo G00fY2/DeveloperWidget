@@ -26,6 +26,7 @@ allprojects {
     }
     jcenter {
       content {
+        includeModule "com.google.android", "flexbox"
         includeModule "com.g00fy2", "versioncompare"
       }
     }

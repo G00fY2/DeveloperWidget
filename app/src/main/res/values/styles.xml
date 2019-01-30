@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="AppTheme" parent="Theme.AppCompat.Light">
+  <style name="AppTheme" parent="Theme.MaterialComponents.Light">
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
@@ -10,7 +10,7 @@
     <item name="actionBarTheme">@style/AccentActionBar</item>
   </style>
 
-  <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+  <style name="DialogTheme" parent="Theme.MaterialComponents.Light.Dialog">
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
@@ -23,6 +23,7 @@
 
   <style name="DialogButtonAppearance" parent="TextAppearance.AppCompat.Widget.Button">
     <item name="android:textColor">@color/dialog_button_color</item>
+    <item name="android:textAllCaps">false</item>
   </style>
 
   <style name="ConfigureButtonAppearance" parent="Widget.AppCompat.Button.Colored">

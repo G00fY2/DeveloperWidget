@@ -1,7 +1,9 @@
 package de.g00fy2.developerwidget.base
 
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -41,5 +43,10 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
         }
       }
     }
+  }
+
+  protected fun hideKeyboard() {
+    val imm = getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow((if (currentFocus == null) View(this) else currentFocus).windowToken, 0)
   }
 }

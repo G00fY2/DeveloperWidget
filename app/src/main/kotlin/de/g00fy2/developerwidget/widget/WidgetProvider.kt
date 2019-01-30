@@ -8,6 +8,7 @@ import android.content.Intent
 import android.widget.RemoteViews
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.apkinstall.ApkActivity
+import de.g00fy2.developerwidget.appsettings.AppsActivity
 import de.g00fy2.developerwidget.data.DeviceDataProvider
 import timber.log.Timber
 
@@ -42,9 +43,11 @@ class WidgetProvider : AppWidgetProvider() {
       val configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, PendingIntent.FLAG_UPDATE_CURRENT)
       views.setOnClickPendingIntent(R.id.device_info_linearlayout, configPendingIntent)
 
-      val settingsIntent = Intent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
-      val settingsPendingIntent = PendingIntent.getActivity(context, 0, settingsIntent, 0)
-      views.setOnClickPendingIntent(R.id.developer_settings_linearlayout, settingsPendingIntent)
+//      val settingsIntent = Intent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
+//      val settingsPendingIntent = PendingIntent.getActivity(context, 0, settingsIntent, 0)
+      val appIntent = Intent(context, AppsActivity::class.java)
+      val appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, 0)
+      views.setOnClickPendingIntent(R.id.developer_settings_linearlayout, appPendingIntent)
 
       val apkIntent = Intent(context, ApkActivity::class.java)
       val apkPendingIntent = PendingIntent.getActivity(context, 0, apkIntent, 0)

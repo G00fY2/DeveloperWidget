@@ -3,6 +3,7 @@
   <color name="colorPrimary">#f8f9fa</color>
   <color name="colorPrimaryDark">#999999</color>
   <color name="colorAccent">#1a73e8</color>
+
   <color name="widgetTextColor">#808080</color>
   <color name="gray88">#e0e0e0</color>
   <color name="transparentWhite88">#e0ffffff</color>

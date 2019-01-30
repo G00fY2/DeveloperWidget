@@ -23,14 +23,14 @@
         android:taskAffinity=""
         android:theme="@style/DialogTheme"/>
 
-    <receiver android:name=".widget.WidgetProvider">
-      <intent-filter>
-        <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-      </intent-filter>
-      <meta-data
-          android:name="android.appwidget.provider"
-          android:resource="@xml/appwidget_info"/>
-    </receiver>
+    <activity
+      android:name=".appsettings.AppsActivity"
+      android:excludeFromRecents="true"
+      android:label="@string/install_apk"
+      android:launchMode="singleTask"
+      android:noHistory="true"
+      android:taskAffinity=""
+      android:theme="@style/DialogTheme"/>
 
     <activity
         android:name=".widget.WidgetConfigActivity"
@@ -47,6 +47,15 @@
         android:name=".about.AboutActivity"
         android:label="@string/about"
         android:screenOrientation="portrait"/>
+
+    <receiver android:name=".widget.WidgetProvider">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+      </intent-filter>
+      <meta-data
+        android:name="android.appwidget.provider"
+        android:resource="@xml/appwidget_info"/>
+    </receiver>
 
     <provider
         android:name="androidx.core.content.FileProvider"
