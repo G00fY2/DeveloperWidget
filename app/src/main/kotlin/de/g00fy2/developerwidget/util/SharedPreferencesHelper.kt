@@ -1,7 +1,6 @@
 package de.g00fy2.developerwidget.util
 
 import android.content.Context
-import android.preference.PreferenceManager
 
 class SharedPreferencesHelper(private val context: Context, private val widgetId: Int) {
 
