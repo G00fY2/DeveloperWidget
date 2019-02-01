@@ -40,18 +40,18 @@ class WidgetProvider : AppWidgetProvider() {
       val configIntent = Intent(context, WidgetConfigActivity::class.java)
       configIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
       configIntent.putExtra(WidgetConfigActivity.EXTRA_APPWIDGET_UPDATE_EXISTING, true)
-      val configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+      val configPendingIntent = PendingIntent.getActivity(context, widgetId, configIntent, PendingIntent.FLAG_UPDATE_CURRENT)
       views.setOnClickPendingIntent(R.id.device_info_linearlayout, configPendingIntent)
 
 //      val settingsIntent = Intent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
 //      val settingsPendingIntent = PendingIntent.getActivity(context, 0, settingsIntent, 0)
       val appIntent = Intent(context, AppsActivity::class.java)
       appIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
-      val appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, 0)
+      val appPendingIntent = PendingIntent.getActivity(context, widgetId, appIntent, PendingIntent.FLAG_UPDATE_CURRENT)
       views.setOnClickPendingIntent(R.id.developer_settings_linearlayout, appPendingIntent)
 
       val apkIntent = Intent(context, ApkActivity::class.java)
-      val apkPendingIntent = PendingIntent.getActivity(context, 0, apkIntent, 0)
+      val apkPendingIntent = PendingIntent.getActivity(context, widgetId, apkIntent, 0)
       views.setOnClickPendingIntent(R.id.install_apk_linearlayout, apkPendingIntent)
 
       appWidgetManager.updateAppWidget(widgetId, views)
