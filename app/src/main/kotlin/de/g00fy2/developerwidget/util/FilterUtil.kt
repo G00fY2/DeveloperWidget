@@ -4,8 +4,9 @@ class FilterUtil {
 
   companion object {
 
-    fun valueContainsAllFilters(value: String, filterInputs: List<String>): Boolean {
+    fun filterValue(value: String, filter: String): Boolean {
       var result = false
+      val filterInputs = filter.split("*")
       var tempValue = value
       for (i in filterInputs) {
         if (tempValue.contains(i, true)) {
@@ -16,6 +17,13 @@ class FilterUtil {
         }
       }
       return result
+    }
+
+    fun filterValueByCollection(value: String, filterEntries: Collection<String>): Boolean {
+      for (i in filterEntries) {
+        if (filterValue(value, i)) return true
+      }
+      return false
     }
   }
 }

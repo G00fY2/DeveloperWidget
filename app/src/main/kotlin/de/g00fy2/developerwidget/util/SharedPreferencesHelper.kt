@@ -3,15 +3,20 @@ package de.g00fy2.developerwidget.util
 import android.content.Context
 import android.preference.PreferenceManager
 
-class SharedPreferencesHelper(context: Context) {
+class SharedPreferencesHelper(private val context: Context, private val widgetId: Int) {
 
-  private var sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.applicationContext)
+  companion object {
+    const val FILTERS = "APP_FILTERS"
+  }
 
-  fun getString(key: String): String? = sharedPreferences.getString(key, null)
+  private val sharedPreference by lazy {
+    context.getSharedPreferences(
+      context.packageName + ".preferences_" + widgetId,
+      Context.MODE_PRIVATE
+    )
+  }
 
-  fun putString(key: String, value: String?) = sharedPreferences.edit().putString(key, value).apply()
+  fun saveFilters(filters: Set<String>) = sharedPreference.edit().putStringSet(FILTERS, filters).apply()
 
-  fun putWidgetString(widgetId: Int, key: String, value: String?) = putString(widgetId.toString() + "_" + key, value)
-
-  fun getWidgetString(widgetId: Int, key: String) = getString(widgetId.toString() + "_" + key)
+  fun getFilters(): MutableSet<String> = sharedPreference.getStringSet(FILTERS, mutableSetOf()) ?: mutableSetOf()
 }

@@ -46,6 +46,7 @@ class WidgetProvider : AppWidgetProvider() {
 //      val settingsIntent = Intent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
 //      val settingsPendingIntent = PendingIntent.getActivity(context, 0, settingsIntent, 0)
       val appIntent = Intent(context, AppsActivity::class.java)
+      appIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
       val appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, 0)
       views.setOnClickPendingIntent(R.id.developer_settings_linearlayout, appPendingIntent)
 

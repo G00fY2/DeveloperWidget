@@ -1,6 +1,5 @@
 package de.g00fy2.developerwidget.appsettings
 
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,20 +63,31 @@ class AppsAdapter : BaseAdapter<AppInfo, AppViewHolder>() {
     return this
   }
 
-  fun updateAppFilter(s: Editable?) {
-    if (s == null || s.isEmpty()) {
+  fun updateAppFilter(filter: String) {
+    if (filter.isEmpty()) {
       resetAppFilter()
     } else {
       items.clear()
-      val filterInputs = s.split("*")
       for (i in itemsCopy) {
-        if (FilterUtil.valueContainsAllFilters(i.packageName, filterInputs)) items.add(i)
+        if (FilterUtil.filterValue(i.packageName, filter)) items.add(i)
       }
       notifyDataSetChanged()
     }
   }
 
-  fun resetAppFilter() {
+  fun updateAppFilterSet(filters: Collection<String>) {
+    if (filters.isEmpty()) {
+      resetAppFilter()
+    } else {
+      items.clear()
+      for (i in itemsCopy) {
+        if (FilterUtil.filterValueByCollection(i.packageName, filters)) items.add(i)
+      }
+      notifyDataSetChanged()
+    }
+  }
+
+  private fun resetAppFilter() {
     items.clear()
     items.addAll(itemsCopy)
     notifyDataSetChanged()

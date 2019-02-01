@@ -1,5 +1,6 @@
 package de.g00fy2.developerwidget.appsettings
 
+import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.net.Uri
@@ -7,18 +8,18 @@ import android.os.Bundle
 import android.provider.Settings
 import android.text.Editable
 import android.text.InputFilter
-import android.text.Spanned
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.Window
 import android.view.inputmethod.EditorInfo
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.base.BaseActivity
+import de.g00fy2.developerwidget.util.SharedPreferencesHelper
 import kotlinx.android.synthetic.main.activity_apps.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,11 +30,18 @@ class AppsActivity : BaseActivity() {
   override val layoutRes = R.layout.activity_apps
   private lateinit var appInfoBuilder: AppInfo.Builder
   private lateinit var adapter: AppsAdapter
+  private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
+  private var widgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID
   private var installedAppPackages: MutableList<AppInfo> = ArrayList()
+  private var appFilter = mutableSetOf<String>()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     requestWindowFeature(Window.FEATURE_NO_TITLE)
     super.onCreate(savedInstanceState)
+
+    intent.extras?.let {
+      widgetId = it.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
+    }
 
     val width = (resources.displayMetrics.widthPixels * 0.95).toInt()
     val height = (resources.displayMetrics.heightPixels * 0.80).toInt()
@@ -46,77 +54,25 @@ class AppsActivity : BaseActivity() {
     recyclerview.layoutManager = LinearLayoutManager(this)
     recyclerview.adapter = adapter
     appInfoBuilder = AppInfo.Builder(this)
+    sharedPreferencesHelper = SharedPreferencesHelper(this, widgetId)
     initFilterViews()
   }
 
   override fun onResume() {
     super.onResume()
+    appFilter = sharedPreferencesHelper.getFilters()
+    updateFilterIcon()
     launch {
       getInstalledUserApps()
       toggleResultView()
     }
   }
 
-  private fun initFilterViews() {
-    fiter_imageview.apply {
-      setOnClickListener {
-        if (filter_linearlayout.visibility == View.VISIBLE) {
-          filter_linearlayout.visibility = View.GONE
-          adapter.resetAppFilter()
-          filter_edittext.text.clear()
-          hideKeyboard()
-        } else {
-          filter_linearlayout.visibility = View.VISIBLE
-        }
-      }
-    }
-
-    filter_edittext.apply {
-      filters = arrayOf(InputFilter { source, _, _, _, _, _ ->
-        if (source.isEmpty() || source.matches("^[a-zA-Z0-9._*]*$".toRegex())) {
-          null
-        } else {
-          ""
-        }
-      })
-      setOnEditorActionListener { _, actionId, _ ->
-        if (actionId == EditorInfo.IME_ACTION_DONE && filter_edittext.text.trim().isNotEmpty()) {
-          // TODO save filter
-          (LayoutInflater.from(context).inflate(R.layout.filter_chip, flexbox_layout, false) as Chip).let {
-            it.text = filter_edittext.text.trim()
-            flexbox_layout.addView(it)
-          }
-          filter_edittext.text.clear()
-        }
-        true
-      }
-      addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {
-          adapter.updateAppFilter(s)
-        }
-
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        }
-      })
-    }
-  }
-
-  private fun openAppSettingsActivity() {
-    adapter.getSelectedPackageName()?.let {
-      startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$it")))
-    }
-  }
-
-  private fun addFilterChips(filters: Set<String>) {
-    for (i in filters) {
-      flexbox_layout.addView(Chip(this).apply {
-        text = i
-        isCloseIconVisible = true
-        setOnCloseIconClickListener { filters.minus(i) }
-      })
+  override fun onBackPressed() {
+    if (filter_linearlayout.visibility == View.VISIBLE) {
+      toggleFilterView()
+    } else {
+      super.onBackPressed()
     }
   }
 
@@ -130,17 +86,119 @@ class AppsActivity : BaseActivity() {
     }
   }
 
+  private fun initFilterViews() {
+    fiter_imageview.apply {
+      setOnClickListener {
+        toggleFilterView()
+      }
+    }
+
+    filter_edittext.apply {
+      filters = arrayOf(InputFilter { source, _, _, _, _, _ ->
+        if (source.isEmpty() || source.matches("^[a-zA-Z0-9._*]*$".toRegex())) {
+          null
+        } else {
+          ""
+        }
+      })
+      setOnEditorActionListener { _, actionId, _ ->
+        val filterString = filter_edittext.text.toString().trim()
+        if (actionId == EditorInfo.IME_ACTION_DONE && filterString.isNotEmpty() && !appFilter.contains(filterString)) {
+          addAppFilter(filterString)
+        }
+        true
+      }
+      addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+          if (s.isNullOrEmpty()) {
+            adapter.updateAppFilterSet(appFilter)
+          } else {
+            adapter.updateAppFilter(s.toString())
+          }
+          showNoItemView(adapter.itemCount == 0)
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+      })
+    }
+  }
+
   private fun toggleResultView() {
     if (installedAppPackages.isNotEmpty()) {
-      adapter.addAll(installedAppPackages.filter { it.packageName.contains("", true) }.toMutableList())
+      adapter.addAll(installedAppPackages)
+      adapter.updateAppFilterSet(appFilter)
+      showNoItemView(adapter.itemCount == 0)
       recyclerview.overScrollMode = View.OVER_SCROLL_ALWAYS
-      progress_textview.visibility = View.INVISIBLE
-    } else {
-      progress_textview.text = getString(R.string.no_apk_found)
     }
 
     ViewCompat.animate(progressbar).alpha(0f).setDuration(400).withEndAction {
       progressbar.visibility = View.INVISIBLE
     }.start()
+  }
+
+  private fun toggleFilterView() {
+    if (filter_linearlayout.visibility == View.VISIBLE) {
+      flexbox_layout.removeAllViews()
+      filter_linearlayout.visibility = View.GONE
+      filter_edittext.text.clear()
+      hideKeyboard()
+    } else {
+      addFilterChips(appFilter)
+      filter_linearlayout.visibility = View.VISIBLE
+    }
+  }
+
+  private fun addAppFilter(filterString: String) {
+    appFilter.add(filterString)
+    updateFilterIcon()
+    sharedPreferencesHelper.saveFilters(appFilter)
+    addFilterChip(filterString)
+    filter_edittext.text.clear()
+  }
+
+  private fun removeAppFilter(chip: Chip) {
+    flexbox_layout.removeView(chip)
+    appFilter.remove(chip.text.toString())
+    adapter.updateAppFilterSet(appFilter)
+    showNoItemView(adapter.itemCount == 0)
+    updateFilterIcon()
+    sharedPreferencesHelper.saveFilters(appFilter)
+  }
+
+  private fun addFilterChips(filters: Collection<String>) {
+    for (i in filters) {
+      addFilterChip(i)
+    }
+  }
+
+  private fun addFilterChip(filterString: String) {
+    (LayoutInflater.from(this).inflate(R.layout.filter_chip, flexbox_layout, false) as Chip).let {
+      it.text = filterString
+      it.isClickable = false
+      flexbox_layout.addView(it)
+      it.setOnCloseIconClickListener { view -> removeAppFilter(view as Chip) }
+    }
+  }
+
+  private fun updateFilterIcon() {
+    if (appFilter.size > 0) {
+      fiter_imageview.setColorFilter(ResourcesCompat.getColor(resources, R.color.colorAccent, null))
+    } else {
+      fiter_imageview.clearColorFilter()
+    }
+  }
+
+  private fun openAppSettingsActivity() {
+    adapter.getSelectedPackageName()?.let {
+      startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$it")))
+    }
+  }
+
+  private fun showNoItemView(show: Boolean) {
+    no_items_textview.visibility = if (show) View.VISIBLE else View.INVISIBLE
   }
 }
