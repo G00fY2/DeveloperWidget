@@ -10,7 +10,6 @@ import de.g00fy2.developerwidget.BuildConfig
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.base.BaseActivity
 import de.g00fy2.developerwidget.util.Constants
-import de.g00fy2.developerwidget.util.SharedPreferencesHelper
 import kotlinx.android.synthetic.main.activity_about.*
 import timber.log.Timber
 
@@ -21,13 +20,11 @@ class AboutActivity : BaseActivity() {
   private var clickCount = 0
   private var clickStart: Long = 0
   private var toast: Toast? = null
-  private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
 
   public override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
     supportActionBar?.elevation = 0f
-    sharedPreferencesHelper = SharedPreferencesHelper(this)
     initView()
   }
 
