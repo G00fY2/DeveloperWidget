@@ -42,123 +42,127 @@
   </LinearLayout>
 
   <LinearLayout
-      android:id="@+id/filter_linearlayout"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:animateLayoutChanges="true"
-      android:background="@android:color/white"
-      android:clickable="true"
-      android:focusable="true"
-      android:orientation="vertical"
-      android:visibility="gone">
+      android:layout_height="match_parent"
+      android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/filter_edittext"
+    <LinearLayout
+        android:id="@+id/filter_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/filter_edittext_background"
-        android:hint="@string/filter_hint"
-        android:imeOptions="actionDone"
-        android:inputType="textVisiblePassword"
-        android:lines="1"
-        android:maxLines="1"
-        android:paddingStart="24dp"
-        android:paddingTop="12dp"
-        android:paddingEnd="24dp"
-        android:paddingBottom="12dp"
-        android:singleLine="true"
-        android:textColor="@color/widgetTextColor"/>
+        android:background="@android:color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
 
-    <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/flexbox_layout"
+      <EditText
+          android:id="@+id/filter_edittext"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp"
+          android:background="@drawable/filter_edittext_background"
+          android:hint="@string/filter_hint"
+          android:imeOptions="actionDone"
+          android:inputType="textVisiblePassword"
+          android:lines="1"
+          android:maxLines="1"
+          android:paddingStart="24dp"
+          android:paddingTop="12dp"
+          android:paddingEnd="24dp"
+          android:paddingBottom="12dp"
+          android:singleLine="true"
+          android:textColor="@color/widgetTextColor"/>
+
+      <com.google.android.flexbox.FlexboxLayout
+          android:id="@+id/flexbox_layout"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="12dp"
+          android:layout_marginTop="2dp"
+          android:layout_marginEnd="12dp"
+          android:layout_marginBottom="2dp"
+          android:paddingBottom="2dp"
+          app:flexWrap="wrap"/>
+
+    </LinearLayout>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="2dp"
-        android:paddingBottom="2dp"
-        app:flexWrap="wrap"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
 
-  </LinearLayout>
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/recyclerview"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:fadeScrollbars="false"
+          android:scrollbars="vertical"
+          android:splitMotionEvents="false"
+          />
 
-  <FrameLayout
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1"
-      >
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_margin="16dp"
+          android:orientation="vertical"
+          >
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fadeScrollbars="false"
-        android:scrollbars="vertical"
-        android:splitMotionEvents="false"
-        />
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            />
+
+        <TextView
+            android:id="@+id/no_items_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/no_app_found"
+            android:textSize="14sp"
+            android:visibility="invisible"
+            />
+      </LinearLayout>
+
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="16dp"
-        android:orientation="vertical"
+        android:layout_height="?attr/actionBarSize"
+        android:orientation="horizontal"
         >
 
-      <ProgressBar
-          android:id="@+id/progressbar"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:indeterminate="true"
+      <View
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:layout_weight="1"
           />
 
       <TextView
-          android:id="@+id/no_items_textview"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="8dp"
-          android:ellipsize="end"
-          android:gravity="center"
-          android:singleLine="true"
-          android:text="@string/no_app_found"
-          android:textSize="14sp"
-          android:visibility="invisible"
+          android:id="@+id/cancel_textview"
+          style="@style/DialogButtonAppearance"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginTop="4dp"
+          android:layout_marginEnd="16dp"
+          android:layout_marginRight="16dp"
+          android:layout_marginBottom="4dp"
+          android:background="?attr/selectableItemBackground"
+          android:clickable="true"
+          android:focusable="true"
+          android:gravity="center_vertical"
+          android:paddingStart="8dp"
+          android:paddingEnd="8dp"
+          android:text="@string/cancel"
           />
     </LinearLayout>
-
-  </FrameLayout>
-
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
-      android:orientation="horizontal"
-      >
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        />
-
-    <TextView
-        android:id="@+id/cancel_textview"
-        style="@style/DialogButtonAppearance"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="4dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center_vertical"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:text="@string/cancel"
-        />
   </LinearLayout>
 </LinearLayout>

@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.webkit.WebView
+import androidx.annotation.ContentView
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.about.AboutActivity
@@ -20,9 +21,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@ContentView(R.layout.activity_widget_config)
 class WidgetConfigActivity : BaseActivity() {
 
-  override val layoutRes = R.layout.activity_widget_config
   private var updateExistingWidget = false
   private var widgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID
   private lateinit var adapter: DeviceDataAdapter

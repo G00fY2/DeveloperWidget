@@ -1,6 +1,7 @@
 package de.g00fy2.developerwidget.util
 
 import android.content.Context
+import androidx.core.content.edit
 
 class SharedPreferencesHelper(private val context: Context, private val widgetId: Int) {
 
@@ -15,7 +16,7 @@ class SharedPreferencesHelper(private val context: Context, private val widgetId
     )
   }
 
-  fun saveFilters(filters: Set<String>) = sharedPreference.edit().putStringSet(FILTERS, filters).apply()
+  fun saveFilters(filters: Set<String>) = sharedPreference.edit { putStringSet(FILTERS, filters) }
 
   fun getFilters(): MutableSet<String> = sharedPreference.getStringSet(FILTERS, mutableSetOf()) ?: mutableSetOf()
 }

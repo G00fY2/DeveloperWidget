@@ -3,7 +3,8 @@ package de.g00fy2.developerwidget.appsettings
 import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.content.pm.ApplicationInfo
-import android.net.Uri
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.provider.Settings
 import android.text.Editable
@@ -11,23 +12,29 @@ import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.Window
 import android.view.inputmethod.EditorInfo
+import androidx.annotation.ContentView
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.base.BaseActivity
+import de.g00fy2.developerwidget.util.AnimationUtils
 import de.g00fy2.developerwidget.util.SharedPreferencesHelper
+import de.g00fy2.developerwidget.util.UiUtils
 import kotlinx.android.synthetic.main.activity_apps.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@ContentView(R.layout.activity_apps)
 class AppsActivity : BaseActivity() {
 
-  override val layoutRes = R.layout.activity_apps
   private lateinit var appInfoBuilder: AppInfo.Builder
   private lateinit var adapter: AppsAdapter
   private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
@@ -55,12 +62,12 @@ class AppsActivity : BaseActivity() {
     recyclerview.adapter = adapter
     appInfoBuilder = AppInfo.Builder(this)
     sharedPreferencesHelper = SharedPreferencesHelper(this, widgetId)
+    appFilter = sharedPreferencesHelper.getFilters()
     initFilterViews()
   }
 
   override fun onResume() {
     super.onResume()
-    appFilter = sharedPreferencesHelper.getFilters()
     updateFilterIcon()
     launch {
       getInstalledUserApps()
@@ -69,7 +76,7 @@ class AppsActivity : BaseActivity() {
   }
 
   override fun onBackPressed() {
-    if (filter_linearlayout.visibility == View.VISIBLE) {
+    if (filter_linearlayout.isVisible) {
       toggleFilterView()
     } else {
       super.onBackPressed()
@@ -87,11 +94,7 @@ class AppsActivity : BaseActivity() {
   }
 
   private fun initFilterViews() {
-    fiter_imageview.apply {
-      setOnClickListener {
-        toggleFilterView()
-      }
-    }
+    fiter_imageview.setOnClickListener { toggleFilterView() }
 
     filter_edittext.apply {
       filters = arrayOf(InputFilter { source, _, _, _, _, _ ->
@@ -125,6 +128,19 @@ class AppsActivity : BaseActivity() {
         }
       })
     }
+    addFilterChips(appFilter)
+    filter_linearlayout.apply {
+      viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+        override fun onGlobalLayout() {
+          if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN) {
+            viewTreeObserver.removeOnGlobalLayoutListener(this)
+          } else {
+            viewTreeObserver.removeGlobalOnLayoutListener(this)
+          }
+          visibility = View.GONE
+        }
+      })
+    }
   }
 
   private fun toggleResultView() {
@@ -135,20 +151,20 @@ class AppsActivity : BaseActivity() {
       recyclerview.overScrollMode = View.OVER_SCROLL_ALWAYS
     }
 
-    ViewCompat.animate(progressbar).alpha(0f).setDuration(400).withEndAction {
-      progressbar.visibility = View.INVISIBLE
-    }.start()
+    ViewCompat.animate(progressbar).alpha(0f)
+      .setDuration(resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()).withEndAction {
+        progressbar.visibility = View.INVISIBLE
+      }.start()
   }
 
   private fun toggleFilterView() {
-    if (filter_linearlayout.visibility == View.VISIBLE) {
-      flexbox_layout.removeAllViews()
-      filter_linearlayout.visibility = View.GONE
+    if (filter_linearlayout.isVisible) {
+      AnimationUtils.collapseView(filter_linearlayout).start()
       filter_edittext.text.clear()
-      hideKeyboard()
+      UiUtils.hideKeyboard(this)
     } else {
       addFilterChips(appFilter)
-      filter_linearlayout.visibility = View.VISIBLE
+      AnimationUtils.expandView(filter_linearlayout).start()
     }
   }
 
@@ -170,6 +186,7 @@ class AppsActivity : BaseActivity() {
   }
 
   private fun addFilterChips(filters: Collection<String>) {
+    flexbox_layout.removeAllViews()
     for (i in filters) {
       addFilterChip(i)
     }
@@ -194,7 +211,7 @@ class AppsActivity : BaseActivity() {
 
   private fun openAppSettingsActivity() {
     adapter.getSelectedPackageName()?.let {
-      startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$it")))
+      startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, "package:$it".toUri()))
     }
   }
 

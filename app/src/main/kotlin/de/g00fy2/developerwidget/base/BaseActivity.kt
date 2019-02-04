@@ -1,9 +1,7 @@
 package de.g00fy2.developerwidget.base
 
 import android.os.Bundle
-import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,13 +10,11 @@ import kotlin.coroutines.CoroutineContext
 
 abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
 
-  protected abstract val layoutRes: Int
   private lateinit var job: Job
   private val Float.px: Float get() = (this * resources.displayMetrics.density)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(layoutRes)
     supportActionBar?.elevation = 0f
     job = Job()
   }
@@ -43,10 +39,5 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
         }
       }
     }
-  }
-
-  protected fun hideKeyboard() {
-    val imm = getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.hideSoftInputFromWindow((if (currentFocus == null) View(this) else currentFocus).windowToken, 0)
   }
 }

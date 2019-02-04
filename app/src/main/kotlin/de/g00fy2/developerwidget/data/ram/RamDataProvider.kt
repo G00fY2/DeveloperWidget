@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Build.VERSION
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES
+import androidx.core.content.getSystemService
 import java.io.IOException
 import java.io.RandomAccessFile
 import java.util.regex.Pattern
@@ -16,7 +17,7 @@ class RamDataProvider {
     fun getTotalRam(context: Context): String {
       if (SDK_INT >= VERSION_CODES.JELLY_BEAN) {
         val memInfo = ActivityManager.MemoryInfo()
-        (context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).getMemoryInfo(memInfo)
+        context.getSystemService<ActivityManager>()?.getMemoryInfo(memInfo)
         return (2 * (Math.round(memInfo.totalMem / (1024.0 * 1024.0) / 2))).toString() + " MB"
       } else {
         try {
@@ -37,7 +38,7 @@ class RamDataProvider {
 
     fun hasLowRamFlag(context: Context): String {
       return if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
-        (context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).isLowRamDevice.toString()
+        context.getSystemService<ActivityManager>()?.isLowRamDevice.toString()
       } else {
         ""
       }

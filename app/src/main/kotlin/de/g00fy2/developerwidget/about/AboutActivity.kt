@@ -2,10 +2,11 @@ package de.g00fy2.developerwidget.about
 
 import android.R.id
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.annotation.ContentView
+import androidx.core.net.toUri
 import de.g00fy2.developerwidget.BuildConfig
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.base.BaseActivity
@@ -13,9 +14,8 @@ import de.g00fy2.developerwidget.util.Constants
 import kotlinx.android.synthetic.main.activity_about.*
 import timber.log.Timber
 
+@ContentView(R.layout.activity_about)
 class AboutActivity : BaseActivity() {
-
-  override val layoutRes = R.layout.activity_about
 
   private var clickCount = 0
   private var clickStart: Long = 0
@@ -41,7 +41,7 @@ class AboutActivity : BaseActivity() {
     setActionbarElevationListener(about_root_scrollview)
 
     app_version_textview.text =
-        String.format(getString(R.string.app_version), BuildConfig.VERSION_NAME)
+      String.format(getString(R.string.app_version), BuildConfig.VERSION_NAME)
     app_desc_textview.text = "App description." // TODO
 
     privacy_item.init {
@@ -103,7 +103,7 @@ class AboutActivity : BaseActivity() {
   private fun openUrl(url: String) {
     if (url.startsWith("http", true)) {
       try {
-        val uri = Uri.parse(url)
+        val uri = url.toUri()
         startActivity(Intent(Intent.ACTION_VIEW, uri))
       } catch (e: Exception) {
         Timber.d(e)

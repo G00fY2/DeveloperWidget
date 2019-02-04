@@ -3,12 +3,13 @@ package de.g00fy2.developerwidget.appsettings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.appsettings.AppsAdapter.AppViewHolder
 import de.g00fy2.developerwidget.base.BaseAdapter
 import de.g00fy2.developerwidget.base.BaseViewHolder
-import de.g00fy2.developerwidget.util.FilterUtil
+import de.g00fy2.developerwidget.util.FilterUtils
 import kotlinx.android.synthetic.main.app_item.*
 
 class AppsAdapter : BaseAdapter<AppInfo, AppViewHolder>() {
@@ -67,11 +68,11 @@ class AppsAdapter : BaseAdapter<AppInfo, AppViewHolder>() {
     if (filter.isEmpty()) {
       resetAppFilter()
     } else {
-      items.clear()
+      val filteredItems = ArrayList<AppInfo>()
       for (i in itemsCopy) {
-        if (FilterUtil.filterValue(i.packageName, filter)) items.add(i)
+        if (FilterUtils.filterValue(i.packageName, filter)) filteredItems.add(i)
       }
-      notifyDataSetChanged()
+      addAll(filteredItems, DiffUtil.calculateDiff((AppsDiffUtilsCallback(items, filteredItems))))
     }
   }
 
@@ -79,18 +80,16 @@ class AppsAdapter : BaseAdapter<AppInfo, AppViewHolder>() {
     if (filters.isEmpty()) {
       resetAppFilter()
     } else {
-      items.clear()
+      val filteredItems = ArrayList<AppInfo>()
       for (i in itemsCopy) {
-        if (FilterUtil.filterValueByCollection(i.packageName, filters)) items.add(i)
+        if (FilterUtils.filterValueByCollection(i.packageName, filters)) filteredItems.add(i)
       }
-      notifyDataSetChanged()
+      addAll(filteredItems, DiffUtil.calculateDiff((AppsDiffUtilsCallback(items, filteredItems))))
     }
   }
 
   private fun resetAppFilter() {
-    items.clear()
-    items.addAll(itemsCopy)
-    notifyDataSetChanged()
+    addAll(itemsCopy, DiffUtil.calculateDiff((AppsDiffUtilsCallback(items, itemsCopy))))
   }
 
 }

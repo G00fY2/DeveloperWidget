@@ -1,9 +1,8 @@
 package de.g00fy2.developerwidget.util
 
-class FilterUtil {
+class FilterUtils {
 
   companion object {
-
     fun filterValue(value: String, filter: String): Boolean {
       var result = false
       val filterInputs = filter.split("*")

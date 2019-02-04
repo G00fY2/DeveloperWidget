@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.view.View
 import android.view.Window
+import androidx.annotation.ContentView
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,9 +24,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 
+@ContentView(R.layout.activity_apk)
 class ApkActivity : BaseActivity() {
 
-  override val layoutRes = R.layout.activity_apk
   private lateinit var apkFileBuilder: ApkFile.Builder
   private lateinit var adapter: ApkAdapter
 
@@ -94,7 +95,7 @@ class ApkActivity : BaseActivity() {
       Intent(Intent.ACTION_VIEW).also { intent ->
         intent.setDataAndType(apkFile.fileUri, APK_MIME_TYPE)
         intent.flags =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) Intent.FLAG_GRANT_READ_URI_PERMISSION else Intent.FLAG_ACTIVITY_NEW_TASK
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) Intent.FLAG_GRANT_READ_URI_PERMISSION else Intent.FLAG_ACTIVITY_NEW_TASK
       }.let { intent -> startActivity(intent) }
     }
   }
@@ -124,9 +125,10 @@ class ApkActivity : BaseActivity() {
       progress_textview.text = getString(R.string.no_apk_found)
     }
 
-    ViewCompat.animate(progressbar).alpha(0f).setDuration(400).withEndAction {
-      progressbar.visibility = View.INVISIBLE
-    }.start()
+    ViewCompat.animate(progressbar).alpha(0f)
+      .setDuration(resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()).withEndAction {
+        progressbar.visibility = View.INVISIBLE
+      }.start()
   }
 
   companion object {
