@@ -72,7 +72,7 @@ class WidgetConfigActivity : BaseActivity() {
     launch {
       getDeviceData().let {
         setWidgetFields(it.toMap())
-        adapter.addAll(it.toMutableList())
+        adapter.setItems(it.toMutableList())
       }
     }
   }

@@ -18,11 +18,11 @@ abstract class BaseAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerView.Adapt
     }
   }
 
-  open fun addAll(newItems: MutableList<T>) {
-    addAll(newItems, null)
+  open fun setItems(newItems: MutableList<T>) {
+    setItems(newItems, null)
   }
 
-  fun addAll(newItems: MutableList<T>, diffResult: DiffResult? = null) {
+  fun setItems(newItems: MutableList<T>, diffResult: DiffResult? = null) {
     val emptyList = items.isEmpty() || newItems.isEmpty()
     items = newItems
     if (diffResult == null || emptyList) notifyDataSetChanged() else diffResult.dispatchUpdatesTo(this)

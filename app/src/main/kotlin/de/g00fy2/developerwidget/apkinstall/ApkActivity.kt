@@ -118,7 +118,7 @@ class ApkActivity : BaseActivity() {
     }
 
     if (apkFiles.isNotEmpty()) {
-      adapter.addAll(apkFiles)
+      adapter.setItems(apkFiles)
       recyclerview.overScrollMode = View.OVER_SCROLL_ALWAYS
       progress_textview.visibility = View.INVISIBLE
     } else {

@@ -128,7 +128,7 @@ class AppsActivity : BaseActivity() {
         }
       })
     }
-    addFilterChips(appFilter)
+    setFilterChips(appFilter)
     filter_linearlayout.apply {
       viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
         override fun onGlobalLayout() {
@@ -145,7 +145,7 @@ class AppsActivity : BaseActivity() {
 
   private fun toggleResultView() {
     if (installedAppPackages.isNotEmpty()) {
-      adapter.addAll(installedAppPackages)
+      adapter.setItems(installedAppPackages)
       adapter.updateAppFilterSet(appFilter)
       showNoItemView(adapter.itemCount == 0)
       recyclerview.overScrollMode = View.OVER_SCROLL_ALWAYS
@@ -163,7 +163,7 @@ class AppsActivity : BaseActivity() {
       filter_edittext.text.clear()
       UiUtils.hideKeyboard(this)
     } else {
-      addFilterChips(appFilter)
+      setFilterChips(appFilter)
       AnimationUtils.expandView(filter_linearlayout).start()
     }
   }
@@ -185,7 +185,7 @@ class AppsActivity : BaseActivity() {
     sharedPreferencesHelper.saveFilters(appFilter)
   }
 
-  private fun addFilterChips(filters: Collection<String>) {
+  private fun setFilterChips(filters: Collection<String>) {
     flexbox_layout.removeAllViews()
     for (i in filters) {
       addFilterChip(i)

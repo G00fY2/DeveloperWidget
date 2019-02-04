@@ -45,10 +45,10 @@ class AppsAdapter : BaseAdapter<AppInfo, AppViewHolder>() {
     selectedPosition = RecyclerView.NO_POSITION
   }
 
-  override fun addAll(newItems: MutableList<AppInfo>) {
+  override fun setItems(newItems: MutableList<AppInfo>) {
     itemsCopy.clear()
     itemsCopy.addAll(newItems)
-    super.addAll(newItems)
+    super.setItems(newItems)
   }
 
   fun getSelectedPackageName(): String? {
@@ -72,7 +72,7 @@ class AppsAdapter : BaseAdapter<AppInfo, AppViewHolder>() {
       for (i in itemsCopy) {
         if (FilterUtils.filterValue(i.packageName, filter)) filteredItems.add(i)
       }
-      addAll(filteredItems, DiffUtil.calculateDiff((AppsDiffUtilsCallback(items, filteredItems))))
+      setItems(filteredItems, DiffUtil.calculateDiff((AppsDiffUtilsCallback(items, filteredItems))))
     }
   }
 
@@ -84,12 +84,12 @@ class AppsAdapter : BaseAdapter<AppInfo, AppViewHolder>() {
       for (i in itemsCopy) {
         if (FilterUtils.filterValueByCollection(i.packageName, filters)) filteredItems.add(i)
       }
-      addAll(filteredItems, DiffUtil.calculateDiff((AppsDiffUtilsCallback(items, filteredItems))))
+      setItems(filteredItems, DiffUtil.calculateDiff((AppsDiffUtilsCallback(items, filteredItems))))
     }
   }
 
   private fun resetAppFilter() {
-    addAll(itemsCopy, DiffUtil.calculateDiff((AppsDiffUtilsCallback(items, itemsCopy))))
+    setItems(itemsCopy, DiffUtil.calculateDiff((AppsDiffUtilsCallback(items, itemsCopy))))
   }
 
 }

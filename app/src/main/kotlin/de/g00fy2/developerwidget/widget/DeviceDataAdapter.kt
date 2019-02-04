@@ -52,8 +52,8 @@ class DeviceDataAdapter : BaseAdapter<Pair<String, DeviceDataItem>, BaseViewHold
     }
   }
 
-  override fun addAll(newItems: MutableList<Pair<String, DeviceDataItem>>) {
-    super.addAll(newItems, DiffUtil.calculateDiff((DeviceDataDiffUtilsCallback(items, newItems))))
+  override fun setItems(newItems: MutableList<Pair<String, DeviceDataItem>>) {
+    super.setItems(newItems, DiffUtil.calculateDiff((DeviceDataDiffUtilsCallback(items, newItems))))
   }
 
   override fun getItemViewType(position: Int) = if (getItem(position).second.isHeader) HEADER_TYPE else VALUE_TYPE
