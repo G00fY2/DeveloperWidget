@@ -4,46 +4,42 @@ import android.animation.ValueAnimator
 import android.view.View
 import android.widget.LinearLayout
 import androidx.core.animation.doOnEnd
-import timber.log.Timber
 
 class AnimationUtils {
 
   companion object {
-    fun expandView(v: View): ValueAnimator {
+    fun expandView(v: View) {
       v.apply {
-        measure(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         val params = layoutParams as LinearLayout.LayoutParams
         params.topMargin = -height
-        Timber.d("height$height")
         requestLayout()
         visibility = View.VISIBLE
 
-        return ValueAnimator.ofInt(params.topMargin, 0).apply {
-          addUpdateListener { valueAnimator ->
-            params.topMargin = valueAnimator.animatedValue as Int
+        ValueAnimator.ofInt(-height, 0).apply {
+          addUpdateListener {
+            params.topMargin = it.animatedValue as Int
             requestLayout()
-            duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
           }
-        }
+          duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
+        }.start()
       }
     }
 
-    fun collapseView(v: View): ValueAnimator {
+    fun collapseView(v: View) {
       v.apply {
-        measure(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         val params = layoutParams as LinearLayout.LayoutParams
         params.topMargin = 0
-        Timber.d("height$height")
         requestLayout()
         visibility = View.VISIBLE
 
-        return ValueAnimator.ofInt(0, -height).apply {
-          addUpdateListener { valueAnimator ->
-            params.topMargin = valueAnimator.animatedValue as Int
+        ValueAnimator.ofInt(0, -height).apply {
+          addUpdateListener {
+            params.topMargin = it.animatedValue as Int
             requestLayout()
-            duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
-          }.apply { doOnEnd { v.visibility = View.GONE } }
-        }
+          }
+          duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
+          doOnEnd { v.visibility = View.GONE }
+        }.start()
       }
     }
   }

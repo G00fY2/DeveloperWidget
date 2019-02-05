@@ -160,12 +160,12 @@ class AppsActivity : BaseActivity() {
 
   private fun toggleFilterView() {
     if (filter_linearlayout.isVisible) {
-      AnimationUtils.collapseView(filter_linearlayout).start()
+      AnimationUtils.collapseView(filter_linearlayout)
       filter_edittext.text.clear()
       UiUtils.hideKeyboard(this)
     } else {
       setFilterChips(appFilter)
-      AnimationUtils.expandView(filter_linearlayout).start()
+      AnimationUtils.expandView(filter_linearlayout)
     }
   }
 
