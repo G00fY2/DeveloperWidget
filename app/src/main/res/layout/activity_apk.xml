@@ -14,7 +14,7 @@
       android:layout_marginStart="16dp"
       android:layout_marginLeft="16dp"
       android:gravity="center_vertical|bottom"
-      android:paddingBottom="4dp"
+      android:paddingBottom="6dp"
       android:text="@string/install_apk"
       android:textSize="20sp"
       app:layout_constraintStart_toStartOf="parent"
