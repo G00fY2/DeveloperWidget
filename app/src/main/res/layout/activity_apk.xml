@@ -1,113 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     >
 
   <TextView
+      android:id="@+id/textView"
       style="@style/TextAppearance.AppCompat.Title"
       android:layout_width="wrap_content"
-      android:layout_height="?attr/actionBarSize"
+      android:layout_height="48dp"
       android:layout_marginStart="16dp"
       android:layout_marginLeft="16dp"
-      android:gravity="center_vertical"
+      android:gravity="center_vertical|bottom"
+      android:paddingBottom="4dp"
       android:text="@string/install_apk"
       android:textSize="20sp"
-      />
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"/>
 
-  <FrameLayout
-      android:layout_width="match_parent"
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/recyclerview"
+      android:layout_width="0dp"
       android:layout_height="0dp"
-      android:layout_weight="1"
-      >
+      android:layout_marginBottom="?attr/actionBarSize"
+      android:fadeScrollbars="false"
+      android:scrollbars="vertical"
+      android:splitMotionEvents="false"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/textView"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fadeScrollbars="false"
-        android:scrollbars="vertical"
-        android:splitMotionEvents="false"
-        />
+  <ProgressBar
+      android:id="@+id/progressbar"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:indeterminate="true"
+      app:layout_constraintBottom_toTopOf="@+id/cancel_textview"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/textView"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="16dp"
-        android:orientation="vertical"
-        >
-
-      <ProgressBar
-          android:id="@+id/progressbar"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:indeterminate="true"
-          />
-
-      <TextView
-          android:id="@+id/progress_textview"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="8dp"
-          android:ellipsize="end"
-          android:gravity="center"
-          android:singleLine="true"
-          android:textSize="14sp"
-          />
-    </LinearLayout>
-  </FrameLayout>
-
-  <LinearLayout
+  <TextView
+      android:id="@+id/progress_textview"
       android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
-      android:orientation="horizontal"
-      >
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginLeft="16dp"
+      android:layout_marginTop="8dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginRight="16dp"
+      android:ellipsize="end"
+      android:gravity="center"
+      android:singleLine="true"
+      android:textSize="14sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/progressbar"/>
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        />
+  <TextView
+      android:id="@+id/cancel_textview"
+      style="@style/DialogButtonAppearance"
+      android:layout_width="wrap_content"
+      android:layout_height="0dp"
+      android:layout_marginTop="4dp"
+      android:layout_marginEnd="8dp"
+      android:layout_marginRight="8dp"
+      android:layout_marginBottom="4dp"
+      android:background="?attr/selectableItemBackground"
+      android:clickable="true"
+      android:focusable="true"
+      android:gravity="center_vertical"
+      android:paddingStart="8dp"
+      android:paddingEnd="8dp"
+      android:text="@string/cancel"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@+id/install_textview"
+      app:layout_constraintTop_toBottomOf="@+id/recyclerview"/>
 
-    <TextView
-        android:id="@+id/cancel_textview"
-        style="@style/DialogButtonAppearance"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="4dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center_vertical"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:text="@string/cancel"/>
-
-    <TextView
-        android:id="@+id/install_textview"
-        style="@style/DialogButtonAppearance"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="4dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        android:enabled="false"
-        android:focusable="true"
-        android:gravity="center_vertical"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:text="@string/install"/>
-  </LinearLayout>
-</LinearLayout>
+  <TextView
+      android:id="@+id/install_textview"
+      style="@style/DialogButtonAppearance"
+      android:layout_width="wrap_content"
+      android:layout_height="0dp"
+      android:layout_marginTop="4dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginRight="16dp"
+      android:layout_marginBottom="4dp"
+      android:background="?attr/selectableItemBackground"
+      android:clickable="true"
+      android:enabled="false"
+      android:focusable="true"
+      android:gravity="center_vertical"
+      android:paddingStart="8dp"
+      android:paddingEnd="8dp"
+      android:text="@string/install"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/recyclerview"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
