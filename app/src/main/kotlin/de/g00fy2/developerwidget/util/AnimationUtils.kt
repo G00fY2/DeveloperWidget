@@ -22,7 +22,7 @@ class AnimationUtils {
           addUpdateListener { valueAnimator ->
             params.topMargin = valueAnimator.animatedValue as Int
             requestLayout()
-            duration = resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
+            duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
           }
         }
       }
@@ -41,7 +41,7 @@ class AnimationUtils {
           addUpdateListener { valueAnimator ->
             params.topMargin = valueAnimator.animatedValue as Int
             requestLayout()
-            duration = resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()
+            duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
           }.apply { doOnEnd { v.visibility = View.GONE } }
         }
       }
