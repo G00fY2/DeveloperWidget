@@ -58,6 +58,7 @@ class AppsActivity : BaseActivity() {
 
     adapter = AppsAdapter().setOnAppSelected { openAppSettingsActivity() }
     recyclerview.setHasFixedSize(true)
+    recyclerview.itemAnimator = null
     recyclerview.layoutManager = LinearLayoutManager(this)
     recyclerview.adapter = adapter
     appInfoBuilder = AppInfo.Builder(this)
