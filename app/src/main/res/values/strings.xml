@@ -8,7 +8,7 @@
   <string name="missing_permissions">Missing permissions</string>
   <string name="no_apk_found">No APK files found</string>
   <string name="no_app_found">No app found</string>
-  <string name="filter_hint">Filter package names…</string>
+  <string name="filter_hint">Filter package name…</string>
   <string name="scanning_apks">Scanning APK files</string>
   <string name="developer_settings">Developer Settings</string>
   <string name="add_widget">Add developer widget</string>
