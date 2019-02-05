@@ -131,6 +131,7 @@ class AppsActivity : BaseActivity() {
     setFilterChips(appFilter)
     filter_linearlayout.apply {
       viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+        @Suppress("DEPRECATION")
         override fun onGlobalLayout() {
           if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN) {
             viewTreeObserver.removeOnGlobalLayoutListener(this)
