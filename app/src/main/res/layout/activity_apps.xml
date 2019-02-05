@@ -11,7 +11,7 @@
 
   <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize">
+      android:layout_height="48dp">
 
     <TextView
         style="@style/TextAppearance.AppCompat.Title"
@@ -19,7 +19,8 @@
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:gravity="center_vertical"
+        android:gravity="center_vertical|bottom"
+        android:paddingBottom="4dp"
         android:text="@string/app_settings"
         android:textSize="20sp"
         />
@@ -38,10 +39,10 @@
         android:layout_marginRight="16dp"
         android:background="?attr/actionBarItemBackground"
         android:clickable="true"
+        android:contentDescription="@string/filter"
         android:focusable="true"
         android:scaleType="center"
-        android:src="@drawable/ic_filter"
-        android:contentDescription="@string/filter"/>
+        android:src="@drawable/ic_filter"/>
   </LinearLayout>
 
   <LinearLayout
