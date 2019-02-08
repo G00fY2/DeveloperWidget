@@ -39,8 +39,8 @@ class AppsActivity : BaseActivity() {
   private lateinit var adapter: AppsAdapter
   private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
   private var widgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID
-  private var installedAppPackages: MutableList<AppInfo> = ArrayList()
-  private var appFilter = mutableSetOf<String>()
+  private var installedAppPackages = mutableListOf<AppInfo>()
+  private var appFilter = mutableListOf<String>()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     requestWindowFeature(Window.FEATURE_NO_TITLE)

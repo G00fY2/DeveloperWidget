@@ -7,6 +7,7 @@ class SharedPreferencesHelper(private val context: Context, private val widgetId
 
   companion object {
     const val FILTERS = "APP_FILTERS"
+    const val DELIMITER = ","
   }
 
   private val sharedPreference by lazy {
@@ -16,7 +17,14 @@ class SharedPreferencesHelper(private val context: Context, private val widgetId
     )
   }
 
-  fun saveFilters(filters: Set<String>) = sharedPreference.edit { putStringSet(FILTERS, filters) }
+  fun saveFilters(filters: List<String>) =
+    sharedPreference.edit { putString(FILTERS, filters.distinct().joinToString(DELIMITER)) }
 
-  fun getFilters(): MutableSet<String> = sharedPreference.getStringSet(FILTERS, mutableSetOf()) ?: mutableSetOf()
+  fun getFilters(): MutableList<String> {
+    return (sharedPreference.getString(FILTERS, "") ?: "")
+      .split(DELIMITER)
+      .filterNot { it.isEmpty() }
+      .distinct()
+      .toMutableList()
+  }
 }
