@@ -213,7 +213,9 @@ class AppsActivity : BaseActivity() {
 
   private fun openAppSettingsActivity() {
     adapter.getSelectedPackageName()?.let {
-      startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, "package:$it".toUri()))
+      Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, "package:$it".toUri()).apply {
+        flags = flags or Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_SINGLE_TOP
+      }.let { intent -> startActivity(intent) }
     }
   }
 
