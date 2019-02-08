@@ -92,9 +92,9 @@ class ApkActivity : BaseActivity() {
 
   private fun installAPK() {
     adapter.getSelectedFile()?.let { apkFile ->
-      Intent(Intent.ACTION_VIEW).also { intent ->
-        intent.setDataAndType(apkFile.fileUri, APK_MIME_TYPE)
-        intent.flags =
+      Intent(Intent.ACTION_VIEW).apply {
+        setDataAndType(apkFile.fileUri, APK_MIME_TYPE)
+        flags =
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) Intent.FLAG_GRANT_READ_URI_PERMISSION else Intent.FLAG_ACTIVITY_NEW_TASK
       }.let { intent -> startActivity(intent) }
     }
