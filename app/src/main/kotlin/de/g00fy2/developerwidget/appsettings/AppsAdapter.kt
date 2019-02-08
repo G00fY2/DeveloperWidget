@@ -76,7 +76,7 @@ class AppsAdapter : BaseAdapter<AppInfo, AppViewHolder>() {
     }
   }
 
-  fun updateAppFilterSet(filters: Collection<String>) {
+  fun updateAppFilters(filters: Collection<String>) {
     if (filters.isEmpty()) {
       resetAppFilter()
     } else {

@@ -115,7 +115,7 @@ class AppsActivity : BaseActivity() {
       addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
           if (s.isNullOrEmpty()) {
-            adapter.updateAppFilterSet(appFilter)
+            adapter.updateAppFilters(appFilter)
           } else {
             adapter.updateAppFilter(s.toString())
           }
@@ -148,7 +148,7 @@ class AppsActivity : BaseActivity() {
   private fun toggleResultView() {
     if (installedAppPackages.isNotEmpty()) {
       adapter.setItems(installedAppPackages)
-      adapter.updateAppFilterSet(appFilter)
+      adapter.updateAppFilters(appFilter)
       showNoItemView(adapter.itemCount == 0)
       recyclerview.overScrollMode = View.OVER_SCROLL_ALWAYS
     }
@@ -181,7 +181,7 @@ class AppsActivity : BaseActivity() {
   private fun removeAppFilter(chip: Chip) {
     flexbox_layout.removeView(chip)
     appFilter.remove(chip.text.toString())
-    adapter.updateAppFilterSet(appFilter)
+    adapter.updateAppFilters(appFilter)
     showNoItemView(adapter.itemCount == 0)
     updateFilterIcon()
     sharedPreferencesHelper.saveFilters(appFilter)
