@@ -149,6 +149,9 @@ class AppsActivity : BaseActivity() {
     if (installedAppPackages.isNotEmpty()) {
       adapter.setItems(installedAppPackages)
       adapter.updateAppFilters(appFilter)
+      if (filter_edittext.text.toString().isNotEmpty()) {
+        adapter.updateAppFilter(filter_edittext.text.toString())
+      }
       showNoItemView(adapter.itemCount == 0)
       recyclerview.overScrollMode = View.OVER_SCROLL_ALWAYS
     }
