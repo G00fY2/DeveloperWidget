@@ -35,7 +35,7 @@ class CPUDataProvider {
     }
 
     fun getGroupedCPUCoreFrequencies(): String {
-      val frequencies: MutableList<Pair<Int, Int>> = ArrayList()
+      val frequencies = mutableListOf<Pair<Int, Int>>()
       val cores = getCPUCoreNum()
       for (i in 0 until cores) {
         getCPUFrequenciesPerCore(i)?.let { frequencies.add(it) }
