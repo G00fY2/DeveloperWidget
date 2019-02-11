@@ -126,7 +126,7 @@ class ApkActivity : BaseActivity() {
     }
 
     ViewCompat.animate(progressbar).alpha(0f)
-      .setDuration(resources.getInteger(android.R.integer.config_mediumAnimTime).toLong()).withEndAction {
+      .setDuration(resources.getInteger(android.R.integer.config_shortAnimTime).toLong()).withEndAction {
         progressbar.visibility = View.INVISIBLE
       }.start()
   }
