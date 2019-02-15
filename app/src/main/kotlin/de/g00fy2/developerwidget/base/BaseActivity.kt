@@ -2,13 +2,13 @@ package de.g00fy2.developerwidget.base
 
 import android.os.Bundle
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
+import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlin.coroutines.CoroutineContext
 
-abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
+abstract class BaseActivity : DaggerAppCompatActivity(), CoroutineScope {
 
   private lateinit var job: Job
   private val Float.px: Float get() = (this * resources.displayMetrics.density)

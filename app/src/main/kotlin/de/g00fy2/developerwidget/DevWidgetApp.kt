@@ -1,11 +1,18 @@
 package de.g00fy2.developerwidget
 
-import android.app.Application
+import dagger.android.AndroidInjector
+import dagger.android.support.DaggerApplication
+import de.g00fy2.developerwidget.di.DaggerAppComponent
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
-@Suppress("unused")
-class DevWidgetApp : Application() {
+class DevWidgetApp : DaggerApplication() {
+
+  private val appComponent: AndroidInjector<DevWidgetApp> by lazy {
+    DaggerAppComponent.builder().create(this)
+  }
+
+  override fun applicationInjector(): AndroidInjector<out DaggerApplication> = appComponent
 
   override fun onCreate() {
     super.onCreate()

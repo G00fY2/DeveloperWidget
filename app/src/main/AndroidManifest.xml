@@ -15,7 +15,7 @@
       tools:ignore="GoogleAppIndexingWarning">
 
     <activity
-        android:name=".apkinstall.ApkActivity"
+        android:name="de.g00fy2.developerwidget.activities.apkinstall.ApkActivity"
         android:excludeFromRecents="true"
         android:label="@string/install_apk"
         android:launchMode="singleTask"
@@ -24,7 +24,7 @@
         android:theme="@style/DialogTheme"/>
 
     <activity
-      android:name=".appsettings.AppsActivity"
+      android:name="de.g00fy2.developerwidget.activities.appsettings.AppsActivity"
       android:excludeFromRecents="true"
       android:label="@string/install_apk"
       android:launchMode="singleTask"
@@ -33,7 +33,7 @@
       android:theme="@style/DialogTheme"/>
 
     <activity
-        android:name=".widget.WidgetConfigActivity"
+        android:name="de.g00fy2.developerwidget.activities.widget.WidgetConfigActivity"
         android:autoRemoveFromRecents="true"
         android:launchMode="singleTask"
         android:screenOrientation="portrait"
@@ -44,11 +44,11 @@
     </activity>
 
     <activity
-        android:name=".about.AboutActivity"
+        android:name="de.g00fy2.developerwidget.activities.about.AboutActivity"
         android:label="@string/about"
         android:screenOrientation="portrait"/>
 
-    <receiver android:name=".widget.WidgetProvider">
+    <receiver android:name="de.g00fy2.developerwidget.activities.widget.WidgetProvider">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
       </intent-filter>

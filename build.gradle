@@ -7,7 +7,7 @@ buildscript {
     jcenter()
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.5.0-alpha03'
+    classpath 'com.android.tools.build:gradle:3.5.0-alpha04'
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
   }
 }
@@ -19,9 +19,14 @@ allprojects {
       url MAVEN_CENTRAL_URL
       content {
         includeGroupByRegex "org\\.jetbrains.*"
-        includeGroup "com.google.guava"
+        includeGroupByRegex  "com\\.google.*"
         includeGroup "org.sonatype.oss"
+        includeModule "com.squareup", "javapoet"
         includeModule "com.jakewharton.timber", "timber"
+        includeModule "javax.inject", "javax.inject"
+        includeModule "org.checkerframework", "checker-compat-qual"
+        includeModule "org.codehaus.mojo", "animal-sniffer-annotations"
+        includeModule "javax.annotation", "jsr250-api"
       }
     }
     jcenter {
