@@ -8,11 +8,7 @@ import timber.log.Timber.DebugTree
 
 class DevWidgetApp : DaggerApplication() {
 
-  private val appComponent: AndroidInjector<DevWidgetApp> by lazy {
-    DaggerAppComponent.builder().create(this)
-  }
-
-  override fun applicationInjector(): AndroidInjector<out DaggerApplication> = appComponent
+  override fun applicationInjector(): AndroidInjector<out DaggerApplication> = DaggerAppComponent.builder().create(this)
 
   override fun onCreate() {
     super.onCreate()
