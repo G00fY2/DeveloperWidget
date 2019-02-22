@@ -10,7 +10,7 @@ import androidx.core.net.toUri
 import de.g00fy2.developerwidget.BuildConfig
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.base.BaseActivity
-import de.g00fy2.developerwidget.utils.Constants
+import de.g00fy2.developerwidget.utils.*
 import kotlinx.android.synthetic.main.activity_about.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -50,23 +50,23 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
     privacy_item.init {
       icon(R.drawable.ic_privacy_logo)
       title(R.string.privacy_policy)
-      action { openUrl(Constants.PRIVACY_POLICY) }
+      action { openUrl(PRIVACY_POLICY) }
     }
     license_item.init {
       icon(R.drawable.ic_open_source_logo)
       title(R.string.license)
       description(R.string.mit_license)
-      action { openUrl(Constants.MIT_LICENSE) }
+      action { openUrl(MIT_LICENSE) }
     }
     source_code_item.init {
       icon(R.drawable.ic_github_logo_shape)
       title(R.string.source_code)
-      action { openUrl(Constants.GITHUB_PROJECT) }
+      action { openUrl(GITHUB_PROJECT) }
     }
     changelog_item.init {
       icon(R.drawable.ic_changes_logo)
       title(R.string.changelog)
-      action { openUrl(Constants.CHANGES) }
+      action { openUrl(CHANGES) }
     }
     author_header.init {
       title(R.string.author)
@@ -75,13 +75,13 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
       icon(R.drawable.ic_twitter_logo)
       title(R.string.twitter)
       description(R.string.twitter_username)
-      action { openUrl(Constants.TWITTER_USER) }
+      action { openUrl(TWITTER_USER) }
     }
     github_item.init {
       icon(R.drawable.ic_github_logo_shape)
       title(R.string.github)
       description(R.string.github_username)
-      action { openUrl(Constants.GITHUB_USER) }
+      action { openUrl(GITHUB_USER) }
     }
     licenses_header.init {
       title(R.string.licenses)
@@ -89,12 +89,12 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
     open_source_licenses_item.init {
       title(R.string.open_source_licenses)
       description(R.string.open_source_licenses_description)
-      action { openUrl(Constants.OSS_LICENSES) }
+      action { openUrl(OSS_LICENSES) }
     }
     image_licenses_item.init {
       title(R.string.icon_credits)
       description(R.string.icon_credits_description)
-      action { openUrl(Constants.ICON_CREDITS) }
+      action { openUrl(ICON_CREDITS) }
     }
     build_number_item.init {
       title(R.string.build_number)
