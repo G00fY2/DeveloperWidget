@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.webkit.WebView
 import androidx.annotation.ContentView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.activities.about.AboutActivity
@@ -72,7 +73,8 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
     launch {
       getDeviceData().let {
         setWidgetFields(it.toMap())
-        adapter.setItems(it.toMutableList())
+        adapter.notifyDataSetChanged() // workaround to show items
+        adapter.submitList(it)
       }
     }
   }

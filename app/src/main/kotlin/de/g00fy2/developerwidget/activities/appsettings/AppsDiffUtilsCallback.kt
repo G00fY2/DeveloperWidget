@@ -2,18 +2,12 @@ package de.g00fy2.developerwidget.activities.appsettings
 
 import androidx.recyclerview.widget.DiffUtil
 
-class AppsDiffUtilsCallback(
-  private var oldItems: List<AppInfo>,
-  private var newItems: List<AppInfo>
-) : DiffUtil.Callback() {
+class AppsDiffUtilsCallback : DiffUtil.ItemCallback<AppInfo>() {
+  override fun areItemsTheSame(oldItem: AppInfo, newItem: AppInfo): Boolean {
+    return oldItem === newItem
+  }
 
-  override fun getOldListSize() = oldItems.size
-
-  override fun getNewListSize() = newItems.size
-
-  override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-    oldItems[oldItemPosition] === newItems[newItemPosition]
-
-  override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-    oldItems[oldItemPosition].packageName == newItems[newItemPosition].packageName
+  override fun areContentsTheSame(oldItem: AppInfo, newItem: AppInfo): Boolean {
+    return oldItem.packageName == newItem.packageName
+  }
 }

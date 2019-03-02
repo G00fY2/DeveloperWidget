@@ -43,7 +43,7 @@ class AppsActivity : BaseActivity(), AppsContract.AppsView {
   private lateinit var adapter: AppsAdapter
   private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
   private var widgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID
-  private var installedAppPackages = mutableListOf<AppInfo>()
+  private var installedAppPackages = listOf<AppInfo>()
   private var appFilter = mutableListOf<String>()
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,6 +61,9 @@ class AppsActivity : BaseActivity(), AppsContract.AppsView {
     cancel_textview.setOnClickListener { finish() }
 
     adapter = AppsAdapter().setOnAppSelected { openAppSettingsActivity() }
+    adapter.setCommitCallback(Runnable {
+      no_items_textview.visibility = if (adapter.itemCount == 0) View.VISIBLE else View.INVISIBLE
+    })
     recyclerview.setHasFixedSize(true)
     recyclerview.itemAnimator = null
     recyclerview.layoutManager = LinearLayoutManager(this)
@@ -95,7 +98,7 @@ class AppsActivity : BaseActivity(), AppsContract.AppsView {
         .filter { it.applicationInfo.flags and (ApplicationInfo.FLAG_SYSTEM or ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) == 0 }
         .map { appInfoBuilder.build(it) }
         .sorted()
-        .toMutableList()
+        .toList()
     }
   }
 
@@ -124,7 +127,6 @@ class AppsActivity : BaseActivity(), AppsContract.AppsView {
           } else {
             adapter.updateAppFilter(s.toString())
           }
-          showNoItemView(adapter.itemCount == 0)
         }
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -152,12 +154,11 @@ class AppsActivity : BaseActivity(), AppsContract.AppsView {
 
   private fun toggleResultView() {
     if (installedAppPackages.isNotEmpty()) {
-      adapter.setItems(installedAppPackages)
+      adapter.initialList(installedAppPackages)
       adapter.updateAppFilters(appFilter)
       if (filter_edittext.text.toString().isNotEmpty()) {
         adapter.updateAppFilter(filter_edittext.text.toString())
       }
-      showNoItemView(adapter.itemCount == 0)
       recyclerview.overScrollMode = View.OVER_SCROLL_ALWAYS
     }
 
@@ -190,7 +191,6 @@ class AppsActivity : BaseActivity(), AppsContract.AppsView {
     flexbox_layout.removeView(chip)
     appFilter.remove(chip.text.toString())
     adapter.updateAppFilters(appFilter)
-    showNoItemView(adapter.itemCount == 0)
     updateFilterIcon()
     sharedPreferencesHelper.saveFilters(appFilter)
   }
@@ -225,9 +225,5 @@ class AppsActivity : BaseActivity(), AppsContract.AppsView {
         flags = flags or Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_SINGLE_TOP
       }.let { intent -> startActivity(intent) }
     }
-  }
-
-  private fun showNoItemView(show: Boolean) {
-    no_items_textview.visibility = if (show) View.VISIBLE else View.INVISIBLE
   }
 }

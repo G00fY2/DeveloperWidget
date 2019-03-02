@@ -3,7 +3,6 @@ package de.g00fy2.developerwidget.activities.widget
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.base.BaseAdapter
 import de.g00fy2.developerwidget.base.BaseViewHolder
@@ -11,7 +10,7 @@ import de.g00fy2.developerwidget.data.DeviceDataItem
 import kotlinx.android.synthetic.main.device_data_header_item.*
 import kotlinx.android.synthetic.main.device_data_value_item.*
 
-class DeviceDataAdapter : BaseAdapter<Pair<String, DeviceDataItem>, BaseViewHolder>() {
+class DeviceDataAdapter : BaseAdapter<Pair<String, DeviceDataItem>, BaseViewHolder>(DeviceDataDiffUtilsCallback()) {
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
     return when (viewType) {
@@ -50,10 +49,6 @@ class DeviceDataAdapter : BaseAdapter<Pair<String, DeviceDataItem>, BaseViewHold
         }
       }
     }
-  }
-
-  override fun setItems(newItems: MutableList<Pair<String, DeviceDataItem>>) {
-    super.setItems(newItems, DiffUtil.calculateDiff((DeviceDataDiffUtilsCallback(items, newItems))))
   }
 
   override fun getItemViewType(position: Int) = if (getItem(position).second.isHeader) HEADER_TYPE else VALUE_TYPE

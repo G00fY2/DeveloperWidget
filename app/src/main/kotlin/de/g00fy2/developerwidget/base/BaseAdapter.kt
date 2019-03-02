@@ -1,31 +1,22 @@
 package de.g00fy2.developerwidget.base
 
-import androidx.recyclerview.widget.DiffUtil.DiffResult
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
+abstract class BaseAdapter<T, VH : RecyclerView.ViewHolder> constructor(diffCallback: DiffUtil.ItemCallback<T> = DefaultItemDiffCallback()) :
+  ListAdapter<T, VH>(diffCallback) {
+  private var commitCallback: Runnable? = null
 
-  protected var items = mutableListOf<T>(); private set
-
-  override fun getItemCount() = items.size
-
-  fun getItem(position: Int): T = items[position]
-
-  open fun clear() {
-    if (items.isNotEmpty()) {
-      items.clear()
-      notifyDataSetChanged()
-    }
+  override fun submitList(list: List<T>?) {
+    submitList(list, commitCallback)
   }
 
-  open fun setItems(newItems: MutableList<T>) {
-    setItems(newItems, null)
+  open fun clearList() {
+    submitList(null)
   }
 
-  fun setItems(newItems: MutableList<T>, diffResult: DiffResult? = null) {
-    val emptyList = items.isEmpty() || newItems.isEmpty()
-    items = newItems
-    if (diffResult == null || emptyList) notifyDataSetChanged() else diffResult.dispatchUpdatesTo(this)
-
+  fun setCommitCallback(commitCallback: Runnable) {
+    this.commitCallback = commitCallback
   }
 }

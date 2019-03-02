@@ -78,7 +78,7 @@ class ApkActivity : BaseActivity(), ApkContract.ApkView {
     }
   }
 
-  private suspend fun searchAPKs(dir: File): MutableList<ApkFile> {
+  private suspend fun searchAPKs(dir: File): List<ApkFile> {
     return withContext(Dispatchers.IO) {
       dir.walk()
         .filter { !it.isDirectory }
@@ -86,7 +86,7 @@ class ApkActivity : BaseActivity(), ApkContract.ApkView {
         .map { apkFileBuilder.build(it) }
         .filter { it.valid }
         .sorted()
-        .toMutableList()
+        .toList()
     }
   }
 
@@ -107,10 +107,10 @@ class ApkActivity : BaseActivity(), ApkContract.ApkView {
     progress_textview.visibility = View.VISIBLE
     progress_textview.text = getString(R.string.scanning_apks)
     recyclerview.overScrollMode = View.OVER_SCROLL_NEVER
-    adapter.clear()
+    adapter.clearList()
   }
 
-  private fun toggleResultView(apkFiles: MutableList<ApkFile> = ArrayList(), missingPermissions: Boolean = false) {
+  private fun toggleResultView(apkFiles: List<ApkFile> = ArrayList(), missingPermissions: Boolean = false) {
     if (missingPermissions) {
       progressbar.visibility = View.INVISIBLE
       progress_textview.text = getString(R.string.missing_permissions)
@@ -118,7 +118,7 @@ class ApkActivity : BaseActivity(), ApkContract.ApkView {
     }
 
     if (apkFiles.isNotEmpty()) {
-      adapter.setItems(apkFiles)
+      adapter.submitList(apkFiles)
       recyclerview.overScrollMode = View.OVER_SCROLL_ALWAYS
       progress_textview.visibility = View.INVISIBLE
     } else {

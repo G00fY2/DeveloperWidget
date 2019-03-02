@@ -3,18 +3,15 @@ package de.g00fy2.developerwidget.activities.widget
 import androidx.recyclerview.widget.DiffUtil
 import de.g00fy2.developerwidget.data.DeviceDataItem
 
-class DeviceDataDiffUtilsCallback(
-  private var oldItems: List<Pair<String, DeviceDataItem>>,
-  private var newItems: List<Pair<String, DeviceDataItem>>
-) : DiffUtil.Callback() {
+class DeviceDataDiffUtilsCallback : DiffUtil.ItemCallback<Pair<String, DeviceDataItem>>() {
+  override fun areItemsTheSame(oldItem: Pair<String, DeviceDataItem>, newItem: Pair<String, DeviceDataItem>): Boolean {
+    return oldItem.first == newItem.first
+  }
 
-  override fun getOldListSize() = oldItems.size
-
-  override fun getNewListSize() = newItems.size
-
-  override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-    oldItems[oldItemPosition].first === newItems[newItemPosition].first
-
-  override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-    oldItems[oldItemPosition].second.value == newItems[newItemPosition].second.value
+  override fun areContentsTheSame(
+    oldItem: Pair<String, DeviceDataItem>,
+    newItem: Pair<String, DeviceDataItem>
+  ): Boolean {
+    return oldItem.second.value == newItem.second.value
+  }
 }

@@ -60,8 +60,8 @@ class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>() {
     }
   }
 
-  override fun clear() {
-    super.clear()
+  override fun clearList() {
+    super.clearList()
     selectedPosition = RecyclerView.NO_POSITION
   }
 
