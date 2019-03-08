@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.pm.PackageInfo
 import android.graphics.drawable.Drawable
 import androidx.core.content.pm.PackageInfoCompat
+import de.g00fy2.developerwidget.utils.ACTIVITY
+import javax.inject.Inject
+import javax.inject.Named
 
 class AppInfo : Comparable<AppInfo> {
 
@@ -15,10 +18,22 @@ class AppInfo : Comparable<AppInfo> {
 
   override fun compareTo(other: AppInfo) = compareValues(appName, other.appName)
 
-  class Builder(context: Context) {
+  // TODO split builder from data object
+  interface AppInfoBuilder {
+
+    fun getInstalledPackages(): List<PackageInfo>
+
+    fun build(packageInfo: PackageInfo): AppInfo
+  }
+
+  class AppInfoBuilderImpl @Inject constructor(@Named(ACTIVITY) context: Context) : AppInfoBuilder {
     private val packageManager = context.packageManager
 
-    fun build(packageInfo: PackageInfo): AppInfo {
+    override fun getInstalledPackages(): List<PackageInfo> {
+      return packageManager.getInstalledPackages(0)
+    }
+
+    override fun build(packageInfo: PackageInfo): AppInfo {
       return AppInfo().apply {
         packageInfo.let { packageInfo ->
           packageName = packageInfo.packageName

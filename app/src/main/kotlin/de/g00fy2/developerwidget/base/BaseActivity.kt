@@ -3,31 +3,23 @@ package de.g00fy2.developerwidget.base
 import android.os.Bundle
 import android.view.ViewGroup
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlin.coroutines.CoroutineContext
 
-abstract class BaseActivity : DaggerAppCompatActivity(), CoroutineScope {
+abstract class BaseActivity : DaggerAppCompatActivity() {
 
-  private lateinit var job: Job
   private val Float.px: Float get() = (this * resources.displayMetrics.density)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    supportActionBar?.elevation = 0f
-    job = Job()
+    lifecycle.addObserver(providePresenter())
   }
 
   override fun onDestroy() {
     super.onDestroy()
-    job.cancel()
+    lifecycle.removeObserver(providePresenter())
   }
 
-  override val coroutineContext: CoroutineContext
-    get() = Dispatchers.Main + job
-
   fun setActionbarElevationListener(viewGroup: ViewGroup) {
+    supportActionBar?.elevation = 0f
     viewGroup.viewTreeObserver.addOnScrollChangedListener {
       viewGroup.scrollY.toFloat().let {
         if (it <= 0f) {
@@ -40,4 +32,6 @@ abstract class BaseActivity : DaggerAppCompatActivity(), CoroutineScope {
       }
     }
   }
+
+  abstract fun providePresenter(): BaseContract.BasePresenter
 }

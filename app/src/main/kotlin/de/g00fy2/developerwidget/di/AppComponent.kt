@@ -7,7 +7,7 @@ import de.g00fy2.developerwidget.DevWidgetApp
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AndroidInjectionModule::class, AppModule::class, ActivityBindingModule::class])
+@Component(modules = [AndroidInjectionModule::class, AppModule::class, ActivityBindingModule::class, BroadcastBindingModule::class, DeviceDataModule::class])
 interface AppComponent : AndroidInjector<DevWidgetApp> {
 
   @Component.Builder

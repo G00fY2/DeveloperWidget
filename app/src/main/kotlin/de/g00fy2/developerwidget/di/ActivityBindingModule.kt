@@ -16,18 +16,18 @@ import de.g00fy2.developerwidget.di.annotations.ActivityScope
 abstract class ActivityBindingModule {
 
   @ActivityScope
-  @ContributesAndroidInjector(modules = [AboutActivityModule::class])
+  @ContributesAndroidInjector(modules = [AboutActivityModule::class, ControllerModule::class])
   abstract fun bindAboutInjector(): AboutActivity
 
   @ActivityScope
-  @ContributesAndroidInjector(modules = [ApkActivityModule::class])
+  @ContributesAndroidInjector(modules = [ApkActivityModule::class, ControllerModule::class])
   abstract fun bindApkInjector(): ApkActivity
 
   @ActivityScope
-  @ContributesAndroidInjector(modules = [AppsActivityModule::class])
+  @ContributesAndroidInjector(modules = [AppsActivityModule::class, ControllerModule::class])
   abstract fun bindAppsInjector(): AppsActivity
 
   @ActivityScope
-  @ContributesAndroidInjector(modules = [WidgetConfigActivityModule::class])
+  @ContributesAndroidInjector(modules = [WidgetConfigActivityModule::class, ControllerModule::class])
   abstract fun bindWidgetConfigInjector(): WidgetConfigActivity
 }

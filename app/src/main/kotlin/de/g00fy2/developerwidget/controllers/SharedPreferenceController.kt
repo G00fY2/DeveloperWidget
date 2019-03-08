@@ -2,5 +2,8 @@ package de.g00fy2.developerwidget.controllers
 
 interface SharedPreferenceController {
 
-  fun test(widgetId: Int)
+  fun saveAppFilters(filters: List<String>)
+
+  fun getAppFilters(): MutableList<String>
+
 }

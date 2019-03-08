@@ -1,34 +1,36 @@
 package de.g00fy2.developerwidget.data.display
 
-import android.app.Activity
+import android.content.Context
 import android.graphics.Point
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.util.DisplayMetrics
+import android.view.WindowManager
+import androidx.core.content.getSystemService
 import java.text.NumberFormat
 
 class DisplayDataProvider {
 
   companion object {
 
-    fun getResolution(activity: Activity): Point {
-      val display = activity.windowManager.defaultDisplay
+    fun getResolution(context: Context): Point {
+      val display = context.getSystemService<WindowManager>()?.defaultDisplay
       val size = Point()
       if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) {
-        display.getRealSize(size)
+        display?.getRealSize(size)
       } else {
-        display.getSize(size)
+        display?.getSize(size)
       }
       return size
     }
 
-    fun geDisplayDpi(activity: Activity): Point {
-      val display = activity.windowManager.defaultDisplay
+    fun geDisplayDpi(context: Context): Point {
+      val display = context.getSystemService<WindowManager>()?.defaultDisplay
       val displayMetric = DisplayMetrics()
       if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) {
-        display.getRealMetrics(displayMetric)
+        display?.getRealMetrics(displayMetric)
       } else {
-        display.getMetrics(displayMetric)
+        display?.getMetrics(displayMetric)
       }
       return Point(Math.round(displayMetric.xdpi), Math.round(displayMetric.ydpi))
     }

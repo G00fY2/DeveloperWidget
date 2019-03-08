@@ -35,10 +35,10 @@ class AppsAdapter : BaseAdapter<AppInfo, BaseViewHolder>(AppsDiffUtilsCallback()
     }
   }
 
-  fun initialList(list: List<AppInfo>?) {
+  fun initialList(list: List<AppInfo>?, filters: Collection<String>) {
     itemsCopy.clear()
     list?.let { itemsCopy.addAll(it) }
-    submitList(list)
+    updateAppFilters(filters)
   }
 
   fun getSelectedPackageName(): String? {

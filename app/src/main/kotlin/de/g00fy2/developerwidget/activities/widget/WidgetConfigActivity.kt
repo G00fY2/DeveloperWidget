@@ -10,24 +10,25 @@ import android.view.Menu
 import android.view.MenuItem
 import android.webkit.WebView
 import androidx.annotation.ContentView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.activities.about.AboutActivity
 import de.g00fy2.developerwidget.base.BaseActivity
+import de.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import de.g00fy2.developerwidget.data.DeviceDataItem
-import de.g00fy2.developerwidget.data.DeviceDataProvider
+import de.g00fy2.developerwidget.data.DeviceDataSourceImpl
 import kotlinx.android.synthetic.main.activity_widget_config.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 @ContentView(R.layout.activity_widget_config)
 class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigView {
 
+  @Inject lateinit var presenter: WidgetConfigContract.WidgetConfigPresenter
   private var updateExistingWidget = false
   private var widgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID
   private lateinit var adapter: DeviceDataAdapter
+
+  override fun providePresenter(): BasePresenter = presenter
 
   public override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -58,7 +59,7 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
 
     apply_button.setOnClickListener {
       val appWidgetManager = AppWidgetManager.getInstance(this)
-      WidgetProvider.updateWidget(this, appWidgetManager, widgetId)
+//      WidgetProvider.updateWidget(this, appWidgetManager, widgetId) TODO update widget
 
       val resultValue = Intent()
       resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
@@ -66,17 +67,6 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
       finish()
     }
     if (updateExistingWidget) apply_button.setText(R.string.update_widget)
-  }
-
-  override fun onResume() {
-    super.onResume()
-    launch {
-      getDeviceData().let {
-        setWidgetFields(it.toMap())
-        adapter.notifyDataSetChanged() // workaround to show items
-        adapter.submitList(it)
-      }
-    }
   }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -95,29 +85,17 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
     }
   }
 
-  private fun setWidgetFields(data: Map<String, DeviceDataItem>) {
-    device_title_textview.text = data[DeviceDataProvider.DEVICE_NAME]?.value ?: ""
-    var subtitle = data[DeviceDataProvider.RELEASE]?.let { getString(it.title) + " " + it.value + " | " } ?: ""
-    subtitle += data[DeviceDataProvider.SDK]?.let { getString(it.title) + " " + it.value }
-    device_subtitle_textview.text = subtitle
+  override fun showDeviceData(data: List<Pair<String, DeviceDataItem>>) {
+    setWidgetFields(data.toMap())
+    adapter.notifyDataSetChanged() // FIXME workaround to show items
+    adapter.submitList(data)
   }
 
-  private suspend fun getDeviceData(): List<Pair<String, DeviceDataItem>> {
-    return withContext(Dispatchers.IO) {
-      DeviceDataProvider
-        .getStaticDeviceData()
-        .plus(DeviceDataProvider.getHardwareData(this@WidgetConfigActivity))
-        .plus(DeviceDataProvider.getSoftwareInfo(this@WidgetConfigActivity))
-        .plus(DeviceDataProvider.getHeaderItems())
-        .toList()
-        .filter { (_, value) -> value.value.isNotBlank() || value.isHeader }
-        .sortedWith(
-          compareBy(
-            { it.second.category.ordinal },
-            { !it.second.isHeader },
-            { getString(it.second.title) })
-        )
-    }
+  private fun setWidgetFields(data: Map<String, DeviceDataItem>) {
+    device_title_textview.text = data[DeviceDataSourceImpl.DEVICE_NAME]?.value ?: ""
+    var subtitle = data[DeviceDataSourceImpl.RELEASE]?.let { getString(it.title) + " " + it.value + " | " } ?: ""
+    subtitle += data[DeviceDataSourceImpl.SDK]?.let { getString(it.title) + " " + it.value }
+    device_subtitle_textview.text = subtitle
   }
 
   companion object {

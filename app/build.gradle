@@ -39,6 +39,8 @@ dependencies {
   implementation 'androidx.activity:activity:1.0.0-alpha04'
   implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha02'
   implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
+  implementation "androidx.lifecycle:lifecycle-runtime:2.1.0-alpha02"
+  kapt "androidx.lifecycle:lifecycle-compiler:2.1.0-alpha02"
 
   // UI
   implementation 'com.google.android:flexbox:1.1.0'

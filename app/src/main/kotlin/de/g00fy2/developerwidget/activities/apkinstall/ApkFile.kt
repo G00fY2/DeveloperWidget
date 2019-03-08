@@ -8,8 +8,11 @@ import android.os.Build
 import android.text.format.DateFormat
 import androidx.core.content.FileProvider
 import androidx.core.content.pm.PackageInfoCompat
+import de.g00fy2.developerwidget.utils.ACTIVITY
 import java.io.File
 import java.text.NumberFormat
+import javax.inject.Inject
+import javax.inject.Named
 import kotlin.math.round
 
 class ApkFile private constructor() : Comparable<ApkFile> {
@@ -28,13 +31,19 @@ class ApkFile private constructor() : Comparable<ApkFile> {
 
   override fun compareTo(other: ApkFile) = compareValues(other.lastModifiedTimestamp, lastModifiedTimestamp)
 
-  class Builder(private val context: Context) {
+  // TODO split builder from data object
+  interface ApkFileBuilder {
+
+    fun build(file: File): ApkFile
+  }
+
+  class ApkFileBuilderImpl @Inject constructor(@Named(ACTIVITY) private val context: Context) : ApkFileBuilder {
 
     private val dateFormat = DateFormat.getDateFormat(context)
     private val timeFormat = DateFormat.getTimeFormat(context)
     private val packageManager = context.packageManager
 
-    fun build(file: File): ApkFile {
+    override fun build(file: File): ApkFile {
       return ApkFile().apply {
         lastModifiedTimestamp = file.lastModified()
         fileName = file.name

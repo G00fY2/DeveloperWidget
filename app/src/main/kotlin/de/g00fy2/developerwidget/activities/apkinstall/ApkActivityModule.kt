@@ -21,4 +21,7 @@ abstract class ApkActivityModule {
   @Binds
   abstract fun provideApkPresenter(presenter: ApkPresenterImpl): ApkContract.ApkPresenter
 
+  @ActivityScope
+  @Binds
+  abstract fun provideApkFileBuilder(apkFileBuilder: ApkFile.ApkFileBuilderImpl): ApkFile.ApkFileBuilder
 }

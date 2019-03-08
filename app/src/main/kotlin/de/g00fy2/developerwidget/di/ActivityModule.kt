@@ -8,7 +8,7 @@ import de.g00fy2.developerwidget.di.annotations.ActivityScope
 import de.g00fy2.developerwidget.utils.ACTIVITY
 import javax.inject.Named
 
-@Module(includes = [ControllerModule::class])
+@Module
 abstract class ActivityModule {
 
   @Binds
