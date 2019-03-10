@@ -8,7 +8,7 @@ import javax.inject.Named
 
 class ToastControllerImpl @Inject constructor() : ToastController {
 
-  @Inject  @field:Named(ACTIVITY)  lateinit var context: Context
+  @Inject @field:Named(ACTIVITY) lateinit var context: Context
   private var toast: Toast? = null
 
   override fun showToast(message: String) {

@@ -40,7 +40,8 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
           compareBy(
             { it.second.category.ordinal },
             { !it.second.isHeader },
-            { stringController.getString(it.second.title) }))
+            { stringController.getString(it.second.title) })
+        )
     }
   }
 }

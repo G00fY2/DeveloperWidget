@@ -43,7 +43,7 @@ class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>() {
       filename_textview.text = apkFile.fileName
       app_name_textview.text = apkFile.appName
       app_version_textview.text =
-          String.format(itemView.context.getString(R.string.apk_version), apkFile.versionName, apkFile.versionCode)
+        String.format(itemView.context.getString(R.string.apk_version), apkFile.versionName, apkFile.versionCode)
       file_size_textview.text = apkFile.size
       app_debug_imageview.visibility = if (apkFile.debuggable) View.VISIBLE else View.INVISIBLE
       file_date_textview.text = apkFile.lastModified
