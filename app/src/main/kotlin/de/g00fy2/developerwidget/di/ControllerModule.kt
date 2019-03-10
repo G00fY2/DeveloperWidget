@@ -6,8 +6,8 @@ import de.g00fy2.developerwidget.controllers.IntentController
 import de.g00fy2.developerwidget.controllers.IntentControllerImpl
 import de.g00fy2.developerwidget.controllers.PermissionController
 import de.g00fy2.developerwidget.controllers.PermissionControllerImpl
-import de.g00fy2.developerwidget.controllers.SharedPreferenceController
-import de.g00fy2.developerwidget.controllers.SharedPreferenceControllerImpl
+import de.g00fy2.developerwidget.controllers.WidgetPreferenceController
+import de.g00fy2.developerwidget.controllers.WidgetPreferenceControllerImpl
 import de.g00fy2.developerwidget.controllers.StringController
 import de.g00fy2.developerwidget.controllers.StringControllerImpl
 import de.g00fy2.developerwidget.controllers.ToastController
@@ -27,7 +27,7 @@ abstract class ControllerModule {
 
   @Binds
   @ActivityScope
-  abstract fun provideSharedPreferenceController(sharedPreferenceControllerImpl: SharedPreferenceControllerImpl): SharedPreferenceController
+  abstract fun provideWidgetPreferenceController(widgetPreferenceControllerImpl: WidgetPreferenceControllerImpl): WidgetPreferenceController
 
   @Binds
   @ActivityScope

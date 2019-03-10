@@ -8,7 +8,7 @@ import androidx.lifecycle.Lifecycle.Event.ON_RESUME
 import androidx.lifecycle.OnLifecycleEvent
 import de.g00fy2.developerwidget.base.BasePresenterImpl
 import de.g00fy2.developerwidget.controllers.IntentController
-import de.g00fy2.developerwidget.controllers.SharedPreferenceController
+import de.g00fy2.developerwidget.controllers.WidgetPreferenceController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -19,8 +19,8 @@ class AppsPresenterImpl @Inject constructor() : BasePresenterImpl(), AppsContrac
   @Inject lateinit var view: AppsContract.AppsView
   @Inject lateinit var appInfoBuilder: AppInfo.AppInfoBuilder
   @Inject lateinit var intentController: IntentController
-  @Inject lateinit var sharedPreferenceController: SharedPreferenceController
-  private val appFilter by lazy { sharedPreferenceController.getAppFilters() }
+  @Inject lateinit var widgetPreferenceController: WidgetPreferenceController
+  private val appFilter by lazy { widgetPreferenceController.getAppFilters() }
 
   @OnLifecycleEvent(ON_RESUME)
   fun setFilterIconState() {
@@ -46,14 +46,14 @@ class AppsPresenterImpl @Inject constructor() : BasePresenterImpl(), AppsContrac
 
   override fun addAppFilter(filter: String) {
     appFilter.add(filter)
-    sharedPreferenceController.saveAppFilters(appFilter)
+    widgetPreferenceController.saveAppFilters(appFilter)
     view.updateAppFilter(appFilter)
     view.updateFilterIcon(appFilter.isNotEmpty())
   }
 
   override fun removeAppFilter(filter: String) {
     appFilter.remove(filter)
-    sharedPreferenceController.saveAppFilters(appFilter)
+    widgetPreferenceController.saveAppFilters(appFilter)
     view.updateAppFilter(appFilter)
     view.updateFilterIcon(appFilter.isNotEmpty())
   }

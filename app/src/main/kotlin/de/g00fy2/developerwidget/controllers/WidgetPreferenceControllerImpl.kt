@@ -7,7 +7,7 @@ import de.g00fy2.developerwidget.utils.WIDGET_ID
 import javax.inject.Inject
 import javax.inject.Named
 
-class SharedPreferenceControllerImpl @Inject constructor() : SharedPreferenceController {
+class WidgetPreferenceControllerImpl @Inject constructor() : WidgetPreferenceController {
 
   @Inject @field:Named(ACTIVITY) lateinit var context: Context
   @Inject @field:Named(WIDGET_ID) lateinit var widgetId: String
