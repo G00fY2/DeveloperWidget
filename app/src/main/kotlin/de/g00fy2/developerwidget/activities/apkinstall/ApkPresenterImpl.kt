@@ -36,24 +36,26 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
   fun checkPermissionAndScanApks() {
     if (permissionController.hasPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
       launch {
-        val apkFiles = searchAPKs(Environment.getExternalStorageDirectory())
-        view.toggleResultView(apkFiles, false)
+        withContext(Dispatchers.IO) {
+          searchAPKs(Environment.getExternalStorageDirectory())
+        }.let {
+          view.toggleResultView(it, false)
+        }
       }
     } else {
       view.toggleResultView(ArrayList(), missingPermissions = true)
     }
   }
 
-  private suspend fun searchAPKs(dir: File): List<ApkFile> {
-    return withContext(Dispatchers.IO) {
-      dir.walk()
-        .filter { !it.isDirectory }
-        .filter { it.extension.equals(APK_EXTENSION, true) }
-        .map { apkFileBuilder.build(it) }
-        .filter { it.valid }
-        .sorted()
-        .toList()
-    }
+  private fun searchAPKs(dir: File): List<ApkFile> {
+    return dir.walk()
+      .filter { !it.isDirectory }
+      .filter { it.extension.equals(APK_EXTENSION, true) }
+      .map { apkFileBuilder.build(it) }
+      .filter { it.valid }
+      .sorted()
+      .toList()
+
   }
 
   override fun installApk(fileUri: Uri?) {

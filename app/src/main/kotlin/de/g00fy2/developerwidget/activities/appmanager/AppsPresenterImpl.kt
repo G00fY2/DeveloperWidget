@@ -30,7 +30,11 @@ class AppsPresenterImpl @Inject constructor() : BasePresenterImpl(), AppsContrac
   @OnLifecycleEvent(ON_RESUME)
   fun scanApps() {
     launch {
-      getInstalledUserApps().let { view.toggleResultView(it) }
+      withContext(Dispatchers.IO) {
+        getInstalledUserApps()
+      }.let {
+        view.toggleResultView(it)
+      }
     }
   }
 
@@ -60,13 +64,11 @@ class AppsPresenterImpl @Inject constructor() : BasePresenterImpl(), AppsContrac
 
   override fun getCurrentFilter(): List<String> = appFilter
 
-  private suspend fun getInstalledUserApps(): List<AppInfo> {
-    return withContext(Dispatchers.IO) {
-      appInfoBuilder.getInstalledPackages()
-        .filter { it.applicationInfo.flags and (ApplicationInfo.FLAG_SYSTEM or ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) == 0 }
-        .map { appInfoBuilder.build(it) }
-        .sorted()
-        .toList()
-    }
+  private fun getInstalledUserApps(): List<AppInfo> {
+    return appInfoBuilder.getInstalledPackages()
+      .filter { it.applicationInfo.flags and (ApplicationInfo.FLAG_SYSTEM or ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) == 0 }
+      .map { appInfoBuilder.build(it) }
+      .sorted()
+      .toList()
   }
 }

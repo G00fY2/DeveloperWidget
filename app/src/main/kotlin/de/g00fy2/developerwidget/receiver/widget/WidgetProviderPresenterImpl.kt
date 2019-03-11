@@ -23,7 +23,9 @@ class WidgetProviderPresenterImpl @Inject constructor() : WidgetProviderPresente
     launch {
       withContext(Dispatchers.IO) {
         deviceDataSource.getStaticDeviceData()
-      }.let { widgetProvider.updateWidgetData(it) }
+      }.let {
+        widgetProvider.updateWidgetData(it)
+      }
     }
   }
 }

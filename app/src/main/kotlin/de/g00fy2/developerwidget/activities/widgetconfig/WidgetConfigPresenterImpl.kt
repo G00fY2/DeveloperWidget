@@ -21,7 +21,9 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
   @OnLifecycleEvent(ON_RESUME)
   override fun loadDeviceData() {
     launch {
-      withContext(Dispatchers.IO) { getDeviceData() }.let {
+      withContext(Dispatchers.IO) {
+        getDeviceData()
+      }.let {
         view.showDeviceData(it)
       }
     }
