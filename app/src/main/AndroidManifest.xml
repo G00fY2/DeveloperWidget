@@ -24,13 +24,13 @@
         android:theme="@style/DialogTheme"/>
 
     <activity
-      android:name="de.g00fy2.developerwidget.activities.appsettings.AppsActivity"
-      android:excludeFromRecents="true"
-      android:label="@string/install_apk"
-      android:launchMode="singleTask"
-      android:noHistory="true"
-      android:taskAffinity=""
-      android:theme="@style/DialogTheme"/>
+        android:name="de.g00fy2.developerwidget.activities.appmanager.AppsActivity"
+        android:excludeFromRecents="true"
+        android:label="@string/install_apk"
+        android:launchMode="singleTask"
+        android:noHistory="true"
+        android:taskAffinity=""
+        android:theme="@style/DialogTheme"/>
 
     <activity
         android:name="de.g00fy2.developerwidget.activities.widgetconfig.WidgetConfigActivity"
@@ -53,8 +53,8 @@
         <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
       </intent-filter>
       <meta-data
-        android:name="android.appwidget.provider"
-        android:resource="@xml/appwidget_info"/>
+          android:name="android.appwidget.provider"
+          android:resource="@xml/appwidget_info"/>
     </receiver>
 
     <provider

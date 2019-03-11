@@ -7,14 +7,15 @@ import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
 import dagger.android.AndroidInjection
+import de.g00fy2.developerwidget.BuildConfig
 import de.g00fy2.developerwidget.R
 import de.g00fy2.developerwidget.activities.apkinstall.ApkActivity
-import de.g00fy2.developerwidget.activities.appsettings.AppsActivity
+import de.g00fy2.developerwidget.activities.appmanager.AppsActivity
 import de.g00fy2.developerwidget.activities.widgetconfig.WidgetConfigActivity
-import de.g00fy2.developerwidget.receiver.widget.WidgetProviderContract.WidgetProvider
-import de.g00fy2.developerwidget.receiver.widget.WidgetProviderContract.WidgetProviderPresenter
 import de.g00fy2.developerwidget.data.DeviceDataItem
 import de.g00fy2.developerwidget.data.DeviceDataSourceImpl
+import de.g00fy2.developerwidget.receiver.widget.WidgetProviderContract.WidgetProvider
+import de.g00fy2.developerwidget.receiver.widget.WidgetProviderContract.WidgetProviderPresenter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -23,8 +24,7 @@ import timber.log.Timber
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class WidgetProviderImpl : AppWidgetProvider(), CoroutineScope,
-  WidgetProvider {
+class WidgetProviderImpl : AppWidgetProvider(), CoroutineScope, WidgetProvider {
 
   @Inject lateinit var presenter: WidgetProviderPresenter
   private lateinit var appWidgetIds: IntArray
@@ -37,6 +37,12 @@ class WidgetProviderImpl : AppWidgetProvider(), CoroutineScope,
   override fun onReceive(context: Context, intent: Intent) {
     AndroidInjection.inject(this, context)
     super.onReceive(context, intent)
+
+    if (intent.action == UPDATE_WIDGET_ACTION) {
+      intent.extras?.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID)?.let {
+        onUpdate(context, AppWidgetManager.getInstance(context), intArrayOf(it))
+      }
+    }
   }
 
   override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
@@ -90,5 +96,9 @@ class WidgetProviderImpl : AppWidgetProvider(), CoroutineScope,
     val apkIntent = Intent(context, ApkActivity::class.java)
     val apkPendingIntent = PendingIntent.getActivity(context, widgetId, apkIntent, 0)
     views.setOnClickPendingIntent(R.id.install_apk_linearlayout, apkPendingIntent)
+  }
+
+  companion object {
+    const val UPDATE_WIDGET_ACTION = BuildConfig.APPLICATION_ID + ".APPWIDGET_MANUAL_UPDATE"
   }
 }

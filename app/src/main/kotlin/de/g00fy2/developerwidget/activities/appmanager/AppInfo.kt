@@ -1,4 +1,4 @@
-package de.g00fy2.developerwidget.activities.appsettings
+package de.g00fy2.developerwidget.activities.appmanager
 
 import android.content.Context
 import android.content.pm.PackageInfo

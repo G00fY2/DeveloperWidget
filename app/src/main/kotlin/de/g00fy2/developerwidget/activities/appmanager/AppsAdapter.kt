@@ -1,4 +1,4 @@
-package de.g00fy2.developerwidget.activities.appsettings
+package de.g00fy2.developerwidget.activities.appmanager
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

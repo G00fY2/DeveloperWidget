@@ -17,6 +17,7 @@ import de.g00fy2.developerwidget.base.BaseActivity
 import de.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import de.g00fy2.developerwidget.data.DeviceDataItem
 import de.g00fy2.developerwidget.data.DeviceDataSourceImpl
+import de.g00fy2.developerwidget.receiver.widget.WidgetProviderImpl
 import kotlinx.android.synthetic.main.activity_widget_config.*
 import javax.inject.Inject
 
@@ -39,6 +40,11 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
       updateExistingWidget = it.getBoolean(EXTRA_APPWIDGET_UPDATE_EXISTING)
     }
 
+    if (widgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+      finish()
+      return
+    }
+
     setActionbarElevationListener(widget_config_root_scrollview)
 
     adapter = DeviceDataAdapter()
@@ -52,21 +58,23 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
       WebView(this)
     }
 
-    if (widgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
-      finish()
-      return
+    apply_button.apply {
+      if (updateExistingWidget) {
+        setText(R.string.update_widget)
+        setOnClickListener {
+          sendBroadcast(Intent(applicationContext, WidgetProviderImpl::class.java).apply {
+            action = WidgetProviderImpl.UPDATE_WIDGET_ACTION
+            putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
+          })
+          finish()
+        }
+      } else {
+        setOnClickListener {
+          setResult(Activity.RESULT_OK, Intent().apply { putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId) })
+          finish()
+        }
+      }
     }
-
-    apply_button.setOnClickListener {
-      val appWidgetManager = AppWidgetManager.getInstance(this)
-//      WidgetProviderImpl.updateWidget(this, appWidgetManager, widgetId) TODO update widget
-
-      val resultValue = Intent()
-      resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
-      setResult(Activity.RESULT_OK, resultValue)
-      finish()
-    }
-    if (updateExistingWidget) apply_button.setText(R.string.update_widget)
   }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -99,6 +107,6 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
   }
 
   companion object {
-    const val EXTRA_APPWIDGET_UPDATE_EXISTING = "updateExistingWidget"
+    const val EXTRA_APPWIDGET_UPDATE_EXISTING = "UPDATE_EXISTING_WIDGET"
   }
 }
