@@ -35,7 +35,6 @@
     <activity
         android:name="de.g00fy2.developerwidget.activities.widgetconfig.WidgetConfigActivity"
         android:autoRemoveFromRecents="true"
-        android:launchMode="singleTask"
         android:screenOrientation="portrait"
         tools:targetApi="lollipop">
       <intent-filter>
