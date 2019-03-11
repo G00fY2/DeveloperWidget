@@ -21,27 +21,25 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
   @OnLifecycleEvent(ON_RESUME)
   override fun loadDeviceData() {
     launch {
-      getDeviceData().let {
+      withContext(Dispatchers.IO) { getDeviceData() }.let {
         view.showDeviceData(it)
       }
     }
   }
 
   private suspend fun getDeviceData(): List<Pair<String, DeviceDataItem>> {
-    return withContext(Dispatchers.IO) {
-      deviceDataSource
-        .getStaticDeviceData()
-        .plus(deviceDataSource.getHardwareData())
-        .plus(deviceDataSource.getSoftwareInfo())
-        .plus(deviceDataSource.getHeaderItems())
-        .toList()
-        .filter { (_, value) -> value.value.isNotBlank() || value.isHeader }
-        .sortedWith(
-          compareBy(
-            { it.second.category.ordinal },
-            { !it.second.isHeader },
-            { stringController.getString(it.second.title) })
-        )
-    }
+    return deviceDataSource
+      .getStaticDeviceData()
+      .plus(deviceDataSource.getHardwareData())
+      .plus(deviceDataSource.getSoftwareInfo())
+      .plus(deviceDataSource.getHeaderItems())
+      .toList()
+      .filter { (_, value) -> value.value.isNotBlank() || value.isHeader }
+      .sortedWith(
+        compareBy(
+          { it.second.category.ordinal },
+          { !it.second.isHeader },
+          { stringController.getString(it.second.title) })
+      )
   }
 }

@@ -48,7 +48,7 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
     setActionbarElevationListener(widget_config_root_scrollview)
 
     adapter = DeviceDataAdapter()
-    recyclerview.setHasFixedSize(true)
+    recyclerview.setHasFixedSize(false)
     recyclerview.layoutManager = LinearLayoutManager(this)
     recyclerview.isNestedScrollingEnabled = false
     recyclerview.adapter = adapter
@@ -95,7 +95,6 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
 
   override fun showDeviceData(data: List<Pair<String, DeviceDataItem>>) {
     setWidgetFields(data.toMap())
-    adapter.notifyDataSetChanged() // FIXME workaround to show items
     adapter.submitList(data)
   }
 
