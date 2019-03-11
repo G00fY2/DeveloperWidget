@@ -18,7 +18,7 @@ class DeviceDataSourceImpl @Inject constructor() : DeviceDataSource {
 
   @Inject @field:Named(APPLICATION) lateinit var context: Context
 
-  override fun getStaticDeviceData(): Map<String, DeviceDataItem> {
+  override suspend fun getStaticDeviceData(): Map<String, DeviceDataItem> {
     val data = HashMap<String, DeviceDataItem>()
 
     data[BOARD] = DeviceDataItem(BuildDataProvider.getBoard(), R.string.board, Category.DEVICE)
@@ -49,7 +49,7 @@ class DeviceDataSourceImpl @Inject constructor() : DeviceDataSource {
     return data
   }
 
-  override fun getHardwareData(): Map<String, DeviceDataItem> {
+  override suspend fun getHardwareData(): Map<String, DeviceDataItem> {
     val data = HashMap<String, DeviceDataItem>()
 
     val res = DisplayDataProvider.getResolution(context)
@@ -79,7 +79,7 @@ class DeviceDataSourceImpl @Inject constructor() : DeviceDataSource {
     return data
   }
 
-  override fun getSoftwareInfo(): Map<String, DeviceDataItem> {
+  override suspend fun getSoftwareInfo(): Map<String, DeviceDataItem> {
     val data = HashMap<String, DeviceDataItem>()
 
     data[GOOGLE_PLAY_VERSION] =
@@ -98,7 +98,7 @@ class DeviceDataSourceImpl @Inject constructor() : DeviceDataSource {
     return data
   }
 
-  override fun getHeaderItems(): Map<String, DeviceDataItem> {
+  override suspend fun getHeaderItems(): Map<String, DeviceDataItem> {
     val data = HashMap<String, DeviceDataItem>()
     DeviceDataItem.Category.values().forEach {
       data[it.title] = DeviceDataItem(it, true)

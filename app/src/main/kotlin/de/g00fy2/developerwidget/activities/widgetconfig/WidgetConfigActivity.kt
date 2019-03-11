@@ -1,4 +1,4 @@
-package de.g00fy2.developerwidget.activities.widget
+package de.g00fy2.developerwidget.activities.widgetconfig
 
 import android.app.Activity
 import android.appwidget.AppWidgetManager
@@ -59,7 +59,7 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
 
     apply_button.setOnClickListener {
       val appWidgetManager = AppWidgetManager.getInstance(this)
-//      WidgetProvider.updateWidget(this, appWidgetManager, widgetId) TODO update widget
+//      WidgetProviderImpl.updateWidget(this, appWidgetManager, widgetId) TODO update widget
 
       val resultValue = Intent()
       resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)

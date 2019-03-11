@@ -1,4 +1,4 @@
-package de.g00fy2.developerwidget.activities.widget
+package de.g00fy2.developerwidget.activities.widgetconfig
 
 import androidx.recyclerview.widget.DiffUtil
 import de.g00fy2.developerwidget.data.DeviceDataItem

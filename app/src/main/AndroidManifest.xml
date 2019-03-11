@@ -33,7 +33,7 @@
       android:theme="@style/DialogTheme"/>
 
     <activity
-        android:name="de.g00fy2.developerwidget.activities.widget.WidgetConfigActivity"
+        android:name="de.g00fy2.developerwidget.activities.widgetconfig.WidgetConfigActivity"
         android:autoRemoveFromRecents="true"
         android:launchMode="singleTask"
         android:screenOrientation="portrait"
@@ -48,7 +48,7 @@
         android:label="@string/about"
         android:screenOrientation="portrait"/>
 
-    <receiver android:name="de.g00fy2.developerwidget.activities.widget.WidgetProvider">
+    <receiver android:name="de.g00fy2.developerwidget.receiver.widget.WidgetProviderImpl">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
       </intent-filter>

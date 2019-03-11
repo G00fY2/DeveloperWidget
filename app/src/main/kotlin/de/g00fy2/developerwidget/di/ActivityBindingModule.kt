@@ -8,8 +8,8 @@ import de.g00fy2.developerwidget.activities.apkinstall.ApkActivity
 import de.g00fy2.developerwidget.activities.apkinstall.ApkActivityModule
 import de.g00fy2.developerwidget.activities.appsettings.AppsActivity
 import de.g00fy2.developerwidget.activities.appsettings.AppsActivityModule
-import de.g00fy2.developerwidget.activities.widget.WidgetConfigActivity
-import de.g00fy2.developerwidget.activities.widget.WidgetConfigActivityModule
+import de.g00fy2.developerwidget.activities.widgetconfig.WidgetConfigActivity
+import de.g00fy2.developerwidget.activities.widgetconfig.WidgetConfigActivityModule
 import de.g00fy2.developerwidget.di.annotations.ActivityScope
 
 @Module

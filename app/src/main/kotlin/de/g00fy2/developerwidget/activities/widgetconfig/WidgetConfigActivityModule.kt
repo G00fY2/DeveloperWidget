@@ -1,4 +1,4 @@
-package de.g00fy2.developerwidget.activities.widget
+package de.g00fy2.developerwidget.activities.widgetconfig
 
 import dagger.Binds
 import dagger.Module

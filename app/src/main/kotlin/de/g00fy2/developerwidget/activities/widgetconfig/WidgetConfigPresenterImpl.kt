@@ -1,4 +1,4 @@
-package de.g00fy2.developerwidget.activities.widget
+package de.g00fy2.developerwidget.activities.widgetconfig
 
 import androidx.lifecycle.Lifecycle.Event.ON_RESUME
 import androidx.lifecycle.OnLifecycleEvent

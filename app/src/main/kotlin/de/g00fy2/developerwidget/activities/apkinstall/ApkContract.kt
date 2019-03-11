@@ -13,6 +13,5 @@ interface ApkContract {
   interface ApkPresenter : BaseContract.BasePresenter {
 
     fun installApk(fileUri: Uri?)
-
   }
 }
