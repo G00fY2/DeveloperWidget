@@ -16,23 +16,15 @@ import de.g00fy2.developerwidget.data.DeviceDataItem
 import de.g00fy2.developerwidget.data.DeviceDataSourceImpl
 import de.g00fy2.developerwidget.receiver.widget.WidgetProviderContract.WidgetProvider
 import de.g00fy2.developerwidget.receiver.widget.WidgetProviderContract.WidgetProviderPresenter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
-class WidgetProviderImpl : AppWidgetProvider(), CoroutineScope, WidgetProvider {
+class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
 
   @Inject lateinit var presenter: WidgetProviderPresenter
   private lateinit var appWidgetIds: IntArray
   private lateinit var appWidgetManager: AppWidgetManager
   private lateinit var context: Context
-  private val job: Job by lazy { Job() }
-
-  override val coroutineContext: CoroutineContext = Dispatchers.Main + job
 
   override fun onReceive(context: Context, intent: Intent) {
     AndroidInjection.inject(this, context)
@@ -55,12 +47,10 @@ class WidgetProviderImpl : AppWidgetProvider(), CoroutineScope, WidgetProvider {
   override fun updateWidgetData(data: Map<String, DeviceDataItem>) {
     for (widgetId in appWidgetIds) {
       Timber.d("onUpdate widget $widgetId")
-      launch {
-        RemoteViews(context.packageName, R.layout.appwidget_layout).let {
-          updateWidgetDeviceData(data, it)
-          updateWidgetButtonIntents(widgetId, it)
-          appWidgetManager.updateAppWidget(widgetId, it)
-        }
+      RemoteViews(context.packageName, R.layout.appwidget_layout).let {
+        updateWidgetDeviceData(data, it)
+        updateWidgetButtonIntents(widgetId, it)
+        appWidgetManager.updateAppWidget(widgetId, it)
       }
     }
   }
