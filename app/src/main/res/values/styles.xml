@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
   <style name="AppTheme" parent="Theme.MaterialComponents.Light">
     <item name="colorPrimary">@color/colorPrimary</item>
@@ -8,6 +8,14 @@
 
     <item name="android:windowBackground">@android:color/white</item>
     <item name="actionBarTheme">@style/AccentActionBar</item>
+    <!--api 21-->
+    <item name="android:colorEdgeEffect" tools:targetApi="21">@android:color/black</item>
+    <!--api 23-->
+    <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+    <!--api 27-->
+    <item name="android:navigationBarColor" tools:targetApi="27">@android:color/white</item>
+    <item name="android:navigationBarDividerColor" tools:targetApi="27">@color/gray88</item>
+    <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
   </style>
 
   <style name="DialogTheme" parent="Theme.MaterialComponents.Light.Dialog">
@@ -19,6 +27,8 @@
     <item name="android:windowBackground">@drawable/bg_dialog_shape</item>
     <item name="colorControlHighlight">@color/transparentAccent</item>
     <item name="android:windowCloseOnTouchOutside">false</item>
+    <!--api 21-->
+    <item name="android:colorEdgeEffect" tools:targetApi="21">@android:color/black</item>
   </style>
 
   <style name="DialogButtonAppearance" parent="TextAppearance.AppCompat.Widget.Button">
