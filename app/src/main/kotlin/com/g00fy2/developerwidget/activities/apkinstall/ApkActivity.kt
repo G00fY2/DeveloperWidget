@@ -48,16 +48,19 @@ class ApkActivity : BaseActivity(), ApkContract.ApkView {
   override fun toggleResultView(apkFiles: List<ApkFile>, missingPermissions: Boolean) {
     if (missingPermissions) {
       progressbar.visibility = View.INVISIBLE
-      progress_textview.text = getString(R.string.missing_permissions)
+      no_items_textview.text = getString(R.string.missing_permissions)
+      no_items_imageview.visibility = View.VISIBLE
       return
     }
 
     if (apkFiles.isNotEmpty()) {
       adapter.submitList(apkFiles)
       recyclerview.overScrollMode = View.OVER_SCROLL_ALWAYS
-      progress_textview.visibility = View.INVISIBLE
+      no_items_textview.visibility = View.INVISIBLE
+      no_items_imageview.visibility = View.INVISIBLE
     } else {
-      progress_textview.text = getString(R.string.no_apk_found)
+      no_items_textview.text = getString(R.string.no_apk_found)
+      no_items_imageview.visibility = View.VISIBLE
     }
 
     ViewCompat.animate(progressbar).alpha(0f)
@@ -70,8 +73,9 @@ class ApkActivity : BaseActivity(), ApkContract.ApkView {
     install_textview.isEnabled = false
     progressbar.alpha = 1f
     progressbar.visibility = View.VISIBLE
-    progress_textview.visibility = View.VISIBLE
-    progress_textview.text = getString(R.string.scanning_apks)
+    no_items_textview.visibility = View.VISIBLE
+    no_items_textview.text = getString(R.string.scanning_apks)
+    no_items_imageview.visibility = View.INVISIBLE
     recyclerview.overScrollMode = View.OVER_SCROLL_NEVER
     adapter.clearList()
   }

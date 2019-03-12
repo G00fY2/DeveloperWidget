@@ -22,7 +22,7 @@
 
   <TextView
       android:id="@+id/appename_textview"
-      style="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
+      style="@style/TextAppearance.AppCompat.Subhead"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"

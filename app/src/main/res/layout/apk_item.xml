@@ -39,7 +39,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@+id/app_icon_imageview"
       app:layout_constraintTop_toTopOf="parent"
-      style="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
+      style="@style/TextAppearance.AppCompat.Subhead"
       />
 
   <androidx.constraintlayout.widget.Barrier

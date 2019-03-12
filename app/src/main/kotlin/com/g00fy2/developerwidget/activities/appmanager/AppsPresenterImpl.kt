@@ -3,6 +3,7 @@ package com.g00fy2.developerwidget.activities.appmanager
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.provider.Settings
+import android.text.Editable
 import androidx.core.net.toUri
 import androidx.lifecycle.Lifecycle.Event.ON_RESUME
 import androidx.lifecycle.OnLifecycleEvent
@@ -34,7 +35,7 @@ class AppsPresenterImpl @Inject constructor() : BasePresenterImpl(), AppsContrac
       withContext(Dispatchers.IO) {
         getInstalledUserApps()
       }.let {
-        view.toggleResultView(it)
+        view.toggleResultView(it, appFilter)
       }
     }
   }
@@ -64,6 +65,16 @@ class AppsPresenterImpl @Inject constructor() : BasePresenterImpl(), AppsContrac
   }
 
   override fun getCurrentFilter(): List<String> = appFilter
+
+  override fun updateFilter(s: Editable?) {
+    if (s.isNullOrEmpty()) {
+      view.updateAppFilter(appFilter)
+      view.updateFilterIcon(appFilter.isNotEmpty())
+    } else {
+      view.updateAppFilter(s.toString())
+      view.updateFilterIcon(true)
+    }
+  }
 
   private fun getInstalledUserApps(): List<AppInfo> {
     return appInfoBuilder.getInstalledPackages()

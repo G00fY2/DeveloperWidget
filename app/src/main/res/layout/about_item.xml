@@ -15,6 +15,7 @@
       android:layout_marginLeft="24dp"
       android:layout_marginStart="24dp"
       android:visibility="invisible"
+      android:tint="@color/vectorTintColor"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
