@@ -17,22 +17,12 @@ allprojects {
     google()
     maven {
       url MAVEN_CENTRAL_URL
-      content {
-        includeGroupByRegex "org\\.jetbrains.*"
-        includeGroupByRegex  "com\\.google.*"
-        includeGroup "org.sonatype.oss"
-        includeModule "com.squareup", "javapoet"
-        includeModule "com.jakewharton.timber", "timber"
-        includeModule "javax.inject", "javax.inject"
-        includeModule "org.checkerframework", "checker-compat-qual"
-        includeModule "org.codehaus.mojo", "animal-sniffer-annotations"
-        includeModule "javax.annotation", "jsr250-api"
-      }
     }
     jcenter {
       content {
         includeModule "com.google.android", "flexbox"
         includeModule "com.g00fy2", "versioncompare"
+        includeModule "org.jetbrains.trove4j", "trove4j"
       }
     }
   }
