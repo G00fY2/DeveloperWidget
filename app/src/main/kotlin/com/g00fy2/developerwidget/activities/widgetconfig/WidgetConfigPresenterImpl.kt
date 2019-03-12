@@ -1,6 +1,6 @@
 package com.g00fy2.developerwidget.activities.widgetconfig
 
-import androidx.lifecycle.Lifecycle.Event.ON_RESUME
+import androidx.lifecycle.Lifecycle.Event
 import androidx.lifecycle.OnLifecycleEvent
 import com.g00fy2.developerwidget.base.BasePresenterImpl
 import com.g00fy2.developerwidget.controllers.StringController
@@ -18,7 +18,7 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
   @Inject lateinit var deviceDataSource: DeviceDataSource
   @Inject lateinit var stringController: StringController
 
-  @OnLifecycleEvent(ON_RESUME)
+  @OnLifecycleEvent(Event.ON_RESUME)
   override fun loadDeviceData() {
     launch {
       withContext(Dispatchers.IO) {

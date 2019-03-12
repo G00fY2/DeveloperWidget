@@ -1,6 +1,6 @@
 package com.g00fy2.developerwidget.base
 
-import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
+import androidx.lifecycle.Lifecycle.Event
 import androidx.lifecycle.OnLifecycleEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -12,7 +12,7 @@ abstract class BasePresenterImpl : BaseContract.BasePresenter {
 
   override val coroutineContext: CoroutineContext = Dispatchers.Main + job
 
-  @OnLifecycleEvent(ON_DESTROY)
+  @OnLifecycleEvent(Event.ON_DESTROY)
   fun cancelJob() = job.cancel()
 
 }
