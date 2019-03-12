@@ -25,6 +25,7 @@ import javax.inject.Inject
 class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigView {
 
   @Inject lateinit var presenter: WidgetConfigContract.WidgetConfigPresenter
+
   private var updateExistingWidget = false
   private var widgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID
   private lateinit var adapter: DeviceDataAdapter

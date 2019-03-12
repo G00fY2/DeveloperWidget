@@ -3,6 +3,7 @@ package com.g00fy2.developerwidget.utils
 class FilterUtils {
 
   companion object {
+
     fun filterValue(value: String, filter: String): Boolean {
       var result = false
       val filterInputs = filter.split("*")

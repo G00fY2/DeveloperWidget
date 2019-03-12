@@ -20,6 +20,7 @@ class AppsPresenterImpl @Inject constructor() : BasePresenterImpl(), AppsContrac
   @Inject lateinit var appInfoBuilder: AppInfo.AppInfoBuilder
   @Inject lateinit var intentController: IntentController
   @Inject lateinit var widgetPreferenceController: WidgetPreferenceController
+
   private val appFilter by lazy { widgetPreferenceController.getAppFilters() }
 
   @OnLifecycleEvent(ON_RESUME)

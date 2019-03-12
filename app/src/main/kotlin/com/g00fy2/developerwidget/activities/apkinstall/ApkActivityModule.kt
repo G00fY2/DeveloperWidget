@@ -9,19 +9,19 @@ import dagger.Module
 @Module(includes = [ActivityModule::class])
 abstract class ApkActivityModule {
 
-  @ActivityScope
   @Binds
+  @ActivityScope
   abstract fun provideActivity(activity: ApkActivity): BaseActivity
 
-  @ActivityScope
   @Binds
+  @ActivityScope
   abstract fun provideApkView(activity: ApkActivity): ApkContract.ApkView
 
-  @ActivityScope
   @Binds
+  @ActivityScope
   abstract fun provideApkPresenter(presenter: ApkPresenterImpl): ApkContract.ApkPresenter
 
-  @ActivityScope
   @Binds
+  @ActivityScope
   abstract fun provideApkFileBuilder(apkFileBuilder: ApkFile.ApkFileBuilderImpl): ApkFile.ApkFileBuilder
 }

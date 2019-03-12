@@ -15,6 +15,7 @@ class WidgetProviderPresenterImpl @Inject constructor() : WidgetProviderPresente
 
   @Inject lateinit var widgetProvider: WidgetProvider
   @Inject lateinit var deviceDataSource: DeviceDataSource
+
   private val job: Job by lazy { Job() }
 
   override val coroutineContext: CoroutineContext = Dispatchers.Main + job

@@ -13,6 +13,7 @@ class AboutPresenterImpl @Inject constructor() : BasePresenterImpl(), AboutContr
   @Inject lateinit var view: AboutContract.AboutView
   @Inject lateinit var intentController: IntentController
   @Inject lateinit var toastController: ToastController
+
   private var clickCount = 0
   private var clickStart: Long = 0
 

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseAdapter<T, VH : RecyclerView.ViewHolder> constructor(diffCallback: DiffUtil.ItemCallback<T> = DefaultItemDiffCallback()) :
   ListAdapter<T, VH>(diffCallback) {
+
   private var commitCallback: Runnable? = null
 
   override fun submitList(list: List<T>?) {

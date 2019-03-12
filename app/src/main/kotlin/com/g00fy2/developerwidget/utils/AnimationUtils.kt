@@ -8,6 +8,7 @@ import androidx.core.animation.doOnEnd
 class AnimationUtils {
 
   companion object {
+
     fun expandView(v: View) {
       v.apply {
         val params = layoutParams as LinearLayout.LayoutParams

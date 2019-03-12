@@ -18,6 +18,7 @@ import javax.inject.Inject
 class ApkActivity : BaseActivity(), ApkContract.ApkView {
 
   @Inject lateinit var presenter: ApkContract.ApkPresenter
+
   private lateinit var adapter: ApkAdapter
 
   override fun providePresenter(): BasePresenter = presenter

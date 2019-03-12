@@ -22,6 +22,7 @@ import javax.inject.Inject
 class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
 
   @Inject lateinit var presenter: WidgetProviderPresenter
+
   private lateinit var appWidgetIds: IntArray
   private lateinit var appWidgetManager: AppWidgetManager
   private lateinit var context: Context

@@ -9,15 +9,15 @@ import dagger.Module
 @Module(includes = [ActivityModule::class])
 abstract class AboutActivityModule {
 
-  @ActivityScope
   @Binds
+  @ActivityScope
   abstract fun provideActivity(activity: AboutActivity): BaseActivity
 
-  @ActivityScope
   @Binds
+  @ActivityScope
   abstract fun provideAboutView(activity: AboutActivity): AboutContract.AboutView
 
-  @ActivityScope
   @Binds
+  @ActivityScope
   abstract fun provideAboutPresenter(presenter: AboutPresenterImpl): AboutContract.AboutPresenter
 }

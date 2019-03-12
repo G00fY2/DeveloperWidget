@@ -9,15 +9,15 @@ import dagger.Module
 @Module(includes = [ActivityModule::class])
 abstract class WidgetConfigActivityModule {
 
-  @ActivityScope
   @Binds
+  @ActivityScope
   abstract fun provideActivity(activity: WidgetConfigActivity): BaseActivity
 
-  @ActivityScope
   @Binds
+  @ActivityScope
   abstract fun provideWidgetConfigView(activity: WidgetConfigActivity): WidgetConfigContract.WidgetConfigView
 
-  @ActivityScope
   @Binds
+  @ActivityScope
   abstract fun provideWidgetConfigPresenter(presenter: WidgetConfigPresenterImpl): WidgetConfigContract.WidgetConfigPresenter
 }

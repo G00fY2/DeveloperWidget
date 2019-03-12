@@ -13,28 +13,28 @@ import javax.inject.Named
 @Module(includes = [ActivityModule::class])
 abstract class AppsActivityModule {
 
-  @ActivityScope
   @Binds
+  @ActivityScope
   abstract fun provideActivity(activity: AppsActivity): BaseActivity
 
-  @ActivityScope
   @Binds
+  @ActivityScope
   abstract fun provideAppsView(activity: AppsActivity): AppsContract.AppsView
 
-  @ActivityScope
   @Binds
+  @ActivityScope
   abstract fun provideAppsPresenter(activity: AppsPresenterImpl): AppsContract.AppsPresenter
 
-  @ActivityScope
   @Binds
+  @ActivityScope
   abstract fun provideAppInfoBuilder(appInfoBuilder: AppInfo.AppInfoBuilderImpl): AppInfo.AppInfoBuilder
 
   @Module
   companion object {
 
-    @ActivityScope
     @JvmStatic
     @Provides
+    @ActivityScope
     @Named(WIDGET_ID)
     fun provideWidgetId(activity: AppsActivity): String {
       return (activity.intent.extras?.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
