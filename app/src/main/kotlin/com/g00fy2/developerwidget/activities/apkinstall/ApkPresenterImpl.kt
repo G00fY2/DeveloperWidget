@@ -72,5 +72,4 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
     const val APK_EXTENSION = "apk"
     const val APK_MIME_TYPE = "application/vnd.android.package-archive"
   }
-
 }
