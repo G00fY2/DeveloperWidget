@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="de.g00fy2.developerwidget">
+    package="com.g00fy2.developerwidget">
 
   <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -15,7 +15,7 @@
       tools:ignore="GoogleAppIndexingWarning">
 
     <activity
-        android:name="de.g00fy2.developerwidget.activities.apkinstall.ApkActivity"
+        android:name=".activities.apkinstall.ApkActivity"
         android:excludeFromRecents="true"
         android:label="@string/install_apk"
         android:launchMode="singleTask"
@@ -24,7 +24,7 @@
         android:theme="@style/DialogTheme"/>
 
     <activity
-        android:name="de.g00fy2.developerwidget.activities.appmanager.AppsActivity"
+        android:name=".activities.appmanager.AppsActivity"
         android:excludeFromRecents="true"
         android:label="@string/install_apk"
         android:launchMode="singleTask"
@@ -33,7 +33,7 @@
         android:theme="@style/DialogTheme"/>
 
     <activity
-        android:name="de.g00fy2.developerwidget.activities.widgetconfig.WidgetConfigActivity"
+        android:name=".activities.widgetconfig.WidgetConfigActivity"
         android:autoRemoveFromRecents="true"
         android:screenOrientation="portrait"
         tools:targetApi="lollipop">
@@ -43,11 +43,11 @@
     </activity>
 
     <activity
-        android:name="de.g00fy2.developerwidget.activities.about.AboutActivity"
+        android:name=".activities.about.AboutActivity"
         android:label="@string/about"
         android:screenOrientation="portrait"/>
 
-    <receiver android:name="de.g00fy2.developerwidget.receiver.widget.WidgetProviderImpl">
+    <receiver android:name=".receiver.widget.WidgetProviderImpl">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
       </intent-filter>

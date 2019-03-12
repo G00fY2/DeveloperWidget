@@ -10,7 +10,7 @@ androidExtensions {
 android {
   compileSdkVersion 28
   defaultConfig {
-    applicationId "de.g00fy2.developerwidget"
+    applicationId "com.g00fy2.developerwidget"
     minSdkVersion 14
     targetSdkVersion 28
     versionCode 1

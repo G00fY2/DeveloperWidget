@@ -98,52 +98,52 @@
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/top_view"
         >
-      <de.g00fy2.developerwidget.activities.about.views.AboutItemLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
           android:id="@+id/privacy_item"
           android:layout_width="match_parent"
           android:layout_height="72dp"
           />
-      <de.g00fy2.developerwidget.activities.about.views.AboutItemLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
           android:id="@+id/source_code_item"
           android:layout_width="match_parent"
           android:layout_height="72dp"
           />
-      <de.g00fy2.developerwidget.activities.about.views.AboutItemLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
           android:id="@+id/changelog_item"
           android:layout_width="match_parent"
           android:layout_height="72dp"
           />
-      <de.g00fy2.developerwidget.activities.about.views.AboutItemLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
           android:id="@+id/license_item"
           android:layout_width="match_parent"
           android:layout_height="72dp"
           />
-      <de.g00fy2.developerwidget.activities.about.views.AboutHeaderLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutHeaderLayout
           android:id="@+id/author_header"
           android:layout_width="match_parent"
           android:layout_height="48dp"
           />
-      <de.g00fy2.developerwidget.activities.about.views.AboutItemLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
           android:id="@+id/twitter_item"
           android:layout_width="match_parent"
           android:layout_height="72dp"
           />
-      <de.g00fy2.developerwidget.activities.about.views.AboutItemLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
           android:id="@+id/github_item"
           android:layout_width="match_parent"
           android:layout_height="72dp"
           />
-      <de.g00fy2.developerwidget.activities.about.views.AboutHeaderLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutHeaderLayout
           android:id="@+id/licenses_header"
           android:layout_width="match_parent"
           android:layout_height="48dp"
           />
-      <de.g00fy2.developerwidget.activities.about.views.AboutItemLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
           android:id="@+id/open_source_licenses_item"
           android:layout_width="match_parent"
           android:layout_height="72dp"
           />
-      <de.g00fy2.developerwidget.activities.about.views.AboutItemLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
           android:id="@+id/image_licenses_item"
           android:layout_width="match_parent"
           android:layout_height="72dp"
@@ -153,7 +153,7 @@
           android:layout_height="1dp"
           android:background="@color/gray88"
           />
-      <de.g00fy2.developerwidget.activities.about.views.AboutItemLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
           android:id="@+id/build_number_item"
           android:layout_width="match_parent"
           android:layout_height="64dp"
