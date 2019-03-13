@@ -82,7 +82,7 @@ class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
     appIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
     val appPendingIntent =
       PendingIntent.getActivity(context, widgetId, appIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-    views.setOnClickPendingIntent(R.id.developer_settings_linearlayout, appPendingIntent)
+    views.setOnClickPendingIntent(R.id.manage_apps_linearlayout, appPendingIntent)
 
     val apkIntent = Intent(context, ApkActivity::class.java)
     val apkPendingIntent = PendingIntent.getActivity(context, widgetId, apkIntent, 0)

@@ -1,34 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-  <style name="AppTheme" parent="Theme.MaterialComponents.Light">
+  <style name="BaseAppTheme" parent="Theme.MaterialComponents.DayNight">
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
 
-    <item name="android:windowBackground">@android:color/white</item>
+    <item name="android:windowBackground">@color/backgroundColor</item>
     <item name="actionBarTheme">@style/AccentActionBar</item>
     <!--api 21-->
-    <item name="android:colorEdgeEffect" tools:targetApi="21">@android:color/black</item>
+    <item name="android:colorEdgeEffect" tools:targetApi="21">@color/colorEdgeEffect</item>
+    <!--api 27-->
+    <item name="android:navigationBarColor" tools:targetApi="27">@color/navigationBarColor</item>
+    <item name="android:navigationBarDividerColor" tools:targetApi="27">@color/navigationBarDividerColor</item>
+  </style>
+
+  <style name="AppTheme" parent="BaseAppTheme">
     <!--api 23-->
     <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
     <!--api 27-->
-    <item name="android:navigationBarColor" tools:targetApi="27">@android:color/white</item>
-    <item name="android:navigationBarDividerColor" tools:targetApi="27">@color/gray88</item>
     <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
   </style>
 
-  <style name="DialogTheme" parent="Theme.MaterialComponents.Light.Dialog">
+
+  <style name="AccentActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
+    <item name="android:textColorPrimary">@color/colorAccent</item>
+  </style>
+
+  <style name="DialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog">
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
 
     <item name="windowNoTitle">true</item>
     <item name="android:windowBackground">@drawable/bg_dialog_shape</item>
-    <item name="colorControlHighlight">@color/transparentAccent</item>
     <item name="android:windowCloseOnTouchOutside">false</item>
     <!--api 21-->
-    <item name="android:colorEdgeEffect" tools:targetApi="21">@android:color/black</item>
+    <item name="android:colorEdgeEffect" tools:targetApi="21">@color/colorEdgeEffect</item>
   </style>
 
   <style name="DialogButtonAppearance" parent="TextAppearance.AppCompat.Widget.Button">
@@ -39,9 +47,5 @@
   <style name="ConfigureButtonAppearance" parent="Widget.AppCompat.Button.Colored">
     <item name="android:background">@drawable/bg_button_shape</item>
     <item name="android:foreground">?android:attr/selectableItemBackground</item>
-  </style>
-
-  <style name="AccentActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
-    <item name="android:textColorPrimary">@color/colorAccent</item>
   </style>
 </resources>

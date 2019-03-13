@@ -3,8 +3,9 @@ package com.g00fy2.developerwidget.activities.appmanager
 import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.provider.Settings
+import android.text.Editable
 import androidx.core.net.toUri
-import androidx.lifecycle.Lifecycle.Event.ON_RESUME
+import androidx.lifecycle.Lifecycle.Event
 import androidx.lifecycle.OnLifecycleEvent
 import com.g00fy2.developerwidget.base.BasePresenterImpl
 import com.g00fy2.developerwidget.controllers.IntentController
@@ -23,27 +24,28 @@ class AppsPresenterImpl @Inject constructor() : BasePresenterImpl(), AppsContrac
 
   private val appFilter by lazy { widgetPreferenceController.getAppFilters() }
 
-  @OnLifecycleEvent(ON_RESUME)
+  @OnLifecycleEvent(Event.ON_RESUME)
   fun setFilterIconState() {
     view.updateFilterIcon(appFilter.isNotEmpty())
   }
 
-  @OnLifecycleEvent(ON_RESUME)
+  @OnLifecycleEvent(Event.ON_RESUME)
   fun scanApps() {
     launch {
       withContext(Dispatchers.IO) {
         getInstalledUserApps()
       }.let {
-        view.toggleResultView(it)
+        view.toggleResultView(it, appFilter)
       }
     }
   }
 
   override fun openAppSettingsActivity(packageName: String?) {
     packageName?.let {
-      Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, "package:$it".toUri()).apply {
-        flags = flags or Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_SINGLE_TOP
-      }.let { intent -> intentController.startActivity(intent) }
+      Intent(
+        Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+        "package:$it".toUri()
+      ).let { intent -> intentController.startActivity(intent) }
     }
   }
 
@@ -64,6 +66,16 @@ class AppsPresenterImpl @Inject constructor() : BasePresenterImpl(), AppsContrac
   }
 
   override fun getCurrentFilter(): List<String> = appFilter
+
+  override fun updateFilter(s: Editable?) {
+    if (s.isNullOrEmpty()) {
+      view.updateAppFilter(appFilter)
+      view.updateFilterIcon(appFilter.isNotEmpty())
+    } else {
+      view.updateAppFilter(s.toString())
+      view.updateFilterIcon(true)
+    }
+  }
 
   private fun getInstalledUserApps(): List<AppInfo> {
     return appInfoBuilder.getInstalledPackages()

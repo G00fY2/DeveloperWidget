@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="colorPrimary">#f8f9fa</color>
+  <color name="colorPrimary">#F8F9FA</color>
   <color name="colorPrimaryDark">#999999</color>
   <color name="colorAccent">#1a73e8</color>
 
-  <color name="widgetTextColor">#808080</color>
-  <color name="gray88">#e0e0e0</color>
-  <color name="transparentWhite88">#e0ffffff</color>
+  <color name="backgroundColor">@color/white</color>
+  <color name="transparentBackground50">#80ffffff</color>
+  <color name="dividerGrey">#e0e0e0</color>
+
+  <color name="navigationBarColor">@color/backgroundColor</color>
+  <color name="navigationBarDividerColor">@color/dividerGrey</color>
+  <color name="colorEdgeEffect">@color/black</color>
+
+  <color name="widgetTextColor">@color/lightGrey</color>
+  <color name="vectorTintColor">#808080</color>
+  <color name="white">#ffffff</color>
+  <color name="black">#000000</color>
+  <color name="lightGrey">#808080</color>
+
+  <color name="nightBackground">#212121</color>
+  <color name="nightPrimary">#262728</color>
+  <color name="nightAccent">#2581df</color>
+  <color name="nightGrey">#313235</color>
+  <color name="nightGreyLight">#666666</color>
+  <color name="nightDivider">#3c3c3c</color>
+
   <color name="disabledButton">#9e9e9e</color>
-  <color name="transparentAccent">#401a73e8</color>
   <color name="ic_launcher_background">@color/colorAccent</color>
 </resources>

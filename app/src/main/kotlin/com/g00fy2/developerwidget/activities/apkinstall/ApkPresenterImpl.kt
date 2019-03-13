@@ -7,8 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Build.VERSION_CODES
 import android.os.Environment
-import androidx.lifecycle.Lifecycle.Event.ON_CREATE
-import androidx.lifecycle.Lifecycle.Event.ON_RESUME
+import androidx.lifecycle.Lifecycle.Event
 import androidx.lifecycle.OnLifecycleEvent
 import com.g00fy2.developerwidget.base.BasePresenterImpl
 import com.g00fy2.developerwidget.controllers.IntentController
@@ -26,13 +25,13 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
   @Inject lateinit var permissionController: PermissionController
   @Inject lateinit var apkFileBuilder: ApkFile.ApkFileBuilder
 
-  @OnLifecycleEvent(ON_CREATE)
+  @OnLifecycleEvent(Event.ON_CREATE)
   @TargetApi(VERSION_CODES.JELLY_BEAN)
   fun requestPermission() {
     permissionController.requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
   }
 
-  @OnLifecycleEvent(ON_RESUME)
+  @OnLifecycleEvent(Event.ON_RESUME)
   fun checkPermissionAndScanApks() {
     if (permissionController.hasPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
       launch {

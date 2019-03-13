@@ -49,6 +49,7 @@ class AppsActivity : BaseActivity(), AppsContract.AppsView {
     adapter = AppsAdapter().setOnAppSelected { presenter.openAppSettingsActivity(adapter.getSelectedPackageName()) }
     adapter.setCommitCallback(Runnable {
       no_items_textview.visibility = if (adapter.itemCount == 0) View.VISIBLE else View.INVISIBLE
+      no_items_imageview.visibility = if (adapter.itemCount == 0) View.VISIBLE else View.INVISIBLE
       recyclerview.overScrollMode = if (adapter.itemCount == 0) View.OVER_SCROLL_NEVER else View.OVER_SCROLL_ALWAYS
     })
     recyclerview.setHasFixedSize(true)
@@ -91,11 +92,7 @@ class AppsActivity : BaseActivity(), AppsContract.AppsView {
       }
       addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
-          if (s.isNullOrEmpty()) {
-            adapter.updateAppFilters(presenter.getCurrentFilter())
-          } else {
-            adapter.updateAppFilter(s.toString())
-          }
+          presenter.updateFilter(s)
         }
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -105,7 +102,7 @@ class AppsActivity : BaseActivity(), AppsContract.AppsView {
         }
       })
     }
-    // necessary to propper measure the filter view height
+    // necessary to properly measure the filter view height
     setFilterChips(presenter.getCurrentFilter())
     filter_linearlayout.apply {
       viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
@@ -122,8 +119,8 @@ class AppsActivity : BaseActivity(), AppsContract.AppsView {
     }
   }
 
-  override fun toggleResultView(installedAppPackages: List<AppInfo>) {
-    adapter.initialList(installedAppPackages, presenter.getCurrentFilter())
+  override fun toggleResultView(installedAppPackages: List<AppInfo>, filters: List<String>) {
+    adapter.initialList(installedAppPackages, filters)
     if (filter_edittext.text.toString().isNotEmpty()) {
       adapter.updateAppFilter(filter_edittext.text.toString())
     }
@@ -134,8 +131,12 @@ class AppsActivity : BaseActivity(), AppsContract.AppsView {
       }.start()
   }
 
-  override fun updateAppFilter(filter: List<String>) {
-    adapter.updateAppFilters(filter)
+  override fun updateAppFilter(filters: List<String>) {
+    adapter.updateAppFilters(filters)
+  }
+
+  override fun updateAppFilter(filter: String) {
+    adapter.updateAppFilter(filter)
   }
 
   override fun updateFilterIcon(filterActive: Boolean) {
@@ -149,7 +150,6 @@ class AppsActivity : BaseActivity(), AppsContract.AppsView {
   private fun toggleFilterView() {
     if (filter_linearlayout.isVisible) {
       AnimationUtils.collapseView(filter_linearlayout)
-      filter_edittext.text.clear()
       UiUtils.hideKeyboard(this)
     } else {
       setFilterChips(presenter.getCurrentFilter())

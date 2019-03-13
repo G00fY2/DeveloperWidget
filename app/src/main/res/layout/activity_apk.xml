@@ -33,6 +33,17 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/textView"/>
 
+  <ImageView
+      android:id="@+id/no_items_imageview"
+      android:layout_width="96dp"
+      android:layout_height="96dp"
+      android:src="@drawable/ic_sad"
+      android:visibility="invisible"
+      app:layout_constraintBottom_toTopOf="@+id/cancel_textview"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/textView"/>
+
   <ProgressBar
       android:id="@+id/progressbar"
       android:layout_width="wrap_content"
@@ -45,7 +56,7 @@
       app:layout_constraintTop_toBottomOf="@+id/textView"/>
 
   <TextView
-      android:id="@+id/progress_textview"
+      android:id="@+id/no_items_textview"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
@@ -59,30 +70,10 @@
       android:textSize="14sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/progressbar"/>
+      app:layout_constraintTop_toBottomOf="@+id/no_items_imageview"/>
 
   <TextView
       android:id="@+id/cancel_textview"
-      style="@style/DialogButtonAppearance"
-      android:layout_width="wrap_content"
-      android:layout_height="0dp"
-      android:layout_marginTop="4dp"
-      android:layout_marginEnd="8dp"
-      android:layout_marginRight="8dp"
-      android:layout_marginBottom="4dp"
-      android:background="?attr/selectableItemBackground"
-      android:clickable="true"
-      android:focusable="true"
-      android:gravity="center_vertical"
-      android:paddingStart="8dp"
-      android:paddingEnd="8dp"
-      android:text="@string/cancel"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toStartOf="@+id/install_textview"
-      app:layout_constraintTop_toBottomOf="@+id/recyclerview"/>
-
-  <TextView
-      android:id="@+id/install_textview"
       style="@style/DialogButtonAppearance"
       android:layout_width="wrap_content"
       android:layout_height="0dp"
@@ -92,12 +83,11 @@
       android:layout_marginBottom="4dp"
       android:background="?attr/selectableItemBackground"
       android:clickable="true"
-      android:enabled="false"
       android:focusable="true"
       android:gravity="center_vertical"
       android:paddingStart="8dp"
       android:paddingEnd="8dp"
-      android:text="@string/install"
+      android:text="@string/cancel"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/recyclerview"/>

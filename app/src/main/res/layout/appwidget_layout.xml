@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_widget_shape"
+    android:background="@drawable/bg_widget_outer_shape"
     android:baselineAligned="false"
     android:orientation="horizontal"
     tools:ignore="ContentDescription"
@@ -20,20 +20,21 @@
       android:layout_marginStart="4dp"
       android:layout_marginTop="4dp"
       android:layout_weight="1"
-      android:background="@android:color/white"
+      android:background="@drawable/bg_widget_inner_shape"
       android:gravity="center_vertical"
       android:orientation="vertical"
-      android:paddingEnd="4dp"
-      android:paddingLeft="4dp"
-      android:paddingRight="4dp"
-      android:paddingStart="4dp"
+      android:paddingEnd="8dp"
+      android:paddingLeft="8dp"
+      android:paddingRight="8dp"
+      android:paddingStart="8dp"
       >
     <TextView
         android:id="@+id/device_info_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Title"
         android:textColor="@color/widgetTextColor"
-        android:textStyle="bold"
+        android:textSize="16dp"
         />
 
     <ImageView
@@ -43,15 +44,16 @@
         android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="2dp"
-        android:src="@drawable/bg_widget_shape"
+        android:src="@drawable/bg_widget_outer_shape"
         />
 
     <TextView
         android:id="@+id/release_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Title"
         android:textColor="@color/widgetTextColor"
-        android:textStyle="bold"
+        android:textSize="16dp"
         />
 
     <ImageView
@@ -61,7 +63,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="2dp"
-        android:src="@drawable/bg_widget_shape"
+        android:src="@drawable/bg_widget_outer_shape"
         />
 
 
@@ -69,8 +71,9 @@
         android:id="@+id/sdk_int_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Title"
         android:textColor="@color/widgetTextColor"
-        android:textStyle="bold"
+        android:textSize="16dp"
         />
   </LinearLayout>
 
@@ -84,27 +87,28 @@
       android:layout_marginStart="2dp"
       android:layout_marginTop="4dp"
       android:layout_weight="1"
-      android:background="@android:color/white"
+      android:background="@drawable/bg_widget_inner_shape"
       android:orientation="vertical"
-      android:paddingEnd="4dp"
-      android:paddingLeft="4dp"
-      android:paddingRight="4dp"
-      android:paddingStart="4dp"
       >
 
     <LinearLayout
-        android:id="@+id/developer_settings_linearlayout"
+        android:id="@+id/manage_apps_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:paddingEnd="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingStart="8dp"
         >
       <ImageView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:src="@drawable/ic_apps_grid"
+          android:tint="@color/vectorTintColor"
           />
       <TextView
           android:layout_width="match_parent"
@@ -113,6 +117,7 @@
           android:layout_marginStart="8dp"
           android:text="@string/app_settings"
           android:textColor="@color/widgetTextColor"
+          style="@style/TextAppearance.AppCompat.Subhead"
           />
     </LinearLayout>
 
@@ -124,11 +129,16 @@
         android:background="?android:attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:paddingEnd="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingStart="8dp"
         >
       <ImageView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:src="@drawable/ic_apps"
+          android:tint="@color/vectorTintColor"
           />
       <TextView
           android:layout_width="match_parent"
@@ -137,6 +147,7 @@
           android:layout_marginStart="8dp"
           android:text="@string/install_apk"
           android:textColor="@color/widgetTextColor"
+          style="@style/TextAppearance.AppCompat.Subhead"
           />
     </LinearLayout>
   </LinearLayout>

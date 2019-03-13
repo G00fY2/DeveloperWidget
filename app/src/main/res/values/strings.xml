@@ -7,7 +7,7 @@
   <string name="install">Install</string>
   <string name="missing_permissions">Missing permissions</string>
   <string name="no_apk_found">No APK files found</string>
-  <string name="no_app_found">No app found</string>
+  <string name="no_apps_found">No apps found</string>
   <string name="filter">Filter</string>
   <string name="filter_hint">Filter package name…</string>
   <string name="scanning_apks">Searching APK files</string>
