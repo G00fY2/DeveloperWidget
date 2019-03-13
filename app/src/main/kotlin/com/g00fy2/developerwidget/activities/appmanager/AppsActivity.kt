@@ -61,6 +61,7 @@ class AppsActivity : BaseActivity(), AppsContract.AppsView {
 
   override fun onBackPressed() {
     if (filter_linearlayout.isVisible) {
+      filter_edittext.text.clear()
       toggleFilterView()
     } else {
       super.onBackPressed()
