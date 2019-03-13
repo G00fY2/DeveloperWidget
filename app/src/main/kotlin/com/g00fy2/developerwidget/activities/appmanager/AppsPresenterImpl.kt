@@ -40,8 +40,8 @@ class AppsPresenterImpl @Inject constructor() : BasePresenterImpl(), AppsContrac
     }
   }
 
-  override fun openAppSettingsActivity(packageName: String?) {
-    packageName?.let {
+  override fun openAppSettingsActivity(appInfo: AppInfo?) {
+    appInfo?.packageName?.let {
       Intent(
         Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
         "package:$it".toUri()

@@ -18,7 +18,7 @@ interface AppsContract {
 
   interface AppsPresenter : BaseContract.BasePresenter {
 
-    fun openAppSettingsActivity(packageName: String?)
+    fun openAppSettingsActivity(appInfo: AppInfo?)
 
     fun duplicateFilter(filter: String): Boolean
 

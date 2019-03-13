@@ -57,8 +57,8 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
 
   }
 
-  override fun installApk(fileUri: Uri?) {
-    fileUri?.let {
+  override fun installApk(apkFile: ApkFile?) {
+    apkFile?.fileUri?.let {
       Intent(Intent.ACTION_VIEW).apply {
         setDataAndType(it, APK_MIME_TYPE)
         flags =

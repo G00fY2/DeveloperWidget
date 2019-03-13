@@ -31,12 +31,18 @@ class ApkActivity : BaseActivity(), ApkContract.ApkView {
     val height = (resources.displayMetrics.heightPixels * DIALOG_ACTIVITY_HEIGHT_FACTOR).toInt()
     window.setLayout(width, height)
 
-    adapter = ApkAdapter().setOnApkSelected { presenter.installApk(adapter.getSelectedFile()?.fileUri) }
+    adapter =
+      ApkAdapter().setOnApkClicked { apkFile -> presenter.installApk(apkFile) }
+        .setOnApkLongClicked { selectedCount -> showOptions(selectedCount) }
     recyclerview.setHasFixedSize(true)
     recyclerview.layoutManager = LinearLayoutManager(this)
     recyclerview.adapter = adapter
 
     cancel_textview.setOnClickListener { finish() }
+  }
+
+  private fun showOptions(selectedCount: Int) {
+    // TODO
   }
 
   override fun onResume() {

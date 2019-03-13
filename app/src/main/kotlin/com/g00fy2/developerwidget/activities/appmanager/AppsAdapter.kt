@@ -11,15 +11,13 @@ import kotlinx.android.synthetic.main.app_item.*
 
 class AppsAdapter : BaseAdapter<AppInfo, BaseViewHolder>(AppsDiffUtilsCallback()) {
 
-  private var selectedPosition = RecyclerView.NO_POSITION
-  private var onAppSelected: (() -> Unit) = {}
+  private var onAppClicked: ((AppInfo?) -> Unit) = {}
   private var itemsCopy = ArrayList<AppInfo>()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
     return BaseViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.app_item, parent, false)).apply {
       itemView.setOnClickListener {
-        selectedPosition = adapterPosition
-        onAppSelected()
+        onAppClicked(getSelectedPackageName(adapterPosition))
       }
     }
   }
@@ -41,16 +39,8 @@ class AppsAdapter : BaseAdapter<AppInfo, BaseViewHolder>(AppsDiffUtilsCallback()
     updateAppFilters(filters)
   }
 
-  fun getSelectedPackageName(): String? {
-    return if (selectedPosition != RecyclerView.NO_POSITION && selectedPosition < itemCount) {
-      getItem(selectedPosition).packageName
-    } else {
-      null
-    }
-  }
-
-  fun setOnAppSelected(onAppSelected: () -> Unit): AppsAdapter {
-    this.onAppSelected = onAppSelected
+  fun setOnAppClicked(onAppClicked: (AppInfo?) -> Unit): AppsAdapter {
+    this.onAppClicked = onAppClicked
     return this
   }
 
@@ -75,6 +65,14 @@ class AppsAdapter : BaseAdapter<AppInfo, BaseViewHolder>(AppsDiffUtilsCallback()
         if (FilterUtils.filterValueByCollection(i.packageName, filters)) filteredItems.add(i)
       }
       submitList(filteredItems)
+    }
+  }
+
+  private fun getSelectedPackageName(position: Int): AppInfo? {
+    return if (position != RecyclerView.NO_POSITION && position < itemCount) {
+      getItem(position)
+    } else {
+      null
     }
   }
 

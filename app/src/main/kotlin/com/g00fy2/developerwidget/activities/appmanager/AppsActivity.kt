@@ -46,7 +46,7 @@ class AppsActivity : BaseActivity(), AppsContract.AppsView {
 
     cancel_textview.setOnClickListener { finish() }
 
-    adapter = AppsAdapter().setOnAppSelected { presenter.openAppSettingsActivity(adapter.getSelectedPackageName()) }
+    adapter = AppsAdapter().setOnAppClicked { appInfo -> presenter.openAppSettingsActivity(appInfo) }
     adapter.setCommitCallback(Runnable {
       no_items_textview.visibility = if (adapter.itemCount == 0) View.VISIBLE else View.INVISIBLE
       no_items_imageview.visibility = if (adapter.itemCount == 0) View.VISIBLE else View.INVISIBLE
