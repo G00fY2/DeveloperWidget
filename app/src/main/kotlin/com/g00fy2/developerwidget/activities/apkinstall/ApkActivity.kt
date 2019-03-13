@@ -31,13 +31,12 @@ class ApkActivity : BaseActivity(), ApkContract.ApkView {
     val height = (resources.displayMetrics.heightPixels * DIALOG_ACTIVITY_HEIGHT_FACTOR).toInt()
     window.setLayout(width, height)
 
-    adapter = ApkAdapter().setOnApkSelected { install_textview.isEnabled = true }
+    adapter = ApkAdapter().setOnApkSelected { presenter.installApk(adapter.getSelectedFile()?.fileUri) }
     recyclerview.setHasFixedSize(true)
     recyclerview.layoutManager = LinearLayoutManager(this)
     recyclerview.adapter = adapter
 
     cancel_textview.setOnClickListener { finish() }
-    install_textview.setOnClickListener { presenter.installApk(adapter.getSelectedFile()?.fileUri) }
   }
 
   override fun onResume() {
@@ -70,7 +69,6 @@ class ApkActivity : BaseActivity(), ApkContract.ApkView {
   }
 
   private fun initState() {
-    install_textview.isEnabled = false
     progressbar.alpha = 1f
     progressbar.visibility = View.VISIBLE
     no_items_textview.visibility = View.VISIBLE

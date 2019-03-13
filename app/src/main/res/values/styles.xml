@@ -34,7 +34,6 @@
 
     <item name="windowNoTitle">true</item>
     <item name="android:windowBackground">@drawable/bg_dialog_shape</item>
-    <!--<item name="colorControlHighlight">@color/transparentAccent</item>-->
     <item name="android:windowCloseOnTouchOutside">false</item>
     <!--api 21-->
     <item name="android:colorEdgeEffect" tools:targetApi="21">@color/colorEdgeEffect</item>
