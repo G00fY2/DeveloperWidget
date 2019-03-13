@@ -42,9 +42,10 @@ class AppsPresenterImpl @Inject constructor() : BasePresenterImpl(), AppsContrac
 
   override fun openAppSettingsActivity(packageName: String?) {
     packageName?.let {
-      Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, "package:$it".toUri()).apply {
-        flags = flags or Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_SINGLE_TOP
-      }.let { intent -> intentController.startActivity(intent) }
+      Intent(
+        Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+        "package:$it".toUri()
+      ).let { intent -> intentController.startActivity(intent) }
     }
   }
 
