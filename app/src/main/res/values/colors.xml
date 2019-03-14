@@ -14,6 +14,7 @@
 
   <color name="widgetTextColor">@color/lightGrey</color>
   <color name="vectorTintColor">#808080</color>
+  <color name="transparent">#00000000</color>
   <color name="white">#ffffff</color>
   <color name="black">#000000</color>
   <color name="lightGrey">#808080</color>
