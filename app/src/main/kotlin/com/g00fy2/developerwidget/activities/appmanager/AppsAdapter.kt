@@ -39,9 +39,8 @@ class AppsAdapter : BaseAdapter<AppInfo, BaseViewHolder>(AppsDiffUtilsCallback()
     updateAppFilters(filters)
   }
 
-  fun setOnAppClicked(onAppClicked: (AppInfo?) -> Unit): AppsAdapter {
+  fun setOnAppClicked(onAppClicked: (AppInfo?) -> Unit) {
     this.onAppClicked = onAppClicked
-    return this
   }
 
   fun updateAppFilter(filter: String) {

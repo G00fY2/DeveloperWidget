@@ -31,9 +31,9 @@ class ApkActivity : BaseActivity(), ApkContract.ApkView {
     val height = (resources.displayMetrics.heightPixels * DIALOG_ACTIVITY_HEIGHT_FACTOR).toInt()
     window.setLayout(width, height)
 
-    adapter =
-      ApkAdapter().setOnApkClicked { apkFile -> presenter.installApk(apkFile) }
-        .setOnApkLongClicked { selectedCount -> showOptions(selectedCount) }
+    adapter = ApkAdapter()
+    adapter.setOnApkClicked { apkFile -> presenter.installApk(apkFile) }
+    adapter.setOnApkLongClicked { selectedCount -> showOptions(selectedCount) }
     recyclerview.setHasFixedSize(true)
     recyclerview.layoutManager = LinearLayoutManager(this)
     recyclerview.adapter = adapter

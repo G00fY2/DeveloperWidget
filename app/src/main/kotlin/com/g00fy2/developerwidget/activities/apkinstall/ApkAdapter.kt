@@ -79,14 +79,12 @@ class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>() {
     selectedPositions.clear()
   }
 
-  fun setOnApkClicked(onApkClicked: (ApkFile?) -> Unit): ApkAdapter {
+  fun setOnApkClicked(onApkClicked: (ApkFile?) -> Unit) {
     this.onApkClicked = onApkClicked
-    return this
   }
 
-  fun setOnApkLongClicked(onApkLongClicked: (Int) -> Unit): ApkAdapter {
+  fun setOnApkLongClicked(onApkLongClicked: (Int) -> Unit) {
     this.onApkLongClicked = onApkLongClicked
-    return this
   }
 
   private fun getSelectedFile(position: Int): ApkFile? {
