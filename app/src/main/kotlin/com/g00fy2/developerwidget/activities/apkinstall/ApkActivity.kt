@@ -48,7 +48,7 @@ class ApkActivity : BaseActivity(), ApkContract.ApkView {
 
     cancel_textview.setOnClickListener { finish() }
     TooltipCompat.setTooltipText(delete_imageview, delete_imageview.contentDescription)
-    delete_imageview.setOnClickListener { showConfirmationDialog(adapter.getSelectedCount()) }
+    delete_imageview.setOnClickListener { showConfirmationDialog() }
     TooltipCompat.setTooltipText(clear_imageview, clear_imageview.contentDescription)
     clear_imageview.setOnClickListener {
       adapter.clearSelectedList()
@@ -71,13 +71,13 @@ class ApkActivity : BaseActivity(), ApkContract.ApkView {
       ViewCompat.animate(progressbar).alpha(0f)
         .setDuration(resources.getInteger(android.R.integer.config_shortAnimTime).toLong()).withEndAction {
           progressbar.visibility = View.INVISIBLE
+          progressbar.alpha = 1f
         }.start()
     }
     adapter.submitList(apkFiles)
   }
 
   private fun initView() {
-    progressbar.alpha = 1f
     progressbar.visibility = View.VISIBLE
     no_items_imageview.visibility = View.INVISIBLE
     no_items_textview.text = getString(R.string.scanning_apks)
@@ -88,12 +88,11 @@ class ApkActivity : BaseActivity(), ApkContract.ApkView {
     delete_header_group.visibility = if (show) View.VISIBLE else View.GONE
   }
 
-  private fun showConfirmationDialog(selected: Int) {
+  private fun showConfirmationDialog() {
     ApkDeleteDialog(this).init {
-      deleteMessage(selected)
+      deleteMessage(adapter.getSelectedCount())
       deleteAction {
         showOptions(false)
-        progressbar.alpha = 1f
         progressbar.visibility = View.VISIBLE
         presenter.deleteApkFiles(adapter.getSelectedApkFilesAndClear())
       }

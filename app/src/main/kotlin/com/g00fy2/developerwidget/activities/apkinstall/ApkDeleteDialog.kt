@@ -13,11 +13,11 @@ class ApkDeleteDialog(private val context: Context) {
     findViewById<TextView>(R.id.dialog_cancel_textview).setOnClickListener { dismiss() }
   }
 
-  fun deleteMessage(amount: Int): ApkDeleteDialog {
+  fun deleteMessage(count: Int): ApkDeleteDialog {
     dialog.findViewById<TextView>(R.id.dialog_message_textview).text =
-      if (amount > 1) String.format(
+      if (count > 1) String.format(
         context.resources.getString(R.string.message_delete_multi),
-        amount
+        count
       ) else context.resources.getString(R.string.message_delete_single)
 
     return this
