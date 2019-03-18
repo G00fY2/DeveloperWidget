@@ -10,7 +10,9 @@
   <string name="no_apps_found">No apps found</string>
   <string name="filter">Filter</string>
   <string name="filter_hint">Filter package name…</string>
-  <string name="scanning_apks">Searching APK files</string>
+  <string name="delete">Delete</string>
+  <string name="clear">Clear selection</string>
+  <string name="scanning_apks">Searching APK files…</string>
   <string name="developer_settings">Developer Settings</string>
   <string name="add_widget">Add developer widget</string>
   <string name="update_widget">Update developer widget</string>

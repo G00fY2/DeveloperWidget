@@ -15,7 +15,12 @@ class PermissionControllerImpl @Inject constructor() : PermissionController {
 
   @TargetApi(VERSION_CODES.M)
   override fun requestPermission(permission: String) {
-    if (!hasPermission(permission)) (context as Activity).requestPermissions(arrayOf(permission), 1)
+    requestPermissions(arrayOf(permission))
+  }
+
+  @TargetApi(VERSION_CODES.M)
+  override fun requestPermissions(permissions: Array<String>) {
+    if (!hasPermissions(permissions)) (context as Activity).requestPermissions(permissions, 1)
   }
 
   @Inject @field:Named(ACTIVITY) lateinit var context: Context
@@ -31,4 +36,11 @@ class PermissionControllerImpl @Inject constructor() : PermissionController {
     }
   }
 
+  override fun hasPermissions(permissions: Array<String>): Boolean {
+    var granted = true
+    for (permission in permissions) {
+      granted = granted && hasPermission(permission)
+    }
+    return granted
+  }
 }

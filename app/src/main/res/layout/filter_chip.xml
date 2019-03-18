@@ -8,4 +8,5 @@
     android:layout_marginStart="2dp"
     android:layout_marginEnd="2dp"
     android:textAlignment="center"
-    app:checkedIconEnabled="false"/>
+    app:checkedIconEnabled="false"
+    app:chipBackgroundColor="@color/chipColor"/>

@@ -3,7 +3,6 @@ package com.g00fy2.developerwidget.activities.apkinstall
 import android.Manifest
 import android.annotation.TargetApi
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Build.VERSION_CODES
 import android.os.Environment
@@ -28,12 +27,13 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
   @OnLifecycleEvent(Event.ON_CREATE)
   @TargetApi(VERSION_CODES.JELLY_BEAN)
   fun requestPermission() {
-    permissionController.requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+    permissionController.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
   }
 
   @OnLifecycleEvent(Event.ON_RESUME)
-  fun checkPermissionAndScanApks() {
-    if (permissionController.hasPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+  fun scanStorageForApks() {
+    if (permissionController.hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    ) {
       launch {
         withContext(Dispatchers.IO) {
           searchAPKs(Environment.getExternalStorageDirectory())
@@ -64,6 +64,22 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
         flags =
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) Intent.FLAG_GRANT_READ_URI_PERMISSION else Intent.FLAG_ACTIVITY_NEW_TASK
       }.let { intent -> intentController.startActivity(intent) }
+    }
+  }
+
+  override fun deleteApkFiles(apkFiles: List<ApkFile>?) {
+    if (permissionController.hasPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE))
+    ) {
+      launch {
+        withContext(Dispatchers.IO) {
+          apkFiles?.let { files ->
+            for (apkFile in files) {
+              File(apkFile.filePath).delete()
+            }
+          }
+        }
+        scanStorageForApks()
+      }
     }
   }
 

@@ -13,5 +13,7 @@ interface ApkContract {
   interface ApkPresenter : BaseContract.BasePresenter {
 
     fun installApk(apkFile: ApkFile?)
+
+    fun deleteApkFiles(apkFiles: List<ApkFile>?)
   }
 }

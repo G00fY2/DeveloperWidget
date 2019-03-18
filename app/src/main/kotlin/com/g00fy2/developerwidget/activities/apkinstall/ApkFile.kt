@@ -27,6 +27,7 @@ class ApkFile private constructor() : Comparable<ApkFile> {
   var versionCode: String = ""; private set
   var debuggable: Boolean = false; private set
   var appIcon: Drawable? = null; private set
+  var filePath = ""; private set
   var fileUri: Uri? = null; private set
 
   override fun compareTo(other: ApkFile) = compareValues(other.lastModifiedTimestamp, lastModifiedTimestamp)
@@ -75,6 +76,7 @@ class ApkFile private constructor() : Comparable<ApkFile> {
           }
         }
 
+        filePath = file.path
         fileUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
           FileProvider.getUriForFile(context, context.applicationContext.packageName + ".fileprovider", file)
         } else {

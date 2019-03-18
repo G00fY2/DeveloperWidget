@@ -6,18 +6,22 @@
 
   <color name="backgroundColor">@color/white</color>
   <color name="transparentBackground50">#80ffffff</color>
-  <color name="dividerGrey">#e0e0e0</color>
+  <color name="dividerGrey">@color/lighterGrey</color>
 
   <color name="navigationBarColor">@color/backgroundColor</color>
   <color name="navigationBarDividerColor">@color/dividerGrey</color>
   <color name="colorEdgeEffect">@color/black</color>
 
   <color name="widgetTextColor">@color/lightGrey</color>
-  <color name="vectorTintColor">#808080</color>
+  <color name="vectorTintColor">@color/lightGrey</color>
   <color name="transparent">#00000000</color>
   <color name="white">#ffffff</color>
   <color name="black">#000000</color>
   <color name="lightGrey">#808080</color>
+  <color name="lighterGrey">#e0e0e0</color>
+
+  <color name="filterTextColor">@color/black</color>
+  <color name="chipColor">@color/lighterGrey</color>
 
   <color name="nightBackground">#212121</color>
   <color name="nightPrimary">#262728</color>

@@ -11,11 +11,11 @@ import com.g00fy2.developerwidget.base.BaseViewHolder
 import kotlinx.android.synthetic.main.apk_item.*
 import kotlinx.android.synthetic.main.apk_item.view.*
 
-class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>() {
+class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>(ApksDiffUtilsCallback()) {
 
   private var selectedPositions = mutableSetOf<Int>()
   private var onApkClicked: ((ApkFile?) -> Unit) = {}
-  private var onApkLongClicked: ((Int) -> Unit) = {}
+  private var onApkSelected: ((Int) -> Unit) = {}
 
   inner class ApkViewHolder(containerView: View) : BaseViewHolder(containerView) {
     fun setSelected(position: Int) {
@@ -28,9 +28,14 @@ class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>() {
     return ApkViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.apk_item, parent, false)).apply {
       itemView.setOnClickListener {
         adapterPosition.let {
-          if (selectedPositions.contains(it)) {
-            selectedPositions.remove(it)
+          if (selectedPositions.isNotEmpty()) {
+            if (selectedPositions.contains(it)) {
+              selectedPositions.remove(it)
+            } else {
+              selectedPositions.add(it)
+            }
             notifyItemChanged(it, true)
+            onApkSelected(selectedPositions.size)
           } else {
             onApkClicked(getSelectedFile(it))
           }
@@ -44,7 +49,7 @@ class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>() {
             selectedPositions.add(it)
           }
           notifyItemChanged(it, true)
-          onApkLongClicked(selectedPositions.size)
+          onApkSelected(selectedPositions.size)
           true
         }
       }
@@ -83,8 +88,25 @@ class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>() {
     this.onApkClicked = onApkClicked
   }
 
-  fun setOnApkLongClicked(onApkLongClicked: (Int) -> Unit) {
-    this.onApkLongClicked = onApkLongClicked
+  fun setOnApkSelect(onApkSelected: (Int) -> Unit) {
+    this.onApkSelected = onApkSelected
+  }
+
+  fun clearSelectedList() {
+    val listCopy = selectedPositions.toList()
+    selectedPositions.clear()
+    for (i in listCopy) {
+      notifyItemChanged(i, true)
+    }
+  }
+
+  fun getSelectedApkFiles(): List<ApkFile> {
+    val selectedFiles = mutableListOf<ApkFile>()
+    for (position in selectedPositions) {
+      selectedFiles.add(getItem(position))
+    }
+    selectedPositions.clear()
+    return selectedFiles
   }
 
   private fun getSelectedFile(position: Int): ApkFile? {

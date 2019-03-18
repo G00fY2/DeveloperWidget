@@ -12,6 +12,7 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.Window
 import android.view.inputmethod.EditorInfo
 import androidx.annotation.ContentView
+import androidx.appcompat.widget.TooltipCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
@@ -49,9 +50,11 @@ class AppsActivity : BaseActivity(), AppsContract.AppsView {
     adapter = AppsAdapter()
     adapter.setOnAppClicked { appInfo -> presenter.openAppSettingsActivity(appInfo) }
     adapter.setCommitCallback(Runnable {
-      no_items_textview.visibility = if (adapter.itemCount == 0) View.VISIBLE else View.INVISIBLE
-      no_items_imageview.visibility = if (adapter.itemCount == 0) View.VISIBLE else View.INVISIBLE
-      recyclerview.overScrollMode = if (adapter.itemCount == 0) View.OVER_SCROLL_NEVER else View.OVER_SCROLL_ALWAYS
+      adapter.itemCount.let {
+        no_items_textview.visibility = if (it == 0) View.VISIBLE else View.INVISIBLE
+        no_items_imageview.visibility = if (it == 0) View.VISIBLE else View.INVISIBLE
+        recyclerview.overScrollMode = if (it == 0) View.OVER_SCROLL_NEVER else View.OVER_SCROLL_ALWAYS
+      }
     })
     recyclerview.setHasFixedSize(true)
     recyclerview.itemAnimator = null
@@ -70,7 +73,8 @@ class AppsActivity : BaseActivity(), AppsContract.AppsView {
   }
 
   private fun initFilterViews() {
-    fiter_imageview.setOnClickListener { toggleFilterView() }
+    TooltipCompat.setTooltipText(filter_imageview, filter_imageview.contentDescription)
+    filter_imageview.setOnClickListener { toggleFilterView() }
 
     filter_edittext.apply {
       filters = arrayOf(InputFilter { source, _, _, _, _, _ ->
@@ -143,9 +147,9 @@ class AppsActivity : BaseActivity(), AppsContract.AppsView {
 
   override fun updateFilterIcon(filterActive: Boolean) {
     if (filterActive) {
-      fiter_imageview.setColorFilter(ResourcesCompat.getColor(resources, R.color.colorAccent, null))
+      filter_imageview.setColorFilter(ResourcesCompat.getColor(resources, R.color.colorAccent, null))
     } else {
-      fiter_imageview.clearColorFilter()
+      filter_imageview.clearColorFilter()
     }
   }
 

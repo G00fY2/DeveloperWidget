@@ -14,4 +14,7 @@
 
   <color name="widgetTextColor">@color/white</color>
   <color name="vectorTintColor">@color/white</color>
+
+  <color name="chipColor">@color/nightGrey</color>
+  <color name="filterTextColor">@color/white</color>
 </resources>

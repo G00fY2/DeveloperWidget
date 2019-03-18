@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.Window
 import androidx.annotation.ContentView
+import androidx.appcompat.widget.TooltipCompat
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.g00fy2.developerwidget.R
@@ -33,54 +34,62 @@ class ApkActivity : BaseActivity(), ApkContract.ApkView {
 
     adapter = ApkAdapter()
     adapter.setOnApkClicked { apkFile -> presenter.installApk(apkFile) }
-    adapter.setOnApkLongClicked { selectedCount -> showOptions(selectedCount) }
+    adapter.setOnApkSelect { selectedCount -> showOptions(selectedCount > 0) }
+    adapter.setCommitCallback(Runnable {
+      adapter.itemCount.let {
+        recyclerview.overScrollMode = if (it == 0) View.OVER_SCROLL_NEVER else View.OVER_SCROLL_ALWAYS
+        no_items_textview.visibility = if (it == 0) View.VISIBLE else View.INVISIBLE
+        no_items_imageview.visibility = if (it == 0) View.VISIBLE else View.INVISIBLE
+      }
+    })
     recyclerview.setHasFixedSize(true)
     recyclerview.layoutManager = LinearLayoutManager(this)
     recyclerview.adapter = adapter
 
     cancel_textview.setOnClickListener { finish() }
-  }
-
-  private fun showOptions(selectedCount: Int) {
-    // TODO
+    TooltipCompat.setTooltipText(delete_imageview, delete_imageview.contentDescription)
+    delete_imageview.setOnClickListener {
+      showOptions(false)
+      progressbar.alpha = 1f
+      progressbar.visibility = View.VISIBLE
+      presenter.deleteApkFiles(adapter.getSelectedApkFiles())
+    }
+    TooltipCompat.setTooltipText(clear_imageview, clear_imageview.contentDescription)
+    clear_imageview.setOnClickListener {
+      adapter.clearSelectedList()
+      showOptions(false)
+    }
   }
 
   override fun onResume() {
     super.onResume()
-    initState()
+    initView()
   }
 
   override fun toggleResultView(apkFiles: List<ApkFile>, missingPermissions: Boolean) {
     if (missingPermissions) {
-      progressbar.visibility = View.INVISIBLE
+      progressbar.visibility = View.GONE
       no_items_textview.text = getString(R.string.missing_permissions)
-      no_items_imageview.visibility = View.VISIBLE
-      return
-    }
-
-    if (apkFiles.isNotEmpty()) {
-      adapter.submitList(apkFiles)
-      recyclerview.overScrollMode = View.OVER_SCROLL_ALWAYS
-      no_items_textview.visibility = View.INVISIBLE
-      no_items_imageview.visibility = View.INVISIBLE
     } else {
+      no_items_textview.visibility = View.INVISIBLE
       no_items_textview.text = getString(R.string.no_apk_found)
-      no_items_imageview.visibility = View.VISIBLE
+      ViewCompat.animate(progressbar).alpha(0f)
+        .setDuration(resources.getInteger(android.R.integer.config_shortAnimTime).toLong()).withEndAction {
+          progressbar.visibility = View.INVISIBLE
+        }.start()
     }
-
-    ViewCompat.animate(progressbar).alpha(0f)
-      .setDuration(resources.getInteger(android.R.integer.config_shortAnimTime).toLong()).withEndAction {
-        progressbar.visibility = View.INVISIBLE
-      }.start()
+    adapter.submitList(apkFiles)
   }
 
-  private fun initState() {
+  private fun initView() {
     progressbar.alpha = 1f
     progressbar.visibility = View.VISIBLE
-    no_items_textview.visibility = View.VISIBLE
-    no_items_textview.text = getString(R.string.scanning_apks)
     no_items_imageview.visibility = View.INVISIBLE
-    recyclerview.overScrollMode = View.OVER_SCROLL_NEVER
-    adapter.clearList()
+    no_items_textview.text = getString(R.string.scanning_apks)
+    no_items_textview.visibility = View.VISIBLE
+  }
+
+  private fun showOptions(show: Boolean) {
+    delete_header_group.visibility = if (show) View.VISIBLE else View.GONE
   }
 }
