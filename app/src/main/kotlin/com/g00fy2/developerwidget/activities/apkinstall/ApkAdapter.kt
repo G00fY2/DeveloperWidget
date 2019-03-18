@@ -100,7 +100,9 @@ class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>(ApksDiffUtilsCallback()) 
     }
   }
 
-  fun getSelectedApkFiles(): List<ApkFile> {
+  fun getSelectedCount() = selectedPositions.size
+
+  fun getSelectedApkFilesAndClear(): List<ApkFile> {
     val selectedFiles = mutableListOf<ApkFile>()
     for (position in selectedPositions) {
       selectedFiles.add(getItem(position))

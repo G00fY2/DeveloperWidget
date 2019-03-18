@@ -48,12 +48,7 @@ class ApkActivity : BaseActivity(), ApkContract.ApkView {
 
     cancel_textview.setOnClickListener { finish() }
     TooltipCompat.setTooltipText(delete_imageview, delete_imageview.contentDescription)
-    delete_imageview.setOnClickListener {
-      showOptions(false)
-      progressbar.alpha = 1f
-      progressbar.visibility = View.VISIBLE
-      presenter.deleteApkFiles(adapter.getSelectedApkFiles())
-    }
+    delete_imageview.setOnClickListener { showConfirmationDialog(adapter.getSelectedCount()) }
     TooltipCompat.setTooltipText(clear_imageview, clear_imageview.contentDescription)
     clear_imageview.setOnClickListener {
       adapter.clearSelectedList()
@@ -91,5 +86,17 @@ class ApkActivity : BaseActivity(), ApkContract.ApkView {
 
   private fun showOptions(show: Boolean) {
     delete_header_group.visibility = if (show) View.VISIBLE else View.GONE
+  }
+
+  private fun showConfirmationDialog(selected: Int) {
+    ApkDeleteDialog(this).init {
+      deleteMessage(selected)
+      deleteAction {
+        showOptions(false)
+        progressbar.alpha = 1f
+        progressbar.visibility = View.VISIBLE
+        presenter.deleteApkFiles(adapter.getSelectedApkFilesAndClear())
+      }
+    }.show()
   }
 }
