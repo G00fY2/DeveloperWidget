@@ -4,7 +4,6 @@
   <string name="install_apk">Install APK</string>
   <string name="app_settings">Manage Apps</string>
   <string name="cancel">Cancel</string>
-  <string name="install">Install</string>
   <string name="missing_permissions">Missing permissions</string>
   <string name="no_apk_found">No APK files found</string>
   <string name="no_apps_found">No apps found</string>
