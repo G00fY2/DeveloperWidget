@@ -12,8 +12,8 @@
   <string name="delete">Delete</string>
   <string name="clear">Clear selection</string>
   <string name="scanning_apks">Searching APK files…</string>
-  <string name="message_delete_single">Delete this APK file?</string>
-  <string name="message_delete_multi">Delete these %s APK files?</string>
+  <string name="message_delete_single">Delete selected APK file?</string>
+  <string name="message_delete_multi">Delete %s selected APK files?</string>
   <string name="developer_settings">Developer Settings</string>
   <string name="add_widget">Add developer widget</string>
   <string name="update_widget">Update developer widget</string>
