@@ -10,25 +10,25 @@ androidExtensions {
 android {
   compileSdkVersion 28
   defaultConfig {
-    applicationId "com.g00fy2.developerwidget"
+    applicationId 'com.g00fy2.developerwidget'
     minSdkVersion 14
     targetSdkVersion 28
     versionCode 1
-    versionName "1.0.0"
+    versionName '1.0.0'
   }
   buildTypes {
     release {
       shrinkResources true
       minifyEnabled true
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
     }
   }
   sourceSets {
     main.java.srcDirs += 'src/main/kotlin'
   }
   compileOptions {
-    sourceCompatibility = '1.8'
-    targetCompatibility = '1.8'
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
   }
 }
 
@@ -43,8 +43,8 @@ dependencies {
   implementation 'androidx.activity:activity:1.0.0-alpha05'
   implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha03'
   implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
-  implementation "androidx.lifecycle:lifecycle-runtime:2.1.0-alpha03"
-  kapt "androidx.lifecycle:lifecycle-compiler:2.1.0-alpha03"
+  implementation 'androidx.lifecycle:lifecycle-runtime:2.1.0-alpha03'
+  kapt 'androidx.lifecycle:lifecycle-compiler:2.1.0-alpha03'
 
   // UI
   implementation 'com.google.android:flexbox:1.1.0'

@@ -19,9 +19,9 @@ allprojects {
     maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
     jcenter {
       content {
-        includeModule "com.google.android", "flexbox"
-        includeModule "com.g00fy2", "versioncompare"
-        includeModule "org.jetbrains.trove4j", "trove4j"
+        includeModule 'com.google.android', 'flexbox'
+        includeModule 'com.g00fy2', 'versioncompare'
+        includeModule 'org.jetbrains.trove4j', 'trove4j'
       }
     }
   }
