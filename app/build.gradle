@@ -33,6 +33,9 @@ android {
   kotlinOptions {
     jvmTarget = '1.8'
   }
+  packagingOptions {
+    pickFirst 'META-INF/atomicfu.kotlin_module'
+  }
 }
 
 dependencies {
