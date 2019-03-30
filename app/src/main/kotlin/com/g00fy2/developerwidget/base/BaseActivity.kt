@@ -7,8 +7,6 @@ import dagger.android.support.DaggerAppCompatActivity
 
 abstract class BaseActivity : DaggerAppCompatActivity() {
 
-  private val Float.px: Float get() = (this * resources.displayMetrics.density)
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
@@ -29,7 +27,7 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         } else {
           var elevationDp = it / 4 // divide scrollY to increase fade in range
           if (elevationDp > 4f) elevationDp = 4f
-          supportActionBar?.elevation = elevationDp.px
+          supportActionBar?.elevation = elevationDp * resources.displayMetrics.density
         }
       }
     }
