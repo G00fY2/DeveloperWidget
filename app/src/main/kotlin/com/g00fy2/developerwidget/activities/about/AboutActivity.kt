@@ -52,6 +52,12 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
       description(R.string.mit_license)
       action { presenter.openUrl(MIT_LICENSE) }
     }
+    feedback_item.init {
+      icon(R.drawable.ic_feedback)
+      title(R.string.feedback)
+      description(R.string.feedback_description)
+      action { presenter.showFeedbackOptions() }
+    }
     source_code_item.init {
       icon(R.drawable.ic_github_logo_shape)
       title(R.string.source_code)

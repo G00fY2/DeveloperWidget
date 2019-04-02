@@ -25,7 +25,9 @@
   <string name="license">License</string>
   <string name="mit_license">MIT-License</string>
   <string name="source_code">Source code</string>
-  <string name="changelog">Changelog</string>
+  <string name="changelog">Release notes</string>
+  <string name="feedback">Feedback</string>
+  <string name="feedback_description">Or report bugs and request features</string>
   <string name="open_source_licenses">Open source licenses</string>
   <string name="open_source_licenses_description">License details for open source software</string>
   <string name="build_number">Build version</string>

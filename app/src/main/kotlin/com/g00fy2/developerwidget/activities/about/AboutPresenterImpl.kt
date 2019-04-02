@@ -28,6 +28,10 @@ class AboutPresenterImpl @Inject constructor() : BasePresenterImpl(), AboutContr
     }
   }
 
+  override fun showFeedbackOptions() {
+    // TODO
+  }
+
   override fun honorClicking() {
     val current = System.currentTimeMillis()
     if (current - clickStart > 3000) clickCount = 0

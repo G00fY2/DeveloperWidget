@@ -10,6 +10,8 @@ interface AboutContract {
 
     fun openUrl(url: String)
 
+    fun showFeedbackOptions()
+
     fun honorClicking()
   }
 }
