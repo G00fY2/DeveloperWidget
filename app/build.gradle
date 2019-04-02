@@ -52,7 +52,7 @@ dependencies {
 
   // UI
   implementation 'com.google.android:flexbox:1.1.0'
-  implementation 'com.google.android.material:material:1.1.0-alpha04'
+  implementation 'com.google.android.material:material:1.1.0-alpha05'
 
   // Misc
   implementation 'com.jakewharton.timber:timber:4.7.1'
