@@ -2,13 +2,15 @@ package com.g00fy2.developerwidget.base
 
 import android.os.Bundle
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatDelegate
 import dagger.android.support.DaggerAppCompatActivity
 
-abstract class BaseActivity : DaggerAppCompatActivity() {
+abstract class BaseActivity(@LayoutRes private val contentLayoutId: Int) : DaggerAppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    if (contentLayoutId != 0) setContentView(contentLayoutId)
     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
     lifecycle.addObserver(providePresenter())
   }

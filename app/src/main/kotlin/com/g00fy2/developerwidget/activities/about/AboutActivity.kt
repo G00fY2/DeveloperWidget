@@ -3,7 +3,6 @@ package com.g00fy2.developerwidget.activities.about
 import android.R.id
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.annotation.ContentView
 import com.g00fy2.developerwidget.BuildConfig
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BaseActivity
@@ -12,8 +11,7 @@ import com.g00fy2.developerwidget.utils.*
 import kotlinx.android.synthetic.main.activity_about.*
 import javax.inject.Inject
 
-@ContentView(R.layout.activity_about)
-class AboutActivity : BaseActivity(), AboutContract.AboutView {
+class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.AboutView {
 
   @Inject lateinit var presenter: AboutContract.AboutPresenter
 

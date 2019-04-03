@@ -3,7 +3,6 @@ package com.g00fy2.developerwidget.activities.apkinstall
 import android.os.Bundle
 import android.view.View
 import android.view.Window
-import androidx.annotation.ContentView
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,8 +14,7 @@ import com.g00fy2.developerwidget.utils.DIALOG_ACTIVITY_WIDTH_FACTOR
 import kotlinx.android.synthetic.main.activity_apk.*
 import javax.inject.Inject
 
-@ContentView(R.layout.activity_apk)
-class ApkActivity : BaseActivity(), ApkContract.ApkView {
+class ApkActivity : BaseActivity(R.layout.activity_apk), ApkContract.ApkView {
 
   @Inject lateinit var presenter: ApkContract.ApkPresenter
 

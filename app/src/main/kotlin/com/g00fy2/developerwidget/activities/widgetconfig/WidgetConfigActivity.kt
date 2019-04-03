@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.webkit.WebView
-import androidx.annotation.ContentView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.about.AboutActivity
@@ -21,8 +20,7 @@ import com.g00fy2.developerwidget.receiver.widget.WidgetProviderImpl
 import kotlinx.android.synthetic.main.activity_widget_config.*
 import javax.inject.Inject
 
-@ContentView(R.layout.activity_widget_config)
-class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigView {
+class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), WidgetConfigContract.WidgetConfigView {
 
   @Inject lateinit var presenter: WidgetConfigContract.WidgetConfigPresenter
 

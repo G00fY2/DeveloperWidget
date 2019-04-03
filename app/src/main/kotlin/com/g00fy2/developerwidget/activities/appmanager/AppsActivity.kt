@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.Window
 import android.view.inputmethod.EditorInfo
-import androidx.annotation.ContentView
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
@@ -28,8 +27,7 @@ import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_apps.*
 import javax.inject.Inject
 
-@ContentView(R.layout.activity_apps)
-class AppsActivity : BaseActivity(), AppsContract.AppsView {
+class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView {
 
   @Inject lateinit var presenter: AppsContract.AppsPresenter
 
