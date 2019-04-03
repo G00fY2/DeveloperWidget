@@ -10,6 +10,6 @@ import javax.inject.Singleton
 @Component(modules = [AndroidInjectionModule::class, AppModule::class, ActivityBindingModule::class, BroadcastBindingModule::class, DeviceDataModule::class])
 interface AppComponent : AndroidInjector<DevWidgetApp> {
 
-  @Component.Builder
-  abstract class Builder : AndroidInjector.Builder<DevWidgetApp>()
+  @Component.Factory
+  interface Factory : AndroidInjector.Factory<DevWidgetApp>
 }
