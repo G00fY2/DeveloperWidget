@@ -1,6 +1,5 @@
 package com.g00fy2.developerwidget.activities.apkinstall
 
-import android.net.Uri
 import com.g00fy2.developerwidget.base.BaseContract
 
 interface ApkContract {
