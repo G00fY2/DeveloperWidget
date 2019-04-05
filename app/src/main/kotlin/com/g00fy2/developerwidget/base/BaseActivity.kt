@@ -3,14 +3,15 @@ package com.g00fy2.developerwidget.base
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import dagger.android.support.DaggerAppCompatActivity
+import dagger.android.AndroidInjection
 
-abstract class BaseActivity(@LayoutRes private val contentLayoutId: Int) : DaggerAppCompatActivity() {
+abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity(contentLayoutId) {
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
-    if (contentLayoutId != 0) setContentView(contentLayoutId)
     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
     lifecycle.addObserver(providePresenter())
   }
