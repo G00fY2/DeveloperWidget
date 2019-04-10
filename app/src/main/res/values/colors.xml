@@ -8,7 +8,7 @@
   <color name="transparentBackground50">#80ffffff</color>
   <color name="dividerGrey">@color/lighterGrey</color>
 
-  <color name="navigationBarColor">@color/backgroundColor</color>
+  <color name="navigationBarColor">@color/black</color>
   <color name="navigationBarDividerColor">@color/dividerGrey</color>
   <color name="colorEdgeEffect">@color/black</color>
 
