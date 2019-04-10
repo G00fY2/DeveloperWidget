@@ -3,7 +3,11 @@ package com.g00fy2.developerwidget.receiver.widget
 import com.g00fy2.developerwidget.data.DeviceDataSource
 import com.g00fy2.developerwidget.receiver.widget.WidgetProviderContract.WidgetProvider
 import com.g00fy2.developerwidget.receiver.widget.WidgetProviderContract.WidgetProviderPresenter
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
