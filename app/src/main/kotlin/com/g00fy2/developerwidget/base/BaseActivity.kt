@@ -43,12 +43,10 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity
 
   private fun initCompatNavigationBar() {
     // api 27+ allow applying flag via xml (windowLightNavigationBar)
-    if (VERSION.SDK_INT == VERSION_CODES.O) {
-      if (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_NO) {
-        window.decorView.let { view ->
-          view.systemUiVisibility.let {
-            view.systemUiVisibility = it or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
-          }
+    if (VERSION.SDK_INT == VERSION_CODES.O && resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_NO) {
+      window.decorView.let { view ->
+        view.systemUiVisibility.let { flags ->
+          view.systemUiVisibility = flags or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
         }
       }
     }
