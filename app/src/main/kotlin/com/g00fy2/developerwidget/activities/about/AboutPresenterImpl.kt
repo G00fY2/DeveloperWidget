@@ -44,7 +44,7 @@ class AboutPresenterImpl @Inject constructor() : BasePresenterImpl(), AboutContr
       val missingSteps = (7 - clickCount)
       toastController.showToast("You are now " + missingSteps + (if (missingSteps > 1) " steps" else " step") + " away from being a developer.")
     } else if (clickCount == 7) {
-      toastController.showToast("You are a real developer!")
+      toastController.showToast(("\ud83d\udc68\u200d\ud83d\udcbb") + " You are a real developer!")
     }
   }
 }
