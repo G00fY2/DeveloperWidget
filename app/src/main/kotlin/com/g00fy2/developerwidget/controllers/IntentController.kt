@@ -5,4 +5,6 @@ import android.content.Intent
 interface IntentController {
 
   fun startActivity(intent: Intent)
+
+  fun sendMailToDeveloper()
 }

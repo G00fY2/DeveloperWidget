@@ -31,8 +31,8 @@ class AboutPresenterImpl @Inject constructor() : BasePresenterImpl(), AboutContr
     }
   }
 
-  override fun showFeedbackOptions() {
-    // TODO
+  override fun sendFeedbackMail() {
+    intentController.sendMailToDeveloper()
   }
 
   override fun honorClicking() {

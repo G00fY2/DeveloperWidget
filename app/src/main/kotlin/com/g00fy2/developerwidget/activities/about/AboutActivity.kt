@@ -8,6 +8,7 @@ import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.utils.CHANGES
+import com.g00fy2.developerwidget.utils.GITHUB_ISSUE
 import com.g00fy2.developerwidget.utils.GITHUB_PROJECT
 import com.g00fy2.developerwidget.utils.GITHUB_USER
 import com.g00fy2.developerwidget.utils.ICON_CREDITS
@@ -62,7 +63,7 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
       icon(R.drawable.ic_feedback)
       title(R.string.feedback)
       description(R.string.feedback_description)
-      action { presenter.showFeedbackOptions() }
+      action { showFeedbackOptions() }
     }
     source_code_item.init {
       icon(R.drawable.ic_github_logo_shape)
@@ -107,5 +108,12 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
       description(BuildConfig.VERSION_NAME + "." + BuildConfig.VERSION_CODE + "." + BuildConfig.BUILD_TYPE)
       action { presenter.honorClicking() }
     }
+  }
+
+  private fun showFeedbackOptions() {
+    AboutFeedbackDialog(this).init {
+      mailAction { presenter.sendFeedbackMail() }
+      githubAction { presenter.openUrl(GITHUB_ISSUE) }
+    }.show()
   }
 }
