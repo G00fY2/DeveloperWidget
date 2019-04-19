@@ -122,7 +122,7 @@
           android:id="@+id/feedback_item"
           android:layout_width="match_parent"
           android:layout_height="72dp"
-      />
+          />
       <com.g00fy2.developerwidget.activities.about.views.AboutHeaderLayout
           android:id="@+id/author_header"
           android:layout_width="match_parent"

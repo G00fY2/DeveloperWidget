@@ -41,9 +41,9 @@ class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
       if (intent.action == UPDATE_WIDGET_ACTION) {
         if (intent.extras?.getBoolean(WidgetConfigActivity.UPDATE_WIDGET_THEME) == true) {
           onUpdate(
-              context,
-              widgetManager,
-              widgetManager.getAppWidgetIds(ComponentName(context, WidgetProviderImpl::class.java))
+            context,
+            widgetManager,
+            widgetManager.getAppWidgetIds(ComponentName(context, WidgetProviderImpl::class.java))
           )
         } else {
           intent.extras?.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID)?.let {
