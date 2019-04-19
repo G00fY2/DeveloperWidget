@@ -1,5 +1,7 @@
 package com.g00fy2.developerwidget.di
 
+import com.g00fy2.developerwidget.controllers.DayNightController
+import com.g00fy2.developerwidget.controllers.DayNightControllerImpl
 import com.g00fy2.developerwidget.controllers.IntentController
 import com.g00fy2.developerwidget.controllers.IntentControllerImpl
 import com.g00fy2.developerwidget.controllers.PermissionController
@@ -13,9 +15,18 @@ import com.g00fy2.developerwidget.controllers.WidgetPreferenceControllerImpl
 import com.g00fy2.developerwidget.di.annotations.ActivityScope
 import dagger.Binds
 import dagger.Module
+import javax.inject.Singleton
 
 @Module
-abstract class ControllerModule {
+abstract class SingletonControllerModule {
+
+  @Binds
+  @Singleton
+  abstract fun providesDayNightController(dayNightControllerImpl: DayNightControllerImpl): DayNightController
+}
+
+@Module
+abstract class ActivityControllerModule {
 
   @Binds
   @ActivityScope

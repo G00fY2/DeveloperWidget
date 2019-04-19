@@ -3,14 +3,17 @@ package com.g00fy2.developerwidget.receiver.widget
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
+import androidx.appcompat.app.AppCompatDelegate
 import com.g00fy2.developerwidget.BuildConfig
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.apkinstall.ApkActivity
 import com.g00fy2.developerwidget.activities.appmanager.AppsActivity
 import com.g00fy2.developerwidget.activities.widgetconfig.WidgetConfigActivity
+import com.g00fy2.developerwidget.controllers.DayNightController
 import com.g00fy2.developerwidget.data.DeviceDataItem
 import com.g00fy2.developerwidget.data.DeviceDataSourceImpl
 import com.g00fy2.developerwidget.receiver.widget.WidgetProviderContract.WidgetProvider
@@ -22,6 +25,7 @@ import javax.inject.Inject
 class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
 
   @Inject lateinit var presenter: WidgetProviderPresenter
+  @Inject lateinit var dayNightController: DayNightController
 
   private lateinit var appWidgetIds: IntArray
   private lateinit var appWidgetManager: AppWidgetManager
@@ -31,9 +35,19 @@ class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
     AndroidInjection.inject(this, context)
     super.onReceive(context, intent)
 
-    if (intent.action == UPDATE_WIDGET_ACTION) {
-      intent.extras?.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID)?.let {
-        onUpdate(context, AppWidgetManager.getInstance(context), intArrayOf(it))
+    AppWidgetManager.getInstance(context).let { widgetManager ->
+      if (intent.action == UPDATE_WIDGET_ACTION) {
+        if (intent.extras?.getBoolean(WidgetConfigActivity.UPDATE_WIDGET_THEME) == true) {
+          onUpdate(
+              context,
+              widgetManager,
+              widgetManager.getAppWidgetIds(ComponentName(context, WidgetProviderImpl::class.java))
+          )
+        } else {
+          intent.extras?.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID)?.let {
+            onUpdate(context, widgetManager, intArrayOf(it))
+          }
+        }
       }
     }
   }
@@ -46,9 +60,14 @@ class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
   }
 
   override fun updateWidgetData(data: Map<String, DeviceDataItem>) {
+    val layout = when (dayNightController.getCurrentDefaultMode()) {
+      AppCompatDelegate.MODE_NIGHT_NO -> R.layout.appwidget_layout_day
+      AppCompatDelegate.MODE_NIGHT_YES -> R.layout.appwidget_layout_night
+      else -> R.layout.appwidget_layout
+    }
     for (widgetId in appWidgetIds) {
       Timber.d("onUpdate widget $widgetId")
-      RemoteViews(context.packageName, R.layout.appwidget_layout).let {
+      RemoteViews(context.packageName, layout).let {
         updateWidgetDeviceData(data, it)
         updateWidgetButtonIntents(widgetId, it)
         appWidgetManager.updateAppWidget(widgetId, it)

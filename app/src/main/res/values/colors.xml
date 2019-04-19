@@ -5,7 +5,11 @@
   <color name="colorAccent">#1a73e8</color>
 
   <color name="backgroundColor">@color/white</color>
+  <color name="backgroundColor_day">@color/white</color>
+  <color name="backgroundColor_night">@color/nightBackground</color>
   <color name="transparentBackground50">#80ffffff</color>
+  <color name="transparentBackground50_day">#80ffffff</color>
+  <color name="transparentBackground50_night">#80212121</color>
   <color name="dividerGrey">@color/lighterGrey</color>
 
   <color name="navigationBarColor">@color/black</color>
@@ -13,7 +17,11 @@
   <color name="colorEdgeEffect">@color/black</color>
 
   <color name="widgetTextColor">@color/lightGrey</color>
+  <color name="widgetTextColor_day">@color/lightGrey</color>
+  <color name="widgetTextColor_night">@color/white</color>
   <color name="vectorTintColor">@color/lightGrey</color>
+  <color name="vectorTintColor_day">@color/lightGrey</color>
+  <color name="vectorTintColor_night">@color/white</color>
   <color name="transparent">#00000000</color>
   <color name="white">#ffffff</color>
   <color name="black">#000000</color>

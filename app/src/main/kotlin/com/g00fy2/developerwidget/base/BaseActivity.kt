@@ -8,15 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
+import com.g00fy2.developerwidget.controllers.DayNightController
 import dagger.android.AndroidInjection
+import javax.inject.Inject
 
 abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity(contentLayoutId) {
+
+  @Inject lateinit var dayNightController: DayNightController
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
-    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+    dayNightController.loadCustomDefaultMode()
     lifecycle.addObserver(providePresenter())
     initCompatNavigationBar()
   }
@@ -43,7 +46,7 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity
 
   private fun initCompatNavigationBar() {
     // api 27+ allow applying flag via xml (windowLightNavigationBar)
-    if (VERSION.SDK_INT == VERSION_CODES.O && resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_NO) {
+    if (VERSION.SDK_INT == VERSION_CODES.O && dayNightController.isInNightMode()) {
       window.decorView.let { view ->
         view.systemUiVisibility.let { flags ->
           view.systemUiVisibility = flags or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR

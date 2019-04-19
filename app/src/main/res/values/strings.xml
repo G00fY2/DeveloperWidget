@@ -39,6 +39,9 @@
   <string name="licenses">Third Party Licenses</string>
   <string name="icon_credits">Icon credits</string>
   <string name="icon_credits_description">Attribution to the authors of the used icons</string>
+  <string name="night_mode">Night mode</string>
+  <string name="day_mode">Day mode</string>
+  <string name="auto_mode">Auto mode</string>
 
   <string name="device_title">Device</string>
   <string name="system_title">System</string>

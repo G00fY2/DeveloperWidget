@@ -16,18 +16,18 @@ import dagger.android.ContributesAndroidInjector
 abstract class ActivityBindingModule {
 
   @ActivityScope
-  @ContributesAndroidInjector(modules = [AboutActivityModule::class, ControllerModule::class])
+  @ContributesAndroidInjector(modules = [AboutActivityModule::class, ActivityControllerModule::class])
   abstract fun bindAboutInjector(): AboutActivity
 
   @ActivityScope
-  @ContributesAndroidInjector(modules = [ApkActivityModule::class, ControllerModule::class])
+  @ContributesAndroidInjector(modules = [ApkActivityModule::class, ActivityControllerModule::class])
   abstract fun bindApkInjector(): ApkActivity
 
   @ActivityScope
-  @ContributesAndroidInjector(modules = [AppsActivityModule::class, ControllerModule::class])
+  @ContributesAndroidInjector(modules = [AppsActivityModule::class, ActivityControllerModule::class])
   abstract fun bindAppsInjector(): AppsActivity
 
   @ActivityScope
-  @ContributesAndroidInjector(modules = [WidgetConfigActivityModule::class, ControllerModule::class])
+  @ContributesAndroidInjector(modules = [WidgetConfigActivityModule::class, ActivityControllerModule::class])
   abstract fun bindWidgetConfigInjector(): WidgetConfigActivity
 }
