@@ -16,6 +16,7 @@ class AppsAdapter : BaseAdapter<AppInfo, BaseViewHolder>(AppsDiffUtilsCallback()
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
     return BaseViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.app_item, parent, false)).apply {
+      addRipple(parent.context)
       itemView.setOnClickListener {
         onAppClicked(getSelectedPackageName(adapterPosition))
       }

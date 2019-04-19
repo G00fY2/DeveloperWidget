@@ -4,10 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
     android:paddingBottom="4dp"
     android:paddingTop="4dp"
-    tools:ignore="ContentDescription,UnusedAttribute"
     >
 
   <ImageView
@@ -16,6 +14,7 @@
       android:layout_height="40dp"
       android:layout_marginLeft="16dp"
       android:layout_marginStart="16dp"
+      android:contentDescription="@string/app_icon"
       android:scaleType="centerInside"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -29,6 +28,7 @@
       android:layout_marginLeft="16dp"
       android:layout_marginStart="16dp"
       android:background="@drawable/bg_circle_with_check"
+      android:contentDescription="@string/app_icon"
       android:padding="12dp"
       android:src="@drawable/ic_check"
       android:visibility="invisible"
@@ -117,6 +117,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@+id/app_version_textview"
       app:layout_constraintTop_toBottomOf="@+id/file_date_textview"
+      tools:ignore="ContentDescription"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
