@@ -29,7 +29,8 @@ import javax.inject.Inject
 
 class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView {
 
-  @Inject lateinit var presenter: AppsContract.AppsPresenter
+  @Inject
+  lateinit var presenter: AppsContract.AppsPresenter
 
   private lateinit var adapter: AppsAdapter
 

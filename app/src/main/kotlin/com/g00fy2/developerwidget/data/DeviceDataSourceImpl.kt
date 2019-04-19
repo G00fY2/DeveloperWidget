@@ -16,7 +16,9 @@ import javax.inject.Named
 
 class DeviceDataSourceImpl @Inject constructor() : DeviceDataSource {
 
-  @Inject @field:Named(APPLICATION) lateinit var context: Context
+  @Inject
+  @field:Named(APPLICATION)
+  lateinit var context: Context
 
   override suspend fun getStaticDeviceData(): Map<String, DeviceDataItem> {
     val data = HashMap<String, DeviceDataItem>()

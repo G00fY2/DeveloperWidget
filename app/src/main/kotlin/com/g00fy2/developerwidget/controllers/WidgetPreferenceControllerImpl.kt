@@ -9,8 +9,12 @@ import javax.inject.Named
 
 class WidgetPreferenceControllerImpl @Inject constructor() : WidgetPreferenceController {
 
-  @Inject @field:Named(ACTIVITY) lateinit var context: Context
-  @Inject @field:Named(WIDGET_ID) lateinit var widgetId: String
+  @Inject
+  @field:Named(ACTIVITY)
+  lateinit var context: Context
+  @Inject
+  @field:Named(WIDGET_ID)
+  lateinit var widgetId: String
 
   private val sharedPreference by lazy {
     context.getSharedPreferences(context.packageName + ".preferences_" + widgetId, Context.MODE_PRIVATE)

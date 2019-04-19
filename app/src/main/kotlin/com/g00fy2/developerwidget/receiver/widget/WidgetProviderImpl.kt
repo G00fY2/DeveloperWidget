@@ -24,8 +24,10 @@ import javax.inject.Inject
 
 class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
 
-  @Inject lateinit var presenter: WidgetProviderPresenter
-  @Inject lateinit var dayNightController: DayNightController
+  @Inject
+  lateinit var presenter: WidgetProviderPresenter
+  @Inject
+  lateinit var dayNightController: DayNightController
 
   private lateinit var appWidgetIds: IntArray
   private lateinit var appWidgetManager: AppWidgetManager

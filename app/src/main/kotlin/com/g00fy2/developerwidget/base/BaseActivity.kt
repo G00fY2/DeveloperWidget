@@ -1,6 +1,5 @@
 package com.g00fy2.developerwidget.base
 
-import android.content.res.Configuration
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
@@ -14,7 +13,8 @@ import javax.inject.Inject
 
 abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity(contentLayoutId) {
 
-  @Inject lateinit var dayNightController: DayNightController
+  @Inject
+  lateinit var dayNightController: DayNightController
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)

@@ -8,7 +8,9 @@ import javax.inject.Named
 
 class IntentControllerImpl @Inject constructor() : IntentController {
 
-  @Inject @field:Named(ACTIVITY) lateinit var context: Context
+  @Inject
+  @field:Named(ACTIVITY)
+  lateinit var context: Context
 
   override fun startActivity(intent: Intent) = context.startActivity(intent)
 

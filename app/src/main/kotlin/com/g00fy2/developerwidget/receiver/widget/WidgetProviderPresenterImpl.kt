@@ -13,8 +13,10 @@ import kotlin.coroutines.CoroutineContext
 
 class WidgetProviderPresenterImpl @Inject constructor() : WidgetProviderPresenter, CoroutineScope {
 
-  @Inject lateinit var widgetProvider: WidgetProvider
-  @Inject lateinit var deviceDataSource: DeviceDataSource
+  @Inject
+  lateinit var widgetProvider: WidgetProvider
+  @Inject
+  lateinit var deviceDataSource: DeviceDataSource
 
   private val job: Job by lazy { Job() }
 

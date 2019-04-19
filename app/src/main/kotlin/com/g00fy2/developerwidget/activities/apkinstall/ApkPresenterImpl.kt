@@ -19,10 +19,14 @@ import javax.inject.Inject
 
 class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.ApkPresenter {
 
-  @Inject lateinit var view: ApkContract.ApkView
-  @Inject lateinit var intentController: IntentController
-  @Inject lateinit var permissionController: PermissionController
-  @Inject lateinit var apkFileBuilder: ApkFile.ApkFileBuilder
+  @Inject
+  lateinit var view: ApkContract.ApkView
+  @Inject
+  lateinit var intentController: IntentController
+  @Inject
+  lateinit var permissionController: PermissionController
+  @Inject
+  lateinit var apkFileBuilder: ApkFile.ApkFileBuilder
 
   @OnLifecycleEvent(Event.ON_CREATE)
   @TargetApi(VERSION_CODES.JELLY_BEAN)

@@ -20,7 +20,8 @@ import javax.inject.Inject
 
 class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.AboutView {
 
-  @Inject lateinit var presenter: AboutContract.AboutPresenter
+  @Inject
+  lateinit var presenter: AboutContract.AboutPresenter
 
   override fun providePresenter(): BasePresenter = presenter
 

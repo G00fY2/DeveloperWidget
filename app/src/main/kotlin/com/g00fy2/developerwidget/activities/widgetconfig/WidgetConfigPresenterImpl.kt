@@ -14,9 +14,12 @@ import javax.inject.Inject
 class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
   WidgetConfigContract.WidgetConfigPresenter {
 
-  @Inject lateinit var view: WidgetConfigContract.WidgetConfigView
-  @Inject lateinit var deviceDataSource: DeviceDataSource
-  @Inject lateinit var stringController: StringController
+  @Inject
+  lateinit var view: WidgetConfigContract.WidgetConfigView
+  @Inject
+  lateinit var deviceDataSource: DeviceDataSource
+  @Inject
+  lateinit var stringController: StringController
 
   @OnLifecycleEvent(Event.ON_RESUME)
   override fun loadDeviceData() {

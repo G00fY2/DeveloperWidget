@@ -17,10 +17,14 @@ import javax.inject.Inject
 
 class AppsPresenterImpl @Inject constructor() : BasePresenterImpl(), AppsContract.AppsPresenter {
 
-  @Inject lateinit var view: AppsContract.AppsView
-  @Inject lateinit var appInfoBuilder: AppInfo.AppInfoBuilder
-  @Inject lateinit var intentController: IntentController
-  @Inject lateinit var widgetPreferenceController: WidgetPreferenceController
+  @Inject
+  lateinit var view: AppsContract.AppsView
+  @Inject
+  lateinit var appInfoBuilder: AppInfo.AppInfoBuilder
+  @Inject
+  lateinit var intentController: IntentController
+  @Inject
+  lateinit var widgetPreferenceController: WidgetPreferenceController
 
   private val appFilter by lazy { widgetPreferenceController.getAppFilters() }
 

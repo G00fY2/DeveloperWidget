@@ -23,7 +23,9 @@ class PermissionControllerImpl @Inject constructor() : PermissionController {
     if (!hasPermissions(permissions)) (context as Activity).requestPermissions(permissions, 1)
   }
 
-  @Inject @field:Named(ACTIVITY) lateinit var context: Context
+  @Inject
+  @field:Named(ACTIVITY)
+  lateinit var context: Context
 
   override fun hasPermission(permission: String): Boolean {
     return if (VERSION.SDK_INT >= VERSION_CODES.M) {

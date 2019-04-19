@@ -24,7 +24,8 @@ import javax.inject.Inject
 
 class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), WidgetConfigContract.WidgetConfigView {
 
-  @Inject lateinit var presenter: WidgetConfigContract.WidgetConfigPresenter
+  @Inject
+  lateinit var presenter: WidgetConfigContract.WidgetConfigPresenter
 
   private var updateExistingWidget = false
   private var widgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID

@@ -11,7 +11,9 @@ import javax.inject.Named
 
 class DayNightControllerImpl @Inject constructor() : DayNightController {
 
-  @Inject @field:Named(APPLICATION) lateinit var context: Context
+  @Inject
+  @field:Named(APPLICATION)
+  lateinit var context: Context
 
   private val defaultMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
   private val sharedPreference by lazy {

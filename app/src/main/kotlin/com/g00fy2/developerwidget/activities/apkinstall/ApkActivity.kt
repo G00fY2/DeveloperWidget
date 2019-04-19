@@ -16,7 +16,8 @@ import javax.inject.Inject
 
 class ApkActivity : BaseActivity(R.layout.activity_apk), ApkContract.ApkView {
 
-  @Inject lateinit var presenter: ApkContract.ApkPresenter
+  @Inject
+  lateinit var presenter: ApkContract.ApkPresenter
 
   private lateinit var adapter: ApkAdapter
 
