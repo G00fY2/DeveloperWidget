@@ -26,7 +26,7 @@ class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>(ApksDiffUtilsCallback()) 
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ApkViewHolder {
     return ApkViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.apk_item, parent, false)).apply {
-      addRipple(parent.context)
+      addRipple()
       itemView.setOnClickListener {
         adapterPosition.let {
           if (selectedPositions.isNotEmpty()) {
