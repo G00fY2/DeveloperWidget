@@ -45,7 +45,6 @@
   </style>
 
   <style name="ConfigureButtonAppearance" parent="Widget.AppCompat.Button.Colored">
-    <item name="android:background">@drawable/bg_button_shape</item>
-    <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    <item name="android:background">@drawable/bg_config_button_ripple</item>
   </style>
 </resources>
