@@ -183,12 +183,12 @@
           android:layout_marginEnd="16dp"
           android:layout_marginRight="16dp"
           android:layout_marginBottom="4dp"
-          android:background="?attr/selectableItemBackground"
+          android:background="@drawable/bg_dialog_button_ripple"
           android:clickable="true"
           android:focusable="true"
           android:gravity="center_vertical"
-          android:paddingStart="8dp"
-          android:paddingEnd="8dp"
+          android:paddingStart="12dp"
+          android:paddingEnd="12dp"
           android:text="@string/cancel"
           />
     </LinearLayout>

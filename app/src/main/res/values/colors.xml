@@ -15,6 +15,7 @@
   <color name="navigationBarColor">@color/black</color>
   <color name="navigationBarDividerColor">@color/dividerGrey</color>
   <color name="colorEdgeEffect">@color/black</color>
+  <color name="rippleBackground">#33303030</color>
 
   <color name="widgetTextColor">@color/lightGrey</color>
   <color name="widgetTextColor_day">@color/lightGrey</color>
