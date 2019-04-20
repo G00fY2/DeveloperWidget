@@ -19,8 +19,12 @@ class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>(ApksDiffUtilsCallback()) 
 
   inner class ApkViewHolder(containerView: View) : BaseViewHolder(containerView) {
     fun setSelected(position: Int) {
-      itemView.selected_icon_imageview.visibility =
-        if (selectedPositions.contains(position)) View.VISIBLE else View.INVISIBLE
+      selectedPositions.contains(position).let { selected ->
+        itemView.app_icon_imageview.visibility =
+          if (selected) View.INVISIBLE else View.VISIBLE
+        itemView.selected_icon_imageview.visibility =
+          if (selected) View.VISIBLE else View.INVISIBLE
+      }
     }
   }
 
