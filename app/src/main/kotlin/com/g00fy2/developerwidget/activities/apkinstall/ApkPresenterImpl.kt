@@ -5,12 +5,12 @@ import android.annotation.TargetApi
 import android.content.Intent
 import android.os.Build
 import android.os.Build.VERSION_CODES
-import android.os.Environment
 import androidx.lifecycle.Lifecycle.Event
 import androidx.lifecycle.OnLifecycleEvent
 import com.g00fy2.developerwidget.base.BasePresenterImpl
 import com.g00fy2.developerwidget.controllers.IntentController
 import com.g00fy2.developerwidget.controllers.PermissionController
+import com.g00fy2.developerwidget.controllers.StorageDirsController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -26,6 +26,8 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
   @Inject
   lateinit var permissionController: PermissionController
   @Inject
+  lateinit var storageDirsController: StorageDirsController
+  @Inject
   lateinit var apkFileBuilder: ApkFile.ApkFileBuilder
 
   @OnLifecycleEvent(Event.ON_CREATE)
@@ -40,7 +42,11 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
     ) {
       launch {
         withContext(Dispatchers.IO) {
-          searchAPKs(Environment.getExternalStorageDirectory())
+          mutableListOf<ApkFile>().apply {
+            for (dir in storageDirsController.getStorageDirectories()) {
+              addAll(searchAPKs(File(dir)))
+            }
+          }
         }.let {
           view.toggleResultView(it, false)
         }
