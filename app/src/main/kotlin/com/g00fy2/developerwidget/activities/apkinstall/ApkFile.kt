@@ -9,6 +9,7 @@ import android.text.format.DateFormat
 import androidx.core.content.FileProvider
 import androidx.core.content.pm.PackageInfoCompat
 import com.g00fy2.developerwidget.utils.ACTIVITY
+import timber.log.Timber
 import java.io.File
 import java.text.NumberFormat
 import javax.inject.Inject
@@ -77,10 +78,14 @@ class ApkFile private constructor() : Comparable<ApkFile> {
         }
 
         filePath = file.path
-        fileUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-          FileProvider.getUriForFile(context, context.applicationContext.packageName + ".fileprovider", file)
-        } else {
-          Uri.fromFile(file)
+        try {
+          fileUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            FileProvider.getUriForFile(context, context.applicationContext.packageName + ".fileprovider", file)
+          } else {
+            Uri.fromFile(file)
+          }
+        } catch (e: IllegalArgumentException) {
+          Timber.e(e)
         }
       }
     }

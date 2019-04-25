@@ -38,33 +38,30 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
 
   @OnLifecycleEvent(Event.ON_RESUME)
   fun scanStorageForApks() {
-    if (permissionController.hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    ) {
+    if (permissionController.hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
       launch {
         withContext(Dispatchers.IO) {
-          mutableListOf<ApkFile>().apply {
+          mutableSetOf<ApkFile>().apply {
             for (dir in storageDirsController.getStorageDirectories()) {
-              addAll(searchAPKs(File(dir)))
+              addAll(searchAPKs(dir))
             }
           }
         }.let {
-          view.toggleResultView(it, false)
+          view.toggleResultView(it.sorted(), false)
         }
       }
     } else {
-      view.toggleResultView(ArrayList(), missingPermissions = true)
+      view.toggleResultView(emptyList(), missingPermissions = true)
     }
   }
 
-  private fun searchAPKs(dir: File): List<ApkFile> {
+  private fun searchAPKs(dir: File): Collection<ApkFile> {
     return dir.walk()
       .filter { !it.isDirectory }
       .filter { it.extension.equals(APK_EXTENSION, true) }
       .map { apkFileBuilder.build(it) }
       .filter { it.valid }
-      .sorted()
       .toList()
-
   }
 
   override fun installApk(apkFile: ApkFile?) {
