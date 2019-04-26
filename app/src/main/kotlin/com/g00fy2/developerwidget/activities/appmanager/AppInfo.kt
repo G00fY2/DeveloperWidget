@@ -13,8 +13,8 @@ class AppInfo : Comparable<AppInfo> {
   var appName: String = ""; private set
   var packageName: String = ""; private set
   var appIcon: Drawable? = null; private set
-  var versionName: String? = ""; private set
-  var versionCode: String? = ""; private set
+  var versionName: String = ""; private set
+  var versionCode: String = ""; private set
 
   override fun compareTo(other: AppInfo) = compareValues(appName, other.appName)
 
@@ -36,8 +36,8 @@ class AppInfo : Comparable<AppInfo> {
     override fun build(packageInfo: PackageInfo): AppInfo {
       return AppInfo().apply {
         packageInfo.let { packageInfo ->
-          packageName = packageInfo.packageName
-          versionName = packageInfo.versionName
+          packageInfo.packageName?.let { packageName = it }
+          packageInfo.versionName?.let { versionName = it }
           versionCode = PackageInfoCompat.getLongVersionCode(packageInfo).toString()
           packageInfo.applicationInfo
         }?.let { appInfo ->

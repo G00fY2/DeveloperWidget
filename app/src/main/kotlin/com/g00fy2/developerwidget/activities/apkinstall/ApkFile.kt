@@ -50,28 +50,18 @@ class ApkFile private constructor() : Comparable<ApkFile> {
         lastModifiedTimestamp = file.lastModified()
         fileName = file.name
         lastModified = dateFormat.format(lastModifiedTimestamp) + " " + timeFormat.format(lastModifiedTimestamp)
-        size = {
-          file.length().let { bytes ->
-            (round(bytes / 1048576.0 * 100.0) / 100.0).let { sizeMB ->
-              if (sizeMB < 1) {
-                round(bytes / 1024.0).toInt().toString() + " KB"
-              } else {
-                NumberFormat.getInstance().format(sizeMB) + " MB"
-              }
-            }
-          }
-        }()
+        size = getFormattedSize(file.length())
 
         file.absolutePath.let { filePath ->
           packageManager.getPackageArchiveInfo(filePath, 0)?.let { packageInfo ->
-            versionName = packageInfo.versionName
-            versionCode = PackageInfoCompat.getLongVersionCode(packageInfo).toString()
+            packageInfo.versionName?.let { versionName = it }
+            PackageInfoCompat.getLongVersionCode(packageInfo).let { versionCode = it.toString() }
             packageInfo.applicationInfo
           }?.let { appInfo ->
             valid = true
             appInfo.sourceDir = filePath
             appInfo.publicSourceDir = filePath
-            appName = packageManager.getApplicationLabel(appInfo).toString()
+            packageManager.getApplicationLabel(appInfo)?.let { appName = it.toString() }
             appIcon = packageManager.getApplicationIcon(appInfo)
             debuggable = appInfo.flags.and(ApplicationInfo.FLAG_DEBUGGABLE) != 0
           }
@@ -86,6 +76,16 @@ class ApkFile private constructor() : Comparable<ApkFile> {
           }
         } catch (e: IllegalArgumentException) {
           Timber.e(e)
+        }
+      }
+    }
+
+    private fun getFormattedSize(bytes: Long): String {
+      return (round(bytes / 1048576.0 * 100.0) / 100.0).let { sizeMB ->
+        if (sizeMB < 1) {
+          round(bytes / 1024.0).toInt().toString() + " KB"
+        } else {
+          NumberFormat.getInstance().format(sizeMB) + " MB"
         }
       }
     }
