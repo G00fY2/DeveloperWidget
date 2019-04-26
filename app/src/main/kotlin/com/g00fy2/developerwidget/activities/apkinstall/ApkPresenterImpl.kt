@@ -2,8 +2,6 @@ package com.g00fy2.developerwidget.activities.apkinstall
 
 import android.Manifest
 import android.annotation.TargetApi
-import android.content.Intent
-import android.os.Build
 import android.os.Build.VERSION_CODES
 import android.os.Environment
 import androidx.lifecycle.Lifecycle.Event
@@ -53,7 +51,7 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
   private fun searchAPKs(dir: File): List<ApkFile> {
     return dir.walk()
       .filter { !it.isDirectory }
-      .filter { it.extension.equals(APK_EXTENSION, true) }
+      .filter { it.extension.equals("apk", true) }
       .map { apkFileBuilder.build(it) }
       .filter { it.valid }
       .sorted()
@@ -62,13 +60,7 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
   }
 
   override fun installApk(apkFile: ApkFile?) {
-    apkFile?.fileUri?.let {
-      Intent(Intent.ACTION_VIEW).apply {
-        setDataAndType(it, APK_MIME_TYPE)
-        flags =
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) Intent.FLAG_GRANT_READ_URI_PERMISSION else Intent.FLAG_ACTIVITY_NEW_TASK
-      }.let { intent -> intentController.startActivity(intent) }
-    }
+    apkFile?.let { intentController.installApk(it) }
   }
 
   override fun deleteApkFiles(apkFiles: List<ApkFile>?) {
@@ -85,10 +77,5 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
         scanStorageForApks()
       }
     }
-  }
-
-  companion object {
-    const val APK_EXTENSION = "apk"
-    const val APK_MIME_TYPE = "application/vnd.android.package-archive"
   }
 }

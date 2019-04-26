@@ -1,10 +1,7 @@
 package com.g00fy2.developerwidget.activities.appmanager
 
-import android.content.Intent
 import android.content.pm.ApplicationInfo
-import android.provider.Settings
 import android.text.Editable
-import androidx.core.net.toUri
 import androidx.lifecycle.Lifecycle.Event
 import androidx.lifecycle.OnLifecycleEvent
 import com.g00fy2.developerwidget.base.BasePresenterImpl
@@ -45,12 +42,7 @@ class AppsPresenterImpl @Inject constructor() : BasePresenterImpl(), AppsContrac
   }
 
   override fun openAppSettingsActivity(appInfo: AppInfo?) {
-    appInfo?.packageName?.let {
-      Intent(
-        Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-        "package:$it".toUri()
-      ).let { intent -> intentController.startActivity(intent) }
-    }
+    appInfo?.packageName?.let { intentController.openAppSettings(it) }
   }
 
   override fun duplicateFilter(filter: String) = appFilter.contains(filter)

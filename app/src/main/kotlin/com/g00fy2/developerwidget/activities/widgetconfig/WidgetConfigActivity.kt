@@ -109,8 +109,7 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
         true
       }
       R.id.about_button -> {
-        val intent = Intent(this, AboutActivity::class.java)
-        startActivity(intent)
+        startActivity(Intent(this, AboutActivity::class.java))
         true
       }
       else -> super.onOptionsItemSelected(item)
