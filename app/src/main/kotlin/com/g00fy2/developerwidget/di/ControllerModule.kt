@@ -6,6 +6,8 @@ import com.g00fy2.developerwidget.controllers.IntentController
 import com.g00fy2.developerwidget.controllers.IntentControllerImpl
 import com.g00fy2.developerwidget.controllers.PermissionController
 import com.g00fy2.developerwidget.controllers.PermissionControllerImpl
+import com.g00fy2.developerwidget.controllers.StorageDirsController
+import com.g00fy2.developerwidget.controllers.StorageDirsControllerImpl
 import com.g00fy2.developerwidget.controllers.StringController
 import com.g00fy2.developerwidget.controllers.StringControllerImpl
 import com.g00fy2.developerwidget.controllers.ToastController
@@ -47,5 +49,9 @@ abstract class ActivityControllerModule {
   @Binds
   @ActivityScope
   abstract fun provideToastController(toastControllerImpl: ToastControllerImpl): ToastController
+
+  @Binds
+  @ActivityScope
+  abstract fun provideStorageDirsController(storageDirsControllerImpl: StorageDirsControllerImpl): StorageDirsController
 
 }
