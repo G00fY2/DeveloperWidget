@@ -27,7 +27,7 @@
   <string name="source_code">Source code</string>
   <string name="changelog">Release notes</string>
   <string name="feedback">Feedback</string>
-  <string name="feedback_description">Or report bugs and request features</string>
+  <string name="feedback_description">Request features or report bugs</string>
   <string name="send_feedback">Contact me</string>
   <string name="github_issue">Open Github issue</string>
   <string name="send_mail">Send email</string>
@@ -46,6 +46,7 @@
   <string name="day_mode">Day mode</string>
   <string name="auto_mode">Auto mode</string>
   <string name="app_icon">App icon</string>
+  <string name="access_file_fail">Could not access the file.</string>
 
   <string name="device_title">Device</string>
   <string name="system_title">System</string>

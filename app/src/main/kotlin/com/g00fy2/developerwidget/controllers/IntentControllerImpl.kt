@@ -7,6 +7,7 @@ import android.os.Build
 import android.provider.Settings
 import androidx.core.net.toUri
 import com.g00fy2.developerwidget.BuildConfig
+import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.apkinstall.ApkFile
 import com.g00fy2.developerwidget.utils.ACTIVITY
 import com.g00fy2.developerwidget.utils.DEVELOPER_EMAIL
@@ -19,6 +20,8 @@ class IntentControllerImpl @Inject constructor() : IntentController {
   @Inject
   @field:Named(ACTIVITY)
   lateinit var context: Context
+  @Inject
+  lateinit var toastController: ToastController
 
   override fun startActivity(intent: Intent) {
     if (intent.resolveActivity(context.packageManager) != null) {
@@ -29,11 +32,13 @@ class IntentControllerImpl @Inject constructor() : IntentController {
   }
 
   override fun installApk(apkFile: ApkFile) {
-    startActivity(Intent(Intent.ACTION_VIEW).apply {
-      setDataAndType(apkFile.fileUri, "application/vnd.android.package-archive")
-      flags =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) Intent.FLAG_GRANT_READ_URI_PERMISSION else Intent.FLAG_ACTIVITY_NEW_TASK
-    })
+    apkFile.fileUri?.let {
+      startActivity(Intent(Intent.ACTION_VIEW).apply {
+        setDataAndType(it, "application/vnd.android.package-archive")
+        flags =
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) Intent.FLAG_GRANT_READ_URI_PERMISSION else Intent.FLAG_ACTIVITY_NEW_TASK
+      })
+    } ?: toastController.showToast(R.string.access_file_fail)
   }
 
   override fun openAppSettings(packageName: String) {
