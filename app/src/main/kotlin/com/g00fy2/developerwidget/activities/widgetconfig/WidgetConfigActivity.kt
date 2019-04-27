@@ -9,8 +9,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.webkit.WebView
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.about.AboutActivity
@@ -81,46 +79,17 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
     menuInflater.inflate(R.menu.configuration_menu, menu)
-    menu.findItem(R.id.toggle_mode).let {
-      when (dayNightController.getCurrentDefaultMode()) {
-        AppCompatDelegate.MODE_NIGHT_YES -> {
-          it.icon = ContextCompat.getDrawable(this, R.drawable.ic_mode_night)
-          it.title = resources.getString(R.string.night_mode)
-        }
-        AppCompatDelegate.MODE_NIGHT_NO -> {
-          it.icon = ContextCompat.getDrawable(this, R.drawable.ic_mode_day)
-          it.title = resources.getString(R.string.day_mode)
-        }
-        else -> {
-          it.icon = ContextCompat.getDrawable(this, R.drawable.ic_mode_auto)
-          it.title = resources.getString(R.string.auto_mode)
-        }
-      }
-    }
     return true
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return when (item.itemId) {
-      R.id.toggle_mode -> {
-        dayNightController.toggleMode(this)
-        updateWidgetTheme()
-        invalidateOptionsMenu()
-        true
-      }
       R.id.about_button -> {
         startActivity(Intent(this, AboutActivity::class.java))
         true
       }
       else -> super.onOptionsItemSelected(item)
     }
-  }
-
-  private fun updateWidgetTheme() {
-    sendBroadcast(Intent(applicationContext, WidgetProviderImpl::class.java).apply {
-      action = WidgetProviderImpl.UPDATE_WIDGET_ACTION
-      putExtra(UPDATE_WIDGET_THEME, true)
-    })
   }
 
   override fun showDeviceData(data: List<Pair<String, DeviceDataItem>>) {
@@ -137,6 +106,5 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
 
   companion object {
     const val EXTRA_APPWIDGET_UPDATE_EXISTING = "UPDATE_EXISTING_WIDGET"
-    const val UPDATE_WIDGET_THEME = "UPDATE_WIDGET_THEME"
   }
 }

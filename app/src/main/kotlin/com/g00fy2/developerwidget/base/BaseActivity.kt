@@ -11,7 +11,7 @@ import com.g00fy2.developerwidget.controllers.DayNightController
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
-abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity(contentLayoutId) {
+abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity(contentLayoutId), HasThemeDelegate {
 
   @Inject
   lateinit var dayNightController: DayNightController

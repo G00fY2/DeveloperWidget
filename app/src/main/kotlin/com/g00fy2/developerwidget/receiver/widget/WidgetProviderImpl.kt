@@ -14,6 +14,7 @@ import com.g00fy2.developerwidget.activities.apkinstall.ApkActivity
 import com.g00fy2.developerwidget.activities.appmanager.AppsActivity
 import com.g00fy2.developerwidget.activities.widgetconfig.WidgetConfigActivity
 import com.g00fy2.developerwidget.controllers.DayNightController
+import com.g00fy2.developerwidget.controllers.DayNightControllerImpl.Companion.UPDATE_WIDGET_THEME
 import com.g00fy2.developerwidget.data.DeviceDataItem
 import com.g00fy2.developerwidget.data.DeviceDataSourceImpl
 import com.g00fy2.developerwidget.receiver.widget.WidgetProviderContract.WidgetProvider
@@ -39,7 +40,7 @@ class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
 
     AppWidgetManager.getInstance(context).let { widgetManager ->
       if (intent.action == UPDATE_WIDGET_ACTION) {
-        if (intent.extras?.getBoolean(WidgetConfigActivity.UPDATE_WIDGET_THEME) == true) {
+        if (intent.extras?.getBoolean(UPDATE_WIDGET_THEME) == true) {
           onUpdate(
             context,
             widgetManager,

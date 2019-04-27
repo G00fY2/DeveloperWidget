@@ -3,6 +3,7 @@ package com.g00fy2.developerwidget.activities.about
 import android.R.id
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatDelegate
 import com.g00fy2.developerwidget.BuildConfig
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BaseActivity
@@ -48,6 +49,10 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
       String.format(getString(R.string.app_version), BuildConfig.VERSION_NAME)
     app_desc_textview.text = getString(R.string.app_description)
 
+    theme_item.init {
+      title(R.string.app_theme)
+      action { presenter.toggleDayNightMode(this@AboutActivity) }
+    }
     privacy_item.init {
       icon(R.drawable.ic_privacy_logo)
       title(R.string.privacy_policy)
@@ -107,6 +112,18 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
       title(R.string.build_number)
       description(BuildConfig.VERSION_NAME + "." + BuildConfig.VERSION_CODE + "." + BuildConfig.BUILD_TYPE)
       action { presenter.honorClicking() }
+    }
+
+    updateThemeToggleView()
+  }
+
+  override fun updateThemeToggleView() {
+    theme_item.let {
+      when (dayNightController.getCurrentDefaultMode()) {
+        AppCompatDelegate.MODE_NIGHT_YES -> it.icon(R.drawable.ic_mode_night).description(R.string.night_mode)
+        AppCompatDelegate.MODE_NIGHT_NO -> it.icon(R.drawable.ic_mode_day).description(R.string.day_mode)
+        else -> it.icon(R.drawable.ic_mode_auto).description(R.string.auto_mode)
+      }
     }
   }
 

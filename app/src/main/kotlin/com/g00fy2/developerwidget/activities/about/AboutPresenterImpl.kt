@@ -3,6 +3,8 @@ package com.g00fy2.developerwidget.activities.about
 import android.content.Intent
 import androidx.core.net.toUri
 import com.g00fy2.developerwidget.base.BasePresenterImpl
+import com.g00fy2.developerwidget.base.HasThemeDelegate
+import com.g00fy2.developerwidget.controllers.DayNightController
 import com.g00fy2.developerwidget.controllers.IntentController
 import com.g00fy2.developerwidget.controllers.ToastController
 import timber.log.Timber
@@ -16,6 +18,8 @@ class AboutPresenterImpl @Inject constructor() : BasePresenterImpl(), AboutContr
   lateinit var intentController: IntentController
   @Inject
   lateinit var toastController: ToastController
+  @Inject
+  lateinit var dayNightController: DayNightController
 
   private var clickCount = 0
   private var clickStart: Long = 0
@@ -33,6 +37,11 @@ class AboutPresenterImpl @Inject constructor() : BasePresenterImpl(), AboutContr
 
   override fun sendFeedbackMail() {
     intentController.sendMailToDeveloper()
+  }
+
+  override fun toggleDayNightMode(delegate: HasThemeDelegate) {
+    dayNightController.toggleMode(delegate)
+    view.updateThemeToggleView()
   }
 
   override fun honorClicking() {

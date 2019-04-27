@@ -1,16 +1,16 @@
 package com.g00fy2.developerwidget.controllers
 
-import androidx.appcompat.app.AppCompatActivity
+import com.g00fy2.developerwidget.base.HasThemeDelegate
 
 interface DayNightController {
 
   fun saveCustomDefaultMode(mode: Int)
 
-  fun loadCustomDefaultMode(activity: AppCompatActivity? = null)
+  fun loadCustomDefaultMode()
 
   fun getCurrentDefaultMode(): Int
 
   fun isInNightMode(): Boolean
 
-  fun toggleMode(activity: AppCompatActivity? = null)
+  fun toggleMode(delegate: HasThemeDelegate)
 }
