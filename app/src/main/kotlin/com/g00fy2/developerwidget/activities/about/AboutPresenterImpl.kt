@@ -1,13 +1,10 @@
 package com.g00fy2.developerwidget.activities.about
 
-import android.content.Intent
-import androidx.core.net.toUri
 import com.g00fy2.developerwidget.base.BasePresenterImpl
 import com.g00fy2.developerwidget.base.HasThemeDelegate
 import com.g00fy2.developerwidget.controllers.DayNightController
 import com.g00fy2.developerwidget.controllers.IntentController
 import com.g00fy2.developerwidget.controllers.ToastController
-import timber.log.Timber
 import javax.inject.Inject
 
 class AboutPresenterImpl @Inject constructor() : BasePresenterImpl(), AboutContract.AboutPresenter {
@@ -24,20 +21,9 @@ class AboutPresenterImpl @Inject constructor() : BasePresenterImpl(), AboutContr
   private var clickCount = 0
   private var clickStart: Long = 0
 
-  override fun openUrl(url: String) {
-    if (url.startsWith("http", true)) {
-      try {
-        val uri = url.toUri()
-        intentController.startActivity(Intent(Intent.ACTION_VIEW, uri))
-      } catch (e: Exception) {
-        Timber.d(e)
-      }
-    }
-  }
+  override fun openUrl(url: String) = intentController.openWebsite(url)
 
-  override fun sendFeedbackMail() {
-    intentController.sendMailToDeveloper()
-  }
+  override fun sendFeedbackMail() = intentController.sendMailToDeveloper()
 
   override fun toggleDayNightMode(delegate: HasThemeDelegate) {
     dayNightController.toggleMode(delegate)

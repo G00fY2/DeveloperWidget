@@ -3,7 +3,9 @@ package com.g00fy2.developerwidget.controllers
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
+import android.os.Bundle
 import android.provider.Settings
 import androidx.core.net.toUri
 import com.g00fy2.developerwidget.BuildConfig
@@ -23,11 +25,14 @@ class IntentControllerImpl @Inject constructor() : IntentController {
   @Inject
   lateinit var toastController: ToastController
 
-  override fun startActivity(intent: Intent) {
-    if (intent.resolveActivity(context.packageManager) != null) {
-      context.startActivity(intent)
-    } else {
-      Timber.w("Intent could not get resolved.")
+  override fun openWebsite(url: String) {
+    Intent(Intent.ACTION_VIEW, url.toUri()).let { intent ->
+      if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2) {
+        intent.putExtras(Bundle().apply {
+          putBinder("android.support.customtabs.extra.SESSION", null)
+        })
+      }
+      startActivity(intent)
     }
   }
 
@@ -36,14 +41,13 @@ class IntentControllerImpl @Inject constructor() : IntentController {
       startActivity(Intent(Intent.ACTION_VIEW).apply {
         setDataAndType(it, "application/vnd.android.package-archive")
         flags =
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) Intent.FLAG_GRANT_READ_URI_PERMISSION else Intent.FLAG_ACTIVITY_NEW_TASK
+          if (VERSION.SDK_INT >= VERSION_CODES.N) Intent.FLAG_GRANT_READ_URI_PERMISSION else Intent.FLAG_ACTIVITY_NEW_TASK
       })
     } ?: toastController.showToast(R.string.access_file_fail)
   }
 
-  override fun openAppSettings(packageName: String) {
+  override fun openAppSettings(packageName: String) =
     startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, "package:$packageName".toUri()))
-  }
 
 
   override fun sendMailToDeveloper() {
@@ -57,4 +61,11 @@ class IntentControllerImpl @Inject constructor() : IntentController {
     })
   }
 
+  private fun startActivity(intent: Intent) {
+    if (intent.resolveActivity(context.packageManager) != null) {
+      context.startActivity(intent)
+    } else {
+      Timber.w("Intent could not get resolved.")
+    }
+  }
 }
