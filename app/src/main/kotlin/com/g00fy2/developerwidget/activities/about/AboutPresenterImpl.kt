@@ -5,6 +5,7 @@ import com.g00fy2.developerwidget.base.HasThemeDelegate
 import com.g00fy2.developerwidget.controllers.DayNightController
 import com.g00fy2.developerwidget.controllers.IntentController
 import com.g00fy2.developerwidget.controllers.ToastController
+import com.g00fy2.developerwidget.utils.GITHUB_PROJECT_IO
 import javax.inject.Inject
 
 class AboutPresenterImpl @Inject constructor() : BasePresenterImpl(), AboutContract.AboutPresenter {
@@ -21,7 +22,7 @@ class AboutPresenterImpl @Inject constructor() : BasePresenterImpl(), AboutContr
   private var clickCount = 0
   private var clickStart: Long = 0
 
-  override fun openUrl(url: String) = intentController.openWebsite(url)
+  override fun openUrl(url: String) = intentController.openWebsite(url, url.startsWith(GITHUB_PROJECT_IO))
 
   override fun sendFeedbackMail() = intentController.sendMailToDeveloper()
 

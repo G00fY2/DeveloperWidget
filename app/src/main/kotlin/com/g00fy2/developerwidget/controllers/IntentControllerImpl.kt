@@ -25,9 +25,9 @@ class IntentControllerImpl @Inject constructor() : IntentController {
   @Inject
   lateinit var toastController: ToastController
 
-  override fun openWebsite(url: String) {
+  override fun openWebsite(url: String, useCustomTabs: Boolean) {
     Intent(Intent.ACTION_VIEW, url.toUri()).let { intent ->
-      if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2) {
+      if (useCustomTabs && VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2) {
         intent.putExtras(Bundle().apply {
           putBinder("android.support.customtabs.extra.SESSION", null)
         })
