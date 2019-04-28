@@ -14,13 +14,13 @@
       android:layout_marginLeft="16dp"
       android:layout_marginStart="16dp"
       android:layout_marginTop="8dp"
-      style="@style/TextAppearance.AppCompat.Subhead"
       android:textSize="16sp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@id/guideline"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       tools:text="Title"
+      style="@style/TextAppearance.AppCompat.Subhead"
       />
 
   <TextView
@@ -33,6 +33,7 @@
       android:layout_marginRight="16dp"
       android:layout_marginStart="8dp"
       android:layout_marginTop="8dp"
+      android:textIsSelectable="true"
       android:textSize="16sp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
