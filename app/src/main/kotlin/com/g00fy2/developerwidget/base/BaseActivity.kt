@@ -9,6 +9,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import com.g00fy2.developerwidget.controllers.DayNightController
 import dagger.android.AndroidInjection
+import timber.log.Timber
 import javax.inject.Inject
 
 abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity(contentLayoutId), HasThemeDelegate {
@@ -18,6 +19,7 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
+    Timber.d("Lifecycle: %s onCreate", localClassName)
     super.onCreate(savedInstanceState)
     dayNightController.loadCustomDefaultMode()
     lifecycle.addObserver(providePresenter())
@@ -25,6 +27,7 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity
   }
 
   override fun onDestroy() {
+    Timber.d("Lifecycle: %s onDestroy", localClassName)
     super.onDestroy()
     lifecycle.removeObserver(providePresenter())
   }
