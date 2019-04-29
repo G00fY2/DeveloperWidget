@@ -54,11 +54,13 @@ class AppsPresenterImpl @Inject constructor() : BasePresenterImpl(), AppsContrac
     view.updateFilterIcon(appFilter.isNotEmpty())
   }
 
-  override fun removeAppFilter(filter: String) {
+  override fun removeAppFilter(filter: String, filterInput: String) {
     appFilter.remove(filter)
     widgetPreferenceController.saveAppFilters(appFilter)
-    view.updateAppFilter(appFilter)
-    view.updateFilterIcon(appFilter.isNotEmpty())
+    if (filterInput.isEmpty()) {
+      view.updateAppFilter(appFilter)
+      view.updateFilterIcon(appFilter.isNotEmpty())
+    }
   }
 
   override fun getCurrentFilter(): List<String> = appFilter

@@ -164,7 +164,7 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
 
   private fun removeAppFilter(chip: Chip) {
     flexbox_layout.removeView(chip)
-    presenter.removeAppFilter(chip.text.toString())
+    presenter.removeAppFilter(chip.text.toString(), filter_edittext.text.toString())
   }
 
   private fun setFilterChips(filters: Collection<String>) {

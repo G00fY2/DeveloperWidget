@@ -24,7 +24,7 @@ interface AppsContract {
 
     fun addAppFilter(filter: String)
 
-    fun removeAppFilter(filter: String)
+    fun removeAppFilter(filter: String, filterInput: String)
 
     fun getCurrentFilter(): List<String>
 
