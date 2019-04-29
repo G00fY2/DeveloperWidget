@@ -18,8 +18,8 @@ class DevWidgetApp : DaggerApplication() {
   override fun onCreate() {
     super.onCreate()
 
-    dayNightController.loadCustomDefaultMode()
-
     if (BuildConfig.DEBUG) Timber.plant(DebugTree())
+
+    dayNightController.loadCustomDefaultMode()
   }
 }
