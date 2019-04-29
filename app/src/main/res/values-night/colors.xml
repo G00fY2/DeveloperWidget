@@ -10,7 +10,7 @@
 
   <color name="navigationBarColor">@color/black</color>
   <color name="navigationBarDividerColor">@color/black</color>
-  <color name="colorEdgeEffect">@color/nightGreyLight</color>
+  <color name="colorEdgeEffect">#a0a0a0</color>
   <color name="rippleBackground">#1ffafafa</color>
 
   <color name="widgetTextColor">@color/white</color>
