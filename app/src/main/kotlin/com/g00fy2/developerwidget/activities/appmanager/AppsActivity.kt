@@ -1,5 +1,6 @@
 package com.g00fy2.developerwidget.activities.appmanager
 
+import android.graphics.PorterDuff
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
@@ -7,10 +8,12 @@ import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.Window
 import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
@@ -33,6 +36,12 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
   lateinit var presenter: AppsContract.AppsPresenter
 
   private lateinit var adapter: AppsAdapter
+  private val clearDrawable by lazy {
+    ResourcesCompat.getDrawable(resources, R.drawable.ic_clear, null)?.apply {
+      setColorFilter(ResourcesCompat.getColor(resources, R.color.vectorTintColor, null), PorterDuff.Mode.SRC_IN)
+      setBounds(0, 0, this.intrinsicWidth, this.intrinsicHeight)
+    }
+  }
 
   override fun providePresenter(): BasePresenter = presenter
 
@@ -98,6 +107,7 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
       addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
           presenter.updateFilter(s)
+          setCompoundDrawables(null, null, if (!s.isNullOrEmpty()) clearDrawable else null, null)
         }
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -106,6 +116,18 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         }
       })
+      setOnTouchListener { v, event ->
+        var consumed = false
+        if (v is EditText) {
+          if (event.x >= v.width - v.totalPaddingRight) {
+            if (event.action == MotionEvent.ACTION_UP) {
+              filter_edittext.text.clear()
+            }
+            consumed = true
+          }
+        }
+        consumed
+      }
     }
     // necessary to properly measure the filter view height
     setFilterChips(presenter.getCurrentFilter())
