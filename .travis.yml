@@ -74,5 +74,5 @@ jobs:
     before_install: *before_install
     install: *install
     before_script: *before_script
-    script: "./gradlew assembleDebug"
+    script: "./gradlew assembleDebug --scan"
     before_cache: *before_cache
