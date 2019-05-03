@@ -23,7 +23,12 @@
       android:background="@drawable/bg_widget_inner_shape"
       android:gravity="center_vertical"
       android:orientation="vertical"
-      android:padding="8dp"
+      android:paddingBottom="4dp"
+      android:paddingEnd="8dp"
+      android:paddingLeft="8dp"
+      android:paddingRight="8dp"
+      android:paddingStart="8dp"
+      android:paddingTop="4dp"
       >
     <TextView
         android:id="@+id/device_info_textview"
