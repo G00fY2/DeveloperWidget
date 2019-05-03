@@ -10,13 +10,11 @@ import kotlinx.android.extensions.LayoutContainer
 open class BaseViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
   fun addRipple() {
-    val outValue = TypedValue().apply {
+    TypedValue().apply {
       containerView.context.theme.resolveAttribute(android.R.attr.selectableItemBackground, this, true)
-    }
-    if (VERSION.SDK_INT < VERSION_CODES.M) {
-      itemView.setBackgroundResource(outValue.resourceId)
-    } else {
-      itemView.foreground = containerView.context.getDrawable(outValue.resourceId)
+    }.resourceId.let {
+      if (VERSION.SDK_INT < VERSION_CODES.M) itemView.setBackgroundResource(it) else itemView.foreground =
+        containerView.context.getDrawable(it)
     }
   }
 }
