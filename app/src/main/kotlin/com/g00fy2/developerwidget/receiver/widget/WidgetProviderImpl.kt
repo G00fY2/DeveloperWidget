@@ -70,6 +70,9 @@ class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
     }
     for (widgetId in appWidgetIds) {
       Timber.d("onUpdate widget $widgetId")
+      RemoteViews(context.packageName, R.layout.empty_layout).let {
+        appWidgetManager.updateAppWidget(widgetId, it)
+      }
       RemoteViews(context.packageName, layout).let {
         updateWidgetDeviceData(data, it)
         updateWidgetButtonIntents(widgetId, it)
