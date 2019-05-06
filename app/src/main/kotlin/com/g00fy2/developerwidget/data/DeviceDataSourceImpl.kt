@@ -102,7 +102,7 @@ class DeviceDataSourceImpl @Inject constructor() : DeviceDataSource {
 
   override suspend fun getHeaderItems(): Map<String, DeviceDataItem> {
     val data = HashMap<String, DeviceDataItem>()
-    DeviceDataItem.Category.values().forEach {
+    Category.values().forEach {
       data[it.title] = DeviceDataItem(it, true)
     }
     return data

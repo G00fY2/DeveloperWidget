@@ -1,6 +1,7 @@
 package com.g00fy2.developerwidget.receiver.widget
 
 import com.g00fy2.developerwidget.data.DeviceDataSource
+import com.g00fy2.developerwidget.data.WidgetsSettingsDataSource
 import com.g00fy2.developerwidget.receiver.widget.WidgetProviderContract.WidgetProvider
 import com.g00fy2.developerwidget.receiver.widget.WidgetProviderContract.WidgetProviderPresenter
 import kotlinx.coroutines.CoroutineScope
@@ -17,17 +18,19 @@ class WidgetProviderPresenterImpl @Inject constructor() : WidgetProviderPresente
   lateinit var widgetProvider: WidgetProvider
   @Inject
   lateinit var deviceDataSource: DeviceDataSource
+  @Inject
+  lateinit var widgetsSettingsDataSource: WidgetsSettingsDataSource
 
   private val job: Job by lazy { Job() }
 
   override val coroutineContext: CoroutineContext = Dispatchers.Main + job
 
-  override fun getDeviceData() {
+  override fun getDeviceData(widgetIDs: IntArray) {
     launch {
       withContext(Dispatchers.IO) {
-        deviceDataSource.getStaticDeviceData()
-      }.let {
-        widgetProvider.updateWidgetData(it)
+        val data = deviceDataSource.getStaticDeviceData()
+        val customDeviceNames = widgetsSettingsDataSource.getCustomDeviceNames(widgetIDs)
+        widgetProvider.updateWidgetData(data, customDeviceNames)
       }
     }
   }

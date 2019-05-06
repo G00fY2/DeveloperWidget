@@ -8,10 +8,16 @@ interface WidgetConfigContract {
   interface WidgetConfigView : BaseContract.BaseView {
 
     fun showDeviceData(data: List<Pair<String, DeviceDataItem>>)
+
+    fun setDeviceTitle(title: String)
   }
 
   interface WidgetConfigPresenter : BaseContract.BasePresenter {
 
     fun loadDeviceData()
+
+    fun loadCustomDeviceName()
+
+    fun setCustomDeviceName(deviceName: String, persistent: Boolean = false)
   }
 }

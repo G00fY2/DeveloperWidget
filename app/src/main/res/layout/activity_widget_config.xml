@@ -2,6 +2,7 @@
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_config_root_scrollview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,13 +21,36 @@
         />
     <TextView
         android:id="@+id/device_title_textview"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="start|center"
+        android:maxLines="1"
         android:textSize="28sp"
         app:layout_constraintBottom_toTopOf="@+id/device_subtitle_textview"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/apply_button"
         app:layout_constraintTop_toTopOf="@+id/top_view"
         app:layout_constraintVertical_chainStyle="packed"
+        />
+    <EditText
+        android:id="@+id/device_title_edittextview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/transparent"
+        android:gravity="start|center"
+        android:importantForAutofill="no"
+        android:inputType="textCapWords"
+        android:maxLines="1"
+        android:textSize="28sp"
+        android:visibility="invisible"
+        android:imeOptions="actionDone"
+        app:layout_constraintBottom_toBottomOf="@+id/device_title_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/apply_button"
+        app:layout_constraintTop_toTopOf="@+id/device_title_textview"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:ignore="LabelFor"
+        tools:targetApi="o"
         />
     <TextView
         android:id="@+id/device_subtitle_textview"

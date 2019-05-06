@@ -31,7 +31,13 @@ class WidgetPreferenceControllerImpl @Inject constructor() : WidgetPreferenceCon
   override fun saveAppFilters(filters: List<String>) =
     sharedPreference.edit { putString(FILTERS, filters.distinct().joinToString(DELIMITER)) }
 
+  override fun saveCustomDeviceName(deviceName: String) =
+    sharedPreference.edit { putString(CUSTOM_DEVICE_NAME, deviceName.trim()) }
+
+  override fun getCustomDeviceName() = (sharedPreference.getString(CUSTOM_DEVICE_NAME, "") ?: "")
+
   companion object {
+    const val CUSTOM_DEVICE_NAME = "CUSTOM_DEVICE_NAME"
     const val FILTERS = "APP_FILTERS"
     const val DELIMITER = ","
   }

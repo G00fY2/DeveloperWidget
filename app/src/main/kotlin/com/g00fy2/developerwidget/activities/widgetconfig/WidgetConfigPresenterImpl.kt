@@ -4,8 +4,10 @@ import androidx.lifecycle.Lifecycle.Event
 import androidx.lifecycle.OnLifecycleEvent
 import com.g00fy2.developerwidget.base.BasePresenterImpl
 import com.g00fy2.developerwidget.controllers.StringController
+import com.g00fy2.developerwidget.controllers.WidgetPreferenceController
 import com.g00fy2.developerwidget.data.DeviceDataItem
 import com.g00fy2.developerwidget.data.DeviceDataSource
+import com.g00fy2.developerwidget.data.devicebuild.BuildDataProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -20,6 +22,8 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
   lateinit var deviceDataSource: DeviceDataSource
   @Inject
   lateinit var stringController: StringController
+  @Inject
+  lateinit var widgetPreferenceController: WidgetPreferenceController
 
   @OnLifecycleEvent(Event.ON_RESUME)
   override fun loadDeviceData() {
@@ -29,6 +33,33 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
       }.let {
         view.showDeviceData(it)
       }
+    }
+  }
+
+  @OnLifecycleEvent(Event.ON_RESUME)
+  override fun loadCustomDeviceName() {
+    launch {
+      withContext(Dispatchers.IO) {
+        widgetPreferenceController.getCustomDeviceName()
+      }.let {
+        if (it.isNotEmpty()) view.setDeviceTitle(it)
+      }
+    }
+  }
+
+  override fun setCustomDeviceName(deviceName: String, persistent: Boolean) {
+    val defaultDeviceName = BuildDataProvider.getCombinedDeviceName()
+    if (persistent) {
+      if (deviceName == defaultDeviceName) {
+        widgetPreferenceController.saveCustomDeviceName("")
+      } else {
+        widgetPreferenceController.saveCustomDeviceName(deviceName)
+      }
+    }
+    if (deviceName.isNotEmpty()) {
+      view.setDeviceTitle(deviceName)
+    } else {
+      view.setDeviceTitle(defaultDeviceName)
     }
   }
 

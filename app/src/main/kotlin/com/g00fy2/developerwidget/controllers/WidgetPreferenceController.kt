@@ -6,4 +6,7 @@ interface WidgetPreferenceController {
 
   fun getAppFilters(): MutableList<String>
 
+  fun saveCustomDeviceName(deviceName: String)
+
+  fun getCustomDeviceName(): String
 }

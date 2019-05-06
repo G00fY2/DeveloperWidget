@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.util.SparseArray
 import android.widget.RemoteViews
 import androidx.appcompat.app.AppCompatDelegate
 import com.g00fy2.developerwidget.BuildConfig
@@ -59,10 +60,10 @@ class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
     this.context = context
     this.appWidgetManager = appWidgetManager
     this.appWidgetIds = appWidgetIds
-    presenter.getDeviceData()
+    presenter.getDeviceData(appWidgetIds)
   }
 
-  override fun updateWidgetData(data: Map<String, DeviceDataItem>) {
+  override fun updateWidgetData(data: Map<String, DeviceDataItem>, customDeviceNames: SparseArray<String>) {
     val layout = when (dayNightController.getCurrentDefaultMode()) {
       AppCompatDelegate.MODE_NIGHT_NO -> R.layout.appwidget_layout_day
       AppCompatDelegate.MODE_NIGHT_YES -> R.layout.appwidget_layout_night
@@ -74,16 +75,20 @@ class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
         appWidgetManager.updateAppWidget(widgetId, it)
       }
       RemoteViews(context.packageName, layout).let {
-        updateWidgetDeviceData(data, it)
+        updateWidgetDeviceData(data, customDeviceNames.get(widgetId) ?: "", it)
         updateWidgetButtonIntents(widgetId, it)
         appWidgetManager.updateAppWidget(widgetId, it)
       }
     }
   }
 
-  private fun updateWidgetDeviceData(data: Map<String, DeviceDataItem>, views: RemoteViews) {
-    data[DeviceDataSourceImpl.DEVICE_NAME]?.let { name ->
-      views.setTextViewText(R.id.device_info_textview, name.value)
+  private fun updateWidgetDeviceData(data: Map<String, DeviceDataItem>, customDeviceName: String, views: RemoteViews) {
+    if (customDeviceName.isNotBlank()) {
+      views.setTextViewText(R.id.device_info_textview, customDeviceName)
+    } else {
+      data[DeviceDataSourceImpl.DEVICE_NAME]?.let { name ->
+        views.setTextViewText(R.id.device_info_textview, name.value)
+      }
     }
     data[DeviceDataSourceImpl.RELEASE]?.let { release ->
       views.setTextViewText(R.id.release_textview, context.getString(release.title) + " " + release.value)
