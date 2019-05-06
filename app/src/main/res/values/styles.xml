@@ -7,7 +7,8 @@
     <item name="colorAccent">@color/colorAccent</item>
 
     <item name="android:windowBackground">@color/backgroundColor</item>
-    <item name="actionBarTheme">@style/AccentActionBar</item>
+    <item name="actionBarTheme">@style/ActionBarAccent</item>
+    <item name="actionBarStyle">@style/ActionBarBackground</item>
     <item name="android:windowContentOverlay">@null</item>
     <!--api 21-->
     <item name="android:colorEdgeEffect" tools:targetApi="21">@color/colorEdgeEffect</item>
@@ -24,8 +25,12 @@
   </style>
 
 
-  <style name="AccentActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
+  <style name="ActionBarAccent" parent="ThemeOverlay.AppCompat.ActionBar">
     <item name="android:textColorPrimary">@color/colorAccent</item>
+  </style>
+
+  <style name="ActionBarBackground" parent="Widget.AppCompat.ActionBar.Solid">
+    <item name="background">@color/colorPrimary</item>
   </style>
 
   <style name="DialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog">
