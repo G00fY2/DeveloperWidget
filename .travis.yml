@@ -54,6 +54,8 @@ android_phases:
   - echo "org.gradle.daemon=false" >> $HOME/.gradle/gradle.properties
   # set gradle log format to plain
   - echo "org.gradle.console=plain" >> $HOME/.gradle/gradle.properties
+    # enable gradle build cache
+  - echo "org.gradle.caching=true" >> $HOME/.gradle/gradle.properties
 - phase: &before_cache
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
