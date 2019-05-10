@@ -66,6 +66,7 @@ android_phases:
   - rm -f  $HOME/.gradle/caches/journal-1/file-access.bin
   - rm -f  $HOME/.gradle/caches/journal-1/journal-1.lock
   - rm -f  $HOME/.gradle/caches/transforms-1/transforms-1.lock
+  - rm -f  $HOME/.gradle/caches/user-id.txt.lock
   # only cache last gradle version used by the wrapper
   # list content in wrapper/dist sorted by modification time and remove entries starting by the second entry
   - ls -d $HOME/.gradle/wrapper/dists/* -1t | tail -n +2 | xargs rm -rf
