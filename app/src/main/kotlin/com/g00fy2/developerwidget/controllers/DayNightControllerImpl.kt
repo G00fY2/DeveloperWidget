@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
-import com.g00fy2.developerwidget.base.HasThemeDelegate
 import com.g00fy2.developerwidget.receiver.widget.WidgetProviderImpl
 import com.g00fy2.developerwidget.utils.APPLICATION
 import javax.inject.Inject
@@ -31,20 +30,19 @@ class DayNightControllerImpl @Inject constructor() : DayNightController {
   override fun isInNightMode() =
     context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_NO
 
-  override fun toggleMode(delegate: HasThemeDelegate) {
+  override fun toggleMode() {
     when (getCurrentDefaultMode()) {
       AppCompatDelegate.MODE_NIGHT_YES -> AppCompatDelegate.MODE_NIGHT_NO
       AppCompatDelegate.MODE_NIGHT_NO -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
       else -> AppCompatDelegate.MODE_NIGHT_YES
     }.let {
       saveCustomDefaultMode(it)
-      applyMode(it, delegate.getDelegate())
+      applyMode(it)
       updateWidgetTheme()
     }
   }
 
-  private fun applyMode(mode: Int, delegate: AppCompatDelegate? = null) {
-    delegate?.localNightMode = mode
+  private fun applyMode(mode: Int) {
     AppCompatDelegate.setDefaultNightMode(mode)
   }
 

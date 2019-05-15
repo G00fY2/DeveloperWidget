@@ -1,7 +1,5 @@
 package com.g00fy2.developerwidget.controllers
 
-import com.g00fy2.developerwidget.base.HasThemeDelegate
-
 interface DayNightController {
 
   fun saveCustomDefaultMode(mode: Int)
@@ -12,5 +10,5 @@ interface DayNightController {
 
   fun isInNightMode(): Boolean
 
-  fun toggleMode(delegate: HasThemeDelegate)
+  fun toggleMode()
 }

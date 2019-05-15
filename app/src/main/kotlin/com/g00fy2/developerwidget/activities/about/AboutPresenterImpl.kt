@@ -1,7 +1,6 @@
 package com.g00fy2.developerwidget.activities.about
 
 import com.g00fy2.developerwidget.base.BasePresenterImpl
-import com.g00fy2.developerwidget.base.HasThemeDelegate
 import com.g00fy2.developerwidget.controllers.DayNightController
 import com.g00fy2.developerwidget.controllers.IntentController
 import com.g00fy2.developerwidget.controllers.ToastController
@@ -26,8 +25,8 @@ class AboutPresenterImpl @Inject constructor() : BasePresenterImpl(), AboutContr
 
   override fun sendFeedbackMail() = intentController.sendMailToDeveloper()
 
-  override fun toggleDayNightMode(delegate: HasThemeDelegate) {
-    dayNightController.toggleMode(delegate)
+  override fun toggleDayNightMode() {
+    dayNightController.toggleMode()
     view.updateThemeToggleView()
   }
 

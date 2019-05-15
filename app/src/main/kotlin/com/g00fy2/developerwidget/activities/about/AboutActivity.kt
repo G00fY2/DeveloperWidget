@@ -51,7 +51,7 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
 
     theme_item.init {
       title(R.string.app_theme)
-      action { presenter.toggleDayNightMode(this@AboutActivity) }
+      action { presenter.toggleDayNightMode() }
     }
     privacy_item.init {
       icon(R.drawable.ic_privacy_logo)

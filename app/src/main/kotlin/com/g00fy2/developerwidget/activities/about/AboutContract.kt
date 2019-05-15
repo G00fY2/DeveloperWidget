@@ -1,7 +1,6 @@
 package com.g00fy2.developerwidget.activities.about
 
 import com.g00fy2.developerwidget.base.BaseContract
-import com.g00fy2.developerwidget.base.HasThemeDelegate
 
 interface AboutContract {
 
@@ -16,7 +15,7 @@ interface AboutContract {
 
     fun sendFeedbackMail()
 
-    fun toggleDayNightMode(delegate: HasThemeDelegate)
+    fun toggleDayNightMode()
 
     fun honorClicking()
   }
