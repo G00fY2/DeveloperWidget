@@ -52,7 +52,6 @@ dependencies {
   implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
 
   // UI
-  implementation 'com.google.android:flexbox:1.1.0'
   implementation 'com.google.android.material:material:1.1.0-alpha06'
 
   // Misc

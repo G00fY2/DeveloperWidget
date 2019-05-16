@@ -185,22 +185,22 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
   }
 
   private fun removeAppFilter(chip: Chip) {
-    flexbox_layout.removeView(chip)
+    chip_group.removeView(chip)
     presenter.removeAppFilter(chip.text.toString(), filter_edittext.text.toString())
   }
 
   private fun setFilterChips(filters: Collection<String>) {
-    flexbox_layout.removeAllViews()
+    chip_group.removeAllViews()
     for (i in filters) {
       addFilterChip(i)
     }
   }
 
   private fun addFilterChip(filterString: String) {
-    (LayoutInflater.from(this).inflate(R.layout.filter_chip, flexbox_layout, false) as Chip).let {
+    (LayoutInflater.from(this).inflate(R.layout.filter_chip, chip_group, false) as Chip).let {
       it.text = filterString
       it.isClickable = false
-      flexbox_layout.addView(it)
+      chip_group.addView(it)
       it.setOnCloseIconClickListener { view -> removeAppFilter(view as Chip) }
     }
   }

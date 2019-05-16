@@ -27,7 +27,6 @@ allprojects {
     mavenCentral()
     jcenter {
       content {
-        includeModule 'com.google.android', 'flexbox'
         includeModule 'com.g00fy2', 'versioncompare'
         includeModule 'org.jetbrains.trove4j', 'trove4j'
       }
