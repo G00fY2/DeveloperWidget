@@ -149,6 +149,14 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
     return super.dispatchTouchEvent(event)
   }
 
+  override fun onBackPressed() {
+    if (device_title_edittextview.hasFocus()) {
+      device_title_edittextview.clearFocus()
+    } else {
+      super.onBackPressed()
+    }
+  }
+
   private fun toggleDeviceNameEdit(editable: Boolean) {
     device_title_textview.visibility = if (editable) View.INVISIBLE else View.VISIBLE
     device_title_edittextview.visibility = if (editable) View.VISIBLE else View.INVISIBLE
