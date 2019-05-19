@@ -49,17 +49,17 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
 
   override fun setCustomDeviceName(deviceName: String, persistent: Boolean) {
     val defaultDeviceName = BuildDataProvider.getCombinedDeviceName()
+    if (deviceName.isNotEmpty()) {
+      view.setDeviceTitle(deviceName)
+    } else {
+      view.setDeviceTitle(defaultDeviceName)
+    }
     if (persistent) {
       if (deviceName == defaultDeviceName) {
         widgetPreferenceController.saveCustomDeviceName("")
       } else {
         widgetPreferenceController.saveCustomDeviceName(deviceName)
       }
-    }
-    if (deviceName.isNotEmpty()) {
-      view.setDeviceTitle(deviceName)
-    } else {
-      view.setDeviceTitle(defaultDeviceName)
     }
   }
 

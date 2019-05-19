@@ -81,21 +81,13 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
         }
       }
     }
-    device_title_textview.apply {
-      setOnClickListener {
-        device_title_textview.visibility = View.INVISIBLE
-        device_title_edittextview.visibility = View.VISIBLE
-        device_title_edittextview.requestFocus()
-        showKeyboard(device_title_edittextview)
-      }
-    }
+    device_title_edit_imageview.apply { setOnClickListener { toggleDeviceNameEdit(true) } }
+    device_title_textview.apply { setOnClickListener { toggleDeviceNameEdit(true) } }
     device_title_edittextview.apply {
       setOnFocusChangeListener { _, hasFocus ->
         if (!hasFocus) {
-          hideKeyboard(this)
-          device_title_textview.visibility = View.VISIBLE
-          device_title_edittextview.visibility = View.INVISIBLE
           presenter.setCustomDeviceName(device_title_edittextview.text.toString())
+          toggleDeviceNameEdit(false)
         }
       }
       setOnEditorActionListener { v, actionId, _ ->
@@ -126,6 +118,7 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
     data.toMap().let {
       if (device_title_textview.text.isEmpty()) {
         setDeviceTitle(it[DeviceDataSourceImpl.DEVICE_NAME]?.value ?: "")
+        device_title_edit_imageview.visibility = View.VISIBLE
       }
       setWidgetFields(it)
     }
@@ -152,6 +145,18 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
       }
     }
     return super.dispatchTouchEvent(event)
+  }
+
+  private fun toggleDeviceNameEdit(editable: Boolean) {
+    device_title_textview.visibility = if (editable) View.INVISIBLE else View.VISIBLE
+    device_title_edittextview.visibility = if (editable) View.VISIBLE else View.INVISIBLE
+    device_title_edit_imageview.visibility = if (editable) View.INVISIBLE else View.VISIBLE
+    if (editable) {
+      device_title_edittextview.requestFocus()
+      showKeyboard(device_title_edittextview)
+    } else {
+      hideKeyboard(device_title_edittextview)
+    }
   }
 
   private fun setWidgetFields(data: Map<String, DeviceDataItem>) {

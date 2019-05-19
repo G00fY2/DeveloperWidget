@@ -48,6 +48,7 @@
   <string name="auto_mode">Auto mode</string>
   <string name="app_icon">App icon</string>
   <string name="access_file_fail">Could not access the file.</string>
+  <string name="edit">Edit</string>
 
   <string name="device_title">Device</string>
   <string name="system_title">System</string>
