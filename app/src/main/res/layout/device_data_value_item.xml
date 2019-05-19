@@ -19,8 +19,8 @@
       app:layout_constraintEnd_toStartOf="@id/guideline"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      tools:text="Title"
       style="@style/TextAppearance.AppCompat.Subhead"
+      tools:text="Title"
       />
 
   <TextView
