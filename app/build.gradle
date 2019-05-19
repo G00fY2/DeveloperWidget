@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'eu.appcom.gradle.android-versioning'
 
 androidExtensions {
   experimental = true
@@ -13,8 +14,8 @@ android {
     applicationId 'com.g00fy2.developerwidget'
     minSdkVersion rootProject.minSdkVersion
     targetSdkVersion rootProject.targetSdkVersion
-    versionCode rootProject.versionCode
-    versionName rootProject.versionName
+    versionCode versioning.getVersionCode()
+    versionName versioning.getVersionName()
   }
   buildTypes {
     debug {

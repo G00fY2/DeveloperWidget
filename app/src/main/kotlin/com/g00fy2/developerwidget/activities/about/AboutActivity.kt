@@ -110,7 +110,7 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
     }
     build_number_item.init {
       title(R.string.build_number)
-      description(BuildConfig.VERSION_NAME + "." + BuildConfig.VERSION_CODE + "." + BuildConfig.BUILD_TYPE)
+      description(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ") " + BuildConfig.BUILD_TYPE)
       action { presenter.honorClicking() }
     }
 
