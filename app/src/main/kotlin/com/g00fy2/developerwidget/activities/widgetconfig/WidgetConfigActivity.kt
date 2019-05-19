@@ -127,6 +127,8 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
 
   override fun setDeviceTitle(title: String) {
     device_title_textview.text = title
+    device_title_textview.invalidate()
+    device_title_textview.requestLayout()
     device_title_edittextview.setText(title)
     device_title_edittextview.setSelection(device_title_edittextview.text.length)
   }
