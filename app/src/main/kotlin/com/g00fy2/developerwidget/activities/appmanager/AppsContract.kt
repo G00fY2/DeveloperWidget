@@ -29,6 +29,8 @@ interface AppsContract {
     fun getCurrentFilter(): List<String>
 
     fun updateFilter(s: Editable?)
+
+    fun disableFilter()
   }
 }
 

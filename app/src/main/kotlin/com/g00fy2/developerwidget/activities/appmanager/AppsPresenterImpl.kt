@@ -75,6 +75,11 @@ class AppsPresenterImpl @Inject constructor() : BasePresenterImpl(), AppsContrac
     }
   }
 
+  override fun disableFilter() {
+    view.updateAppFilter("")
+    view.updateFilterIcon(false)
+  }
+
   private fun getInstalledUserApps(): List<AppInfo> {
     return appInfoBuilder.getInstalledPackages()
       .filter { it.applicationInfo.flags.let { flags -> flags and ApplicationInfo.FLAG_SYSTEM == 0 || flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != 0 } }

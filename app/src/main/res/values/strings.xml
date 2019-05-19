@@ -49,6 +49,7 @@
   <string name="app_icon">App icon</string>
   <string name="access_file_fail">Could not access the file.</string>
   <string name="edit">Edit</string>
+  <string name="show_all_apps">Show all %s apps</string>
 
   <string name="device_title">Device</string>
   <string name="system_title">System</string>

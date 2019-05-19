@@ -97,6 +97,12 @@
 
     </LinearLayout>
 
+    <include
+        layout="@layout/app_filter_info"
+        android:id="@+id/app_filter_info"
+        android:visibility="gone"
+        />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

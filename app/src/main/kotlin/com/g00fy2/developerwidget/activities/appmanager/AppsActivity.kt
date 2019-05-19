@@ -20,6 +20,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.g00fy2.developerwidget.R
+import com.g00fy2.developerwidget.R.string
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.utils.AnimationUtils
@@ -28,6 +29,7 @@ import com.g00fy2.developerwidget.utils.DIALOG_ACTIVITY_WIDTH_FACTOR
 import com.g00fy2.developerwidget.utils.UiUtils
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_apps.*
+import kotlinx.android.synthetic.main.app_filter_info.*
 import javax.inject.Inject
 
 class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView {
@@ -36,6 +38,7 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
   lateinit var presenter: AppsContract.AppsPresenter
 
   private lateinit var adapter: AppsAdapter
+  private var scrollToTopAfterCommit = false
   private val clearDrawable by lazy {
     ResourcesCompat.getDrawable(resources, R.drawable.ic_clear, null)?.apply {
       setColorFilter(ResourcesCompat.getColor(resources, R.color.vectorTintColor, null), PorterDuff.Mode.SRC_IN)
@@ -63,6 +66,10 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
         no_items_imageview.visibility = if (it == 0) View.VISIBLE else View.INVISIBLE
         recyclerview.overScrollMode = if (it == 0) View.OVER_SCROLL_NEVER else View.OVER_SCROLL_ALWAYS
       }
+      if (scrollToTopAfterCommit) {
+        scrollToTopAfterCommit = false
+        recyclerview.scrollToPosition(0)
+      }
     })
     recyclerview.setHasFixedSize(true)
     recyclerview.itemAnimator = null
@@ -81,8 +88,16 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
   }
 
   private fun initFilterViews() {
+    app_filter_info.setOnClickListener {
+      scrollToTopAfterCommit = true
+      presenter.disableFilter()
+      AnimationUtils.collapseView(app_filter_info, true)
+    }
     TooltipCompat.setTooltipText(filter_imageview, filter_imageview.contentDescription)
-    filter_imageview.setOnClickListener { toggleFilterView() }
+    filter_imageview.setOnClickListener {
+      presenter.updateFilter(null)
+      toggleFilterView()
+    }
 
     filter_edittext.apply {
       filters = arrayOf(InputFilter { source, _, _, _, _, _ ->
@@ -148,6 +163,8 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
 
   override fun toggleResultView(installedAppPackages: List<AppInfo>, filters: List<String>) {
     adapter.initialList(installedAppPackages, filters)
+    show_all_textview.text = getString(string.show_all_apps).format(installedAppPackages.size)
+    app_filter_info.visibility = if (filters.isEmpty() || installedAppPackages.isEmpty()) View.GONE else View.VISIBLE
     if (filter_edittext.text.toString().isNotEmpty()) {
       adapter.updateAppFilter(filter_edittext.text.toString())
     }
@@ -176,9 +193,11 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
 
   private fun toggleFilterView() {
     if (filter_linearlayout.isVisible) {
+      if (presenter.getCurrentFilter().isNotEmpty()) AnimationUtils.expandView(app_filter_info, true)
       AnimationUtils.collapseView(filter_linearlayout)
       UiUtils.hideKeyboard(this)
     } else {
+      if (app_filter_info.isVisible) AnimationUtils.collapseView(app_filter_info, true)
       setFilterChips(presenter.getCurrentFilter())
       AnimationUtils.expandView(filter_linearlayout)
     }
@@ -186,6 +205,7 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
 
   private fun removeAppFilter(chip: Chip) {
     chip_group.removeView(chip)
+    scrollToTopAfterCommit = true
     presenter.removeAppFilter(chip.text.toString(), filter_edittext.text.toString())
   }
 
