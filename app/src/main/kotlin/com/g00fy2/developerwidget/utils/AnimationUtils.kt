@@ -9,16 +9,21 @@ class AnimationUtils {
 
   companion object {
 
-    fun expandView(v: View) {
+    fun expandView(v: View, fade: Boolean = false) {
       v.apply {
         val params = layoutParams as LinearLayout.LayoutParams
         params.topMargin = -height
         requestLayout()
+        if (fade) alpha = 0f
         visibility = View.VISIBLE
 
-        ValueAnimator.ofInt(-height, 0).apply {
+        val viewHeight = height
+        ValueAnimator.ofInt(-viewHeight, 0).apply {
           addUpdateListener {
-            params.topMargin = it.animatedValue as Int
+            (it.animatedValue as Int).let { value ->
+              params.topMargin = value
+              if (fade) alpha = (viewHeight + value) / viewHeight.toFloat()
+            }
             requestLayout()
           }
           duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
@@ -26,16 +31,21 @@ class AnimationUtils {
       }
     }
 
-    fun collapseView(v: View) {
+    fun collapseView(v: View, fade: Boolean = false) {
       v.apply {
         val params = layoutParams as LinearLayout.LayoutParams
         params.topMargin = 0
         requestLayout()
+        if (fade) alpha = 1f
         visibility = View.VISIBLE
 
-        ValueAnimator.ofInt(0, -height).apply {
+        val viewHeight = height
+        ValueAnimator.ofInt(0, -viewHeight).apply {
           addUpdateListener {
-            params.topMargin = it.animatedValue as Int
+            (it.animatedValue as Int).let { value ->
+              params.topMargin = value
+              if (fade) alpha = (viewHeight + value) / viewHeight.toFloat()
+            }
             requestLayout()
           }
           duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
