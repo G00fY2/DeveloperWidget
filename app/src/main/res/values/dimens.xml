@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="action_bar_inset">16dp</dimen>
+  <dimen name="action_bar_inset_with_nav">72dp</dimen>
+  <dimen name="about_item_icon_margin">24dp</dimen>
+</resources>
