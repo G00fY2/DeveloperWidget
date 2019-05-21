@@ -76,15 +76,6 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
     initFilterViews()
   }
 
-  override fun onBackPressed() {
-    if (filter_linearlayout.isVisible) {
-      filter_edittext.text.clear()
-      toggleFilterView()
-    } else {
-      super.onBackPressed()
-    }
-  }
-
   private fun initFilterViews() {
     app_filter_info.setOnClickListener {
       scrollToTopAfterCommit = true
