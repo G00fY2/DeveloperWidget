@@ -1,8 +1,6 @@
 package com.g00fy2.developerwidget.activities.appmanager
 
 import android.graphics.PorterDuff
-import android.os.Build.VERSION
-import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
@@ -10,13 +8,13 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
-import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.Window
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.g00fy2.developerwidget.R
@@ -144,21 +142,10 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
         consumed
       }
     }
-    // necessary to properly measure the filter view height
+    // necessary to measure the view heights for animations
     setFilterChips(presenter.getCurrentFilter())
-    filter_linearlayout.apply {
-      viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
-        @Suppress("DEPRECATION")
-        override fun onGlobalLayout() {
-          if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN) {
-            viewTreeObserver.removeOnGlobalLayoutListener(this)
-          } else {
-            viewTreeObserver.removeGlobalOnLayoutListener(this)
-          }
-          visibility = View.GONE
-        }
-      })
-    }
+    filter_linearlayout.doOnPreDraw { it.visibility = View.GONE }
+    app_filter_info.doOnPreDraw { it.visibility = View.GONE }
   }
 
   override fun toggleResultView(installedAppPackages: List<AppInfo>, filters: List<String>) {
