@@ -176,6 +176,7 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
       UiUtils.hideKeyboard(this)
     } else {
       if (app_filter_info.isVisible) AnimationUtils.collapseView(app_filter_info, true)
+      filter_edittext.text.clear()
       setFilterChips(presenter.getCurrentFilter())
       AnimationUtils.expandView(filter_linearlayout)
     }
