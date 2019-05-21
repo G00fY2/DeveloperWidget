@@ -100,7 +100,6 @@
     <include
         layout="@layout/app_filter_info"
         android:id="@+id/app_filter_info"
-        android:visibility="gone"
         />
 
     <FrameLayout
