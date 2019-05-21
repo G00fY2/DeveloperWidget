@@ -49,7 +49,7 @@ class AnimationUtils {
             requestLayout()
           }
           duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
-          doOnEnd { v.visibility = View.GONE }
+          doOnEnd { visibility = View.GONE }
         }.start()
       }
     }
