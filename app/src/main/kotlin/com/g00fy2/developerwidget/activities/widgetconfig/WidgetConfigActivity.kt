@@ -3,6 +3,7 @@ package com.g00fy2.developerwidget.activities.widgetconfig
 import android.app.Activity
 import android.appwidget.AppWidgetManager
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.graphics.Rect
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
@@ -13,6 +14,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.webkit.WebView
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.about.AboutActivity
@@ -32,6 +34,12 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
   private var updateExistingWidget = false
   private var widgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID
   private lateinit var adapter: DeviceDataAdapter
+  private val editDrawable by lazy {
+    ResourcesCompat.getDrawable(resources, R.drawable.ic_edit, null)?.apply {
+      setColorFilter(ResourcesCompat.getColor(resources, R.color.dividerGrey, null), PorterDuff.Mode.SRC_IN)
+      setBounds(0, 0, this.intrinsicWidth, this.intrinsicHeight)
+    }
+  }
 
   override fun providePresenter(): BasePresenter = presenter
 
@@ -81,8 +89,16 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
         }
       }
     }
-    device_title_edit_imageview.apply { setOnClickListener { toggleDeviceNameEdit(true) } }
-    device_title_textview.apply { setOnClickListener { toggleDeviceNameEdit(true) } }
+    device_title_textview.apply {
+      setOnClickListener { toggleDeviceNameEdit(true) }
+      setCompoundDrawables(null, null, editDrawable, null)
+      setPadding(
+        paddingLeft,
+        paddingTop,
+        (compoundDrawablePadding * 2) + (editDrawable?.intrinsicWidth ?: 0),
+        paddingBottom
+      )
+    }
     device_title_edittextview.apply {
       setOnFocusChangeListener { _, hasFocus ->
         if (!hasFocus) {
@@ -115,20 +131,13 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
   }
 
   override fun showDeviceData(data: List<Pair<String, DeviceDataItem>>) {
-    data.toMap().let {
-      if (device_title_textview.text.isEmpty()) {
-        setDeviceTitle(it[DeviceDataSourceImpl.DEVICE_NAME]?.value ?: "")
-        device_title_edit_imageview.visibility = View.VISIBLE
-      }
-      setWidgetFields(it)
-    }
+    setWidgetFields(data.toMap())
     adapter.submitList(data)
   }
 
   override fun setDeviceTitle(title: String) {
     device_title_textview.text = title
-    device_title_textview.invalidate()
-    device_title_textview.requestLayout()
+    device_title_textview.visibility = View.VISIBLE
     device_title_edittextview.setText(title)
     device_title_edittextview.setSelection(device_title_edittextview.text.length)
   }
@@ -152,7 +161,6 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
   private fun toggleDeviceNameEdit(editable: Boolean) {
     device_title_textview.visibility = if (editable) View.INVISIBLE else View.VISIBLE
     device_title_edittextview.visibility = if (editable) View.VISIBLE else View.INVISIBLE
-    device_title_edit_imageview.visibility = if (editable) View.INVISIBLE else View.VISIBLE
     if (editable) {
       device_title_edittextview.requestFocus()
       showKeyboard(device_title_edittextview)

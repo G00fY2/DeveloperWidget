@@ -24,6 +24,7 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
   lateinit var stringController: StringController
   @Inject
   lateinit var widgetPreferenceController: WidgetPreferenceController
+  private val defaultDeviceName by lazy { BuildDataProvider.getCombinedDeviceName() }
 
   @OnLifecycleEvent(Event.ON_RESUME)
   override fun loadDeviceData() {
@@ -42,13 +43,16 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
       withContext(Dispatchers.IO) {
         widgetPreferenceController.getCustomDeviceName()
       }.let {
-        if (it.isNotEmpty()) view.setDeviceTitle(it)
+        if (it.isNotEmpty()) {
+          view.setDeviceTitle(it)
+        } else {
+          view.setDeviceTitle(defaultDeviceName)
+        }
       }
     }
   }
 
   override fun setCustomDeviceName(deviceName: String, persistent: Boolean) {
-    val defaultDeviceName = BuildDataProvider.getCombinedDeviceName()
     if (deviceName.isNotEmpty()) {
       view.setDeviceTitle(deviceName)
     } else {
