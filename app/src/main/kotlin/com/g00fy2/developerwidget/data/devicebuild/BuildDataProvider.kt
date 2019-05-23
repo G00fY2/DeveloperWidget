@@ -29,7 +29,5 @@ class BuildDataProvider {
     fun getBootloader(): String = Build.BOOTLOADER
 
     fun getID(): String = Build.ID
-
-    fun getCodename(): String = Build.VERSION.CODENAME
   }
 }

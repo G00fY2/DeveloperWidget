@@ -10,6 +10,10 @@ interface WidgetConfigContract {
     fun showDeviceData(data: List<Pair<String, DeviceDataItem>>)
 
     fun setDeviceTitle(title: String)
+
+    fun setDeviceTitleHint(hint: String)
+
+    fun setSubtitle(data: Pair<String, String>)
   }
 
   interface WidgetConfigPresenter : BaseContract.BasePresenter {

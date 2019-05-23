@@ -8,6 +8,7 @@ import com.g00fy2.developerwidget.controllers.WidgetPreferenceController
 import com.g00fy2.developerwidget.data.DeviceDataItem
 import com.g00fy2.developerwidget.data.DeviceDataSource
 import com.g00fy2.developerwidget.data.devicebuild.BuildDataProvider
+import com.g00fy2.developerwidget.data.system.SystemDataProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -48,6 +49,8 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
         } else {
           view.setDeviceTitle(defaultDeviceName)
         }
+        view.setSubtitle(SystemDataProvider.getVersionAndSDK())
+        view.setDeviceTitleHint(defaultDeviceName)
       }
     }
   }
@@ -74,7 +77,7 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
       .plus(deviceDataSource.getSoftwareInfo())
       .plus(deviceDataSource.getHeaderItems())
       .toList()
-      .filter { (_, value) -> value.value.isNotBlank() || value.isHeader }
+      .filter { (_, value) -> (value.value.isNotBlank() || value.isHeader) && !value.value.equals("unknown", true) }
       .sortedWith(
         compareBy(
           { it.second.category.ordinal },

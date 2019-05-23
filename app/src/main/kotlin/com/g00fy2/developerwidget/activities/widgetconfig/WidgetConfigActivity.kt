@@ -21,7 +21,6 @@ import com.g00fy2.developerwidget.activities.about.AboutActivity
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.data.DeviceDataItem
-import com.g00fy2.developerwidget.data.DeviceDataSourceImpl
 import com.g00fy2.developerwidget.receiver.widget.WidgetProviderImpl
 import kotlinx.android.synthetic.main.activity_widget_config.*
 import javax.inject.Inject
@@ -130,16 +129,21 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
     }
   }
 
-  override fun showDeviceData(data: List<Pair<String, DeviceDataItem>>) {
-    setWidgetFields(data.toMap())
-    adapter.submitList(data)
-  }
+  override fun showDeviceData(data: List<Pair<String, DeviceDataItem>>) = adapter.submitList(data)
 
   override fun setDeviceTitle(title: String) {
     device_title_textview.text = title
     device_title_textview.visibility = View.VISIBLE
     device_title_edittextview.setText(title)
     device_title_edittextview.setSelection(device_title_edittextview.text.length)
+  }
+
+  override fun setDeviceTitleHint(hint: String) {
+    device_title_edittextview.hint = hint
+  }
+
+  override fun setSubtitle(data: Pair<String, String>) {
+    device_subtitle_textview.text = getString(R.string.subtitle).format(data.first, data.second)
   }
 
   override fun dispatchTouchEvent(event: MotionEvent): Boolean {
@@ -167,13 +171,6 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
     } else {
       hideKeyboard(device_title_edittextview)
     }
-  }
-
-  private fun setWidgetFields(data: Map<String, DeviceDataItem>) {
-    device_title_edittextview.hint = data[DeviceDataSourceImpl.DEVICE_NAME]?.value ?: ""
-    var subtitle = data[DeviceDataSourceImpl.RELEASE]?.let { getString(it.title) + " " + it.value + " | " } ?: ""
-    subtitle += data[DeviceDataSourceImpl.SDK]?.let { getString(it.title) + " " + it.value }
-    device_subtitle_textview.text = subtitle
   }
 
   companion object {

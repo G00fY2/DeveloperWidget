@@ -36,7 +36,7 @@ class DeviceDataSourceImpl @Inject constructor() : DeviceDataSource {
     data[BOOTLOADER] = DeviceDataItem(BuildDataProvider.getBootloader(), R.string.bootloader, Category.DEVICE)
     data[ID] = DeviceDataItem(BuildDataProvider.getID(), R.string.id, Category.DEVICE)
 
-    data[CODENAME] = DeviceDataItem(BuildDataProvider.getCodename(), R.string.codename, Category.DEVICE)
+    data[CODENAME] = DeviceDataItem(SystemDataProvider.getCodename(), R.string.codename, Category.DEVICE)
 
     data[RELEASE] = DeviceDataItem(SystemDataProvider.getAndroidVersion(), R.string.release, Category.SYSTEM)
     data[SDK] = DeviceDataItem(SystemDataProvider.getSDKLevel(), R.string.sdk, Category.SYSTEM)

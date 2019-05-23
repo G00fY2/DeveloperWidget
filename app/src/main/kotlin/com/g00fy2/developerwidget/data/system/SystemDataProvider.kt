@@ -9,9 +9,21 @@ class SystemDataProvider {
 
   companion object {
 
+    fun getVersionAndSDK(): Pair<String, String> = Pair(getAndroidVersion(), getSDKLevel())
+
     fun getAndroidVersion(): String = VERSION.RELEASE
 
-    fun getSDKLevel(): String = VERSION.SDK_INT.toString()
+    fun getCodename(): String = VERSION.CODENAME
+
+    fun getSDKLevel(): String {
+      getCodename().let {
+        return if (it.isBlank() || it.equals("REL", true)) {
+          VERSION.SDK_INT.toString()
+        } else {
+          it.toUpperCase()
+        }
+      }
+    }
 
     fun getPreviewSDK(): String {
       return if (SDK_INT >= VERSION_CODES.M) {
