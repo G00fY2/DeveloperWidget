@@ -4,7 +4,7 @@ buildscript {
     compileSdkVersion = 28
     minSdkVersion = 14
     targetSdkVersion = 28
-    androidGradleVersion = '3.5.0-beta02'
+    androidGradleVersion = '3.6.0-alpha01'
     gradleScanVersion = '2.2.1'
     versioningPluginVersion = '1.0.0'
 
