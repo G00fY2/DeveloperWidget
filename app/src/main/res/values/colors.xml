@@ -38,5 +38,5 @@
   <color name="nightGrey">#313235</color>
   <color name="nightDivider">#3c3c3c</color>
 
-  <color name="ic_launcher_background">@color/colorAccent</color>
+  <color name="ic_launcher_background">#1a73e8</color>
 </resources>
