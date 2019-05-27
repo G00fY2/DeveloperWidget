@@ -22,6 +22,10 @@ interface WidgetConfigContract {
 
     fun loadCustomDeviceName()
 
-    fun setCustomDeviceName(deviceName: String, persistent: Boolean = false)
+    fun setCustomDeviceName(deviceName: String, persistent: Boolean = false): Boolean
+
+    fun showManuallyAddWidgetNotice()
+
+    fun showHomescreen()
   }
 }

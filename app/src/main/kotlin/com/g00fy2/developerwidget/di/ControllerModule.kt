@@ -25,6 +25,10 @@ abstract class SingletonControllerModule {
   @Binds
   @Singleton
   abstract fun providesDayNightController(dayNightControllerImpl: DayNightControllerImpl): DayNightController
+
+  @Binds
+  @Singleton
+  abstract fun provideToastController(toastControllerImpl: ToastControllerImpl): ToastController
 }
 
 @Module
@@ -45,10 +49,6 @@ abstract class ActivityControllerModule {
   @Binds
   @ActivityScope
   abstract fun provideStringController(stringControllerImpl: StringControllerImpl): StringController
-
-  @Binds
-  @ActivityScope
-  abstract fun provideToastController(toastControllerImpl: ToastControllerImpl): ToastController
 
   @Binds
   @ActivityScope

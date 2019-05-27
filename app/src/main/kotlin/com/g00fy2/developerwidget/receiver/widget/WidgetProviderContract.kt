@@ -7,11 +7,17 @@ interface WidgetProviderContract {
 
   interface WidgetProvider {
 
-    fun updateWidgetData(data: Map<String, DeviceDataItem>, customDeviceNames: SparseArray<String>)
+    fun updateWidgetData(
+      appWidgetIds: IntArray,
+      data: Map<String, DeviceDataItem>,
+      customDeviceNames: SparseArray<String>
+    )
   }
 
   interface WidgetProviderPresenter {
 
     fun getDeviceData(widgetIDs: IntArray)
+
+    fun saveCustomDeviceName(widgetId: Int, customDeviceName: String): Boolean
   }
 }

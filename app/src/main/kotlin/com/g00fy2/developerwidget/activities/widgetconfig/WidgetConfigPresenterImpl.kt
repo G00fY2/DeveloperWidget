@@ -2,8 +2,11 @@ package com.g00fy2.developerwidget.activities.widgetconfig
 
 import androidx.lifecycle.Lifecycle.Event
 import androidx.lifecycle.OnLifecycleEvent
+import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BasePresenterImpl
+import com.g00fy2.developerwidget.controllers.IntentController
 import com.g00fy2.developerwidget.controllers.StringController
+import com.g00fy2.developerwidget.controllers.ToastController
 import com.g00fy2.developerwidget.controllers.WidgetPreferenceController
 import com.g00fy2.developerwidget.data.DeviceDataItem
 import com.g00fy2.developerwidget.data.DeviceDataSource
@@ -25,9 +28,14 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
   lateinit var stringController: StringController
   @Inject
   lateinit var widgetPreferenceController: WidgetPreferenceController
+  @Inject
+  lateinit var toastController: ToastController
+  @Inject
+  lateinit var intentController: IntentController
+
   private val defaultDeviceName by lazy { BuildDataProvider.getCombinedDeviceName() }
 
-  @OnLifecycleEvent(Event.ON_RESUME)
+  @OnLifecycleEvent(Event.ON_CREATE)
   override fun loadDeviceData() {
     launch {
       withContext(Dispatchers.IO) {
@@ -38,7 +46,7 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
     }
   }
 
-  @OnLifecycleEvent(Event.ON_RESUME)
+  @OnLifecycleEvent(Event.ON_CREATE)
   override fun loadCustomDeviceName() {
     launch {
       withContext(Dispatchers.IO) {
@@ -55,20 +63,23 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
     }
   }
 
-  override fun setCustomDeviceName(deviceName: String, persistent: Boolean) {
+  override fun setCustomDeviceName(deviceName: String, persistent: Boolean): Boolean {
     if (deviceName.isNotEmpty()) {
       view.setDeviceTitle(deviceName)
     } else {
       view.setDeviceTitle(defaultDeviceName)
     }
     if (persistent) {
-      if (deviceName == defaultDeviceName) {
+      return if (deviceName == defaultDeviceName) {
         widgetPreferenceController.saveCustomDeviceName("")
       } else {
         widgetPreferenceController.saveCustomDeviceName(deviceName)
       }
     }
+    return true
   }
+
+  override fun showHomescreen() = intentController.showHomescreen()
 
   private suspend fun getDeviceData(): List<Pair<String, DeviceDataItem>> {
     return deviceDataSource
@@ -85,4 +96,6 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
           { stringController.getString(it.second.title) })
       )
   }
+
+  override fun showManuallyAddWidgetNotice() = toastController.showToast(R.string.manually_add_widget)
 }

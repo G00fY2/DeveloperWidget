@@ -3,8 +3,10 @@ package com.g00fy2.developerwidget.controllers
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
+import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.receiver.widget.WidgetProviderImpl
 import com.g00fy2.developerwidget.utils.APPLICATION
 import javax.inject.Inject
@@ -15,6 +17,8 @@ class DayNightControllerImpl @Inject constructor() : DayNightController {
   @Inject
   @field:Named(APPLICATION)
   lateinit var context: Context
+  @Inject
+  lateinit var toastController: ToastController
 
   private val defaultMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
   private val sharedPreference by lazy {
@@ -36,6 +40,8 @@ class DayNightControllerImpl @Inject constructor() : DayNightController {
       AppCompatDelegate.MODE_NIGHT_NO -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
       else -> AppCompatDelegate.MODE_NIGHT_YES
     }.let {
+      // TODO remove if issuetracker.google.com/issues/131851825 is fixed
+      if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) toastController.showToast(R.string.day_night_issue)
       saveCustomDefaultMode(it)
       applyMode(it)
       updateWidgetTheme()

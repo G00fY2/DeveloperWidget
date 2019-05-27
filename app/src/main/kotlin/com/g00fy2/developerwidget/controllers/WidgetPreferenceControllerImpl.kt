@@ -32,7 +32,7 @@ class WidgetPreferenceControllerImpl @Inject constructor() : WidgetPreferenceCon
     sharedPreference.edit { putString(FILTERS, filters.distinct().joinToString(DELIMITER)) }
 
   override fun saveCustomDeviceName(deviceName: String) =
-    sharedPreference.edit { putString(CUSTOM_DEVICE_NAME, deviceName.trim()) }
+    sharedPreference.edit().putString(CUSTOM_DEVICE_NAME, deviceName.trim()).commit()
 
   override fun getCustomDeviceName() = (sharedPreference.getString(CUSTOM_DEVICE_NAME, "") ?: "")
 

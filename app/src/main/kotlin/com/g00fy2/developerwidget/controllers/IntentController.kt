@@ -11,4 +11,6 @@ interface IntentController {
   fun openAppSettings(packageName: String)
 
   fun sendMailToDeveloper()
+
+  fun showHomescreen()
 }

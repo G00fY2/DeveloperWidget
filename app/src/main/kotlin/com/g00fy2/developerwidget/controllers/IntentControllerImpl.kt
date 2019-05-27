@@ -61,6 +61,13 @@ class IntentControllerImpl @Inject constructor() : IntentController {
     })
   }
 
+  override fun showHomescreen() {
+    startActivity(Intent(Intent.ACTION_MAIN).apply {
+      addCategory(Intent.CATEGORY_HOME)
+      flags = Intent.FLAG_ACTIVITY_NEW_TASK
+    })
+  }
+
   private fun startActivity(intent: Intent) {
     if (intent.resolveActivity(context.packageManager) != null) {
       context.startActivity(intent)

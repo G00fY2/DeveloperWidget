@@ -30,8 +30,11 @@ class WidgetProviderPresenterImpl @Inject constructor() : WidgetProviderPresente
       withContext(Dispatchers.IO) {
         val data = deviceDataSource.getStaticDeviceData()
         val customDeviceNames = widgetsSettingsDataSource.getCustomDeviceNames(widgetIDs)
-        widgetProvider.updateWidgetData(data, customDeviceNames)
+        widgetProvider.updateWidgetData(widgetIDs, data, customDeviceNames)
       }
     }
   }
+
+  override fun saveCustomDeviceName(widgetId: Int, customDeviceName: String) =
+    widgetsSettingsDataSource.saveCustomDeviceName(widgetId, customDeviceName)
 }

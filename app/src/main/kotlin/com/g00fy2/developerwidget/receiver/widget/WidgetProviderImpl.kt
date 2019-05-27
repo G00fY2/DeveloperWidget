@@ -15,7 +15,7 @@ import com.g00fy2.developerwidget.activities.apkinstall.ApkActivity
 import com.g00fy2.developerwidget.activities.appmanager.AppsActivity
 import com.g00fy2.developerwidget.activities.widgetconfig.WidgetConfigActivity
 import com.g00fy2.developerwidget.controllers.DayNightController
-import com.g00fy2.developerwidget.controllers.DayNightControllerImpl.Companion.UPDATE_WIDGET_THEME
+import com.g00fy2.developerwidget.controllers.DayNightControllerImpl
 import com.g00fy2.developerwidget.data.DeviceDataItem
 import com.g00fy2.developerwidget.data.DeviceDataSourceImpl
 import com.g00fy2.developerwidget.receiver.widget.WidgetProviderContract.WidgetProvider
@@ -31,39 +31,48 @@ class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
   @Inject
   lateinit var dayNightController: DayNightController
 
-  private lateinit var appWidgetIds: IntArray
   private lateinit var appWidgetManager: AppWidgetManager
   private lateinit var context: Context
 
   override fun onReceive(context: Context, intent: Intent) {
     AndroidInjection.inject(this, context)
+    this.context = context
+    this.appWidgetManager = AppWidgetManager.getInstance(context)
     super.onReceive(context, intent)
 
-    AppWidgetManager.getInstance(context).let { widgetManager ->
-      if (intent.action == UPDATE_WIDGET_ACTION) {
-        if (intent.extras?.getBoolean(UPDATE_WIDGET_THEME) == true) {
-          onUpdate(
-            context,
-            widgetManager,
-            widgetManager.getAppWidgetIds(ComponentName(context, WidgetProviderImpl::class.java))
-          )
-        } else {
-          intent.extras?.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID)?.let {
-            onUpdate(context, widgetManager, intArrayOf(it))
-          }
+    if (intent.extras?.getBoolean(WidgetConfigActivity.EXTRA_APPWIDGET_FROM_PIN_APP) == true) {
+      val widgetId = intent.extras?.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID) ?: AppWidgetManager.INVALID_APPWIDGET_ID
+      val customDeviceName = intent.extras?.getString(WidgetConfigActivity.EXTRA_APPWIDGET_CUSTOM_DEVICE_NAME) ?: ""
+      if (widgetId != AppWidgetManager.INVALID_APPWIDGET_ID && customDeviceName.isNotBlank()) {
+        presenter.saveCustomDeviceName(widgetId, customDeviceName)
+        presenter.getDeviceData(intArrayOf(widgetId))
+      }
+      context.sendBroadcast(Intent(WidgetConfigActivity.EXTRA_APPWIDGET_CLOSE_CONFIGURE))
+    }
+    if (intent.action == UPDATE_WIDGET_ACTION) {
+      if (intent.extras?.getBoolean(DayNightControllerImpl.UPDATE_WIDGET_THEME) == true) {
+        onUpdate(
+          context,
+          appWidgetManager,
+          appWidgetManager.getAppWidgetIds(ComponentName(context, WidgetProviderImpl::class.java))
+        )
+      } else {
+        intent.extras?.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID)?.let {
+          onUpdate(context, appWidgetManager, intArrayOf(it))
         }
       }
     }
   }
 
   override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-    this.context = context
-    this.appWidgetManager = appWidgetManager
-    this.appWidgetIds = appWidgetIds
     presenter.getDeviceData(appWidgetIds)
   }
 
-  override fun updateWidgetData(data: Map<String, DeviceDataItem>, customDeviceNames: SparseArray<String>) {
+  override fun updateWidgetData(
+    appWidgetIds: IntArray,
+    data: Map<String, DeviceDataItem>,
+    customDeviceNames: SparseArray<String>
+  ) {
     val layout = when (dayNightController.getCurrentDefaultMode()) {
       AppCompatDelegate.MODE_NIGHT_NO -> R.layout.appwidget_layout_day
       AppCompatDelegate.MODE_NIGHT_YES -> R.layout.appwidget_layout_night

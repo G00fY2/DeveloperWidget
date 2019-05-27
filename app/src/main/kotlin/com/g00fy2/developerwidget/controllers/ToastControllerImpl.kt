@@ -2,14 +2,14 @@ package com.g00fy2.developerwidget.controllers
 
 import android.content.Context
 import android.widget.Toast
-import com.g00fy2.developerwidget.utils.ACTIVITY
+import com.g00fy2.developerwidget.utils.APPLICATION
 import javax.inject.Inject
 import javax.inject.Named
 
 class ToastControllerImpl @Inject constructor() : ToastController {
 
   @Inject
-  @field:Named(ACTIVITY)
+  @field:Named(APPLICATION)
   lateinit var context: Context
   private var toast: Toast? = null
 
