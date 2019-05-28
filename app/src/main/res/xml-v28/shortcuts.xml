@@ -30,7 +30,7 @@
       android:shortcutShortLabel="@string/developer_settings">
     <intent
         android:action="android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS"
-        android:targetClass="com.android.settings.DevelopmentSettings"
+        android:targetClass="com.android.settings.Settings$DevelopmentSettingsDashboardActivity"
         android:targetPackage="com.android.settings"/>
   </shortcut>
   <shortcut
