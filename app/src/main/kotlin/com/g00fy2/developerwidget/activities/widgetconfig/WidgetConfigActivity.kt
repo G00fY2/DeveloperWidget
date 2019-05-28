@@ -8,10 +8,8 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.pm.PackageManager
 import android.graphics.PorterDuff
 import android.graphics.Rect
-import android.os.Build
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
@@ -61,7 +59,6 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
 
   public override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    registerReceiver(closeConfigureActivityReceiver, IntentFilter(EXTRA_APPWIDGET_CLOSE_CONFIGURE))
     setResult(Activity.RESULT_CANCELED)
 
     intent.extras?.let {
@@ -83,6 +80,10 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
     recyclerview.isNestedScrollingEnabled = false
     recyclerview.adapter = adapter
 
+    // register broadcast receiver to finish activity after pin widget
+    if (VERSION.SDK_INT >= VERSION_CODES.O) {
+      registerReceiver(closeConfigureActivityReceiver, IntentFilter(EXTRA_APPWIDGET_CLOSE_CONFIGURE))
+    }
     // set up webview pre oreo to get implementation information
     if (VERSION.SDK_INT in VERSION_CODES.LOLLIPOP until VERSION_CODES.O) {
       WebView(this)
@@ -97,7 +98,7 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
 
   override fun onDestroy() {
     super.onDestroy()
-    unregisterReceiver(closeConfigureActivityReceiver)
+    if (VERSION.SDK_INT >= VERSION_CODES.O) unregisterReceiver(closeConfigureActivityReceiver)
   }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -222,9 +223,11 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
   }
 
   private fun initPinAppWidget() {
-    if (VERSION.SDK_INT >= VERSION_CODES.O && !isNokiaLauncher()) {
+    var supported = false
+    if (VERSION.SDK_INT >= VERSION_CODES.O) {
       getSystemService<AppWidgetManager>()?.let { appWidgetManager ->
         if (appWidgetManager.isRequestPinAppWidgetSupported) {
+          supported = true
           val successCallback = PendingIntent.getBroadcast(
             this, 0, Intent(applicationContext, WidgetProviderImpl::class.java).apply {
               putExtra(EXTRA_APPWIDGET_FROM_PIN_APP, true)
@@ -237,22 +240,10 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
             null,
             successCallback
           )
-        } else {
-          presenter.showManuallyAddWidgetNotice()
         }
       }
-    } else {
-      presenter.showManuallyAddWidgetNotice()
     }
-  }
-
-  // current HMD Global / Nokia launcher crashes when using app widget pinning
-  private fun isNokiaLauncher(): Boolean {
-    if (!Build.MANUFACTURER.startsWith("HMD")) return false
-    return packageManager.resolveActivity(
-      Intent("android.intent.action.MAIN").apply { addCategory("android.intent.category.HOME") },
-      PackageManager.MATCH_DEFAULT_ONLY
-    ).activityInfo.packageName == "com.android.launcher3"
+    if (!supported) presenter.showManuallyAddWidgetNotice()
   }
 
   private fun widgetCount() = AppWidgetManager.getInstance(this).getAppWidgetIds(
