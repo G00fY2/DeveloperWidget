@@ -154,12 +154,18 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
     if (showAddWidget) {
       apply_button.apply {
         visibility = View.VISIBLE
-        if (updateExistingWidget) setText(R.string.update_widget)
-        setOnClickListener {
-          when {
-            launchedFromAppLauncher -> initPinAppWidget()
-            updateExistingWidget -> updateWidgetAndFinish(true)
-            else -> updateWidgetAndFinish(false)
+        when {
+          launchedFromAppLauncher -> {
+            setOnClickListener { initPinAppWidget() }
+            setText(R.string.create_widget)
+          }
+          updateExistingWidget -> {
+            setOnClickListener { updateWidgetAndFinish(true) }
+            setText(R.string.update_widget)
+          }
+          else -> {
+            setOnClickListener { updateWidgetAndFinish(false) }
+            setText(R.string.add_widget)
           }
         }
       }

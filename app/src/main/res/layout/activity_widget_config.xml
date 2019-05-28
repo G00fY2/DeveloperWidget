@@ -80,7 +80,7 @@
         />
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/apply_button"
-        android:layout_width="164dp"
+        android:layout_width="188dp"
         android:layout_height="48dp"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="@dimen/action_bar_inset"

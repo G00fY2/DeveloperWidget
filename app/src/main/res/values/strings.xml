@@ -17,8 +17,9 @@
   <string name="message_delete_multi">Delete %s selected APK files?</string>
   <string name="developer_settings">Developer Settings</string>
   <string name="add_widget">Add developer widget</string>
-  <string name="subtitle">Android %s | API Level %s</string>
+  <string name="create_widget">Create developer widget</string>
   <string name="update_widget">Update developer widget</string>
+  <string name="subtitle">Android %s | API Level %s</string>
   <string name="apk_version">%1$s (%2$s)</string>
   <string name="app_version">Version %s</string>
   <string name="app_description">App description</string>
