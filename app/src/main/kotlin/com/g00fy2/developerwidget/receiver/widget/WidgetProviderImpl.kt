@@ -80,7 +80,7 @@ class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
     }
     for (widgetId in appWidgetIds) {
       Timber.d("onUpdate widget $widgetId")
-      RemoteViews(context.packageName, R.layout.empty_layout).let {
+      RemoteViews(context.packageName, R.layout.appwidget_layout_placeholder).let {
         appWidgetManager.updateAppWidget(widgetId, it)
       }
       RemoteViews(context.packageName, layout).let {
@@ -115,8 +115,6 @@ class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
       PendingIntent.getActivity(context, widgetId, configIntent, PendingIntent.FLAG_UPDATE_CURRENT)
     views.setOnClickPendingIntent(R.id.device_info_linearlayout, configPendingIntent)
 
-//    val settingsIntent = Intent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
-//    val settingsPendingIntent = PendingIntent.getActivity(context, 0, settingsIntent, 0)
     val appIntent = Intent(context, AppsActivity::class.java)
     appIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
     val appPendingIntent =
