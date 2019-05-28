@@ -7,7 +7,7 @@
       android:shortcutLongLabel="@string/app_settings"
       android:shortcutShortLabel="@string/app_settings">
     <intent
-        android:action="android.intent.action.ACTION_MAIN"
+        android:action="android.intent.action.VIEW"
         android:targetClass="com.g00fy2.developerwidget.activities.appmanager.AppsActivity"
         android:targetPackage="com.g00fy2.developerwidget"/>
   </shortcut>
@@ -18,7 +18,7 @@
       android:shortcutLongLabel="@string/install_apk"
       android:shortcutShortLabel="@string/install_apk">
     <intent
-        android:action="android.intent.action.ACTION_MAIN"
+        android:action="android.intent.action.VIEW"
         android:targetClass="com.g00fy2.developerwidget.activities.apkinstall.ApkActivity"
         android:targetPackage="com.g00fy2.developerwidget"/>
   </shortcut>
