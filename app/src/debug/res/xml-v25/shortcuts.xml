@@ -22,4 +22,26 @@
         android:targetClass="com.g00fy2.developerwidget.activities.apkinstall.ApkActivity"
         android:targetPackage="com.g00fy2.developerwidget.debug"/>
   </shortcut>
+  <shortcut
+      android:enabled="true"
+      android:icon="@drawable/ic_settings"
+      android:shortcutId="devsettings"
+      android:shortcutLongLabel="@string/developer_settings"
+      android:shortcutShortLabel="@string/developer_settings">
+    <intent
+        android:action="android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS"
+        android:targetClass="com.android.settings.DevelopmentSettings"
+        android:targetPackage="com.android.settings"/>
+  </shortcut>
+  <shortcut
+      android:enabled="true"
+      android:icon="@drawable/ic_language"
+      android:shortcutId="langsettings"
+      android:shortcutLongLabel="@string/language_settings"
+      android:shortcutShortLabel="@string/language_settings">
+    <intent
+        android:action="android.provider.Settings.ACTION_LOCALE_SETTINGS"
+        android:targetClass="com.android.settings.Settings$LocalePickerActivity"
+        android:targetPackage="com.android.settings"/>
+  </shortcut>
 </shortcuts>
