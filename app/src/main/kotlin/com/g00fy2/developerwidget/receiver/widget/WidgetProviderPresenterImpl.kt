@@ -37,4 +37,6 @@ class WidgetProviderPresenterImpl @Inject constructor() : WidgetProviderPresente
 
   override fun saveCustomDeviceName(widgetId: Int, customDeviceName: String) =
     widgetsSettingsDataSource.saveCustomDeviceName(widgetId, customDeviceName)
+
+  override fun clearWidgetPreferences(widgetId: Int) = widgetsSettingsDataSource.clearWidgetPreferences(widgetId)
 }

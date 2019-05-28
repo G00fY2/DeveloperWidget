@@ -37,4 +37,9 @@ class WidgetsSettingsDataSourceImpl @Inject constructor() : WidgetsSettingsDataS
       context.packageName + ".preferences_" + widgetId,
       Context.MODE_PRIVATE
     ).edit().putString(WidgetPreferenceControllerImpl.CUSTOM_DEVICE_NAME, customDeviceName.trim()).commit()
+
+  override fun clearWidgetPreferences(widgetId: Int) = context.getSharedPreferences(
+    context.packageName + ".preferences_" + widgetId,
+    Context.MODE_PRIVATE
+  ).edit().clear().apply()
 }

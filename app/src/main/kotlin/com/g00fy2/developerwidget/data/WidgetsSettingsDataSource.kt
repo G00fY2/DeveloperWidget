@@ -7,4 +7,6 @@ interface WidgetsSettingsDataSource {
   suspend fun getCustomDeviceNames(widgetIds: IntArray): SparseArray<String>
 
   fun saveCustomDeviceName(widgetId: Int, customDeviceName: String): Boolean
+
+  fun clearWidgetPreferences(widgetId: Int)
 }

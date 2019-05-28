@@ -45,11 +45,10 @@ class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
       val customDeviceName = intent.extras?.getString(WidgetConfigActivity.EXTRA_APPWIDGET_CUSTOM_DEVICE_NAME) ?: ""
       if (widgetId != AppWidgetManager.INVALID_APPWIDGET_ID && customDeviceName.isNotBlank()) {
         presenter.saveCustomDeviceName(widgetId, customDeviceName)
-        presenter.getDeviceData(intArrayOf(widgetId))
       }
       context.sendBroadcast(Intent(WidgetConfigActivity.EXTRA_APPWIDGET_CLOSE_CONFIGURE))
     }
-    if (intent.action == UPDATE_WIDGET_ACTION) {
+    if (intent.action == UPDATE_WIDGET_MANUALLY_ACTION) {
       if (intent.extras?.getBoolean(DayNightControllerImpl.UPDATE_WIDGET_THEME) == true) {
         onUpdate(
           context,
@@ -66,6 +65,11 @@ class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
 
   override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
     presenter.getDeviceData(appWidgetIds)
+  }
+
+  override fun onDeleted(context: Context?, appWidgetIds: IntArray) {
+    Timber.d("onDeleted widget %s", appWidgetIds.first())
+    presenter.clearWidgetPreferences(appWidgetIds.first())
   }
 
   override fun updateWidgetData(
@@ -127,6 +131,6 @@ class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
   }
 
   companion object {
-    const val UPDATE_WIDGET_ACTION = BuildConfig.APPLICATION_ID + ".APPWIDGET_MANUAL_UPDATE"
+    const val UPDATE_WIDGET_MANUALLY_ACTION = BuildConfig.APPLICATION_ID + ".APPWIDGET_MANUAL_UPDATE"
   }
 }

@@ -19,5 +19,7 @@ interface WidgetProviderContract {
     fun getDeviceData(widgetIDs: IntArray)
 
     fun saveCustomDeviceName(widgetId: Int, customDeviceName: String): Boolean
+
+    fun clearWidgetPreferences(widgetId: Int)
   }
 }

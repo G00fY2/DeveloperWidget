@@ -216,7 +216,7 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
       setResult(Activity.RESULT_OK, Intent().apply { putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId) })
     }
     sendBroadcast(Intent(applicationContext, WidgetProviderImpl::class.java).apply {
-      action = WidgetProviderImpl.UPDATE_WIDGET_ACTION
+      action = WidgetProviderImpl.UPDATE_WIDGET_MANUALLY_ACTION
       putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
     })
     finish()
@@ -230,6 +230,7 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
           supported = true
           val successCallback = PendingIntent.getBroadcast(
             this, 0, Intent(applicationContext, WidgetProviderImpl::class.java).apply {
+              action = WidgetProviderImpl.UPDATE_WIDGET_MANUALLY_ACTION
               putExtra(EXTRA_APPWIDGET_FROM_PIN_APP, true)
               putExtra(EXTRA_APPWIDGET_CUSTOM_DEVICE_NAME, device_title_edittextview.text.toString())
             },

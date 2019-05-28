@@ -54,7 +54,7 @@ class DayNightControllerImpl @Inject constructor() : DayNightController {
 
   private fun updateWidgetTheme() {
     context.sendBroadcast(Intent(context, WidgetProviderImpl::class.java).apply {
-      action = WidgetProviderImpl.UPDATE_WIDGET_ACTION
+      action = WidgetProviderImpl.UPDATE_WIDGET_MANUALLY_ACTION
       putExtra(UPDATE_WIDGET_THEME, true)
     })
   }
