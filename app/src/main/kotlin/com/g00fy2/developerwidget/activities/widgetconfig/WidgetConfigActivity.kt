@@ -8,8 +8,11 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.ShortcutInfo
+import android.content.pm.ShortcutManager
 import android.graphics.PorterDuff
 import android.graphics.Rect
+import android.graphics.drawable.Icon
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
@@ -59,6 +62,7 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
 
   public override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    addDynamicSettingsShortcuts()
     setResult(Activity.RESULT_CANCELED)
 
     intent.extras?.let {
@@ -251,6 +255,29 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
       }
     }
     if (!supported) presenter.showManuallyAddWidgetNotice()
+  }
+
+
+  private fun addDynamicSettingsShortcuts() {
+    if (VERSION.SDK_INT >= VERSION_CODES.N_MR1) {
+      getSystemService<ShortcutManager>()?.let { shortcutManager ->
+        if (shortcutManager.dynamicShortcuts.isEmpty()) {
+          val devSettingsShortcut = ShortcutInfo.Builder(this@WidgetConfigActivity, "devsettings").apply {
+            setShortLabel(getString(R.string.developer_settings))
+            setLongLabel(getString(R.string.developer_settings))
+            setIcon(Icon.createWithResource(this@WidgetConfigActivity, R.drawable.ic_settings))
+            setIntent(Intent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS))
+          }.build()
+          val langSettingsShortcut = ShortcutInfo.Builder(this@WidgetConfigActivity, "langsettings").apply {
+            setShortLabel(getString(R.string.language_settings))
+            setLongLabel(getString(R.string.language_settings))
+            setIcon(Icon.createWithResource(this@WidgetConfigActivity, R.drawable.ic_language))
+            setIntent(Intent(android.provider.Settings.ACTION_LOCALE_SETTINGS))
+          }.build()
+          shortcutManager.addDynamicShortcuts(listOf(devSettingsShortcut, langSettingsShortcut))
+        }
+      }
+    }
   }
 
   private fun widgetCount() = AppWidgetManager.getInstance(this).getAppWidgetIds(

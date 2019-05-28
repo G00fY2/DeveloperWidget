@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+  <shortcut
+      android:enabled="true"
+      android:icon="@drawable/ic_apps_grid"
+      android:shortcutId="appmanager"
+      android:shortcutLongLabel="@string/app_settings"
+      android:shortcutShortLabel="@string/app_settings">
+    <intent
+        android:action="android.intent.action.VIEW"
+        android:targetClass="com.g00fy2.developerwidget.activities.appmanager.AppsActivity"
+        android:targetPackage="com.g00fy2.developerwidget.debug"/>
+  </shortcut>
+  <shortcut
+      android:enabled="true"
+      android:icon="@drawable/ic_apps"
+      android:shortcutId="apkinstall"
+      android:shortcutLongLabel="@string/install_apk"
+      android:shortcutShortLabel="@string/install_apk">
+    <intent
+        android:action="android.intent.action.VIEW"
+        android:targetClass="com.g00fy2.developerwidget.activities.apkinstall.ApkActivity"
+        android:targetPackage="com.g00fy2.developerwidget.debug"/>
+  </shortcut>
+</shortcuts>
