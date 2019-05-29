@@ -1,20 +1,32 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
-    android:viewportHeight="24.0"
-    android:viewportWidth="24.0"
-    android:width="24dp">
-  <group
-      android:pivotX="12"
-      android:pivotY="12"
-      android:scaleX="0.625"
-      android:scaleY="0.625">
-    <path
-        android:fillColor="#1a73e8"
-        android:pathData="M6 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6 12c1.1 0 2-.9 2-2s-.9-2-2-2-2
+<!--suppress AndroidElementNotAllowed -->
+<layer-list>
+  <item>
+    <shape xmlns:android="http://schemas.android.com/apk/res/android"
+        android:shape="oval">
+      <solid
+          android:color="@color/white"/>
+    </shape>
+  </item>
+  <item>
+    <vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:height="24dp"
+        android:viewportHeight="24"
+        android:viewportWidth="24"
+        android:width="24dp">
+      <group
+          android:pivotX="12"
+          android:pivotY="12"
+          android:scaleX="0.625"
+          android:scaleY="0.625">
+        <path
+            android:fillColor="#1a73e8"
+            android:pathData="M6 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6 12c1.1 0 2-.9 2-2s-.9-2-2-2-2
 .9-2 2 .9 2 2 2zm-6 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0-6c1.1 0 2-.9
 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2
 2zm4-8c0 1.1 .9 2 2 2s2-.9 2-2-.9-2-2-2-2 .9-2 2zm-4 2c1.1 0 2-.9
 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2
 2zm0 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/>
-  </group>
-</vector>
+      </group>
+    </vector>
+  </item>
+</layer-list>

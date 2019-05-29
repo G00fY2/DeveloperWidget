@@ -1,5 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
-<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
-    android:src="@drawable/ic_settings_development_alpha"
-    android:tint="#1a73e8"/>
-
+<!--suppress ALL -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+  <item
+      android:gravity="center"
+      android:height="56dp"
+      android:width="56dp">
+    <shape
+        android:shape="oval">
+      <solid
+          android:color="@color/white"/>
+    </shape>
+  </item>
+  <item
+      android:gravity="center"
+      android:height="34dp"
+      android:width="34dp">
+    <bitmap
+        android:src="@drawable/ic_settings_development_alpha"
+        android:tint="#1a73e8"/>
+  </item>
+</layer-list>
