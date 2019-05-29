@@ -13,8 +13,8 @@
   </item>
   <item
       android:gravity="center"
-      android:height="34dp"
-      android:width="34dp">
+      android:height="36dp"
+      android:width="36dp">
     <bitmap
         android:src="@drawable/ic_settings_development_alpha"
         android:tint="#1a73e8"/>
