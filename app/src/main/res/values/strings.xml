@@ -25,6 +25,7 @@
   <string name="app_version">Version %s</string>
   <string name="app_description">App description</string>
   <string name="about">About</string>
+  <string name="create_shortcut">Create shortcut</string>
   <string name="privacy_policy">Privacy Policy</string>
   <string name="license">License</string>
   <string name="mit_license">MIT-License</string>

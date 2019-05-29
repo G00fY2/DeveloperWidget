@@ -54,6 +54,15 @@
         android:label="@string/about"
         android:screenOrientation="portrait"/>
 
+    <activity
+        android:name=".activities.shortcut.CreateShortcutActivity"
+        android:label="@string/create_shortcut"
+        android:screenOrientation="portrait">
+      <intent-filter>
+        <action android:name="android.intent.action.CREATE_SHORTCUT"/>
+      </intent-filter>
+    </activity>
+
     <receiver android:name=".receiver.widget.WidgetProviderImpl">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
