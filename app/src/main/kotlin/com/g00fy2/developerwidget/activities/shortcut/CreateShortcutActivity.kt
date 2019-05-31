@@ -14,13 +14,14 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.getSystemService
 import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import kotlinx.android.synthetic.main.activity_create_shortcut.*
 import javax.inject.Inject
 
 @TargetApi(VERSION_CODES.N_MR1)
-class CreateShortcutActivity : BaseActivity(com.g00fy2.developerwidget.R.layout.activity_create_shortcut),
+class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
   CreateShortcutContract.CreateShortcutView {
 
   @Inject

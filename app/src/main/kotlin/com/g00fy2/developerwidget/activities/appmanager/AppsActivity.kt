@@ -18,7 +18,6 @@ import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.g00fy2.developerwidget.R
-import com.g00fy2.developerwidget.R.string
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.utils.AnimationUtils
@@ -140,7 +139,7 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
 
   override fun toggleResultView(installedAppPackages: List<AppInfo>, filters: List<String>) {
     adapter.initialList(installedAppPackages, filters)
-    show_all_textview.text = getString(string.show_all_apps).format(installedAppPackages.size)
+    show_all_textview.text = getString(R.string.show_all_apps).format(installedAppPackages.size)
     app_filter_info.visibility = if (filters.isEmpty() || installedAppPackages.isEmpty()) View.GONE else View.VISIBLE
     if (filter_edittext.text.toString().isNotEmpty()) {
       adapter.updateAppFilter(filter_edittext.text.toString())
