@@ -24,7 +24,6 @@ import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.utils.AnimationUtils
 import com.g00fy2.developerwidget.utils.DIALOG_ACTIVITY_HEIGHT_FACTOR
 import com.g00fy2.developerwidget.utils.DIALOG_ACTIVITY_WIDTH_FACTOR
-import com.g00fy2.developerwidget.utils.UiUtils
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_apps.*
 import kotlinx.android.synthetic.main.app_filter_info.*
@@ -173,7 +172,7 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
     if (filter_linearlayout.isVisible) {
       if (presenter.getCurrentFilter().isNotEmpty()) AnimationUtils.expandView(app_filter_info, true)
       AnimationUtils.collapseView(filter_linearlayout)
-      UiUtils.hideKeyboard(this)
+      hideKeyboard(filter_edittext)
     } else {
       if (app_filter_info.isVisible) AnimationUtils.collapseView(app_filter_info, true)
       filter_edittext.text.clear()
