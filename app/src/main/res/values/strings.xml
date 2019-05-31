@@ -23,7 +23,7 @@
   <string name="subtitle">Android %1$s | API Level %2$s</string>
   <string name="apk_version">%1$s (%2$s)</string>
   <string name="app_version">Version %s</string>
-  <string name="app_description">App description</string>
+  <string name="app_description">A modern design, open source toolset for Android Developers.</string>
   <string name="about">About</string>
   <string name="create_shortcut">Create shortcut</string>
   <string name="privacy_policy">Privacy Policy</string>

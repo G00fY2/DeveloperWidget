@@ -45,9 +45,7 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
     setActionbarElevationListener(about_root_scrollview)
 
-    app_version_textview.text =
-      String.format(getString(R.string.app_version), BuildConfig.VERSION_NAME)
-    app_desc_textview.text = getString(R.string.app_description)
+    app_version_textview.text = String.format(getString(R.string.app_version), BuildConfig.VERSION_NAME)
 
     theme_item.init {
       title(R.string.app_theme)
