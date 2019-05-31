@@ -1,18 +1,22 @@
 <!--suppress AndroidElementNotAllowed -->
-<layer-list>
-  <item>
-    <shape xmlns:android="http://schemas.android.com/apk/res/android"
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+      android:gravity="center"
+      android:height="56dp"
+      android:width="56dp">
+    <shape
         android:shape="oval">
       <solid
           android:color="@color/white"/>
     </shape>
   </item>
-  <item>
-    <vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:height="24dp"
+  <item
+      android:gravity="center">
+    <vector
+        android:height="56dp"
         android:viewportHeight="24"
         android:viewportWidth="24"
-        android:width="24dp">
+        android:width="56dp">
       <group
           android:pivotX="12"
           android:pivotY="12"

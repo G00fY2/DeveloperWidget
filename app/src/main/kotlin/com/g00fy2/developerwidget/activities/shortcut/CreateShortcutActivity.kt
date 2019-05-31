@@ -5,22 +5,22 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
-import androidx.annotation.DrawableRes
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.getSystemService
+import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.g00fy2.developerwidget.R
-import com.g00fy2.developerwidget.activities.widgetconfig.WidgetConfigActivity
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import kotlinx.android.synthetic.main.activity_create_shortcut.*
 import javax.inject.Inject
 
-
 @TargetApi(VERSION_CODES.N_MR1)
-class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
+class CreateShortcutActivity : BaseActivity(com.g00fy2.developerwidget.R.layout.activity_create_shortcut),
   CreateShortcutContract.CreateShortcutView {
 
   @Inject
@@ -52,14 +52,10 @@ class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
       if (VERSION.SDK_INT >= VERSION_CODES.O) {
         shortcutIntent = shortcutManager?.createShortcutResultIntent(shortcutInfo)
       } else {
-
-        // TODO implement pre oreo shortcuts
-        val icon = Intent.ShortcutIconResource.fromContext(this, getShortcutIcon(shortcutInfo))
-
         shortcutIntent = Intent().apply {
-          putExtra(Intent.EXTRA_SHORTCUT_INTENT, getOpenShortcutActivityIntent(shortcutInfo))
-          putExtra(Intent.EXTRA_SHORTCUT_NAME, getShortcutName(shortcutInfo))
-          putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon)
+          putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutInfo.intent)
+          putExtra(Intent.EXTRA_SHORTCUT_NAME, shortcutInfo.shortLabel)
+          putExtra(Intent.EXTRA_SHORTCUT_ICON, getBadgedIconCompat(shortcutInfo))
         }
       }
     }
@@ -68,16 +64,26 @@ class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
     finish()
   }
 
-  private fun getShortcutName(shortcutInfo: ShortcutInfo): CharSequence {
-    return shortcutInfo.shortLabel ?: resources.getString(R.string.app_name)
+  @TargetApi(VERSION_CODES.N_MR1)
+  private fun getBadgedIconCompat(shortcutInfo: ShortcutInfo): Bitmap {
+    val appIcon = applicationInfo.loadIcon(packageManager)
+    val defaultSize = (DEFAULT_ICON_SIZE_DP * resources.displayMetrics.density).toInt()
+
+    (Class.forName("android.content.pm.ShortcutInfo").getMethod("getIconResourceId").invoke(shortcutInfo) as Int?)?.let { iconRes ->
+      AppCompatResources.getDrawable(this, iconRes)?.toBitmap(defaultSize, defaultSize)?.let { iconBitmap ->
+        val w = iconBitmap.width
+        val h = iconBitmap.height
+        appIcon.setBounds(w / 2, h / 2, w, h)
+        appIcon.draw(Canvas(iconBitmap))
+
+        return iconBitmap
+      }
+    }
+
+    return appIcon.toBitmap(defaultSize, defaultSize)
   }
 
-  private fun getOpenShortcutActivityIntent(shortcutInfo: ShortcutInfo): Intent {
-    return Intent(this, WidgetConfigActivity::class.java)
-  }
-
-  @DrawableRes
-  private fun getShortcutIcon(shortcutInfo: ShortcutInfo): Int {
-    return R.mipmap.ic_launcher
+  companion object {
+    private const val DEFAULT_ICON_SIZE_DP = 60f
   }
 }
