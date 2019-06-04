@@ -9,7 +9,7 @@ env:
   global:
   - ANDROID_API_LEVEL=28
   - ANDROID_BUILD_TOOLS_VERSION=28.0.3
-  # For updates check developer.android.com/studio#downloads (current 26.1.1)
+  # for updates check developer.android.com/studio#downloads (current 26.1.1)
   - ANDROID_SDK_TOOLS=sdk-tools-linux-4333796.zip
 cache:
   directories:
@@ -26,14 +26,14 @@ android_phases:
   # check if OpenJDK8 is installed and install if missing
   - if ! dpkg -s openjdk-8-jdk >/dev/null 2>&1; then sudo apt-get update; sudo apt-get install openjdk-8-jdk; fi
   - java -version
-  # print available java versions with their path (must contain java-8-openjdk-amd64)
+  # print available Java versions with their path (must contain java-8-openjdk-amd64)
   - sudo update-alternatives --config java
   # set JAVA_HOME path
   - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-  # download und unzip Android SDK Tools
+  # download and unzip Android SDK command line tools
   - wget -nv https://dl.google.com/android/repository/$ANDROID_SDK_TOOLS
   - unzip -q $ANDROID_SDK_TOOLS -d $HOME/sdk
-  # set SDK Tools path variable and ANDROID_HOME
+  # set SDK tools path variable and ANDROID_HOME
   - export PATH=$PATH:$HOME/sdk/tools/bin
   - export ANDROID_HOME=$HOME/sdk
   # create empty cfg file to prevent sdkmanager warning message
