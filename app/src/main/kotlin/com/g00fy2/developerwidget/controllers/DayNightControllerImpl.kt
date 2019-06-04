@@ -33,9 +33,6 @@ class DayNightControllerImpl @Inject constructor() : DayNightController {
 
   override fun getCurrentDefaultMode() = AppCompatDelegate.getDefaultNightMode()
 
-  override fun isInNightMode() =
-    context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_NO
-
   override fun toggleMode() {
     when (getCurrentDefaultMode()) {
       AppCompatDelegate.MODE_NIGHT_YES -> AppCompatDelegate.MODE_NIGHT_NO

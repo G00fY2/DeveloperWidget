@@ -8,7 +8,5 @@ interface DayNightController {
 
   fun getCurrentDefaultMode(): Int
 
-  fun isInNightMode(): Boolean
-
   fun toggleMode()
 }

@@ -1,5 +1,6 @@
 package com.g00fy2.developerwidget.base
 
+import android.content.res.Configuration
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
@@ -58,7 +59,7 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity
 
   private fun initCompatNavigationBar() {
     // api 27+ allow applying flag via xml (windowLightNavigationBar)
-    if (VERSION.SDK_INT == VERSION_CODES.O && dayNightController.isInNightMode()) {
+    if (VERSION.SDK_INT == VERSION_CODES.O && isInNightMode()) {
       window.decorView.let { view ->
         view.systemUiVisibility.let { flags ->
           view.systemUiVisibility = flags or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
@@ -66,6 +67,10 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity
       }
     }
   }
+
+  // TODO move back to controller if https://issuetracker.google.com/issues/134379747 should get fixed
+  private fun isInNightMode() =
+    resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_NO
 
   abstract fun providePresenter(): BaseContract.BasePresenter
 }
