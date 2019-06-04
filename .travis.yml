@@ -3,6 +3,8 @@ os: linux
 dist: xenial
 group: stable
 sudo: required
+git:
+  depth: false
 env:
   global:
   - ANDROID_API_LEVEL=28
@@ -29,7 +31,7 @@ android_phases:
   # set JAVA_HOME path
   - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
   # download und unzip Android SDK Tools
-  - wget https://dl.google.com/android/repository/$ANDROID_SDK_TOOLS
+  - wget -nv https://dl.google.com/android/repository/$ANDROID_SDK_TOOLS
   - unzip -q $ANDROID_SDK_TOOLS -d $HOME/sdk
   # set SDK Tools path variable and ANDROID_HOME
   - export PATH=$PATH:$HOME/sdk/tools/bin
@@ -58,7 +60,6 @@ android_phases:
   - echo "org.gradle.caching=true" >> $HOME/.gradle/gradle.properties
   # log all gradle warnings
   - echo "org.gradle.warning.mode=all" >> $HOME/.gradle/gradle.properties
-
 - phase: &before_cache
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -70,7 +71,7 @@ android_phases:
   - rm -f  $HOME/.gradle/caches/journal-1/journal-1.lock
   - rm -f  $HOME/.gradle/caches/transforms-1/transforms-1.lock
   - rm -f  $HOME/.gradle/caches/user-id.txt.lock
-  # only cache last gradle version used by the wrapper
+  # only cache latest gradle version used by the wrapper
   # list content in wrapper/dist sorted by modification time and remove entries starting by the second entry
   - ls -d $HOME/.gradle/wrapper/dists/* -1t | tail -n +2 | xargs rm -rf
 
