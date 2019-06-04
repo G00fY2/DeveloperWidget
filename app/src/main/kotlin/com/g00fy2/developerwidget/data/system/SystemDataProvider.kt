@@ -1,7 +1,6 @@
 package com.g00fy2.developerwidget.data.system
 
 import android.os.Build.VERSION
-import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES
 import com.g00fy2.versioncompare.Version
 
@@ -26,7 +25,7 @@ class SystemDataProvider {
     }
 
     fun getPreviewSDK(): String {
-      return if (SDK_INT >= VERSION_CODES.M) {
+      return if (VERSION.SDK_INT >= VERSION_CODES.M) {
         VERSION.PREVIEW_SDK_INT.toString()
       } else {
         ""
@@ -34,7 +33,7 @@ class SystemDataProvider {
     }
 
     fun getPatchLevel(): String {
-      return if (SDK_INT >= VERSION_CODES.M) {
+      return if (VERSION.SDK_INT >= VERSION_CODES.M) {
         VERSION.SECURITY_PATCH
       } else {
         ""
