@@ -39,7 +39,7 @@ android {
     }
   }
   versioning {
-    baseName = "developer-widget"
+    baseName = "developerwidget"
   }
   applicationVariants.all { variant ->
     if (variant.getName().toLowerCase().contains("release")) {
