@@ -4,10 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
     android:paddingBottom="4dp"
     android:paddingTop="4dp"
-    tools:ignore="ContentDescription,UnusedAttribute"
     >
 
   <ImageView
@@ -16,38 +14,40 @@
       android:layout_height="40dp"
       android:layout_marginLeft="16dp"
       android:layout_marginStart="16dp"
+      android:contentDescription="@string/app_icon"
       android:scaleType="centerInside"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />
 
-  <TextView
-      android:id="@+id/filename_textview"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="16dp"
+  <ImageView
+      android:id="@+id/selected_icon_imageview"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
       android:layout_marginLeft="16dp"
-      android:layout_marginRight="16dp"
       android:layout_marginStart="16dp"
-      android:ellipsize="end"
-      android:gravity="center|start"
-      android:maxLines="2"
-      android:minHeight="40dp"
-      android:minLines="2"
-      app:layout_constraintBottom_toTopOf="@+id/barrier"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@+id/app_icon_imageview"
+      android:background="@drawable/bg_circle_with_check"
+      android:contentDescription="@string/app_icon"
+      android:padding="12dp"
+      android:src="@drawable/ic_check"
+      android:visibility="invisible"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      style="@style/TextAppearance.AppCompat.Widget.PopupMenu.Small"
       />
 
-  <androidx.constraintlayout.widget.Barrier
-      android:id="@+id/barrier"
-      android:layout_width="0dp"
+  <ImageView
+      android:id="@+id/app_debug_imageview"
+      android:layout_width="16dp"
       android:layout_height="0dp"
-      app:barrierDirection="top"
-      app:constraint_referenced_ids="file_date_textview,app_name_textview,file_size_textview,app_debug_imageview"
+      android:padding="2dp"
+      android:scaleType="fitCenter"
+      android:src="@drawable/ic_debug"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@+id/app_version_textview"
+      app:layout_constraintTop_toBottomOf="@+id/file_date_textview"
+      tools:ignore="ContentDescription"
       />
 
   <TextView
@@ -92,16 +92,32 @@
       app:layout_constraintTop_toBottomOf="@+id/barrier"
       />
 
-  <ImageView
-      android:id="@+id/app_debug_imageview"
-      android:layout_width="16dp"
+  <TextView
+      android:id="@+id/filename_textview"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:layout_marginLeft="16dp"
+      android:layout_marginRight="16dp"
+      android:layout_marginStart="16dp"
+      android:ellipsize="end"
+      android:gravity="center|start"
+      android:maxLines="2"
+      android:minHeight="40dp"
+      android:minLines="2"
+      app:layout_constraintBottom_toTopOf="@+id/barrier"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/app_icon_imageview"
+      app:layout_constraintTop_toTopOf="parent"
+      style="@style/TextAppearance.AppCompat.Subhead"
+      />
+
+  <androidx.constraintlayout.widget.Barrier
+      android:id="@+id/barrier"
+      android:layout_width="0dp"
       android:layout_height="0dp"
-      android:padding="2dp"
-      android:scaleType="fitCenter"
-      android:src="@drawable/ic_debug"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toStartOf="@+id/app_version_textview"
-      app:layout_constraintTop_toBottomOf="@+id/file_date_textview"
+      app:barrierDirection="top"
+      app:constraint_referenced_ids="file_date_textview,app_name_textview,file_size_textview,app_debug_imageview"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

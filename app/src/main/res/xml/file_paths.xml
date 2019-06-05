@@ -3,4 +3,8 @@
   <external-path
       name="external_files"
       path="."/>
+  <!--suppress AndroidElementNotAllowed -->
+  <root-path
+      name="root"
+      path="."/>
 </paths>

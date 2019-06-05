@@ -1,0 +1,115 @@
+language: minimal
+os: linux
+dist: xenial
+group: stable
+sudo: required
+git:
+  depth: false
+env:
+  global:
+  - ANDROID_API_LEVEL=28
+  - ANDROID_BUILD_TOOLS_VERSION=28.0.3
+  # for updates check developer.android.com/studio#downloads (current 26.1.1)
+  - ANDROID_SDK_TOOLS=sdk-tools-linux-4333796.zip
+  # storepass, keypass, keyalias
+  - secure: K4PVOrcYr6ZV16GgZWcw5RGDqxRTrilMK6pjz1r+RkQX6EPywmTsUH0y8EGP44bZc+TFMM0UfGPulHfrKzC3LDVSe+CpvNdQqq8c2Ysc9lQLubvFmVlWZ2rjHhA3jtg33FDIAWipb41WZEdmCJE1EI+OMbh8p8/7cGZ4K4tpd3B8ViXrf16ht50C56glL1lS3Jog/g9OEIPdhzYF23nYPOAeV3xJg3WBGxUUMOwp3vrpMJ/bYvnh/XLHUpPWnCcSWhKZolE3C6Itlv3CUdCyd2u8dnbTFX7KK0g4nrJdXJAyith0aE2RB6APdDDIdZkF3p2qU3aWBWVvNzjGc6tYpP9OB8sjobcx9oG8lIaO09qZnM+fLTs5b3ulvl8d3UZI0KxgSocvjxpltrqeuNODGarzwIWAmjxKr3Qnfo5LFUna1UMxKJ1ARyT7zS9yUbfE6ek42aEe7rEaqryjNFE5X6b9D2WexN+68YynvdRfDXlFx2JIW3hWTi7AG4zBI0LKhhtruwLY1hKty3JR5/Dz/dIMW6JZUmLdE7drPmLNBcKRh1H778EOcaD+1q1bzVnwbA+HLfHkO9Rzmk7UOY1ttWzFBH23W/pI6D6mn4WTFng0/iOEsw7fwHaXPGv6ZXxserC/nzmeYb0AfK3wq2p2ztEDtbSblw9lkMBYlvNi5I8=
+  - secure: SEcF7dl6ImTdeUYtw6dGeHRXbS4h8Ec9+Dnt2rFeobupo4e64818Fo10Uqqf+eM/5VVF2FAJLnEiq1SgfWZKjvUz9batJZNknc2JSKEGQPFaUD55USFCt2rxoLPFJKIee07kPTiXGPM2WWA+42cD+HpXAErMTd3BESsGwjni+xj2PhJuETDGrw+0D5T4TOXgd0uXNPl4p1PE+l3SejPqGQ961Wo+hbxd/y9JyZy/jZ9WW8XA6eEXXtecRY33NspwT58mBXDgZLIM/C3W0qfrGCiOPxwk0RpMo7YMbmYVPLG75AzihDtQ2F7P5edHz7v0yCAejrN23hi1LHb4Uku8tC2jzrH5eUpKfZuqap8DRcbdXq5je3oeuLSUu39FrzsDEmennS0eaD4jTsB5Sy2wld/UCmzV0QenUtPdBaFLU2Rxos3xJW4a2KyENRm5TGVNR/NAWpoacLed3zqDmb3K13WwskTGE1/mXRl+o0T0BVOBXuHXQ+nqATnGuAbw97LhhOeBZ/jA2yWBsaTxdjhB3E3uKWYZYdGIIgOwrZdM0RrVSgepg7NP+vh9iO70ckEzP+w4yws2ElKE3ZiOexEmrkFmqlxQW08b1FMaKJwpfsNiHkwW6u1jq1oeEBIzUrAMmo92uAjDAHKfn7FOsx5RVg20EKP9Rk9l2YKRA5dGJFI=
+  - secure: HOwKojLMfDdOfwcjQ/C5YB4HZA6ESV90ky/z5mk53Ce2xMh/koV/QrQImtPHhUgzsUfLFiPCT2eRfpmmrg6sV4lin/x8Bzoll+ARSYeopx6yTaQrowB6d4KQAXJqgHSvwr/wQsU9Mo/0F2+BMrlifS9oMuq0VWRhKdOYT7qL8LVRyuhZRX0Ze2njxS3s/6ZPPqN052bbdL/YkNaytBR6IQy0/+wv3YCPjDP9bqRz9qBIlrFQw6bY/X7DqTdLmsqemBPzo1Q1m/owjd2mScoGv86t3bCYF7+YZMLJc+xNhGNuDpjcUyb1xVNFTxUuA+n6Tt/0L++7QhnZ8Ppv4JLnZdC8IWuNzmVRsTVvivgHKMBrIdMRm65LDVbxAfqKXln2hXJSDI9R/k2HApCjNAd+XqoOQ6FlhAF6pUHMdedn8hAyRKDCLMql3r/AcJKD62UU5mP2YK6Ws7x1YKySigD5S4b1fzftjqnht/1CyDreaRHtH+76BBvMMwzFawrzwq0WeIJvYvq8/9LcGQlX4pEwcgNYMfig0OHcjxNw1dDqEdkUdntm/lGS3QrL0c2ErhM9+Vs88wnK26YXIBLZZJ5P21POIHDR+6gl5nv/hvg4Qu1drnPiQ0Nn1/+XRs7g+1loL+I5htbCWFkaQ7FVWtCoa8RTjY2b/YMH3777yYQalGs=
+cache:
+  directories:
+  - $HOME/.gradle/caches/
+  - $HOME/.gradle/wrapper/
+  - $HOME/.android/build-cache/
+
+stages:
+- name: Build debug
+  if: branch IN (develop, master)
+- name: Build and deploy release on tags
+  if: tag IS present
+
+android_phases:
+- phase: &before_install
+  # check if OpenJDK8 is installed and install if missing
+  - if ! dpkg -s openjdk-8-jdk >/dev/null 2>&1; then sudo apt-get update; sudo apt-get install openjdk-8-jdk; fi
+  - java -version
+  # print available Java versions with their path (must contain java-8-openjdk-amd64)
+  - sudo update-alternatives --config java
+  # set JAVA_HOME path
+  - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+  # download and unzip Android SDK command line tools
+  - wget -nv https://dl.google.com/android/repository/$ANDROID_SDK_TOOLS
+  - unzip -q $ANDROID_SDK_TOOLS -d $HOME/sdk
+  # set SDK tools path variable and ANDROID_HOME
+  - export PATH=$PATH:$HOME/sdk/tools/bin
+  - export ANDROID_HOME=$HOME/sdk
+  # create empty cfg file to prevent sdkmanager warning message
+  - mkdir -p $HOME/.android && touch $HOME/.android/repositories.cfg
+  # decrypt private keystore
+  - openssl aes-256-cbc -K $encrypted_a8fbd6bbc21d_key -iv $encrypted_a8fbd6bbc21d_iv -in twirth-keystore.jks.enc -out keystore.jks -d
+- phase: &install
+  # latest SDK Platform-Tools
+  - yes | sdkmanager "platform-tools" >/dev/null
+  # defined SDK Platform
+  - yes | sdkmanager "platforms;android-$ANDROID_API_LEVEL" >/dev/null
+  # defined SDK Build-Tools
+  - yes | sdkmanager "build-tools;$ANDROID_BUILD_TOOLS_VERSION" >/dev/null
+  # list installed and available packages
+  - sdkmanager --list
+- phase: &before_script
+  # set executable flag for gradle wrapper
+  - chmod +x gradlew
+  # create dir for gradle settings
+  - mkdir -p $HOME/.gradle
+  # disable gradle daemon for current user
+  - echo "org.gradle.daemon=false" >> $HOME/.gradle/gradle.properties
+  # set gradle log format to plain
+  - echo "org.gradle.console=plain" >> $HOME/.gradle/gradle.properties
+  # enable gradle build cache
+  - echo "org.gradle.caching=true" >> $HOME/.gradle/gradle.properties
+  # log all gradle warnings
+  - echo "org.gradle.warning.mode=all" >> $HOME/.gradle/gradle.properties
+- phase: &before_cache
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+  - rm -f  $HOME/.gradle/caches/*/fileHashes/fileHashes.bin
+  - rm -f  $HOME/.gradle/caches/*/fileHashes/fileHashes.lock
+  - rm -f  $HOME/.gradle/caches/*/javaCompile/javaCompile.lock
+  - rm -f  $HOME/.gradle/caches/*/executionHistory/executionHistory.lock
+  - rm -f  $HOME/.gradle/caches/journal-1/file-access.bin
+  - rm -f  $HOME/.gradle/caches/journal-1/journal-1.lock
+  - rm -f  $HOME/.gradle/caches/transforms-1/transforms-1.lock
+  - rm -f  $HOME/.gradle/caches/user-id.txt.lock
+  # only cache latest gradle version used by the wrapper
+  # list content in wrapper/dist sorted by modification time and remove entries starting by the second entry
+  - ls -d $HOME/.gradle/wrapper/dists/* -1t | tail -n +2 | xargs rm -rf
+- phase: &deploy
+    provider: releases
+    api_key:
+      secure: J5U/QxYAcGZn/pZeU8+YK7ani5dn64McDEVj5BxTBbywfhfpabzug+6H8k6Mnvs8m8CEvi2NsgptyvsxMt6952dNFI9F0URRsDkDdBvKQKdBmhCmCWVckRushfrn5k8RTjpJFYExiuDw6mSPZVtVzdXgHTgiZzPW20skROgoOq6Jb2CMa9awyI1Pbni7Emirkdl3N+h8krCyi/T06va1QebbWYsdLem8EvPgREBV+fDZ8RR+ABnT68aV7Jyq5YWortThT0TRAQ5f17C/T/aDWU7TqL4+HbfGEMvlO4vFYKUHNhxB6ZssaOpLSRVZKq4kecr2PQWIzQX+VFo4Fyxe3kTqfgidR2ptihkAERFz5FCHsEDDSRliatUUFpXxNLaa4ZIooo5p5uThRniu9COjdwuJZtFUIqstL1IrLntv4+3P2SY2BfdsTkgSuq7NT37u6MbT/cdr+dO7jgCoRIyxRzQGoeViALjzwIdXS2iBCwEpex9IDdvjsHmFJIo+8IsJGeGUCRsJL0tFBtZ8lIks1bh+t7pxKywhS3vXGny2ZCaIdA55g0b5N0D64P12ibWI80B7EAEv43Xmb5oVkVYdq9PdPJFoG/b4nDy8NfbQCWv9P/xgP6KwogAPsCJJ7tS4qn2HV6eUKrsj7ioBwpHsn/3ZEL0gU3sBnGJk20hyZyc=
+    file_glob: true
+    file:
+      - $TRAVIS_BUILD_DIR/app/build/outputs/apk/release/*.apk
+      - $TRAVIS_BUILD_DIR/app/build/outputs/mapping/release/mapping.txt
+    skip_cleanup: true
+    draft: false
+    on:
+      tags: true
+    name: $TRAVIS_TAG
+    tag_name: $TRAVIS_TAG
+    body: "Generated release from Travis CI for build $TRAVIS_BUILD_NUMBER"
+
+jobs:
+  include:
+  - stage: Build debug
+    before_install: *before_install
+    install: *install
+    before_script: *before_script
+    script: "./gradlew assembleDebug --scan"
+    before_cache: *before_cache
+  - stage: Build and deploy release on tags
+    before_install: *before_install
+    install: *install
+    before_script: *before_script
+    script: "./gradlew assembleRelease -Pmy_storepass=$storepass -Pmy_keyalias=$keyalias -Pmy_keypass=$keypass --scan"
+    before_cache: *before_cache
+    deploy: *deploy

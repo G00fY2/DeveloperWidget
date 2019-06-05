@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,27 +10,29 @@
 
   <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="48dp">
+      android:layout_height="48dp"
+      >
 
     <TextView
-        style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:gravity="center_vertical|bottom"
         android:paddingBottom="6dp"
         android:text="@string/app_settings"
         android:textSize="20sp"
+        style="@style/TextAppearance.AppCompat.Title"
         />
 
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        />
 
     <ImageView
-        android:id="@+id/fiter_imageview"
+        android:id="@+id/filter_imageview"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="center_vertical"
@@ -42,30 +43,35 @@
         android:contentDescription="@string/filter"
         android:focusable="true"
         android:scaleType="center"
-        android:src="@drawable/ic_filter"/>
+        android:src="@drawable/ic_filter"
+        android:tint="@color/vectorTintColor"
+        />
   </LinearLayout>
 
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:orientation="vertical">
+      android:orientation="vertical"
+      >
 
     <LinearLayout
         android:id="@+id/filter_linearlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:orientation="vertical">
+        android:background="@color/backgroundColor"
+        android:orientation="vertical"
+        >
 
       <EditText
           android:id="@+id/filter_edittext"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginStart="14dp"
-          android:layout_marginEnd="14dp"
           android:layout_marginBottom="2dp"
+          android:layout_marginEnd="14dp"
+          android:layout_marginStart="14dp"
           android:background="@drawable/filter_edittext_background"
           android:clickable="true"
+          android:drawablePadding="8dp"
           android:focusable="true"
           android:hint="@string/filter_hint"
           android:imeOptions="actionDone"
@@ -73,23 +79,29 @@
           android:inputType="textVisiblePassword"
           android:lines="1"
           android:maxLines="1"
+          android:paddingBottom="12dp"
+          android:paddingEnd="24dp"
           android:paddingStart="24dp"
           android:paddingTop="12dp"
-          android:paddingEnd="24dp"
-          android:paddingBottom="12dp"
           android:singleLine="true"
-          android:textColor="@color/widgetTextColor"/>
+          android:textColor="@color/filterTextColor"
+          />
 
-      <com.google.android.flexbox.FlexboxLayout
-          android:id="@+id/flexbox_layout"
+      <com.google.android.material.chip.ChipGroup
+          android:id="@+id/chip_group"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginStart="14dp"
-          android:layout_marginEnd="14dp"
           android:layout_marginBottom="2dp"
-          app:flexWrap="wrap"/>
+          android:layout_marginEnd="14dp"
+          android:layout_marginStart="14dp"
+          />
 
     </LinearLayout>
+
+    <include
+        layout="@layout/app_filter_info"
+        android:id="@+id/app_filter_info"
+        />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -114,13 +126,29 @@
           android:orientation="vertical"
           >
 
-        <ProgressBar
-            android:id="@+id/progressbar"
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:indeterminate="true"
-            />
+            >
+
+          <ImageView
+              android:id="@+id/no_items_imageview"
+              android:layout_width="96dp"
+              android:layout_height="96dp"
+              android:layout_gravity="center"
+              android:src="@drawable/ic_sad"
+              android:visibility="invisible"
+              />
+
+          <ProgressBar
+              android:id="@+id/progressbar"
+              android:layout_width="64dp"
+              android:layout_height="64dp"
+              android:layout_gravity="center"
+              android:indeterminate="true"
+              />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/no_items_textview"
@@ -130,7 +158,7 @@
             android:ellipsize="end"
             android:gravity="center"
             android:singleLine="true"
-            android:text="@string/no_app_found"
+            android:text="@string/no_apps_found"
             android:textSize="14sp"
             android:visibility="invisible"
             />
@@ -152,20 +180,20 @@
 
       <TextView
           android:id="@+id/cancel_textview"
-          style="@style/DialogButtonAppearance"
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
-          android:layout_marginTop="4dp"
+          android:layout_marginBottom="4dp"
           android:layout_marginEnd="16dp"
           android:layout_marginRight="16dp"
-          android:layout_marginBottom="4dp"
-          android:background="?attr/selectableItemBackground"
+          android:layout_marginTop="4dp"
+          android:background="@drawable/bg_dialog_button_ripple"
           android:clickable="true"
           android:focusable="true"
           android:gravity="center_vertical"
-          android:paddingStart="8dp"
-          android:paddingEnd="8dp"
+          android:paddingEnd="12dp"
+          android:paddingStart="12dp"
           android:text="@string/cancel"
+          style="@style/DialogButtonAppearance"
           />
     </LinearLayout>
   </LinearLayout>

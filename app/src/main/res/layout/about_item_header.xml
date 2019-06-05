@@ -7,15 +7,15 @@
   <View
       android:layout_width="match_parent"
       android:layout_height="1dp"
-      android:background="@color/gray88"
+      android:background="@color/dividerGrey"
       />
   <TextView
       android:id="@+id/header_textview"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_marginBottom="8dp"
-      android:layout_marginLeft="72dp"
-      android:layout_marginStart="72dp"
+      android:layout_marginLeft="@dimen/action_bar_inset_with_nav"
+      android:layout_marginStart="@dimen/action_bar_inset_with_nav"
       android:layout_marginTop="9dp"
       android:gravity="bottom"
       android:textColor="@color/colorAccent"

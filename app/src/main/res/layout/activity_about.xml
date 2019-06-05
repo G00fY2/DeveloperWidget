@@ -7,7 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical"
-    tools:ignore="ContentDescription"
     >
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
@@ -26,8 +25,8 @@
         android:id="@+id/app_icon_framelayout"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_marginLeft="72dp"
-        android:layout_marginStart="72dp"
+        android:layout_marginLeft="@dimen/action_bar_inset_with_nav"
+        android:layout_marginStart="@dimen/action_bar_inset_with_nav"
         android:layout_marginTop="16dp"
         android:background="@drawable/bg_app_icon_shape"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,6 +37,7 @@
           android:layout_height="96dp"
           android:layout_gravity="center"
           android:src="@drawable/ic_launcher_foreground"
+          tools:ignore="ContentDescription"
           />
     </FrameLayout>
     <TextView
@@ -72,7 +72,7 @@
         android:layout_width="184dp"
         android:layout_height="1dp"
         android:layout_marginTop="16dp"
-        android:background="@color/gray88"
+        android:background="@color/dividerGrey"
         app:layout_constraintEnd_toEndOf="@+id/top_view"
         app:layout_constraintStart_toStartOf="@+id/top_view"
         app:layout_constraintTop_toBottomOf="@+id/app_icon_framelayout"
@@ -87,10 +87,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
+        android:text="@string/app_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_divider"
-        tools:text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
         />
     <LinearLayout
         android:layout_width="match_parent"
@@ -98,52 +98,62 @@
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/top_view"
         >
-      <de.g00fy2.developerwidget.activities.about.views.AboutItemLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
+          android:id="@+id/theme_item"
+          android:layout_width="match_parent"
+          android:layout_height="72dp"
+          />
+      <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
           android:id="@+id/privacy_item"
           android:layout_width="match_parent"
           android:layout_height="72dp"
           />
-      <de.g00fy2.developerwidget.activities.about.views.AboutItemLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
           android:id="@+id/source_code_item"
           android:layout_width="match_parent"
           android:layout_height="72dp"
           />
-      <de.g00fy2.developerwidget.activities.about.views.AboutItemLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
           android:id="@+id/changelog_item"
           android:layout_width="match_parent"
           android:layout_height="72dp"
           />
-      <de.g00fy2.developerwidget.activities.about.views.AboutItemLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
           android:id="@+id/license_item"
           android:layout_width="match_parent"
           android:layout_height="72dp"
           />
-      <de.g00fy2.developerwidget.activities.about.views.AboutHeaderLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
+          android:id="@+id/feedback_item"
+          android:layout_width="match_parent"
+          android:layout_height="72dp"
+          />
+      <com.g00fy2.developerwidget.activities.about.views.AboutHeaderLayout
           android:id="@+id/author_header"
           android:layout_width="match_parent"
           android:layout_height="48dp"
           />
-      <de.g00fy2.developerwidget.activities.about.views.AboutItemLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
           android:id="@+id/twitter_item"
           android:layout_width="match_parent"
           android:layout_height="72dp"
           />
-      <de.g00fy2.developerwidget.activities.about.views.AboutItemLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
           android:id="@+id/github_item"
           android:layout_width="match_parent"
           android:layout_height="72dp"
           />
-      <de.g00fy2.developerwidget.activities.about.views.AboutHeaderLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutHeaderLayout
           android:id="@+id/licenses_header"
           android:layout_width="match_parent"
           android:layout_height="48dp"
           />
-      <de.g00fy2.developerwidget.activities.about.views.AboutItemLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
           android:id="@+id/open_source_licenses_item"
           android:layout_width="match_parent"
           android:layout_height="72dp"
           />
-      <de.g00fy2.developerwidget.activities.about.views.AboutItemLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
           android:id="@+id/image_licenses_item"
           android:layout_width="match_parent"
           android:layout_height="72dp"
@@ -151,9 +161,9 @@
       <View
           android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:background="@color/gray88"
+          android:background="@color/dividerGrey"
           />
-      <de.g00fy2.developerwidget.activities.about.views.AboutItemLayout
+      <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
           android:id="@+id/build_number_item"
           android:layout_width="match_parent"
           android:layout_height="64dp"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:configure="de.g00fy2.developerwidget.activities.widget.WidgetConfigActivity"
-    android:initialLayout="@layout/appwidget_layout"
+    android:configure="com.g00fy2.developerwidget.activities.widgetconfig.WidgetConfigActivity"
+    android:initialLayout="@layout/appwidget_layout_placeholder"
     android:minHeight="40dp"
     android:minWidth="250dp"
     android:resizeMode="horizontal"
