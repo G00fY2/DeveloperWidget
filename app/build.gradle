@@ -37,6 +37,16 @@ android {
       v2SigningEnabled true
     }
   }
+  versioning {
+    baseName = "developer-widget"
+  }
+  applicationVariants.all { variant ->
+    if (variant.getName().contains("Release")) {
+      variant.outputs.all {
+        outputFileName = versioning.getApkName(variant)
+      }
+    }
+  }
   sourceSets {
     main.java.srcDirs += 'src/main/kotlin'
   }
