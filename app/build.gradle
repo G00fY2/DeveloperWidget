@@ -27,6 +27,16 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
     }
   }
+  signingConfigs {
+    release {
+      storeFile file("../keystore.jks")
+      storePassword project.hasProperty('my_storepass') ? my_storepass : ""
+      keyAlias project.hasProperty('my_keyalias') ? my_keyalias : ""
+      keyPassword project.hasProperty('my_keypass') ? my_keypass : ""
+      v1SigningEnabled true
+      v2SigningEnabled true
+    }
+  }
   sourceSets {
     main.java.srcDirs += 'src/main/kotlin'
   }
