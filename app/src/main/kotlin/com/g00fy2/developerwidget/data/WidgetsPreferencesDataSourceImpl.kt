@@ -11,7 +11,7 @@ import javax.inject.Inject
 import javax.inject.Named
 import kotlin.coroutines.CoroutineContext
 
-class WidgetsSettingsDataSourceImpl @Inject constructor() : WidgetsSettingsDataSource, CoroutineScope {
+class WidgetsPreferencesDataSourceImpl @Inject constructor() : WidgetsPreferencesDataSource, CoroutineScope {
 
   @Inject
   @field:Named(APPLICATION)

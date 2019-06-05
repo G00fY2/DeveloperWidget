@@ -1,4 +1,4 @@
-package com.g00fy2.developerwidget.data.display
+package com.g00fy2.developerwidget.data.device.display
 
 import android.content.Context
 import android.graphics.Point

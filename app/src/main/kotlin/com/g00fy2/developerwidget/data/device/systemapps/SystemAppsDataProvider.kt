@@ -1,4 +1,4 @@
-package com.g00fy2.developerwidget.data.systemapps
+package com.g00fy2.developerwidget.data.device.systemapps
 
 import android.annotation.SuppressLint
 import android.content.Context

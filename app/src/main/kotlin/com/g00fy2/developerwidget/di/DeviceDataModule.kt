@@ -2,8 +2,8 @@ package com.g00fy2.developerwidget.di
 
 import com.g00fy2.developerwidget.data.DeviceDataSource
 import com.g00fy2.developerwidget.data.DeviceDataSourceImpl
-import com.g00fy2.developerwidget.data.WidgetsSettingsDataSource
-import com.g00fy2.developerwidget.data.WidgetsSettingsDataSourceImpl
+import com.g00fy2.developerwidget.data.WidgetsPreferencesDataSource
+import com.g00fy2.developerwidget.data.WidgetsPreferencesDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton
@@ -17,5 +17,5 @@ abstract class DeviceDataModule {
 
   @Binds
   @Singleton
-  abstract fun providesWidgetsSettingsDataSource(widgetsSettingsDataSourceImpl: WidgetsSettingsDataSourceImpl): WidgetsSettingsDataSource
+  abstract fun providesWidgetsPreferencesDataSource(widgetsPreferencesDataSourceImpl: WidgetsPreferencesDataSourceImpl): WidgetsPreferencesDataSource
 }

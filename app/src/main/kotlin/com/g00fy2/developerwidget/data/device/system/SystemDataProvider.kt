@@ -1,4 +1,4 @@
-package com.g00fy2.developerwidget.data.system
+package com.g00fy2.developerwidget.data.device.system
 
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES

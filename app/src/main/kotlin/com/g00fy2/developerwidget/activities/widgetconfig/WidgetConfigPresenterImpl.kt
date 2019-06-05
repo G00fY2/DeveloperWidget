@@ -10,8 +10,6 @@ import com.g00fy2.developerwidget.controllers.ToastController
 import com.g00fy2.developerwidget.controllers.WidgetPreferenceController
 import com.g00fy2.developerwidget.data.DeviceDataItem
 import com.g00fy2.developerwidget.data.DeviceDataSource
-import com.g00fy2.developerwidget.data.devicebuild.BuildDataProvider
-import com.g00fy2.developerwidget.data.system.SystemDataProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -33,7 +31,7 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
   @Inject
   lateinit var intentController: IntentController
 
-  private val defaultDeviceName by lazy { BuildDataProvider.getCombinedDeviceName() }
+  private val defaultDeviceName by lazy { deviceDataSource.getCombinedDeviceName() }
 
   @OnLifecycleEvent(Event.ON_CREATE)
   override fun loadDeviceData() {
@@ -57,7 +55,7 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
         } else {
           view.setDeviceTitle(defaultDeviceName)
         }
-        view.setSubtitle(SystemDataProvider.getVersionAndSDK())
+        view.setSubtitle(deviceDataSource.getVersionAndSDK())
         view.setDeviceTitleHint(defaultDeviceName)
       }
     }

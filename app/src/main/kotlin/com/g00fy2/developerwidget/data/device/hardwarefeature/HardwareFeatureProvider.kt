@@ -1,4 +1,4 @@
-package com.g00fy2.developerwidget.data.hardwarefeature
+package com.g00fy2.developerwidget.data.device.hardwarefeature
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager

@@ -1,4 +1,4 @@
-package com.g00fy2.developerwidget.data.ram
+package com.g00fy2.developerwidget.data.device.ram
 
 import android.app.ActivityManager
 import android.content.Context

@@ -1,4 +1,4 @@
-package com.g00fy2.developerwidget.data.devicebuild
+package com.g00fy2.developerwidget.data.device.devicebuild
 
 import android.os.Build
 

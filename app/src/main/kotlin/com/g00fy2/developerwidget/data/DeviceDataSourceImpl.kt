@@ -3,13 +3,13 @@ package com.g00fy2.developerwidget.data
 import android.content.Context
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.data.DeviceDataItem.Category
-import com.g00fy2.developerwidget.data.cpu.CPUDataProvider
-import com.g00fy2.developerwidget.data.devicebuild.BuildDataProvider
-import com.g00fy2.developerwidget.data.display.DisplayDataProvider
-import com.g00fy2.developerwidget.data.hardwarefeature.HardwareFeatureProvider
-import com.g00fy2.developerwidget.data.ram.RamDataProvider
-import com.g00fy2.developerwidget.data.system.SystemDataProvider
-import com.g00fy2.developerwidget.data.systemapps.SystemAppsDataProvider
+import com.g00fy2.developerwidget.data.device.cpu.CPUDataProvider
+import com.g00fy2.developerwidget.data.device.devicebuild.BuildDataProvider
+import com.g00fy2.developerwidget.data.device.display.DisplayDataProvider
+import com.g00fy2.developerwidget.data.device.hardwarefeature.HardwareFeatureProvider
+import com.g00fy2.developerwidget.data.device.ram.RamDataProvider
+import com.g00fy2.developerwidget.data.device.system.SystemDataProvider
+import com.g00fy2.developerwidget.data.device.systemapps.SystemAppsDataProvider
 import com.g00fy2.developerwidget.utils.APPLICATION
 import javax.inject.Inject
 import javax.inject.Named
@@ -107,6 +107,10 @@ class DeviceDataSourceImpl @Inject constructor() : DeviceDataSource {
     }
     return data
   }
+
+  override fun getCombinedDeviceName() = BuildDataProvider.getCombinedDeviceName()
+
+  override fun getVersionAndSDK() = SystemDataProvider.getVersionAndSDK()
 
   companion object {
     const val BOARD = "BOARD"

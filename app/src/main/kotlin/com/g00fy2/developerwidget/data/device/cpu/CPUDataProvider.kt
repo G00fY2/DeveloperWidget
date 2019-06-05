@@ -1,4 +1,4 @@
-package com.g00fy2.developerwidget.data.cpu
+package com.g00fy2.developerwidget.data.device.cpu
 
 import android.os.Build
 import android.os.Build.VERSION
