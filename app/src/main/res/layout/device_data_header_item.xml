@@ -16,7 +16,7 @@
       android:layout_height="match_parent"
       android:layout_marginBottom="8dp"
       android:layout_marginLeft="@dimen/action_bar_inset"
-      android:layout_marginRight="@dimen/action_bar_inset"
+      android:layout_marginStart="@dimen/action_bar_inset"
       android:layout_marginTop="9dp"
       android:gravity="bottom"
       android:textColor="@color/colorAccent"
