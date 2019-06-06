@@ -78,7 +78,6 @@
         app:layout_constraintTop_toBottomOf="@+id/app_icon_framelayout"
         />
     <TextView
-        android:id="@+id/app_desc_textview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/action_bar_inset"
