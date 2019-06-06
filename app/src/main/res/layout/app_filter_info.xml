@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="40dp"
     android:orientation="horizontal"
-    android:paddingEnd="16dp"
-    android:paddingStart="16dp"
+    android:paddingEnd="@dimen/action_bar_inset"
+    android:paddingStart="@dimen/action_bar_inset"
+    tools:ignore="UseCompoundDrawables"
     >
   <ImageView
       android:layout_width="12dp"
@@ -12,6 +14,7 @@
       android:layout_gravity="center|start"
       android:src="@drawable/ic_chevron_right"
       android:tint="@color/colorAccent"
+      android:contentDescription="@string/show_all"
       />
   <TextView
       android:id="@+id/show_all_textview"
