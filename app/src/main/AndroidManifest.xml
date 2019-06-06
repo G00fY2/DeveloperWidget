@@ -56,12 +56,6 @@
         android:screenOrientation="portrait"/>
 
     <activity
-        android:name=".activities.shortcut.ShortcutRouter"
-        android:launchMode="singleTask"
-        android:taskAffinity=""
-        android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-
-    <activity
         android:name=".activities.shortcut.CreateShortcutActivity"
         android:enabled="@bool/shortcut_support"
         android:label="@string/create_shortcut"
@@ -70,6 +64,13 @@
         <action android:name="android.intent.action.CREATE_SHORTCUT"/>
       </intent-filter>
     </activity>
+
+    <activity
+        android:name=".activities.shortcut.ShortcutRouter"
+        android:enabled="@bool/shortcut_support"
+        android:launchMode="singleTask"
+        android:taskAffinity=""
+        android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
     <receiver android:name=".receiver.widget.WidgetProviderImpl">
       <intent-filter>

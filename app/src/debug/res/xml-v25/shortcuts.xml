@@ -33,7 +33,7 @@
         android:targetClass="com.g00fy2.developerwidget.activities.shortcut.ShortcutRouter"
         android:targetPackage="com.g00fy2.developerwidget.debug">
       <extra
-          android:name="shortcut_id"
+          android:name="extra_shortcut_id"
           android:value="devsettings"/>
     </intent>
   </shortcut>
@@ -48,7 +48,7 @@
         android:targetClass="com.g00fy2.developerwidget.activities.shortcut.ShortcutRouter"
         android:targetPackage="com.g00fy2.developerwidget.debug">
       <extra
-          android:name="shortcut_id"
+          android:name="extra_shortcut_id"
           android:value="langsettings"/>
     </intent>
   </shortcut>
