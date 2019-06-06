@@ -1,7 +1,7 @@
 language: minimal
 os: linux
 dist: xenial
-group: stable
+group: edge
 sudo: required
 git:
   depth: false
