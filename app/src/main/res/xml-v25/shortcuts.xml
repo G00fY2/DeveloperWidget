@@ -29,9 +29,13 @@
       android:shortcutLongLabel="@string/developer_settings"
       android:shortcutShortLabel="@string/developer_settings">
     <intent
-        android:action="android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS"
-        android:targetClass="com.android.settings.DevelopmentSettings"
-        android:targetPackage="com.android.settings"/>
+        android:action="devsettings"
+        android:targetClass="com.g00fy2.developerwidget.activities.shortcut.ShortcutRouter"
+        android:targetPackage="com.g00fy2.developerwidget">
+      <extra
+          android:name="shortcut_id"
+          android:value="devsettings"/>
+    </intent>
   </shortcut>
   <shortcut
       android:enabled="true"
@@ -40,8 +44,12 @@
       android:shortcutLongLabel="@string/language_settings"
       android:shortcutShortLabel="@string/language_settings">
     <intent
-        android:action="android.provider.Settings.ACTION_LOCALE_SETTINGS"
-        android:targetClass="com.android.settings.Settings$LocalePickerActivity"
-        android:targetPackage="com.android.settings"/>
+        android:action="langsettings"
+        android:targetClass="com.g00fy2.developerwidget.activities.shortcut.ShortcutRouter"
+        android:targetPackage="com.g00fy2.developerwidget">
+      <extra
+          android:name="shortcut_id"
+          android:value="langsettings"/>
+    </intent>
   </shortcut>
 </shortcuts>
