@@ -2,7 +2,6 @@ package com.g00fy2.developerwidget.controllers
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import androidx.appcompat.app.AppCompatDelegate

@@ -50,10 +50,10 @@ class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
     var shortcutIntent: Intent? = null
 
     shortcutInfoList?.get(position)?.let { shortcutInfo ->
-      if (VERSION.SDK_INT >= VERSION_CODES.O) {
-        shortcutIntent = shortcutManager?.createShortcutResultIntent(shortcutInfo)
+      shortcutIntent = if (VERSION.SDK_INT >= VERSION_CODES.O) {
+        shortcutManager?.createShortcutResultIntent(shortcutInfo)
       } else {
-        shortcutIntent = Intent().apply {
+        Intent().apply {
           putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutInfo.intent)
           putExtra(Intent.EXTRA_SHORTCUT_NAME, shortcutInfo.shortLabel)
           putExtra(Intent.EXTRA_SHORTCUT_ICON, getBadgedIconCompat(shortcutInfo))
