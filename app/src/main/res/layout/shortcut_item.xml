@@ -5,8 +5,8 @@
     android:gravity="start|center"
     android:orientation="vertical"
     android:paddingBottom="8dp"
-    android:paddingEnd="@dimen/action_bar_inset"
-    android:paddingStart="@dimen/action_bar_inset"
+    android:paddingLeft="@dimen/action_bar_inset"
+    android:paddingRight="@dimen/action_bar_inset"
     android:paddingTop="8dp"
     >
   <TextView

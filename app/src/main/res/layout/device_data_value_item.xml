@@ -12,7 +12,7 @@
       android:layout_height="wrap_content"
       android:layout_marginBottom="8dp"
       android:layout_marginLeft="@dimen/action_bar_inset"
-      android:layout_marginStart="@dimen/action_bar_inset"
+      android:layout_marginRight="@dimen/action_bar_inset"
       android:layout_marginTop="8dp"
       android:textSize="16sp"
       app:layout_constraintBottom_toBottomOf="parent"
