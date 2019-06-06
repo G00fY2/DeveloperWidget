@@ -4,17 +4,17 @@
     android:layout_width="wrap_content"
     android:layout_height="40dp"
     android:orientation="horizontal"
-    android:paddingEnd="@dimen/action_bar_inset"
-    android:paddingStart="@dimen/action_bar_inset"
+    android:paddingLeft="@dimen/action_bar_inset"
+    android:paddingRight="@dimen/action_bar_inset"
     tools:ignore="UseCompoundDrawables"
     >
   <ImageView
       android:layout_width="12dp"
       android:layout_height="12dp"
       android:layout_gravity="center|start"
+      android:contentDescription="@string/show_all"
       android:src="@drawable/ic_chevron_right"
       android:tint="@color/colorAccent"
-      android:contentDescription="@string/show_all"
       />
   <TextView
       android:id="@+id/show_all_textview"

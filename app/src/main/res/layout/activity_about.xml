@@ -80,10 +80,8 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/action_bar_inset"
         android:layout_marginLeft="@dimen/action_bar_inset"
         android:layout_marginRight="@dimen/action_bar_inset"
-        android:layout_marginStart="@dimen/action_bar_inset"
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/app_description"
