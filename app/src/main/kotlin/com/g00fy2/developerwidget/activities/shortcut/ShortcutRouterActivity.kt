@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.g00fy2.developerwidget.R
 
-class ShortcutRouter : Activity() {
+class ShortcutRouterActivity : Activity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

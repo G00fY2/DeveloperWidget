@@ -30,7 +30,7 @@
       android:shortcutShortLabel="@string/developer_settings">
     <intent
         android:action="devsettings"
-        android:targetClass="com.g00fy2.developerwidget.activities.shortcut.ShortcutRouter"
+        android:targetClass="com.g00fy2.developerwidget.activities.shortcut.ShortcutRouterActivity"
         android:targetPackage="com.g00fy2.developerwidget">
       <extra
           android:name="extra_shortcut_id"
@@ -45,7 +45,7 @@
       android:shortcutShortLabel="@string/language_settings">
     <intent
         android:action="langsettings"
-        android:targetClass="com.g00fy2.developerwidget.activities.shortcut.ShortcutRouter"
+        android:targetClass="com.g00fy2.developerwidget.activities.shortcut.ShortcutRouterActivity"
         android:targetPackage="com.g00fy2.developerwidget">
       <extra
           android:name="extra_shortcut_id"
