@@ -10,9 +10,11 @@ import android.graphics.Canvas
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
+import android.widget.LinearLayout
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.getSystemService
 import androidx.core.graphics.drawable.toBitmap
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BaseActivity
@@ -40,6 +42,9 @@ class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
     recyclerview.setHasFixedSize(true)
     recyclerview.layoutManager = LinearLayoutManager(this)
     recyclerview.adapter = adapter
+    getDrawable(R.drawable.divider_line)?.let {
+      recyclerview.addItemDecoration(DividerItemDecoration(this, LinearLayout.VERTICAL).apply { setDrawable(it) })
+    }
 
     adapter.submitList(shortcutInfoList)
     adapter.setOnShortcutSelected { shortcutPosition -> onItemClick(shortcutPosition) }
@@ -65,7 +70,6 @@ class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
     finish()
   }
 
-  @TargetApi(VERSION_CODES.N_MR1)
   private fun getBadgedIconCompat(shortcutInfo: ShortcutInfo): Bitmap {
     val appIcon = applicationInfo.loadIcon(packageManager)
     val defaultSize = (DEFAULT_ICON_SIZE_DP * resources.displayMetrics.density).toInt()
