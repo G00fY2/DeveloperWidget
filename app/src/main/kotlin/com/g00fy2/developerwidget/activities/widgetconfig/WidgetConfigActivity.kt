@@ -150,7 +150,7 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
   }
 
   private fun initViews() {
-    val showAddWidget = (!launchedFromAppLauncher || widgetCount() < 1) && isPinAppWidgetSupported()
+    val showAddWidget = (!launchedFromAppLauncher || (widgetCount() < 1 && isPinAppWidgetSupported()))
     if (showAddWidget) {
       apply_button.apply {
         visibility = View.VISIBLE
