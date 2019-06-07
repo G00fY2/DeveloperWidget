@@ -34,7 +34,7 @@ class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
 
   override fun providePresenter(): BasePresenter = presenter
 
-  public override fun onCreate(savedInstanceState: Bundle?) {
+  override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setResult(Activity.RESULT_CANCELED)
 

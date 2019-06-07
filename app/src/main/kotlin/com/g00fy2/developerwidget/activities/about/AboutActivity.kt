@@ -27,7 +27,7 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
 
   override fun providePresenter(): BasePresenter = presenter
 
-  public override fun onCreate(savedInstanceState: Bundle?) {
+  override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     initView()
   }
