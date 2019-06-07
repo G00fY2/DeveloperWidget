@@ -150,13 +150,13 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
   }
 
   private fun initViews() {
-    val showAddWidget = !launchedFromAppLauncher || widgetCount() < 1
+    val showAddWidget = (!launchedFromAppLauncher || widgetCount() < 1) && isPinAppWidgetSupported()
     if (showAddWidget) {
       apply_button.apply {
         visibility = View.VISIBLE
         when {
           launchedFromAppLauncher -> {
-            setOnClickListener { initPinAppWidget() }
+            setOnClickListener { pinAppWidget() }
             setText(R.string.create_widget)
           }
           updateExistingWidget -> {
@@ -228,7 +228,7 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
     finish()
   }
 
-  private fun initPinAppWidget() {
+  private fun pinAppWidget() {
     var supported = false
     if (VERSION.SDK_INT >= VERSION_CODES.O) {
       getSystemService<AppWidgetManager>()?.let { appWidgetManager ->
@@ -251,6 +251,14 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
       }
     }
     if (!supported) presenter.showManuallyAddWidgetNotice()
+  }
+
+  private fun isPinAppWidgetSupported(): Boolean {
+    return if (VERSION.SDK_INT >= VERSION_CODES.O) {
+      getSystemService<AppWidgetManager>()?.isRequestPinAppWidgetSupported ?: false
+    } else {
+      false
+    }
   }
 
   private fun widgetCount() = AppWidgetManager.getInstance(this).getAppWidgetIds(
