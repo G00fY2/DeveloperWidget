@@ -7,8 +7,6 @@ git:
   depth: false
 env:
   global:
-  - ANDROID_API_LEVEL=29
-  - ANDROID_BUILD_TOOLS_VERSION=29.0.0
   # for updates check developer.android.com/studio#downloads (current 26.1.1)
   - ANDROID_SDK_TOOLS=sdk-tools-linux-4333796.zip
   # storepass, keypass, keyalias
@@ -47,14 +45,8 @@ android_phases:
   # decrypt private keystore
   - openssl aes-256-cbc -K $encrypted_a8fbd6bbc21d_key -iv $encrypted_a8fbd6bbc21d_iv -in keystore.jks.enc -out keystore.jks -d
 - phase: &install
-  # latest SDK Platform-Tools
-  - yes | sdkmanager "platform-tools" >/dev/null
-  # defined SDK Platform
-  - yes | sdkmanager "platforms;android-$ANDROID_API_LEVEL" >/dev/null
-  # defined SDK Build-Tools
-  - yes | sdkmanager "build-tools;$ANDROID_BUILD_TOOLS_VERSION" >/dev/null
-  # list installed and available packages
-  - sdkmanager --list
+  # accept licenses for all available packages that have not already been accepted
+  - yes | sdkmanager --licenses >/dev/null
 - phase: &before_script
   # set executable flag for gradle wrapper
   - chmod +x gradlew
