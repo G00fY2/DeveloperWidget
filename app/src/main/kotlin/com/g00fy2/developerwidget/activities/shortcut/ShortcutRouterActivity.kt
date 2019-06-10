@@ -14,11 +14,20 @@ class ShortcutRouterActivity : Activity() {
     when (intent.getStringExtra("extra_shortcut_id")) {
       "devsettings" -> launchIntent(android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
       "langsettings" -> launchIntent(android.provider.Settings.ACTION_LOCALE_SETTINGS)
-      else -> Toast.makeText(this, getString(R.string.shortcut_error), Toast.LENGTH_SHORT).show()
+      else -> showShortcutError()
     }
     finish()
   }
 
-  private fun launchIntent(action: String) =
-    startActivity(Intent(action).apply { flags = Intent.FLAG_ACTIVITY_NEW_TASK })
+  private fun launchIntent(action: String) {
+    Intent(action).apply { flags = Intent.FLAG_ACTIVITY_NEW_TASK }.let {
+      if (it.resolveActivity(packageManager) != null) {
+        startActivity(it)
+      } else {
+        showShortcutError()
+      }
+    }
+  }
+
+  private fun showShortcutError() = Toast.makeText(this, getString(R.string.shortcut_error), Toast.LENGTH_SHORT).show()
 }
