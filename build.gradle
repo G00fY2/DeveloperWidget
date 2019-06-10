@@ -1,10 +1,10 @@
 buildscript {
   ext {
     // SDK and tools
-    compileSdkVersion = 28
+    compileSdkVersion = 29
     minSdkVersion = 14
-    targetSdkVersion = 28
-    androidGradleVersion = '3.6.0-alpha02'
+    targetSdkVersion = 29
+    androidGradleVersion = '3.6.0-alpha03'
     gradleScanVersion = '2.3'
     versioningPluginVersion = '1.0.0'
 
