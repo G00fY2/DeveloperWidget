@@ -21,7 +21,7 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
-    Timber.d("Lifecycle: %s onCreate", localClassName)
+    Timber.d("Lifecycle: %s1 onCreate %s2", localClassName, hashCode())
     super.onCreate(savedInstanceState)
     dayNightController.loadCustomDefaultMode()
     lifecycle.addObserver(providePresenter())
@@ -29,7 +29,7 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity
   }
 
   override fun onDestroy() {
-    Timber.d("Lifecycle: %s onDestroy", localClassName)
+    Timber.d("Lifecycle: %s1 onDestroy %s2", localClassName, hashCode())
     super.onDestroy()
     lifecycle.removeObserver(providePresenter())
   }
