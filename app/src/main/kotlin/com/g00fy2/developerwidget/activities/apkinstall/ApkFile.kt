@@ -62,7 +62,7 @@ class ApkFile private constructor() : Comparable<ApkFile> {
             valid = true
             appInfo.sourceDir = filePath
             appInfo.publicSourceDir = filePath
-            packageManager.getApplicationLabel(appInfo)?.let { appName = it.toString() }
+            packageManager.getApplicationLabel(appInfo).let { appName = it.toString() }
             appIcon = packageManager.getApplicationIcon(appInfo)
             debuggable = appInfo.flags.and(ApplicationInfo.FLAG_DEBUGGABLE) != 0
           }
