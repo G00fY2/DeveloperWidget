@@ -7,16 +7,21 @@ import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.drawable.Icon
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.widget.LinearLayout
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.getSystemService
 import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.g00fy2.developerwidget.R
+import com.g00fy2.developerwidget.activities.apkinstall.ApkActivity
+import com.g00fy2.developerwidget.activities.appmanager.AppsActivity
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import kotlinx.android.synthetic.main.activity_create_shortcut.*
@@ -29,8 +34,7 @@ class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
   @Inject
   lateinit var presenter: CreateShortcutContract.CreateShortcutPresenter
   private lateinit var adapter: ShortcutAdapter
-  private val shortcutManager by lazy { getSystemService<ShortcutManager>() }
-  private val shortcutInfoList by lazy { shortcutManager?.manifestShortcuts }
+  private lateinit var shortcutInfoList: List<ShortcutInfo>
 
   override fun providePresenter(): BasePresenter = presenter
 
@@ -46,6 +50,7 @@ class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
       recyclerview.addItemDecoration(DividerItemDecoration(this, LinearLayout.VERTICAL).apply { setDrawable(it) })
     }
 
+    shortcutInfoList = generateShortcutInfoList()
     adapter.submitList(shortcutInfoList)
     adapter.setOnShortcutSelected { shortcutPosition -> onItemClick(shortcutPosition) }
   }
@@ -54,9 +59,9 @@ class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
   fun onItemClick(position: Int) {
     var shortcutIntent: Intent? = null
 
-    shortcutInfoList?.get(position)?.let { shortcutInfo ->
+    shortcutInfoList.get(position).let { shortcutInfo ->
       shortcutIntent = if (VERSION.SDK_INT >= VERSION_CODES.O) {
-        shortcutManager?.createShortcutResultIntent(shortcutInfo)
+        getSystemService<ShortcutManager>()?.createShortcutResultIntent(shortcutInfo)
       } else {
         Intent().apply {
           putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutInfo.intent)
@@ -68,6 +73,57 @@ class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
 
     setResult(if (shortcutIntent == null) Activity.RESULT_CANCELED else Activity.RESULT_OK, shortcutIntent)
     finish()
+  }
+
+  private fun generateShortcutInfoList(): List<ShortcutInfo> {
+    val appManagerShortcut = buildShortcutInfo(
+      "appmanager_dyn",
+      R.string.app_settings,
+      R.drawable.ic_apps_grid_shortcut,
+      Intent(this, AppsActivity::class.java).setAction(Intent.ACTION_VIEW)
+    )
+
+    val apkInstallShortcut = buildShortcutInfo(
+      "apkinstall_dyn",
+      R.string.install_apk,
+      R.drawable.ic_apps_shortcut,
+      Intent(this, ApkActivity::class.java).setAction(Intent.ACTION_VIEW)
+    )
+
+
+    val devSettingsShortcut = buildShortcutInfo(
+      "devsettings_dyn",
+      R.string.developer_settings,
+      R.drawable.ic_settings_developement_shortcut,
+      Intent(this, ShortcutRouterActivity::class.java).apply {
+        action = Intent.ACTION_VIEW
+        putExtra(
+          "extra_shortcut_id",
+          "devsettings"
+        )
+      })
+
+    val langSettingsShortcut = buildShortcutInfo(
+      "langsettings_dyn",
+      R.string.language_settings,
+      R.drawable.ic_language_shortcut,
+      Intent(this, ShortcutRouterActivity::class.java).apply {
+        action = Intent.ACTION_VIEW
+        putExtra(
+          "extra_shortcut_id",
+          "langsettings"
+        )
+      })
+
+    return listOf(langSettingsShortcut, devSettingsShortcut, apkInstallShortcut, appManagerShortcut)
+  }
+
+  private fun buildShortcutInfo(
+    id: String, @StringRes label: Int, @DrawableRes icon: Int,
+    intent: Intent
+  ): ShortcutInfo {
+    return ShortcutInfo.Builder(this, id).setIcon(Icon.createWithResource(this, icon)).setShortLabel(getString(label))
+      .setLongLabel(getString(label)).setIntent(intent).build()
   }
 
   private fun getBadgedIconCompat(shortcutInfo: ShortcutInfo): Bitmap {
