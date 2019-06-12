@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="nightPrimary">@color/black</color>
+  <color name="nightAccent">#8ab4f8</color>
+
+  <color name="menuIcon">@color/colorAccent</color>
+</resources>

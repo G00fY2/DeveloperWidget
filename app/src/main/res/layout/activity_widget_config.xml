@@ -89,7 +89,6 @@
         android:paddingRight="8dp"
         android:text="@string/add_widget"
         android:textAllCaps="false"
-        android:textColor="@android:color/white"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/top_view"
         app:layout_constraintStart_toStartOf="parent"

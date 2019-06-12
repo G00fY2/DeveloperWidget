@@ -2,7 +2,8 @@
 <resources>
   <color name="colorPrimary">#F8F9FA</color>
   <color name="colorPrimaryDark">#999999</color>
-  <color name="colorAccent">#1a73e8</color>
+  <color name="colorAccent">@color/originalAccent</color>
+  <color name="originalAccent">#1a73e8</color>
 
   <color name="backgroundColor">@color/white</color>
   <color name="backgroundColor_day">@color/white</color>
@@ -20,9 +21,10 @@
   <color name="widgetTextColor">@color/lightGrey</color>
   <color name="widgetTextColor_day">@color/lightGrey</color>
   <color name="widgetTextColor_night">@color/white</color>
-  <color name="vectorTintColor">@color/lightGrey</color>
-  <color name="vectorTintColor_day">@color/lightGrey</color>
-  <color name="vectorTintColor_night">@color/white</color>
+  <color name="widgetIconColor">@color/lightGrey</color>
+  <color name="widgetIconColor_day">@color/lightGrey</color>
+  <color name="widgetIconColor_night">@color/white</color>
+  <color name="iconTintColor">@color/lightGrey</color>
   <color name="transparent">#00000000</color>
   <color name="white">#ffffff</color>
   <color name="black">#000000</color>

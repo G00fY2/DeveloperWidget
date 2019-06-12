@@ -62,7 +62,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:src="@drawable/ic_apps_grid"
-          android:tint="@color/vectorTintColor"
+          android:tint="@color/widgetIconColor"
           />
       <TextView
           android:layout_width="match_parent"
@@ -91,7 +91,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:src="@drawable/ic_apps"
-          android:tint="@color/vectorTintColor"
+          android:tint="@color/widgetIconColor"
           />
       <TextView
           android:layout_width="match_parent"

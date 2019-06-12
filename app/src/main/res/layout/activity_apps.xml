@@ -44,7 +44,7 @@
         android:focusable="true"
         android:scaleType="center"
         android:src="@drawable/ic_filter"
-        android:tint="@color/vectorTintColor"
+        android:tint="@color/iconTintColor"
         />
   </LinearLayout>
 

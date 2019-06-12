@@ -14,7 +14,7 @@
       android:layout_height="24dp"
       android:layout_marginLeft="@dimen/about_item_icon_margin"
       android:layout_marginStart="@dimen/about_item_icon_margin"
-      android:tint="@color/vectorTintColor"
+      android:tint="@color/iconTintColor"
       android:visibility="invisible"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
