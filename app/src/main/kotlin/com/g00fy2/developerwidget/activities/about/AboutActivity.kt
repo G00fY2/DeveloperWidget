@@ -35,8 +35,8 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
     initView()
   }
 
-  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-    return if (item?.itemId == id.home) {
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    return if (item.itemId == id.home) {
       finish()
       true
     } else {

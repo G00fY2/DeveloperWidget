@@ -8,8 +8,11 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.BlendMode
+import android.graphics.BlendModeColorFilter
 import android.graphics.PorterDuff
 import android.graphics.Rect
+import android.graphics.drawable.Drawable
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
@@ -40,12 +43,8 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
   private var launchedFromAppLauncher = true
   private var widgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID
   private lateinit var adapter: DeviceDataAdapter
-  private val editDrawable by lazy {
-    ResourcesCompat.getDrawable(resources, R.drawable.ic_edit, null)?.apply {
-      setColorFilter(ResourcesCompat.getColor(resources, R.color.dividerGrey, null), PorterDuff.Mode.SRC_IN)
-      setBounds(0, 0, this.intrinsicWidth, this.intrinsicHeight)
-    }
-  }
+  private val editDrawable by lazy { initEditDrawable() }
+
   private val closeConfigureActivityReceiver by lazy {
     object : BroadcastReceiver() {
       override fun onReceive(context: Context?, intent: Intent?) {
@@ -107,12 +106,11 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    return when (item.itemId) {
-      R.id.about_button -> {
+    return if (item.itemId == R.id.about_button) {
         startActivity(Intent(this, AboutActivity::class.java))
         true
-      }
-      else -> super.onOptionsItemSelected(item)
+    } else {
+      super.onOptionsItemSelected(item)
     }
   }
 
@@ -267,6 +265,20 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
       WidgetProviderImpl::class.java
     )
   ).size
+
+  private fun initEditDrawable(): Drawable? {
+    return ResourcesCompat.getDrawable(resources, R.drawable.ic_edit, null)?.apply {
+      if (VERSION.SDK_INT >= VERSION_CODES.Q) {
+        colorFilter =
+          BlendModeColorFilter(ResourcesCompat.getColor(resources, R.color.iconTintColor, null), BlendMode.SRC_IN)
+      } else {
+        @Suppress("DEPRECATION")
+        setColorFilter(ResourcesCompat.getColor(resources, R.color.iconTintColor, null), PorterDuff.Mode.SRC_IN)
+      }
+      setBounds(0, 0, this.intrinsicWidth, this.intrinsicHeight)
+      alpha = 128
+    }
+  }
 
   companion object {
     const val EXTRA_APPWIDGET_CLOSE_CONFIGURE = "EXTRA_APPWIDGET_CLOSE_CONFIGURE"

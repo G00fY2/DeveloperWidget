@@ -37,6 +37,8 @@ class StorageDirsControllerImpl @Inject constructor() : StorageDirsController {
     }
   }
 
+  @Suppress("DEPRECATION")
+  // TODO replace getExternalStorageDirectory calls when target API > 29
   private fun getExtSdCardPathsDeprecated(): Collection<File> {
     val dirs = mutableListOf<File>()
     val rawExternalStorage = System.getenv("EXTERNAL_STORAGE")

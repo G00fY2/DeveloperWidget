@@ -1,6 +1,11 @@
 package com.g00fy2.developerwidget.activities.appmanager
 
+import android.graphics.BlendMode.SRC_IN
+import android.graphics.BlendModeColorFilter
 import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
@@ -35,12 +40,7 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
 
   private lateinit var adapter: AppsAdapter
   private var scrollToTopAfterCommit = false
-  private val clearDrawable by lazy {
-    ResourcesCompat.getDrawable(resources, R.drawable.ic_clear, null)?.apply {
-      setColorFilter(ResourcesCompat.getColor(resources, R.color.vectorTintColor, null), PorterDuff.Mode.SRC_IN)
-      setBounds(0, 0, this.intrinsicWidth, this.intrinsicHeight)
-    }
-  }
+  private val clearDrawable by lazy { initClearDrawable() }
 
   override fun providePresenter(): BasePresenter = presenter
 
@@ -199,6 +199,19 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
       it.isClickable = false
       chip_group.addView(it)
       it.setOnCloseIconClickListener { view -> removeAppFilter(view as Chip) }
+    }
+  }
+
+  private fun initClearDrawable(): Drawable? {
+    return ResourcesCompat.getDrawable(resources, R.drawable.ic_clear, null)?.apply {
+      if (VERSION.SDK_INT >= VERSION_CODES.Q) {
+        colorFilter =
+          BlendModeColorFilter(ResourcesCompat.getColor(resources, R.color.iconTintColor, null), SRC_IN)
+      } else {
+        @Suppress("DEPRECATION")
+        setColorFilter(ResourcesCompat.getColor(resources, R.color.iconTintColor, null), PorterDuff.Mode.SRC_IN)
+      }
+      setBounds(0, 0, this.intrinsicWidth, this.intrinsicHeight)
     }
   }
 }
