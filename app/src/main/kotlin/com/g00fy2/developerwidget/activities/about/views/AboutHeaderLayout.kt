@@ -20,10 +20,6 @@ class AboutHeaderLayout : FrameLayout {
 
   fun title(@StringRes titleRes: Int): AboutHeaderLayout {
     header_textview.setText(titleRes)
-    if (VERSION.SDK_INT >= VERSION_CODES.Q) {
-      header_textview.isAllCaps = true
-      header_textview.textSize = 12f
-    }
     return this
   }
 

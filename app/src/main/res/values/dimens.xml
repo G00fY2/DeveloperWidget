@@ -4,4 +4,5 @@
   <dimen name="action_bar_inset_with_nav">72dp</dimen>
   <dimen name="filter_input_inset">14dp</dimen>
   <dimen name="about_item_icon_margin">24dp</dimen>
+  <dimen name="item_header_text_size">14sp</dimen>
 </resources>
