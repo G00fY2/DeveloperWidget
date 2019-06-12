@@ -57,7 +57,7 @@ class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
 
   @Suppress("DEPRECATION")
   fun onItemClick(position: Int) {
-    var shortcutIntent: Intent? = null
+    var shortcutIntent: Intent?
 
     shortcutInfoList.get(position).let { shortcutInfo ->
       shortcutIntent = if (VERSION.SDK_INT >= VERSION_CODES.O) {
