@@ -161,6 +161,11 @@
           android:background="@color/dividerGrey"
           />
       <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
+          android:id="@+id/hide_launcher_icon_item"
+          android:layout_width="match_parent"
+          android:layout_height="64dp"
+          />
+      <com.g00fy2.developerwidget.activities.about.views.AboutItemLayout
           android:id="@+id/build_number_item"
           android:layout_width="match_parent"
           android:layout_height="64dp"

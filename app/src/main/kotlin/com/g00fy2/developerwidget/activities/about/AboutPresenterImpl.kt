@@ -1,5 +1,6 @@
 package com.g00fy2.developerwidget.activities.about
 
+import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BasePresenterImpl
 import com.g00fy2.developerwidget.controllers.DayNightController
 import com.g00fy2.developerwidget.controllers.IntentController
@@ -45,4 +46,6 @@ class AboutPresenterImpl @Inject constructor() : BasePresenterImpl(), AboutContr
       toastController.showToast(("\ud83d\udc68\u200d\ud83d\udcbb") + " You are a real developer!")
     }
   }
+
+  override fun showRebootNotice() = toastController.showToast(R.string.reboot_notice)
 }

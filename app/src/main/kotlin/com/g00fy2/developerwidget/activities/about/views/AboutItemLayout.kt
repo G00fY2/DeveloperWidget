@@ -7,6 +7,7 @@ import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import com.g00fy2.developerwidget.R
 import kotlinx.android.synthetic.main.about_item.view.*
 
@@ -46,9 +47,16 @@ class AboutItemLayout : ConstraintLayout {
     return this
   }
 
+  fun switch(on: Boolean): AboutItemLayout {
+    setting_switch.isChecked = on
+    setting_switch.visibility = View.VISIBLE
+    return this
+  }
+
   fun action(action: () -> Unit): AboutItemLayout {
     setOnClickListener {
       action()
+      if (setting_switch.isVisible) setting_switch.isChecked = !setting_switch.isChecked
     }
     return this
   }

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.getSystemService
 import com.g00fy2.developerwidget.controllers.DayNightController
 import dagger.android.AndroidInjection
 import timber.log.Timber
@@ -49,13 +50,11 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity
     }
   }
 
-  protected fun hideKeyboard(view: View) {
-    (getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(view.windowToken, 0)
-  }
+  protected fun hideKeyboard(view: View) =
+    getSystemService<InputMethodManager>()?.hideSoftInputFromWindow(view.windowToken, 0)
 
-  protected fun showKeyboard(view: View) {
-    (getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
-  }
+  protected fun showKeyboard(view: View) =
+    getSystemService<InputMethodManager>()?.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
 
   private fun initCompatNavigationBar() {
     // api 27+ allow applying flag via xml (windowLightNavigationBar)

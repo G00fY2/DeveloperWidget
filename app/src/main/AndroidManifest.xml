@@ -36,12 +36,11 @@
         android:theme="@style/DialogTheme"/>
 
     <activity
-        android:name=".activities.widgetconfig.WidgetConfigActivity"
-        android:autoRemoveFromRecents="true"
-        android:screenOrientation="portrait"
-        tools:targetApi="lollipop">
+        android:name=".activities.widgetconfig.ConfigLauncherActivity"
+        android:launchMode="singleTask"
+        android:taskAffinity=""
+        android:theme="@android:style/Theme.Translucent.NoTitleBar">
       <intent-filter>
-        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
         <action android:name="android.intent.action.MAIN"/>
 
         <category android:name="android.intent.category.LAUNCHER"/>
@@ -50,6 +49,16 @@
       <meta-data
           android:name="android.app.shortcuts"
           android:resource="@xml/shortcuts"/>
+    </activity>
+
+    <activity
+        android:name=".activities.widgetconfig.WidgetConfigActivity"
+        android:autoRemoveFromRecents="true"
+        android:screenOrientation="portrait"
+        tools:targetApi="lollipop">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+      </intent-filter>
     </activity>
 
     <activity

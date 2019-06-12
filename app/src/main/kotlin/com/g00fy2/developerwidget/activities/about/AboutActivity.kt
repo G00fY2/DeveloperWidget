@@ -1,11 +1,14 @@
 package com.g00fy2.developerwidget.activities.about
 
 import android.R.id
+import android.content.ComponentName
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
 import com.g00fy2.developerwidget.BuildConfig
 import com.g00fy2.developerwidget.R
+import com.g00fy2.developerwidget.activities.widgetconfig.ConfigLauncherActivity
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.utils.CHANGES
@@ -106,6 +109,12 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
       description(R.string.icon_credits_description)
       action { presenter.openUrl(ICON_CREDITS) }
     }
+    hide_launcher_icon_item.init {
+      title(R.string.show_app_icon)
+      description(R.string.show_app_icon_description)
+      switch(!isLauncherIconDisabled())
+      action { toggleLauncherIcon() }
+    }
     build_number_item.init {
       title(R.string.build_number)
       description(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ") " + BuildConfig.BUILD_TYPE)
@@ -130,5 +139,29 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
       mailAction { presenter.sendFeedbackMail() }
       githubAction { presenter.openUrl(GITHUB_ISSUE) }
     }.show()
+  }
+
+  private fun isLauncherIconDisabled(): Boolean {
+    return packageManager.getComponentEnabledSetting(
+      ComponentName(
+        this,
+        ConfigLauncherActivity::class.java
+      )
+    ) == PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+  }
+
+  private fun toggleLauncherIcon() {
+    if (isLauncherIconDisabled()) {
+      PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+    } else {
+      PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+    }.let {
+      packageManager.setComponentEnabledSetting(
+        ComponentName(this, ConfigLauncherActivity::class.java),
+        it,
+        PackageManager.DONT_KILL_APP
+      )
+    }
+    presenter.showRebootNotice()
   }
 }
