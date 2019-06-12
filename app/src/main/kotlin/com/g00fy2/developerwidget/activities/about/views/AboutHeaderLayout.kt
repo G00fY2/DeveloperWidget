@@ -1,6 +1,8 @@
 package com.g00fy2.developerwidget.activities.about.views
 
 import android.content.Context
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
@@ -18,6 +20,10 @@ class AboutHeaderLayout : FrameLayout {
 
   fun title(@StringRes titleRes: Int): AboutHeaderLayout {
     header_textview.setText(titleRes)
+    if (VERSION.SDK_INT >= VERSION_CODES.Q) {
+      header_textview.isAllCaps = true
+      header_textview.textSize = 12f
+    }
     return this
   }
 

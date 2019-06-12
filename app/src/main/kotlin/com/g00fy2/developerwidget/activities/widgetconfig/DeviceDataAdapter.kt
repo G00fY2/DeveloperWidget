@@ -1,5 +1,7 @@
 package com.g00fy2.developerwidget.activities.widgetconfig
 
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +43,10 @@ class DeviceDataAdapter : BaseAdapter<Pair<String, DeviceDataItem>, BaseViewHold
           HEADER_TYPE -> {
             header_divider_view.visibility = if (position == 0) View.INVISIBLE else View.VISIBLE
             header_title_textview.text = itemView.context.getString(it.second.title)
+            if (VERSION.SDK_INT >= VERSION_CODES.Q) {
+              header_title_textview.isAllCaps = true
+              header_title_textview.textSize = 12f
+            }
           }
           VALUE_TYPE -> {
             device_data_title.text = itemView.context.getString(it.second.title)
