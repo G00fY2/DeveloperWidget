@@ -35,6 +35,12 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
     initView()
   }
 
+  override fun onResume() {
+    super.onResume()
+    updateThemeToggleView()
+    updateLauncherIconSwitch()
+  }
+
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return if (item.itemId == id.home) {
       finish()
@@ -112,7 +118,6 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
     hide_launcher_icon_item.init {
       title(R.string.show_app_icon)
       description(R.string.show_app_icon_description)
-      switch(!isLauncherIconDisabled())
       action { toggleLauncherIcon() }
     }
     build_number_item.init {
@@ -120,8 +125,6 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
       description(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ") " + BuildConfig.BUILD_TYPE)
       action { presenter.honorClicking() }
     }
-
-    updateThemeToggleView()
   }
 
   override fun updateThemeToggleView() {
@@ -133,6 +136,8 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
       }
     }
   }
+
+  private fun updateLauncherIconSwitch() = hide_launcher_icon_item.switch(!isLauncherIconDisabled())
 
   private fun showFeedbackOptions() {
     AboutFeedbackDialog(this).init {
