@@ -108,8 +108,8 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     return if (item.itemId == R.id.about_button) {
-        startActivity(Intent(this, AboutActivity::class.java))
-        true
+      startActivity(Intent(this, AboutActivity::class.java))
+      true
     } else {
       super.onOptionsItemSelected(item)
     }
