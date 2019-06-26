@@ -20,6 +20,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.EditorInfo
 import android.webkit.WebView
 import androidx.core.content.getSystemService
@@ -188,7 +189,7 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
       }
     }
     device_title_edittextview.apply {
-      setOnFocusChangeListener { _, hasFocus ->
+      onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
         if (!hasFocus) {
           presenter.setCustomDeviceName(device_title_edittextview.text.toString())
           toggleDeviceNameEdit(false)

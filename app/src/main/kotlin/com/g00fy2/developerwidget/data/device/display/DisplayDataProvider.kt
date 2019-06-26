@@ -8,6 +8,9 @@ import android.util.DisplayMetrics
 import android.view.WindowManager
 import androidx.core.content.getSystemService
 import java.text.NumberFormat
+import kotlin.math.max
+import kotlin.math.min
+import kotlin.math.roundToInt
 
 class DisplayDataProvider {
 
@@ -32,12 +35,12 @@ class DisplayDataProvider {
       } else {
         display?.getMetrics(displayMetric)
       }
-      return Point(Math.round(displayMetric.xdpi), Math.round(displayMetric.ydpi))
+      return Point(displayMetric.xdpi.roundToInt(), displayMetric.ydpi.roundToInt())
     }
 
     fun getDisplayRatio(resolution: Point): String {
-      val resX = Math.min(resolution.x, resolution.y)
-      val resY = Math.max(resolution.x, resolution.y)
+      val resX = min(resolution.x, resolution.y)
+      val resY = max(resolution.x, resolution.y)
       val gcd = gcd(resX, resY)
 
       val result = (resY / gcd).toString() + ":" + (resX / gcd)

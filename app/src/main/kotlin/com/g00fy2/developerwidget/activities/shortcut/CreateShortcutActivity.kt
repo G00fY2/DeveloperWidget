@@ -59,7 +59,7 @@ class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
   fun onItemClick(position: Int) {
     var shortcutIntent: Intent?
 
-    shortcutInfoList.get(position).let { shortcutInfo ->
+    shortcutInfoList[position].let { shortcutInfo ->
       shortcutIntent = if (VERSION.SDK_INT >= VERSION_CODES.O) {
         getSystemService<ShortcutManager>()?.createShortcutResultIntent(shortcutInfo)
       } else {

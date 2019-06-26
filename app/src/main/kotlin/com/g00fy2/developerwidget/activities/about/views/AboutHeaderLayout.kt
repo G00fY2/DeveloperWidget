@@ -1,8 +1,6 @@
 package com.g00fy2.developerwidget.activities.about.views
 
 import android.content.Context
-import android.os.Build.VERSION
-import android.os.Build.VERSION_CODES
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout

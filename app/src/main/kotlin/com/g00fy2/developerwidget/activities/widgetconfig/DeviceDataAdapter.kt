@@ -1,7 +1,5 @@
 package com.g00fy2.developerwidget.activities.widgetconfig
 
-import android.os.Build.VERSION
-import android.os.Build.VERSION_CODES
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

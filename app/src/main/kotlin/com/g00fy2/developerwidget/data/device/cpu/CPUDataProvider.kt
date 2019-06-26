@@ -7,6 +7,7 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.io.RandomAccessFile
 import java.util.regex.Pattern
+import kotlin.math.max
 
 class CPUDataProvider {
 
@@ -25,7 +26,7 @@ class CPUDataProvider {
     }
 
     fun getCPUCoreNum(): Int {
-      return Math.max(
+      return max(
         File(CPU_SYS_FOLDER)
           .walk()
           .maxDepth(1)

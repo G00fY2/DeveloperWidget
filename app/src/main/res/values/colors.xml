@@ -38,7 +38,6 @@
   <color name="nightPrimary">#262728</color>
   <color name="nightAccent">#2581df</color>
   <color name="nightGrey">#313235</color>
-  <color name="nightDivider">#3c3c3c</color>
 
   <color name="ic_launcher_background">#1a73e8</color>
 </resources>

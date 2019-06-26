@@ -8,6 +8,7 @@ import androidx.core.content.getSystemService
 import java.io.IOException
 import java.io.RandomAccessFile
 import java.util.regex.Pattern
+import kotlin.math.roundToLong
 
 class RamDataProvider {
 
@@ -17,7 +18,7 @@ class RamDataProvider {
       if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN) {
         val memInfo = ActivityManager.MemoryInfo()
         context.getSystemService<ActivityManager>()?.getMemoryInfo(memInfo)
-        return (2 * (Math.round(memInfo.totalMem / (1024.0 * 1024.0) / 2))).toString() + " MB"
+        return (2 * ((memInfo.totalMem / (1024.0 * 1024.0) / 2).roundToLong())).toString() + " MB"
       } else {
         try {
           RandomAccessFile("/proc/meminfo", "r").use {
@@ -25,7 +26,7 @@ class RamDataProvider {
             var memTotal: String? = null
             while (matcher.find()) memTotal = matcher.group(1)
             memTotal?.let { value ->
-              return (2 * (Math.round(value.toLong() / 1024.0 / 2))).toString() + " MB"
+              return (2 * ((value.toLong() / 1024.0 / 2).roundToLong())).toString() + " MB"
             }
           }
         } catch (e: IOException) {

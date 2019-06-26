@@ -25,7 +25,7 @@ class ShortcutAdapter : BaseAdapter<ShortcutInfo, BaseViewHolder>(ShortcutDiffUt
   override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
     holder.apply {
       shortcut_title_textview.text =
-        getItem(position)?.longLabel?.toString() ?: getItem(position)?.shortLabel.toString() ?: ""
+        getItem(position)?.longLabel?.toString() ?: getItem(position)?.shortLabel.toString()
     }
   }
 
