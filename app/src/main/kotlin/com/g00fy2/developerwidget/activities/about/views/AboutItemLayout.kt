@@ -7,6 +7,7 @@ import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.children
 import androidx.core.view.isVisible
 import com.g00fy2.developerwidget.R
 import kotlinx.android.synthetic.main.about_item.view.*
@@ -17,6 +18,11 @@ class AboutItemLayout : ConstraintLayout {
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
   constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
     LayoutInflater.from(context).inflate(R.layout.about_item, this, true)
+  }
+
+  override fun setEnabled(enabled: Boolean) {
+    super.setEnabled(enabled)
+    for (child in constraint_layout.children) child.isEnabled = enabled
   }
 
   fun icon(@DrawableRes iconRes: Int): AboutItemLayout {

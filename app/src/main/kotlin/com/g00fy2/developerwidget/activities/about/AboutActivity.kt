@@ -3,6 +3,8 @@ package com.g00fy2.developerwidget.activities.about
 import android.R.id
 import android.content.ComponentName
 import android.content.pm.PackageManager
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
@@ -39,6 +41,7 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
     super.onResume()
     updateThemeToggleView()
     updateLauncherIconSwitch()
+    updateLauncherIconItem()
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -139,6 +142,10 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
 
   private fun updateLauncherIconSwitch() = hide_launcher_icon_item.switch(!isLauncherIconDisabled())
 
+  private fun updateLauncherIconItem() {
+    if (VERSION.SDK_INT >= VERSION_CODES.Q) hide_launcher_icon_item.isEnabled = isLauncherIconDisabled()
+  }
+
   private fun showFeedbackOptions() {
     AboutFeedbackDialog(this).init {
       mailAction { presenter.sendFeedbackMail() }
@@ -167,6 +174,7 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
         PackageManager.DONT_KILL_APP
       )
     }
+    updateLauncherIconItem()
     presenter.showRebootNotice()
   }
 }
