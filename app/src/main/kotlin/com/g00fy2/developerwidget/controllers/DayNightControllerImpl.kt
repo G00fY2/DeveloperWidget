@@ -38,7 +38,7 @@ class DayNightControllerImpl @Inject constructor() : DayNightController {
       AppCompatDelegate.MODE_NIGHT_NO -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
       else -> AppCompatDelegate.MODE_NIGHT_YES
     }.let {
-      // TODO remove if issuetracker.google.com/issues/131851825 is fixed
+      // TODO remove if https://issuetracker.google.com/issues/131851825 is fixed
       if (VERSION.SDK_INT <= VERSION_CODES.M) toastController.showToast(R.string.day_night_issue)
       saveCustomDefaultMode(it)
       applyMode(it)
