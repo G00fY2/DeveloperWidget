@@ -16,28 +16,32 @@ class DisplayDataProvider {
 
   companion object {
 
-    fun getResolution(context: Context): Point {
-      val display = context.getSystemService<WindowManager>()?.defaultDisplay
-      val size = Point()
-      if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) {
-        display?.getRealSize(size)
-      } else {
-        display?.getSize(size)
+    fun getResolution(context: Context): Point? {
+      context.getSystemService<WindowManager>()?.defaultDisplay?.let { windowManager ->
+        Point().let { point ->
+          if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) {
+            windowManager.getRealSize(point)
+          } else {
+            windowManager.getSize(point)
+          }
+          return point
+        }
       }
-      // TODO handle size not set
-      return size
+      return null
     }
 
-    fun geDisplayDpi(context: Context): Point {
-      val display = context.getSystemService<WindowManager>()?.defaultDisplay
-      val displayMetric = DisplayMetrics()
-      if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) {
-        display?.getRealMetrics(displayMetric)
-      } else {
-        display?.getMetrics(displayMetric)
+    fun geDisplayDpi(context: Context): String {
+      context.getSystemService<WindowManager>()?.defaultDisplay?.let { windowManager ->
+        DisplayMetrics().let { displayMetrics ->
+          if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR1) {
+            windowManager.getRealMetrics(displayMetrics)
+          } else {
+            windowManager.getMetrics(displayMetrics)
+          }
+          return displayMetrics.xdpi.roundToInt().toString() + " / " + displayMetrics.ydpi.roundToInt() + " dpi"
+        }
       }
-      // TODO handle display set
-      return Point(displayMetric.xdpi.roundToInt(), displayMetric.ydpi.roundToInt())
+      return ""
     }
 
     fun getDisplayRatio(resolution: Point): String {
