@@ -24,6 +24,7 @@ class DisplayDataProvider {
       } else {
         display?.getSize(size)
       }
+      // TODO handle size not set
       return size
     }
 
@@ -35,6 +36,7 @@ class DisplayDataProvider {
       } else {
         display?.getMetrics(displayMetric)
       }
+      // TODO handle display set
       return Point(displayMetric.xdpi.roundToInt(), displayMetric.ydpi.roundToInt())
     }
 
