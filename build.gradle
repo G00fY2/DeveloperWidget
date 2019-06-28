@@ -49,8 +49,7 @@ allprojects {
     jcenter {
       content {
         includeModule 'com.g00fy2', 'versioncompare'
-        // required by com.android.tools.lint:lint-gradle
-        includeModule 'org.jetbrains.trove4j', 'trove4j'
+        includeModule 'org.jetbrains.trove4j', 'trove4j' // required by com.android.tools.lint:lint-gradle
       }
     }
   }

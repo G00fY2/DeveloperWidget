@@ -55,7 +55,7 @@ class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
     adapter.setOnShortcutSelected { shortcutPosition -> onItemClick(shortcutPosition) }
   }
 
-  fun onItemClick(position: Int) {
+  private fun onItemClick(position: Int) {
     var shortcutIntent: Intent?
 
     shortcutInfoList[position].let { shortcutInfo ->
