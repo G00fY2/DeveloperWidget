@@ -63,9 +63,8 @@ class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
     }
   }
 
-  override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
+  override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) =
     presenter.getDeviceData(appWidgetIds)
-  }
 
   override fun onDeleted(context: Context?, appWidgetIds: IntArray) {
     Timber.d("onDeleted widget %s", appWidgetIds.first())

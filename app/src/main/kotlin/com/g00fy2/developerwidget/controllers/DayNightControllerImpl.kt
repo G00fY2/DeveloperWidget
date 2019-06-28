@@ -46,9 +46,7 @@ class DayNightControllerImpl @Inject constructor() : DayNightController {
     }
   }
 
-  private fun applyMode(mode: Int) {
-    AppCompatDelegate.setDefaultNightMode(mode)
-  }
+  private fun applyMode(mode: Int) = AppCompatDelegate.setDefaultNightMode(mode)
 
   private fun updateWidgetTheme() {
     context.sendBroadcast(Intent(context, WidgetProviderImpl::class.java).apply {
