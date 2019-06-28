@@ -6,16 +6,20 @@ import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
 import com.g00fy2.developerwidget.controllers.DayNightController
+import com.g00fy2.developerwidget.utils.DIALOG_ACTIVITY_HEIGHT_FACTOR
+import com.g00fy2.developerwidget.utils.DIALOG_ACTIVITY_WIDTH_FACTOR
 import dagger.android.AndroidInjection
 import timber.log.Timber
 import javax.inject.Inject
 
-abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity(contentLayoutId) {
+abstract class BaseActivity(@LayoutRes contentLayoutId: Int, private val isDialogActivity: Boolean = false) :
+  AppCompatActivity(contentLayoutId) {
 
   @Inject
   lateinit var dayNightController: DayNightController
@@ -23,7 +27,18 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     Timber.d("Lifecycle: %s1 onCreate %s2", localClassName, hashCode())
-    super.onCreate(savedInstanceState)
+
+    if (isDialogActivity) {
+      requestWindowFeature(Window.FEATURE_NO_TITLE)
+      super.onCreate(savedInstanceState)
+
+      val width = (resources.displayMetrics.widthPixels * DIALOG_ACTIVITY_WIDTH_FACTOR).toInt()
+      val height = (resources.displayMetrics.heightPixels * DIALOG_ACTIVITY_HEIGHT_FACTOR).toInt()
+      window.setLayout(width, height)
+    } else {
+      super.onCreate(savedInstanceState)
+    }
+
     dayNightController.loadCustomDefaultMode()
     lifecycle.addObserver(providePresenter())
     initCompatNavigationBar()

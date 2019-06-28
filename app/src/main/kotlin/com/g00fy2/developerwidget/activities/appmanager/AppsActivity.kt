@@ -13,7 +13,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
-import android.view.Window
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import androidx.appcompat.widget.TooltipCompat
@@ -28,14 +27,12 @@ import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.utils.AnimationUtils
-import com.g00fy2.developerwidget.utils.DIALOG_ACTIVITY_HEIGHT_FACTOR
-import com.g00fy2.developerwidget.utils.DIALOG_ACTIVITY_WIDTH_FACTOR
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_apps.*
 import kotlinx.android.synthetic.main.app_filter_info.*
 import javax.inject.Inject
 
-class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView {
+class AppsActivity : BaseActivity(R.layout.activity_apps, true), AppsContract.AppsView {
 
   @Inject
   lateinit var presenter: AppsContract.AppsPresenter
@@ -47,14 +44,7 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
   override fun providePresenter(): BasePresenter = presenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    requestWindowFeature(Window.FEATURE_NO_TITLE)
     super.onCreate(savedInstanceState)
-
-    val width = (resources.displayMetrics.widthPixels * DIALOG_ACTIVITY_WIDTH_FACTOR).toInt()
-    val height = (resources.displayMetrics.heightPixels * DIALOG_ACTIVITY_HEIGHT_FACTOR).toInt()
-    window.setLayout(width, height)
-
-    cancel_textview.setOnClickListener { finish() }
 
     adapter = AppsAdapter()
     adapter.setOnAppClicked { appInfo -> presenter.openAppSettingsActivity(appInfo) }
@@ -73,6 +63,8 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
     recyclerview.itemAnimator = null
     recyclerview.layoutManager = LinearLayoutManager(this)
     recyclerview.adapter = adapter
+
+    cancel_textview.setOnClickListener { finish() }
     initFilterViews()
   }
 
@@ -153,13 +145,9 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
       }.start()
   }
 
-  override fun updateAppFilter(filters: List<String>) {
-    adapter.updateAppFilters(filters)
-  }
+  override fun updateAppFilter(filters: List<String>) = adapter.updateAppFilters(filters)
 
-  override fun updateAppFilter(filter: String) {
-    adapter.updateAppFilter(filter)
-  }
+  override fun updateAppFilter(filter: String) = adapter.updateAppFilter(filter)
 
   override fun updateFilterIcon(filterActive: Boolean) {
     if (filterActive) {

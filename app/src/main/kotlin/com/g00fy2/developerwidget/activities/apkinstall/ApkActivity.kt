@@ -2,19 +2,16 @@ package com.g00fy2.developerwidget.activities.apkinstall
 
 import android.os.Bundle
 import android.view.View
-import android.view.Window
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
-import com.g00fy2.developerwidget.utils.DIALOG_ACTIVITY_HEIGHT_FACTOR
-import com.g00fy2.developerwidget.utils.DIALOG_ACTIVITY_WIDTH_FACTOR
 import kotlinx.android.synthetic.main.activity_apk.*
 import javax.inject.Inject
 
-class ApkActivity : BaseActivity(R.layout.activity_apk), ApkContract.ApkView {
+class ApkActivity : BaseActivity(R.layout.activity_apk, true), ApkContract.ApkView {
 
   @Inject
   lateinit var presenter: ApkContract.ApkPresenter
@@ -24,12 +21,7 @@ class ApkActivity : BaseActivity(R.layout.activity_apk), ApkContract.ApkView {
   override fun providePresenter(): BasePresenter = presenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    requestWindowFeature(Window.FEATURE_NO_TITLE)
     super.onCreate(savedInstanceState)
-
-    val width = (resources.displayMetrics.widthPixels * DIALOG_ACTIVITY_WIDTH_FACTOR).toInt()
-    val height = (resources.displayMetrics.heightPixels * DIALOG_ACTIVITY_HEIGHT_FACTOR).toInt()
-    window.setLayout(width, height)
 
     adapter = ApkAdapter()
     adapter.setOnApkClicked { apkFile -> presenter.installApk(apkFile) }
