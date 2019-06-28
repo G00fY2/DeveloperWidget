@@ -21,6 +21,8 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
+import androidx.interpolator.view.animation.FastOutLinearInInterpolator
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BaseActivity
@@ -78,7 +80,7 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
     app_filter_info.setOnClickListener {
       scrollToTopAfterCommit = true
       presenter.disableFilter()
-      AnimationUtils.collapseView(app_filter_info, true)
+      AnimationUtils.collapseView(app_filter_info, true, LinearOutSlowInInterpolator())
     }
     TooltipCompat.setTooltipText(filter_imageview, filter_imageview.contentDescription)
     filter_imageview.setOnClickListener {
@@ -169,14 +171,15 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
 
   private fun toggleFilterView() {
     if (filter_linearlayout.isVisible) {
-      if (presenter.getCurrentFilter().isNotEmpty()) AnimationUtils.expandView(app_filter_info, true)
-      AnimationUtils.collapseView(filter_linearlayout)
+      if (presenter.getCurrentFilter().isNotEmpty()) AnimationUtils.expandView(app_filter_info, true,
+        FastOutLinearInInterpolator())
+      AnimationUtils.collapseView(filter_linearlayout, easing = FastOutLinearInInterpolator())
       hideKeyboard(filter_edittext)
     } else {
-      if (app_filter_info.isVisible) AnimationUtils.collapseView(app_filter_info, true)
+      if (app_filter_info.isVisible) AnimationUtils.collapseView(app_filter_info, true, LinearOutSlowInInterpolator())
       filter_edittext.text.clear()
       setFilterChips(presenter.getCurrentFilter())
-      AnimationUtils.expandView(filter_linearlayout)
+      AnimationUtils.expandView(filter_linearlayout, easing = LinearOutSlowInInterpolator())
     }
   }
 

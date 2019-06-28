@@ -2,4 +2,5 @@
 <resources>
   <bool name="caps_header">false</bool>
   <bool name="shortcut_support">false</bool>
+  <integer name="animation_duration">300</integer>
 </resources>
