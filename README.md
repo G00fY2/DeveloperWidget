@@ -15,8 +15,7 @@
 [<img src="https://raw.githubusercontent.com/G00fY2/DeveloperWidget/gh-pages/media/store_screenshot_7.png" width=160>](https://raw.githubusercontent.com/G00fY2/DeveloperWidget/gh-pages/media/store_screenshot_7.png)
 
 ## Description
-The app was built from an developer perspective. You may know the hassle of having multiple physical devices running different software. This app will help you to keep track of all the important information and helps you to organize your installed apps and local APK files.
-You will never have to struggle finding APK files within a file browser or search through custom device manufactor settings to clear the app cache or see the version number!
+The app was built from a developer for developers. You may know the hassle of having multiple physical devices running different software. This app will help you keep track of important device information as well as organize your installed apps and local APK files. You will never have to struggle finding an APK file with a file browser or search through custom device manufacturer settings to clear the app cache or see the version number!
 
 The main feature of the app is an 4x1 (horizontally resizable) homescreen widget that shows dynamically fetched device data and allows you to browse your installed apps and local APK files.
 
