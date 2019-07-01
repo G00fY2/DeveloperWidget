@@ -22,13 +22,13 @@ The main feature of the app is an 4x1 (horizontally resizable) homescreen widget
 
 ### Features
 * Homescreen widget with customizable device name
-* Dynamically fetched device data
-  * device model, system, cpu, mememory, display, hardware features, software
+* Overview of dynamically fetched device data
+  * device model, system, cpu, memory, display, hardware features, software
 * Browse all installed (non system) apps and filter them by **package name**
   * Opens the specific Android app settings
   * Save multiple filters per widget by *enter* and *confirm* a search term 
   * Wildcard support (e.g. **`com.*xyz`**)
-  * Show all apps function without deleting the filter
+  * Option to temporary disable the filter
 * Manage local APK files
   * Scan internal storage and SD-cards for valid (parsable) APK files
   * Show file name, modification time, file size, app name, debuggable flag, versionname and versioncode
