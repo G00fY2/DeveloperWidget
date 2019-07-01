@@ -50,7 +50,7 @@ The main feature of the app is an 4x1 (horizontally resizable) homescreen widget
   * currently installed version, filepath, certificate ...
 
 ## Download
-<a href='https://play.google.com/store/apps/details?id=com.g00fy2.developerwidget&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' width='215' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+<a href='https://play.google.com/store/apps/details?id=com.g00fy2.developerwidget'><img alt='Get it on Google Play' width='215' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
 ###### You also find the latest APK files in the [GitHub Releases](https://github.com/G00fY2/DeveloperWidget/releases).
 
 ## Release Notes
