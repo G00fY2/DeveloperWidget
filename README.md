@@ -1,6 +1,6 @@
 <p align="center"><a href="#"><img src="https://raw.githubusercontent.com/G00fY2/DeveloperWidget/gh-pages/media/app_icon.png" alt="DeveloperWidget Icon" height="192px"></a></p>
 
-# Developer Widget [![Build Status](https://travis-ci.com/G00fY2/DeveloperWidget.svg?branch=develop)](https://travis-ci.com/G00fY2/DeveloperWidget) [![Release](https://img.shields.io/github/release-pre/G00fY2/DeveloperWidget.svg)](https://github.com/G00fY2/DeveloperWidget/releases) [![minSDK](https://img.shields.io/badge/minSDK-14-green.svg)](#) [![License](https://img.shields.io/github/license/G00fY2/DeveloperWidget.svg)](https://github.com/G00fY2/DeveloperWidget/blob/develop/LICENSE)
+# Developer Widget [![Build Status](https://travis-ci.com/G00fY2/DeveloperWidget.svg?branch=develop)](https://travis-ci.com/G00fY2/DeveloperWidget) [![Release](https://img.shields.io/github/release-pre/G00fY2/DeveloperWidget.svg)](https://github.com/G00fY2/DeveloperWidget/releases) [![minSDK](https://img.shields.io/badge/minSDK-14-green.svg)](#) [![License](https://img.shields.io/github/license/G00fY2/DeveloperWidget.svg)](https://github.com/G00fY2/DeveloperWidget/blob/develop/LICENSE) [![Privacy Policy](https://img.shields.io/badge/-Privacy%20Policy-brightgreen.svg)](https://g00fy2.github.io/DeveloperWidget/privacy-policy.html)
 
 **Small Android app that offers a widget to show device data, manage installed apps and list locally stored APK files.**
 
