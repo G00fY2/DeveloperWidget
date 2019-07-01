@@ -28,13 +28,13 @@ The main feature of the app is an 4x1 (horizontally resizable) homescreen widget
   * Opens the specific Android app settings
   * Save multiple filters per widget by *enter* and *confirm* a search term 
   * Wildcard support (e.g. **`com.*xyz`**)
-  * Show all apps function withput deleting the filter
+  * Show all apps function without deleting the filter
 * Manage local APK files
   * Scan internal storage and SD-cards for valid (parsable) APK files
   * Show file name, modification time, file size, app name, debuggable flag, versionname and versioncode
   * Directly install them from within the app
   * Delete files by long clicking
-* Offers usefull app shortcuts starting from API 25
+* Offers useful app shortcuts starting from API 25
   * Native language settings shortcut
   * Native Android developer settings shortcut
   * Custom installed apps browser shortcut
