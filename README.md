@@ -1,4 +1,4 @@
-<p align="center"><a href="#"><img src="https://raw.githubusercontent.com/G00fY2/DeveloperWidget/gh-pages/media/app_icon.png" alt="DeveloperWidget Icon" height="192px"></a></p>
+<p align="center"><a href="#"><img src="https://raw.githubusercontent.com/G00fY2/DeveloperWidget/gh-pages/media/app_icon.png" alt="DeveloperWidget Icon" height="160px"></a></p>
 
 # Developer Widget [![Build Status](https://travis-ci.com/G00fY2/DeveloperWidget.svg?branch=develop)](https://travis-ci.com/G00fY2/DeveloperWidget) [![Release](https://img.shields.io/github/release/G00fY2/DeveloperWidget.svg)](https://github.com/G00fY2/DeveloperWidget/releases) [![minSDK](https://img.shields.io/badge/minSDK-14-green.svg)](#) [![License](https://img.shields.io/github/license/G00fY2/DeveloperWidget.svg)](https://github.com/G00fY2/DeveloperWidget/blob/develop/LICENSE)
 
@@ -49,7 +49,8 @@ The main feature of the app is an 4x1 (horizontally resizable) homescreen widget
 
 ## Download
 <a href='https://play.google.com/store/apps/details?id=com.g00fy2.developerwidget'><img alt='Get it on Google Play' width='215' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
-###### You also find the latest APK files in the [GitHub Releases](https://github.com/G00fY2/DeveloperWidget/releases).
+
+You also find the latest APK files in the [GitHub Releases](https://github.com/G00fY2/DeveloperWidget/releases).
 
 ## Release Notes
 
