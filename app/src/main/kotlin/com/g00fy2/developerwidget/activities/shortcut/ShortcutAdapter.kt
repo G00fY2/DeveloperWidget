@@ -29,7 +29,6 @@ class ShortcutAdapter : BaseAdapter<ShortcutInfo, BaseViewHolder>(ShortcutDiffUt
     }
   }
 
-
   fun setOnShortcutSelected(onShortcutSelected: (Int) -> Unit) {
     this.onShortcutSelected = onShortcutSelected
   }

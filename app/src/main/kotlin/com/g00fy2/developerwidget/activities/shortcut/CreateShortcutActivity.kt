@@ -90,7 +90,6 @@ class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
       Intent(this, ApkActivity::class.java).setAction(Intent.ACTION_VIEW)
     )
 
-
     val devSettingsShortcut = buildShortcutInfo(
       DEVSETTINGS_ID,
       R.string.developer_settings,

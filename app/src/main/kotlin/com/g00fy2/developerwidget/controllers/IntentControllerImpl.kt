@@ -49,7 +49,6 @@ class IntentControllerImpl @Inject constructor() : IntentController {
   override fun openAppSettings(packageName: String) =
     startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, "package:$packageName".toUri()))
 
-
   override fun sendMailToDeveloper() {
     startActivity(Intent(Intent.ACTION_SENDTO).apply {
       data = Uri.parse("mailto:")

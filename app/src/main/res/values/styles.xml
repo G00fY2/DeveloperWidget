@@ -24,7 +24,6 @@
     <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
   </style>
 
-
   <style name="ActionBarAccent" parent="ThemeOverlay.AppCompat.ActionBar">
     <item name="android:textColorPrimary">@color/colorAccent</item>
   </style>
