@@ -1,4 +1,4 @@
-<p align="center"><img src="https://raw.githubusercontent.com/G00fY2/DeveloperWidget/gh-pages/media/app_icon.png" alt="DeveloperWidget Icon" height="192px"></p>
+<p align="center"><a href="#"><img src="https://raw.githubusercontent.com/G00fY2/DeveloperWidget/gh-pages/media/app_icon.png" alt="DeveloperWidget Icon" height="192px"></a></p>
 
 # Developer Widget [![Build Status](https://travis-ci.com/G00fY2/DeveloperWidget.svg?branch=develop)](https://travis-ci.com/G00fY2/DeveloperWidget) [![Release](https://img.shields.io/github/release-pre/G00fY2/DeveloperWidget.svg)](https://github.com/G00fY2/DeveloperWidget/releases) [![minSDK](https://img.shields.io/badge/minSDK-14-green.svg)](#) [![License](https://img.shields.io/github/license/G00fY2/DeveloperWidget.svg)](https://github.com/G00fY2/DeveloperWidget/blob/develop/LICENSE)
 
