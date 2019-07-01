@@ -1,6 +1,11 @@
 package com.g00fy2.developerwidget.activities.appmanager
 
+import android.graphics.BlendMode.SRC_IN
+import android.graphics.BlendModeColorFilter
 import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
@@ -8,7 +13,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
-import android.view.Window
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import androidx.appcompat.widget.TooltipCompat
@@ -16,43 +20,31 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
+import androidx.interpolator.view.animation.FastOutLinearInInterpolator
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.utils.AnimationUtils
-import com.g00fy2.developerwidget.utils.DIALOG_ACTIVITY_HEIGHT_FACTOR
-import com.g00fy2.developerwidget.utils.DIALOG_ACTIVITY_WIDTH_FACTOR
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_apps.*
 import kotlinx.android.synthetic.main.app_filter_info.*
 import javax.inject.Inject
 
-class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView {
+class AppsActivity : BaseActivity(R.layout.activity_apps, true), AppsContract.AppsView {
 
   @Inject
   lateinit var presenter: AppsContract.AppsPresenter
 
   private lateinit var adapter: AppsAdapter
   private var scrollToTopAfterCommit = false
-  private val clearDrawable by lazy {
-    ResourcesCompat.getDrawable(resources, R.drawable.ic_clear, null)?.apply {
-      setColorFilter(ResourcesCompat.getColor(resources, R.color.vectorTintColor, null), PorterDuff.Mode.SRC_IN)
-      setBounds(0, 0, this.intrinsicWidth, this.intrinsicHeight)
-    }
-  }
+  private val clearDrawable by lazy { initClearDrawable() }
 
   override fun providePresenter(): BasePresenter = presenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    requestWindowFeature(Window.FEATURE_NO_TITLE)
     super.onCreate(savedInstanceState)
-
-    val width = (resources.displayMetrics.widthPixels * DIALOG_ACTIVITY_WIDTH_FACTOR).toInt()
-    val height = (resources.displayMetrics.heightPixels * DIALOG_ACTIVITY_HEIGHT_FACTOR).toInt()
-    window.setLayout(width, height)
-
-    cancel_textview.setOnClickListener { finish() }
 
     adapter = AppsAdapter()
     adapter.setOnAppClicked { appInfo -> presenter.openAppSettingsActivity(appInfo) }
@@ -71,6 +63,8 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
     recyclerview.itemAnimator = null
     recyclerview.layoutManager = LinearLayoutManager(this)
     recyclerview.adapter = adapter
+
+    cancel_textview.setOnClickListener { finish() }
     initFilterViews()
   }
 
@@ -78,7 +72,7 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
     app_filter_info.setOnClickListener {
       scrollToTopAfterCommit = true
       presenter.disableFilter()
-      AnimationUtils.collapseView(app_filter_info, true)
+      AnimationUtils.collapseView(app_filter_info, true, LinearOutSlowInInterpolator())
     }
     TooltipCompat.setTooltipText(filter_imageview, filter_imageview.contentDescription)
     filter_imageview.setOnClickListener {
@@ -151,13 +145,9 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
       }.start()
   }
 
-  override fun updateAppFilter(filters: List<String>) {
-    adapter.updateAppFilters(filters)
-  }
+  override fun updateAppFilter(filters: List<String>) = adapter.updateAppFilters(filters)
 
-  override fun updateAppFilter(filter: String) {
-    adapter.updateAppFilter(filter)
-  }
+  override fun updateAppFilter(filter: String) = adapter.updateAppFilter(filter)
 
   override fun updateFilterIcon(filterActive: Boolean) {
     if (filterActive) {
@@ -169,14 +159,15 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
 
   private fun toggleFilterView() {
     if (filter_linearlayout.isVisible) {
-      if (presenter.getCurrentFilter().isNotEmpty()) AnimationUtils.expandView(app_filter_info, true)
-      AnimationUtils.collapseView(filter_linearlayout)
+      if (presenter.getCurrentFilter().isNotEmpty()) AnimationUtils.expandView(app_filter_info, true,
+        FastOutLinearInInterpolator())
+      AnimationUtils.collapseView(filter_linearlayout, easing = FastOutLinearInInterpolator())
       hideKeyboard(filter_edittext)
     } else {
-      if (app_filter_info.isVisible) AnimationUtils.collapseView(app_filter_info, true)
+      if (app_filter_info.isVisible) AnimationUtils.collapseView(app_filter_info, true, LinearOutSlowInInterpolator())
       filter_edittext.text.clear()
       setFilterChips(presenter.getCurrentFilter())
-      AnimationUtils.expandView(filter_linearlayout)
+      AnimationUtils.expandView(filter_linearlayout, easing = LinearOutSlowInInterpolator())
     }
   }
 
@@ -199,6 +190,19 @@ class AppsActivity : BaseActivity(R.layout.activity_apps), AppsContract.AppsView
       it.isClickable = false
       chip_group.addView(it)
       it.setOnCloseIconClickListener { view -> removeAppFilter(view as Chip) }
+    }
+  }
+
+  private fun initClearDrawable(): Drawable? {
+    return ResourcesCompat.getDrawable(resources, R.drawable.ic_clear, null)?.apply {
+      if (VERSION.SDK_INT >= VERSION_CODES.Q) {
+        colorFilter =
+          BlendModeColorFilter(ResourcesCompat.getColor(resources, R.color.iconTintColor, null), SRC_IN)
+      } else {
+        @Suppress("DEPRECATION")
+        setColorFilter(ResourcesCompat.getColor(resources, R.color.iconTintColor, null), PorterDuff.Mode.SRC_IN)
+      }
+      setBounds(0, 0, this.intrinsicWidth, this.intrinsicHeight)
     }
   }
 }

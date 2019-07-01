@@ -7,14 +7,21 @@ import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.drawable.Icon
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
+import android.widget.LinearLayout
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.getSystemService
 import androidx.core.graphics.drawable.toBitmap
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.g00fy2.developerwidget.R
+import com.g00fy2.developerwidget.activities.apkinstall.ApkActivity
+import com.g00fy2.developerwidget.activities.appmanager.AppsActivity
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import kotlinx.android.synthetic.main.activity_create_shortcut.*
@@ -27,12 +34,11 @@ class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
   @Inject
   lateinit var presenter: CreateShortcutContract.CreateShortcutPresenter
   private lateinit var adapter: ShortcutAdapter
-  private val shortcutManager by lazy { getSystemService<ShortcutManager>() }
-  private val shortcutInfoList by lazy { shortcutManager?.manifestShortcuts }
+  private lateinit var shortcutInfoList: List<ShortcutInfo>
 
   override fun providePresenter(): BasePresenter = presenter
 
-  public override fun onCreate(savedInstanceState: Bundle?) {
+  override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setResult(Activity.RESULT_CANCELED)
 
@@ -40,23 +46,27 @@ class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
     recyclerview.setHasFixedSize(true)
     recyclerview.layoutManager = LinearLayoutManager(this)
     recyclerview.adapter = adapter
+    getDrawable(R.drawable.divider_line)?.let {
+      recyclerview.addItemDecoration(DividerItemDecoration(this, LinearLayout.VERTICAL).apply { setDrawable(it) })
+    }
 
+    shortcutInfoList = generateShortcutInfoList()
     adapter.submitList(shortcutInfoList)
     adapter.setOnShortcutSelected { shortcutPosition -> onItemClick(shortcutPosition) }
   }
 
-  @Suppress("DEPRECATION")
-  fun onItemClick(position: Int) {
-    var shortcutIntent: Intent? = null
+  private fun onItemClick(position: Int) {
+    var shortcutIntent: Intent?
 
-    shortcutInfoList?.get(position)?.let { shortcutInfo ->
-      if (VERSION.SDK_INT >= VERSION_CODES.O) {
-        shortcutIntent = shortcutManager?.createShortcutResultIntent(shortcutInfo)
+    shortcutInfoList[position].let { shortcutInfo ->
+      shortcutIntent = if (VERSION.SDK_INT >= VERSION_CODES.O) {
+        getSystemService<ShortcutManager>()?.createShortcutResultIntent(shortcutInfo)
       } else {
-        shortcutIntent = Intent().apply {
+        @Suppress("DEPRECATION")
+        Intent().apply {
           putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutInfo.intent)
           putExtra(Intent.EXTRA_SHORTCUT_NAME, shortcutInfo.shortLabel)
-          putExtra(Intent.EXTRA_SHORTCUT_ICON, getBadgedIconCompat(shortcutInfo))
+          putExtra(Intent.EXTRA_SHORTCUT_ICON, generateBadgedIcon(shortcutInfo))
         }
       }
     }
@@ -65,12 +75,68 @@ class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
     finish()
   }
 
-  @TargetApi(VERSION_CODES.N_MR1)
-  private fun getBadgedIconCompat(shortcutInfo: ShortcutInfo): Bitmap {
+  private fun generateShortcutInfoList(): List<ShortcutInfo> {
+    val appManagerShortcut = buildShortcutInfo(
+      APPMANAGER_ID,
+      R.string.app_settings,
+      R.drawable.ic_apps_grid_shortcut,
+      Intent(this, AppsActivity::class.java).setAction(Intent.ACTION_VIEW)
+    )
+
+    val apkInstallShortcut = buildShortcutInfo(
+      APKINSTALL_ID,
+      R.string.install_apk,
+      R.drawable.ic_apps_shortcut,
+      Intent(this, ApkActivity::class.java).setAction(Intent.ACTION_VIEW)
+    )
+
+
+    val devSettingsShortcut = buildShortcutInfo(
+      DEVSETTINGS_ID,
+      R.string.developer_settings,
+      R.drawable.ic_settings_developement_shortcut,
+      Intent(this, ShortcutRouterActivity::class.java).apply {
+        action = Intent.ACTION_VIEW
+        putExtra(
+          "extra_shortcut_id",
+          "devsettings"
+        )
+      })
+
+    val langSettingsShortcut = buildShortcutInfo(
+      LANGSETTINGS_ID,
+      R.string.language_settings,
+      R.drawable.ic_language_shortcut,
+      Intent(this, ShortcutRouterActivity::class.java).apply {
+        action = Intent.ACTION_VIEW
+        putExtra(
+          "extra_shortcut_id",
+          "langsettings"
+        )
+      })
+
+    return listOf(langSettingsShortcut, devSettingsShortcut, apkInstallShortcut, appManagerShortcut)
+  }
+
+  private fun buildShortcutInfo(
+    id: String, @StringRes label: Int, @DrawableRes icon: Int,
+    intent: Intent
+  ): ShortcutInfo {
+    return ShortcutInfo.Builder(this, id).setIcon(Icon.createWithResource(this, icon)).setShortLabel(getString(label))
+      .setLongLabel(getString(label)).setIntent(intent).build()
+  }
+
+  private fun generateBadgedIcon(shortcutInfo: ShortcutInfo): Bitmap {
     val appIcon = applicationInfo.loadIcon(packageManager)
     val defaultSize = (DEFAULT_ICON_SIZE_DP * resources.displayMetrics.density).toInt()
 
-    (Class.forName("android.content.pm.ShortcutInfo").getMethod("getIconResourceId").invoke(shortcutInfo) as Int?)?.let { iconRes ->
+    when (shortcutInfo.id) {
+      APPMANAGER_ID -> R.drawable.ic_apps_grid_shortcut
+      APKINSTALL_ID -> R.drawable.ic_apps_shortcut
+      DEVSETTINGS_ID -> R.drawable.ic_settings_developement_shortcut
+      LANGSETTINGS_ID -> R.drawable.ic_language_shortcut
+      else -> null
+    }?.let { iconRes ->
       AppCompatResources.getDrawable(this, iconRes)?.toBitmap(defaultSize, defaultSize)?.let { iconBitmap ->
         val w = iconBitmap.width
         val h = iconBitmap.height
@@ -86,5 +152,9 @@ class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
 
   companion object {
     private const val DEFAULT_ICON_SIZE_DP = 60f
+    private const val APPMANAGER_ID = "appmanager_dyn"
+    private const val APKINSTALL_ID = "apkinstall_dyn"
+    private const val DEVSETTINGS_ID = "devsettings_dyn"
+    private const val LANGSETTINGS_ID = "langsettings_dyn"
   }
 }

@@ -26,6 +26,7 @@
   <string name="app_description">A modern design, open source toolset for Android Developers.</string>
   <string name="about">About</string>
   <string name="create_shortcut">Create shortcut</string>
+  <string name="shortcut_error">Error launching the shortcut.</string>
   <string name="privacy_policy">Privacy Policy</string>
   <string name="license">License</string>
   <string name="mit_license">MIT-License</string>
@@ -33,6 +34,9 @@
   <string name="changelog">Release notes</string>
   <string name="feedback">Feedback</string>
   <string name="feedback_description">Request features or report bugs</string>
+  <string name="show_app_icon">Show app icon</string>
+  <string name="show_app_icon_description">Display application icon on launcher</string>
+  <string name="reboot_notice">You may need to reboot to take effect.</string>
   <string name="send_feedback">Contact me</string>
   <string name="github_issue">Open Github issue</string>
   <string name="send_mail">Send email</string>
@@ -54,6 +58,7 @@
   <string name="app_icon">App icon</string>
   <string name="access_file_fail">Could not access the file.</string>
   <string name="show_all_apps">Show all %s apps</string>
+  <string name="show_all">Show all</string>
   <string name="manually_add_widget">You have to manually add a new widget using your launcher.</string>
   <string name="day_night_issue">You may need to restart the app to fully take effect.</string>
 

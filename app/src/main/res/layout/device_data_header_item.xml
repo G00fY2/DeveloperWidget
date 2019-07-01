@@ -19,8 +19,9 @@
       android:layout_marginStart="@dimen/action_bar_inset"
       android:layout_marginTop="9dp"
       android:gravity="bottom"
+      android:textAllCaps="@bool/caps_header"
       android:textColor="@color/colorAccent"
-      android:textSize="14sp"
+      android:textSize="@dimen/item_header_text_size"
       android:textStyle="bold"
       tools:text="Headline"
       />

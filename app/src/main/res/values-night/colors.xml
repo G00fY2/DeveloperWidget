@@ -6,7 +6,7 @@
 
   <color name="backgroundColor">@color/nightBackground</color>
   <color name="transparentBackground50">#80212121</color>
-  <color name="dividerGrey">@color/nightDivider</color>
+  <color name="dividerGrey">#3c3c3c</color>
 
   <color name="navigationBarColor">@color/black</color>
   <color name="navigationBarDividerColor">@color/black</color>
@@ -14,8 +14,9 @@
   <color name="rippleBackground">#1ffafafa</color>
 
   <color name="widgetTextColor">@color/white</color>
-  <color name="vectorTintColor">@color/white</color>
+  <color name="widgetIconColor">@color/white</color>
+  <color name="iconTintColor">#b3b3b3</color>
 
   <color name="chipColor">@color/nightGrey</color>
-  <color name="filterTextColor">@color/white</color>
+  <color name="filterTextColor">#e4e4e5</color>
 </resources>

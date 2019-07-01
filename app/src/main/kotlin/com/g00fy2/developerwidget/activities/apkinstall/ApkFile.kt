@@ -19,22 +19,33 @@ import kotlin.math.round
 
 class ApkFile private constructor() : Comparable<ApkFile> {
 
-  var lastModifiedTimestamp: Long = 0; private set
-  var fileName: String = ""; private set
-  var lastModified: String = ""; private set
-  var size: String = ""; private set
-  var valid: Boolean = false; private set
-  var appName: String = ""; private set
-  var versionName: String = ""; private set
-  var versionCode: String = ""; private set
-  var debuggable: Boolean = false; private set
-  var appIcon: Drawable? = null; private set
-  var filePath = ""; private set
-  var fileUri: Uri? = null; private set
+  var lastModifiedTimestamp: Long = 0
+    private set
+  var fileName: String = ""
+    private set
+  var lastModified: String = ""
+    private set
+  var size: String = ""
+    private set
+  var valid: Boolean = false
+    private set
+  var appName: String = ""
+    private set
+  var versionName: String = ""
+    private set
+  var versionCode: String = ""
+    private set
+  var debuggable: Boolean = false
+    private set
+  var appIcon: Drawable? = null
+    private set
+  var filePath = ""
+    private set
+  var fileUri: Uri? = null
+    private set
 
   override fun compareTo(other: ApkFile) = compareValues(other.lastModifiedTimestamp, lastModifiedTimestamp)
 
-  // TODO split builder from data object
   interface ApkFileBuilder {
 
     fun build(file: File): ApkFile
@@ -62,7 +73,7 @@ class ApkFile private constructor() : Comparable<ApkFile> {
             valid = true
             appInfo.sourceDir = filePath
             appInfo.publicSourceDir = filePath
-            packageManager.getApplicationLabel(appInfo)?.let { appName = it.toString() }
+            packageManager.getApplicationLabel(appInfo).let { appName = it.toString() }
             appIcon = packageManager.getApplicationIcon(appInfo)
             debuggable = appInfo.flags.and(ApplicationInfo.FLAG_DEBUGGABLE) != 0
           }

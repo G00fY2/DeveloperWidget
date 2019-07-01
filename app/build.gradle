@@ -17,16 +17,6 @@ android {
     versionCode versioning.getVersionCode()
     versionName versioning.getVersionName()
   }
-  buildTypes {
-    debug {
-      applicationIdSuffix '.debug'
-    }
-    release {
-      shrinkResources true
-      minifyEnabled true
-      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-    }
-  }
   signingConfigs {
     release {
       storeFile file("../keystore.jks")
@@ -37,11 +27,22 @@ android {
       v2SigningEnabled true
     }
   }
+  buildTypes {
+    debug {
+      applicationIdSuffix '.debug'
+    }
+    release {
+      signingConfig signingConfigs.release
+      shrinkResources true
+      minifyEnabled true
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+  }
   versioning {
-    baseName = "developer-widget"
+    baseName = "developerwidget"
   }
   applicationVariants.all { variant ->
-    if (variant.getName().contains("Release")) {
+    if (variant.getName().toLowerCase().contains("release")) {
       variant.outputs.all {
         outputFileName = versioning.getApkName(variant)
       }

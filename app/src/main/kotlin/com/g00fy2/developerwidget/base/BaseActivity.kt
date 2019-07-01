@@ -6,30 +6,46 @@ import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.getSystemService
 import com.g00fy2.developerwidget.controllers.DayNightController
+import com.g00fy2.developerwidget.utils.DIALOG_ACTIVITY_HEIGHT_FACTOR
+import com.g00fy2.developerwidget.utils.DIALOG_ACTIVITY_WIDTH_FACTOR
 import dagger.android.AndroidInjection
 import timber.log.Timber
 import javax.inject.Inject
 
-abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity(contentLayoutId) {
+abstract class BaseActivity(@LayoutRes contentLayoutId: Int, private val isDialogActivity: Boolean = false) :
+  AppCompatActivity(contentLayoutId) {
 
   @Inject
   lateinit var dayNightController: DayNightController
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
-    Timber.d("Lifecycle: %s onCreate", localClassName)
-    super.onCreate(savedInstanceState)
+    Timber.d("Lifecycle: %s1 onCreate %s2", localClassName, hashCode())
+
+    if (isDialogActivity) {
+      requestWindowFeature(Window.FEATURE_NO_TITLE)
+      super.onCreate(savedInstanceState)
+
+      val width = (resources.displayMetrics.widthPixels * DIALOG_ACTIVITY_WIDTH_FACTOR).toInt()
+      val height = (resources.displayMetrics.heightPixels * DIALOG_ACTIVITY_HEIGHT_FACTOR).toInt()
+      window.setLayout(width, height)
+    } else {
+      super.onCreate(savedInstanceState)
+    }
+
     dayNightController.loadCustomDefaultMode()
     lifecycle.addObserver(providePresenter())
     initCompatNavigationBar()
   }
 
   override fun onDestroy() {
-    Timber.d("Lifecycle: %s onDestroy", localClassName)
+    Timber.d("Lifecycle: %s1 onDestroy %s2", localClassName, hashCode())
     super.onDestroy()
     lifecycle.removeObserver(providePresenter())
   }
@@ -49,13 +65,11 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity
     }
   }
 
-  protected fun hideKeyboard(view: View) {
-    (getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(view.windowToken, 0)
-  }
+  protected fun hideKeyboard(view: View) =
+    getSystemService<InputMethodManager>()?.hideSoftInputFromWindow(view.windowToken, 0)
 
-  protected fun showKeyboard(view: View) {
-    (getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
-  }
+  protected fun showKeyboard(view: View) =
+    getSystemService<InputMethodManager>()?.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
 
   private fun initCompatNavigationBar() {
     // api 27+ allow applying flag via xml (windowLightNavigationBar)

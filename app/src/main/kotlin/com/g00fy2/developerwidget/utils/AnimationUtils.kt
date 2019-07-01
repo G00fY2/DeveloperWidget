@@ -1,15 +1,17 @@
 package com.g00fy2.developerwidget.utils
 
+import android.animation.TimeInterpolator
 import android.animation.ValueAnimator
 import android.view.View
 import android.widget.LinearLayout
 import androidx.core.animation.doOnEnd
+import com.g00fy2.developerwidget.R
 
 class AnimationUtils {
 
   companion object {
 
-    fun expandView(v: View, fade: Boolean = false) {
+    fun expandView(v: View, fade: Boolean = false, easing: TimeInterpolator? = null) {
       v.apply {
         val params = layoutParams as LinearLayout.LayoutParams
         params.topMargin = -height
@@ -26,12 +28,13 @@ class AnimationUtils {
             }
             requestLayout()
           }
-          duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
+          easing?.let { easing -> interpolator = easing }
+          duration = resources.getInteger(R.integer.animation_duration).toLong()
         }.start()
       }
     }
 
-    fun collapseView(v: View, fade: Boolean = false) {
+    fun collapseView(v: View, fade: Boolean = false, easing: TimeInterpolator? = null) {
       v.apply {
         val params = layoutParams as LinearLayout.LayoutParams
         params.topMargin = 0
@@ -48,7 +51,8 @@ class AnimationUtils {
             }
             requestLayout()
           }
-          duration = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
+          easing?.let { easing -> interpolator = easing }
+          duration = resources.getInteger(R.integer.animation_duration).toLong()
           doOnEnd { visibility = View.GONE }
         }.start()
       }

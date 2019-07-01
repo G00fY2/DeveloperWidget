@@ -3,13 +3,13 @@ package com.g00fy2.developerwidget.data
 import android.content.Context
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.data.DeviceDataItem.Category
-import com.g00fy2.developerwidget.data.cpu.CPUDataProvider
-import com.g00fy2.developerwidget.data.devicebuild.BuildDataProvider
-import com.g00fy2.developerwidget.data.display.DisplayDataProvider
-import com.g00fy2.developerwidget.data.hardwarefeature.HardwareFeatureProvider
-import com.g00fy2.developerwidget.data.ram.RamDataProvider
-import com.g00fy2.developerwidget.data.system.SystemDataProvider
-import com.g00fy2.developerwidget.data.systemapps.SystemAppsDataProvider
+import com.g00fy2.developerwidget.data.device.cpu.CPUDataProvider
+import com.g00fy2.developerwidget.data.device.devicebuild.BuildDataProvider
+import com.g00fy2.developerwidget.data.device.display.DisplayDataProvider
+import com.g00fy2.developerwidget.data.device.hardwarefeature.HardwareFeatureProvider
+import com.g00fy2.developerwidget.data.device.ram.RamDataProvider
+import com.g00fy2.developerwidget.data.device.system.SystemDataProvider
+import com.g00fy2.developerwidget.data.device.systemapps.SystemAppsDataProvider
 import com.g00fy2.developerwidget.utils.APPLICATION
 import javax.inject.Inject
 import javax.inject.Named
@@ -30,8 +30,7 @@ class DeviceDataSourceImpl @Inject constructor() : DeviceDataSource {
 
     data[MODEL] = DeviceDataItem(BuildDataProvider.getModel(), R.string.model, Category.DEVICE)
     data[MANUFACTURE] = DeviceDataItem(BuildDataProvider.getManufacture(), R.string.manufacture, Category.DEVICE)
-    data[DEVICE_NAME] =
-      DeviceDataItem(BuildDataProvider.getCombinedDeviceName(), R.string.device_name, Category.DEVICE)
+    data[DEVICE_NAME] = DeviceDataItem(BuildDataProvider.getCombinedDeviceName(), R.string.device_name, Category.DEVICE)
 
     data[BOOTLOADER] = DeviceDataItem(BuildDataProvider.getBootloader(), R.string.bootloader, Category.DEVICE)
     data[ID] = DeviceDataItem(BuildDataProvider.getID(), R.string.id, Category.DEVICE)
@@ -54,27 +53,23 @@ class DeviceDataSourceImpl @Inject constructor() : DeviceDataSource {
   override suspend fun getHardwareData(): Map<String, DeviceDataItem> {
     val data = HashMap<String, DeviceDataItem>()
 
-    val res = DisplayDataProvider.getResolution(context)
-    data[RESOLUTION] = DeviceDataItem(res.x.toString() + " x " + res.y, R.string.resolution, Category.DISPLAY)
-    data[RATIO] = DeviceDataItem(DisplayDataProvider.getDisplayRatio(res), R.string.ratio, Category.DISPLAY)
+    DisplayDataProvider.getResolution(context)?.let { res ->
+      data[RESOLUTION] = DeviceDataItem(res.x.toString() + " x " + res.y, R.string.resolution, Category.DISPLAY)
+      data[RATIO] = DeviceDataItem(DisplayDataProvider.getDisplayRatio(res), R.string.ratio, Category.DISPLAY)
+    }
 
-    val dpi = DisplayDataProvider.geDisplayDpi(context)
-    data[DPI] = DeviceDataItem(dpi.x.toString() + " / " + dpi.y + " dpi", R.string.dpi, Category.DISPLAY)
+    data[DPI] = DeviceDataItem(DisplayDataProvider.geDisplayDpi(context), R.string.dpi, Category.DISPLAY)
 
     data[RAM] = DeviceDataItem(RamDataProvider.getTotalRam(context), R.string.ram, Category.MEMORY)
-    data[LOW_RAM_FLAG] =
-      DeviceDataItem(RamDataProvider.hasLowRamFlag(context), R.string.low_ram_flag, Category.MEMORY)
+    data[LOW_RAM_FLAG] = DeviceDataItem(RamDataProvider.hasLowRamFlag(context), R.string.low_ram_flag, Category.MEMORY)
 
     data[ABI] = DeviceDataItem(CPUDataProvider.getPrimaryABI(), R.string.abi, Category.CPU)
     data[CPU_CORES] = DeviceDataItem(CPUDataProvider.getCPUCoreNum().toString(), R.string.cpu_cores, Category.CPU)
     data[CPU_FREQUENCIES] =
       DeviceDataItem(CPUDataProvider.getGroupedCPUCoreFrequencies(), R.string.cpu_frequencies, Category.CPU)
 
-    data[BLUETOOTH] = DeviceDataItem(
-      HardwareFeatureProvider.hasBluetooth(context).toString(),
-      R.string.bluetooth,
-      Category.FEATURES
-    )
+    data[BLUETOOTH] =
+      DeviceDataItem(HardwareFeatureProvider.hasBluetooth(context).toString(), R.string.bluetooth, Category.FEATURES)
     data[GPS] = DeviceDataItem(HardwareFeatureProvider.hasGPS(context).toString(), R.string.gps, Category.FEATURES)
     data[NFC] = DeviceDataItem(HardwareFeatureProvider.hasNFC(context).toString(), R.string.nfc, Category.FEATURES)
 
@@ -107,6 +102,10 @@ class DeviceDataSourceImpl @Inject constructor() : DeviceDataSource {
     }
     return data
   }
+
+  override fun getCombinedDeviceName() = BuildDataProvider.getCombinedDeviceName()
+
+  override fun getVersionAndSDK() = SystemDataProvider.getVersionAndSDK()
 
   companion object {
     const val BOARD = "BOARD"

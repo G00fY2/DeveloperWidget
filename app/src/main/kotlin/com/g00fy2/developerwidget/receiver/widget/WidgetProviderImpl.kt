@@ -63,9 +63,8 @@ class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
     }
   }
 
-  override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
+  override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) =
     presenter.getDeviceData(appWidgetIds)
-  }
 
   override fun onDeleted(context: Context?, appWidgetIds: IntArray) {
     Timber.d("onDeleted widget %s", appWidgetIds.first())
@@ -112,15 +111,17 @@ class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
   }
 
   private fun updateWidgetButtonIntents(widgetId: Int, views: RemoteViews) {
-    val configIntent = Intent(context, WidgetConfigActivity::class.java)
-    configIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
-    configIntent.putExtra(WidgetConfigActivity.EXTRA_APPWIDGET_UPDATE_EXISTING, true)
+    val configIntent = Intent(context, WidgetConfigActivity::class.java).apply {
+      putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
+      putExtra(WidgetConfigActivity.EXTRA_APPWIDGET_UPDATE_EXISTING, true)
+      flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    }
     val configPendingIntent =
       PendingIntent.getActivity(context, widgetId, configIntent, PendingIntent.FLAG_UPDATE_CURRENT)
     views.setOnClickPendingIntent(R.id.device_info_linearlayout, configPendingIntent)
 
-    val appIntent = Intent(context, AppsActivity::class.java)
-    appIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
+    val appIntent =
+      Intent(context, AppsActivity::class.java).apply { putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId) }
     val appPendingIntent =
       PendingIntent.getActivity(context, widgetId, appIntent, PendingIntent.FLAG_UPDATE_CURRENT)
     views.setOnClickPendingIntent(R.id.manage_apps_linearlayout, appPendingIntent)

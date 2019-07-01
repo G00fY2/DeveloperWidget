@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:ignore="UnusedAttribute"
     >
 
   <LinearLayout
@@ -16,8 +14,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginLeft="@dimen/action_bar_inset"
+        android:layout_marginStart="@dimen/action_bar_inset"
         android:gravity="center_vertical|bottom"
         android:paddingBottom="6dp"
         android:text="@string/app_settings"
@@ -44,7 +42,7 @@
         android:focusable="true"
         android:scaleType="center"
         android:src="@drawable/ic_filter"
-        android:tint="@color/vectorTintColor"
+        android:tint="@color/iconTintColor"
         />
   </LinearLayout>
 
@@ -67,8 +65,8 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginBottom="2dp"
-          android:layout_marginEnd="14dp"
-          android:layout_marginStart="14dp"
+          android:layout_marginLeft="@dimen/filter_input_inset"
+          android:layout_marginRight="@dimen/filter_input_inset"
           android:background="@drawable/filter_edittext_background"
           android:clickable="true"
           android:drawablePadding="8dp"
@@ -80,8 +78,8 @@
           android:lines="1"
           android:maxLines="1"
           android:paddingBottom="12dp"
-          android:paddingEnd="24dp"
-          android:paddingStart="24dp"
+          android:paddingLeft="24dp"
+          android:paddingRight="24dp"
           android:paddingTop="12dp"
           android:singleLine="true"
           android:textColor="@color/filterTextColor"
@@ -92,8 +90,8 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginBottom="2dp"
-          android:layout_marginEnd="14dp"
-          android:layout_marginStart="14dp"
+          android:layout_marginLeft="14dp"
+          android:layout_marginRight="14dp"
           />
 
     </LinearLayout>
@@ -122,7 +120,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_gravity="center"
-          android:layout_margin="16dp"
+          android:layout_margin="@dimen/action_bar_inset"
           android:orientation="vertical"
           >
 
@@ -137,6 +135,7 @@
               android:layout_width="96dp"
               android:layout_height="96dp"
               android:layout_gravity="center"
+              android:contentDescription="@string/no_apps_found"
               android:src="@drawable/ic_sad"
               android:visibility="invisible"
               />
@@ -190,8 +189,8 @@
           android:clickable="true"
           android:focusable="true"
           android:gravity="center_vertical"
-          android:paddingEnd="12dp"
-          android:paddingStart="12dp"
+          android:paddingLeft="12dp"
+          android:paddingRight="12dp"
           android:text="@string/cancel"
           style="@style/DialogButtonAppearance"
           />

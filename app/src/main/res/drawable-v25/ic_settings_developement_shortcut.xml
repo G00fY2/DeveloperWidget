@@ -1,0 +1,31 @@
+<!--suppress AndroidElementNotAllowed -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+      android:gravity="center"
+      android:height="56dp"
+      android:width="56dp">
+    <shape
+        android:shape="oval">
+      <solid
+          android:color="@color/white"/>
+    </shape>
+  </item>
+  <item
+      android:gravity="center">
+    <vector
+        android:height="56dp"
+        android:viewportHeight="96"
+        android:viewportWidth="96"
+        android:width="56dp">
+      <group
+          android:pivotX="48"
+          android:pivotY="48"
+          android:scaleX="0.7"
+          android:scaleY="0.7">
+        <path
+            android:fillColor="#1a73e8"
+            android:pathData="M22.8 48c3.7 1.2 4.9 3.3 4.9 8.6v12.3c0 3.3 0.7 5.1 3.6 5.1h0.5c1.5 0 2 0.8 2 2s-0.6 1.9-2.5 1.9h-0.9c-5.6 0-8.1-2.1-8.1-9.2v-12c0-4.7-0.6-6-3.4-6.5l-1-0.2c-1.1-0.2-1.5-0.8-1.5-2 0-1.3 0.5-1.9 1.7-2.1l0.9-0.1c2.4-0.3 3.3-1.9 3.3-5.3V26.6c0-5.5 2.3-8.4 7.6-8.4h0.8c2.6 0 3.2 0.6 3.2 2 0 1.2-0.6 1.9-1.7 1.9H31c-2.6 0-3.3 1.6-3.3 5.1v12.3c0 5.1-1 6.9-4.9 8.5zm50.4 0c-3.7-1.2-4.9-3.3-4.9-8.6V27.1c0-3.3-0.7-5.1-3.6-5.1h-0.5c-1.5 0-2-0.8-2-2 0-1.3 0.6-1.9 2.5-1.9h0.9c5.4 0 8.1 2.1 8.1 9v12c0 4.7 0.6 6 3.4 6.5l1 0.2c1.1 0.2 1.5 0.8 1.5 2 0 1.3-0.5 1.9-1.7 2.1l-1 0.2c-2.3 0.4-3.3 1.8-3.3 5.2v13.8c0 5.5-2.3 8.4-7.1 8.4h-1.9c-2 0-2.6-0.6-2.6-1.9 0-1.2 0.6-1.9 1.7-1.9H65c2.6 0 3.3-1.7 3.3-5.1v-12c0-5.2 1-7 4.9-8.6z"/>
+      </group>
+    </vector>
+  </item>
+</layer-list>

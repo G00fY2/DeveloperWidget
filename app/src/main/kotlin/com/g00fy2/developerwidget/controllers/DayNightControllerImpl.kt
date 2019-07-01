@@ -2,7 +2,6 @@ package com.g00fy2.developerwidget.controllers
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import androidx.appcompat.app.AppCompatDelegate
@@ -39,7 +38,7 @@ class DayNightControllerImpl @Inject constructor() : DayNightController {
       AppCompatDelegate.MODE_NIGHT_NO -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
       else -> AppCompatDelegate.MODE_NIGHT_YES
     }.let {
-      // TODO remove if issuetracker.google.com/issues/131851825 is fixed
+      // TODO remove if https://issuetracker.google.com/issues/131851825 is fixed
       if (VERSION.SDK_INT <= VERSION_CODES.M) toastController.showToast(R.string.day_night_issue)
       saveCustomDefaultMode(it)
       applyMode(it)
@@ -47,9 +46,7 @@ class DayNightControllerImpl @Inject constructor() : DayNightController {
     }
   }
 
-  private fun applyMode(mode: Int) {
-    AppCompatDelegate.setDefaultNightMode(mode)
-  }
+  private fun applyMode(mode: Int) = AppCompatDelegate.setDefaultNightMode(mode)
 
   private fun updateWidgetTheme() {
     context.sendBroadcast(Intent(context, WidgetProviderImpl::class.java).apply {

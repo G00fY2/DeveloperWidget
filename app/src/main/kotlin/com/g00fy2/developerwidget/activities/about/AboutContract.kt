@@ -18,5 +18,7 @@ interface AboutContract {
     fun toggleDayNightMode()
 
     fun honorClicking()
+
+    fun showRebootNotice()
   }
 }

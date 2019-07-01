@@ -1,11 +1,16 @@
 package com.g00fy2.developerwidget.activities.about
 
 import android.R.id
+import android.content.ComponentName
+import android.content.pm.PackageManager
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
 import com.g00fy2.developerwidget.BuildConfig
 import com.g00fy2.developerwidget.R
+import com.g00fy2.developerwidget.activities.widgetconfig.ConfigLauncherActivity
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.utils.CHANGES
@@ -27,13 +32,20 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
 
   override fun providePresenter(): BasePresenter = presenter
 
-  public override fun onCreate(savedInstanceState: Bundle?) {
+  override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     initView()
   }
 
-  override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-    return if (item?.itemId == id.home) {
+  override fun onResume() {
+    super.onResume()
+    updateThemeToggleView()
+    updateLauncherIconSwitch()
+    updateLauncherIconItem()
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    return if (item.itemId == id.home) {
       finish()
       true
     } else {
@@ -106,13 +118,16 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
       description(R.string.icon_credits_description)
       action { presenter.openUrl(ICON_CREDITS) }
     }
+    hide_launcher_icon_item.init {
+      title(R.string.show_app_icon)
+      description(R.string.show_app_icon_description)
+      action { toggleLauncherIcon() }
+    }
     build_number_item.init {
       title(R.string.build_number)
       description(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ") " + BuildConfig.BUILD_TYPE)
       action { presenter.honorClicking() }
     }
-
-    updateThemeToggleView()
   }
 
   override fun updateThemeToggleView() {
@@ -125,10 +140,41 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
     }
   }
 
+  private fun updateLauncherIconSwitch() = hide_launcher_icon_item.switch(!isLauncherIconDisabled())
+
+  private fun updateLauncherIconItem() {
+    if (VERSION.SDK_INT >= VERSION_CODES.Q) hide_launcher_icon_item.isEnabled = isLauncherIconDisabled()
+  }
+
   private fun showFeedbackOptions() {
     AboutFeedbackDialog(this).init {
       mailAction { presenter.sendFeedbackMail() }
       githubAction { presenter.openUrl(GITHUB_ISSUE) }
     }.show()
+  }
+
+  private fun isLauncherIconDisabled(): Boolean {
+    return packageManager.getComponentEnabledSetting(
+      ComponentName(
+        this,
+        ConfigLauncherActivity::class.java
+      )
+    ) == PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+  }
+
+  private fun toggleLauncherIcon() {
+    if (isLauncherIconDisabled()) {
+      PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+    } else {
+      PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+    }.let {
+      packageManager.setComponentEnabledSetting(
+        ComponentName(this, ConfigLauncherActivity::class.java),
+        it,
+        PackageManager.DONT_KILL_APP
+      )
+    }
+    updateLauncherIconItem()
+    presenter.showRebootNotice()
   }
 }

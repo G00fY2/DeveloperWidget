@@ -9,4 +9,8 @@ interface DeviceDataSource {
   suspend fun getSoftwareInfo(): Map<String, DeviceDataItem>
 
   suspend fun getHeaderItems(): Map<String, DeviceDataItem>
+
+  fun getCombinedDeviceName(): String
+
+  fun getVersionAndSDK(): Pair<String, String>
 }

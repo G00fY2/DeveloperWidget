@@ -1,24 +1,24 @@
 buildscript {
   ext {
     // SDK and tools
-    compileSdkVersion = 28
+    compileSdkVersion = 29
     minSdkVersion = 14
-    targetSdkVersion = 28
-    androidGradleVersion = '3.6.0-alpha02'
-    gradleScanVersion = '2.2.1'
+    targetSdkVersion = 29
+    androidGradleVersion = '3.5.0-beta05'
+    gradleScanVersion = '2.3'
     versioningPluginVersion = '1.0.0'
 
     // Library versions
-    kotlinVersion = '1.3.31'
+    kotlinVersion = '1.3.40'
     coroutinesVersion = '1.2.1'
-    appcompatVersion = '1.1.0-alpha05'
-    coreKtxVersion = '1.1.0-beta01'
-    activityVersion = '1.0.0-alpha08'
+    appcompatVersion = '1.1.0-beta01'
+    coreKtxVersion = '1.2.0-alpha02'
+    activityVersion = '1.0.0-beta01'
     materialVersion = '1.1.0-alpha07'
-    recyclerviewVersion = '1.1.0-alpha05'
-    constraintlayoutVersion = '2.0.0-beta1'
+    recyclerviewVersion = '1.1.0-alpha06'
+    constraintlayoutVersion = '2.0.0-beta2'
     timberVersion = '4.7.1'
-    daggerVersion = '2.23.1'
+    daggerVersion = '2.23.2'
     versCompVersion = '1.3.2'
   }
   repositories {
@@ -49,7 +49,7 @@ allprojects {
     jcenter {
       content {
         includeModule 'com.g00fy2', 'versioncompare'
-        includeModule 'org.jetbrains.trove4j', 'trove4j'
+        includeModule 'org.jetbrains.trove4j', 'trove4j' // required by com.android.tools.lint:lint-gradle
       }
     }
   }

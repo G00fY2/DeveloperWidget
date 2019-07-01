@@ -8,17 +8,21 @@ import com.g00fy2.developerwidget.utils.ACTIVITY
 import javax.inject.Inject
 import javax.inject.Named
 
-class AppInfo : Comparable<AppInfo> {
+class AppInfo private constructor() : Comparable<AppInfo> {
 
-  var appName: String = ""; private set
-  var packageName: String = ""; private set
-  var appIcon: Drawable? = null; private set
-  var versionName: String = ""; private set
-  var versionCode: String = ""; private set
+  var appName: String = ""
+    private set
+  var packageName: String = ""
+    private set
+  var appIcon: Drawable? = null
+    private set
+  var versionName: String = ""
+    private set
+  var versionCode: String = ""
+    private set
 
   override fun compareTo(other: AppInfo) = compareValues(appName, other.appName)
 
-  // TODO split builder from data object
   interface AppInfoBuilder {
 
     fun getInstalledPackages(): List<PackageInfo>

@@ -1,11 +1,13 @@
-package com.g00fy2.developerwidget.data.devicebuild
+package com.g00fy2.developerwidget.data.device.devicebuild
 
+import android.annotation.SuppressLint
 import android.os.Build
 
 class BuildDataProvider {
 
   companion object {
 
+    @SuppressLint("DefaultLocale")
     fun getCombinedDeviceName(): String {
       return if (Build.MODEL.contains(Build.MANUFACTURER, true)) {
         Build.MODEL.capitalize()

@@ -1,5 +1,6 @@
-package com.g00fy2.developerwidget.data.system
+package com.g00fy2.developerwidget.data.device.system
 
+import android.annotation.SuppressLint
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import com.g00fy2.versioncompare.Version
@@ -14,6 +15,7 @@ class SystemDataProvider {
 
     fun getCodename(): String = VERSION.CODENAME
 
+    @SuppressLint("DefaultLocale")
     fun getSDKLevel(): String {
       getCodename().let {
         return if (it.isBlank() || it.equals("REL", true)) {

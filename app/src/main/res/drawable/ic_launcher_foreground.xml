@@ -3,32 +3,25 @@
     android:viewportHeight="270.42578"
     android:viewportWidth="270.42578"
     android:width="108dp">
-  <group
-      android:translateX="61.46486"
-      android:translateY="60.212887">
-    <path
-        android:fillAlpha="0.39862"
-        android:fillColor="#00000000"
-        android:fillType="evenOdd"
-        android:pathData="M42,39.033L42,29C42,21.268 48.268,15 56,15L94,15C101.732,15 108,21.268 108,29L108,121C108,128.732 101.732,135 94,135L56,135C48.268,135 42,128.732 42,121L42,110.383"
-        android:strokeAlpha="0.39862"
-        android:strokeColor="#FFFFFF"
-        android:strokeLineCap="round"
-        android:strokeWidth="9"/>
-    <path
-        android:fillColor="#00000000"
-        android:fillType="evenOdd"
-        android:pathData="M41.635,54.749l20,20.222l-20,19.778"
-        android:strokeColor="#FFFFFF"
-        android:strokeLineCap="round"
-        android:strokeLineJoin="round"
-        android:strokeWidth="9"/>
-    <path
-        android:fillColor="#00000000"
-        android:fillType="evenOdd"
-        android:pathData="M66.5,94.87L91,94.87"
-        android:strokeColor="#FFFFFF"
-        android:strokeLineCap="round"
-        android:strokeWidth="9"/>
-  </group>
+  <path
+      android:fillAlpha="0.39862"
+      android:fillType="evenOdd"
+      android:pathData="M103.465 99.246V89.213c0-7.732 6.268-14 14-14h38c7.732 0 14 6.268 14 14v92c0 7.732-6.268 14-14 14h-38c-7.732 0-14-6.268-14-14v-10.617"
+      android:strokeAlpha="0.39862"
+      android:strokeColor="#FFFFFF"
+      android:strokeLineCap="round"
+      android:strokeWidth="9"/>
+  <path
+      android:fillType="evenOdd"
+      android:pathData="M103.1 114.962l20 20.222-20 19.778"
+      android:strokeColor="#FFFFFF"
+      android:strokeLineCap="round"
+      android:strokeLineJoin="round"
+      android:strokeWidth="9"/>
+  <path
+      android:fillType="evenOdd"
+      android:pathData="M127.965 155.083h24.5"
+      android:strokeColor="#FFFFFF"
+      android:strokeLineCap="round"
+      android:strokeWidth="9"/>
 </vector>
