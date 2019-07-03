@@ -13,4 +13,6 @@ interface IntentController {
   fun sendMailToDeveloper()
 
   fun showHomescreen()
+
+  fun shareDeviceData(data: String)
 }

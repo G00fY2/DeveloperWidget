@@ -67,6 +67,14 @@ class IntentControllerImpl @Inject constructor() : IntentController {
     })
   }
 
+  override fun shareDeviceData(data: String) {
+    startActivity(Intent.createChooser(Intent().apply {
+      action = Intent.ACTION_SEND
+      putExtra(Intent.EXTRA_TEXT, data)
+      type = "text/plain"
+    }, context.getString(R.string.share_device_data)))
+  }
+
   private fun startActivity(intent: Intent) {
     if (intent.resolveActivity(context.packageManager) != null) {
       context.startActivity(intent)
