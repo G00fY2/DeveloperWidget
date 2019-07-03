@@ -16,6 +16,8 @@ android {
     targetSdkVersion rootProject.targetSdkVersion
     versionCode versioning.getVersionCode()
     versionName versioning.getVersionName()
+
+    vectorDrawables.useSupportLibrary = true
   }
   signingConfigs {
     release {
@@ -74,6 +76,7 @@ dependencies {
 
   // UI
   implementation "com.google.android.material:material:$materialVersion"
+  implementation "androidx.vectordrawable:vectordrawable:$vectorDrawableVersion"
 
   // Misc
   implementation "com.jakewharton.timber:timber:$timberVersion"

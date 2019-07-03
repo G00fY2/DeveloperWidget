@@ -30,11 +30,11 @@
       android:background="@drawable/bg_circle_with_check"
       android:contentDescription="@string/app_icon"
       android:padding="12dp"
-      android:src="@drawable/ic_check"
       android:visibility="invisible"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      app:srcCompat="@drawable/ic_check"
       />
 
   <ImageView
@@ -43,10 +43,10 @@
       android:layout_height="0dp"
       android:padding="2dp"
       android:scaleType="fitCenter"
-      android:src="@drawable/ic_debug"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@+id/app_version_textview"
       app:layout_constraintTop_toBottomOf="@+id/file_date_textview"
+      app:srcCompat="@drawable/ic_debug"
       tools:ignore="ContentDescription"
       />
 

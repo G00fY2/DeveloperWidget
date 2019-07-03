@@ -23,6 +23,7 @@ import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.EditorInfo
 import android.webkit.WebView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -268,7 +269,7 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
   ).size
 
   private fun initEditDrawable(): Drawable? {
-    return ResourcesCompat.getDrawable(resources, R.drawable.ic_edit, null)?.apply {
+    return AppCompatResources.getDrawable(this, R.drawable.ic_edit)?.apply {
       if (VERSION.SDK_INT >= VERSION_CODES.Q) {
         colorFilter =
           BlendModeColorFilter(ResourcesCompat.getColor(resources, R.color.iconTintColor, null), BlendMode.SRC_IN)

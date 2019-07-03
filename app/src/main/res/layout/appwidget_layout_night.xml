@@ -87,9 +87,9 @@
         android:paddingRight="8dp"
         >
       <ImageView
+          android:id="@+id/apps_imageview"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:src="@drawable/ic_apps_grid"
           android:tint="@color/widgetIconColor_night"
           />
       <TextView
@@ -117,9 +117,9 @@
         android:paddingRight="8dp"
         >
       <ImageView
+          android:id="@+id/apk_imageview"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:src="@drawable/ic_apps"
           android:tint="@color/widgetIconColor_night"
           />
       <TextView

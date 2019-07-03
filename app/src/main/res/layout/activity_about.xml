@@ -36,7 +36,7 @@
           android:layout_width="96dp"
           android:layout_height="96dp"
           android:layout_gravity="center"
-          android:src="@drawable/ic_launcher_foreground"
+          app:srcCompat="@drawable/ic_launcher_foreground"
           tools:ignore="ContentDescription"
           />
     </FrameLayout>
