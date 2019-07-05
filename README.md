@@ -13,7 +13,7 @@
 [<img src="https://raw.githubusercontent.com/G00fY2/DeveloperWidget/gh-pages/media/store_screenshot_5.png" width=160>](https://raw.githubusercontent.com/G00fY2/DeveloperWidget/gh-pages/media/store_screenshot_5.png)
 
 ## Description
-The app was built from a developer for developers. You may know the hassle of having multiple physical devices running different software. This app will help you keep track of important device information as well as organize your apps and local APK files. Never again will you struggle to find APK files using a file browser or search for the app settings menu on a custom manufacturer UI.
+The app was built from a developer for developers. You may know the hassle of having multiple physical devices running different software. This app will help you keep track of important device information as well as organize your apps and local APK files. You will never again struggle to find APK files using a file browser or search for the app settings menu on a custom manufacturer UI.
 
 The main feature of the app is an 4x1 (horizontally resizable) homescreen widget that shows dynamically fetched device data and allows you to browse your installed apps and local APK files.
 
@@ -21,22 +21,21 @@ The main feature of the app is an 4x1 (horizontally resizable) homescreen widget
 * Homescreen widget with customizable device name
 * Overview of dynamically fetched device data
   * device model, system, cpu, memory, display, hardware features, software
+  * Share/export the data
 * Browse all installed (non system) apps and filter them by **package name**
-  * Opens the specific Android app settings
-  * Save multiple filters per widget by *enter* and *confirm* a search term 
+  * Save multiple filters per widget 
   * Wildcard support (e.g. **`com.*xyz`**)
-  * Option to temporary disable the filter
 * Manage local APK files
-  * Scan internal storage and SD-cards for valid (parsable) APK files
+  * Scan internal storage and SD-cards for APK files
   * Show file name, modification time, file size, app name, debuggable flag, versionname and versioncode
   * Directly install them from within the app
-  * Delete files by long clicking
+  * Delete files by long pressing
 * Offers useful app shortcuts starting from API 25
-  * Native language settings shortcut
-  * Native Android developer settings shortcut
-  * Custom installed apps browser shortcut
+  * Android developer settings shortcut
+  * Language settings shortcut
+  * Browse installed apps shortcut
   * Manage local APK files shortcut
-* Material design with **Dark mode support** (can be controlled by the user)
+* Material design with **Dark mode support** (can be toggled by the user)
 * Allow hiding the launcher icon (< API 29)
 * Written in Kotlin using Coroutines and Dagger
 * No internet permission
