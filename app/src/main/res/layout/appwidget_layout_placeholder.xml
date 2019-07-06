@@ -60,17 +60,11 @@
         android:paddingRight="8dp"
         tools:ignore="UseCompoundDrawables"
         >
-      <ImageView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:src="@drawable/ic_apps_grid"
-          android:tint="@color/widgetIconColor"
-          />
       <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginLeft="8dp"
-          android:layout_marginStart="8dp"
+          android:layout_marginLeft="32dp"
+          android:layout_marginStart="32dp"
           android:ellipsize="end"
           android:maxLines="1"
           android:enabled="false"
@@ -91,19 +85,13 @@
         android:paddingRight="8dp"
         tools:ignore="UseCompoundDrawables"
         >
-      <ImageView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:src="@drawable/ic_apps"
-          android:tint="@color/widgetIconColor"
-          />
       <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginLeft="8dp"
+          android:layout_marginLeft="32dp"
+          android:layout_marginStart="32dp"
           android:ellipsize="end"
           android:maxLines="1"
-          android:layout_marginStart="8dp"
           android:text="@string/install_apk"
           android:textColor="@color/widgetTextColor"
           style="@style/TextAppearance.AppCompat.Subhead"

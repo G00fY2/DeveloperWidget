@@ -9,6 +9,8 @@ import android.content.Intent
 import android.util.SparseArray
 import android.widget.RemoteViews
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.graphics.drawable.toBitmap
 import com.g00fy2.developerwidget.BuildConfig
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.apkinstall.ApkActivity
@@ -108,6 +110,14 @@ class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
     data[DeviceDataSourceImpl.SDK]?.let { sdk ->
       views.setTextViewText(R.id.sdk_int_textview, context.getString(sdk.title) + " " + sdk.value)
     }
+    views.setImageViewBitmap(
+      R.id.apps_imageview,
+      AppCompatResources.getDrawable(context, R.drawable.ic_apps_grid)?.toBitmap()
+    )
+    views.setImageViewBitmap(
+      R.id.apk_imageview,
+      AppCompatResources.getDrawable(context, R.drawable.ic_apps)?.toBitmap()
+    )
   }
 
   private fun updateWidgetButtonIntents(widgetId: Int, views: RemoteViews) {

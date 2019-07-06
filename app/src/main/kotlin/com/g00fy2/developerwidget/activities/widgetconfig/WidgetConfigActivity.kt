@@ -23,8 +23,10 @@ import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.EditorInfo
 import android.webkit.WebView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.marginBottom
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.about.AboutActivity
@@ -73,6 +75,16 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
     }
 
     setActionbarElevationListener(widget_config_root_scrollview)
+    widget_config_root_scrollview.viewTreeObserver.addOnScrollChangedListener {
+      val scrollableRange =
+        widget_config_root_scrollview.computeVerticalScrollRange() - widget_config_root_scrollview.height
+      val fabOffset = (share_fab.height / 2) + share_fab.marginBottom
+      if (widget_config_root_scrollview.scrollY < scrollableRange - fabOffset) {
+        share_fab.hide()
+      } else {
+        share_fab.show()
+      }
+    }
 
     adapter = DeviceDataAdapter()
     recyclerview.setHasFixedSize(false)
@@ -202,6 +214,7 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
         true
       }
     }
+    share_fab.setOnClickListener { presenter.shareDeviceData()}
   }
 
   private fun toggleDeviceNameEdit(editable: Boolean) {
@@ -268,7 +281,7 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
   ).size
 
   private fun initEditDrawable(): Drawable? {
-    return ResourcesCompat.getDrawable(resources, R.drawable.ic_edit, null)?.apply {
+    return AppCompatResources.getDrawable(this, R.drawable.ic_edit)?.apply {
       if (VERSION.SDK_INT >= VERSION_CODES.Q) {
         colorFilter =
           BlendModeColorFilter(ResourcesCompat.getColor(resources, R.color.iconTintColor, null), BlendMode.SRC_IN)

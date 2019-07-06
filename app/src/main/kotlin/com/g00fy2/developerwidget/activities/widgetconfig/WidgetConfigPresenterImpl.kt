@@ -13,6 +13,7 @@ import com.g00fy2.developerwidget.data.DeviceDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 import javax.inject.Inject
 
 class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
@@ -94,6 +95,25 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
           { stringController.getString(it.second.title) })
       )
   }
+
+  override fun shareDeviceData() {
+    launch {
+      withContext(Dispatchers.IO) {
+        getDeviceData()
+      }.let { intentController.shareDeviceData(formatDeviceDataString(it)) }
+    }
+  }
+
+  private fun formatDeviceDataString(data: List<Pair<String, DeviceDataItem>>): String {
+    return data.joinToString("") {
+      if (it.second.isHeader) {
+        "\n" + stringController.getString(it.second.title) + "\n"
+      } else {
+        stringController.getString(it.second.title) + ": \t" + it.second.value.replace("\n", " ") + "\n"
+      }
+    }.removeSurrounding("\n")
+  }
+
 
   override fun showManuallyAddWidgetNotice() = toastController.showToast(R.string.manually_add_widget)
 }

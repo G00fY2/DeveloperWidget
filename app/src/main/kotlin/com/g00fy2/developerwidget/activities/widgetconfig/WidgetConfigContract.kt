@@ -27,5 +27,7 @@ interface WidgetConfigContract {
     fun showManuallyAddWidgetNotice()
 
     fun showHomescreen()
+
+    fun shareDeviceData()
   }
 }

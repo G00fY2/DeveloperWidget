@@ -15,6 +15,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
@@ -194,7 +195,7 @@ class AppsActivity : BaseActivity(R.layout.activity_apps, true), AppsContract.Ap
   }
 
   private fun initClearDrawable(): Drawable? {
-    return ResourcesCompat.getDrawable(resources, R.drawable.ic_clear, null)?.apply {
+    return AppCompatResources.getDrawable(this, R.drawable.ic_clear)?.apply {
       if (VERSION.SDK_INT >= VERSION_CODES.Q) {
         colorFilter =
           BlendModeColorFilter(ResourcesCompat.getColor(resources, R.color.iconTintColor, null), SRC_IN)

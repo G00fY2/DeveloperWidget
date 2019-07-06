@@ -43,9 +43,9 @@
       android:contentDescription="@string/clear"
       android:focusable="true"
       android:scaleType="center"
-      android:src="@drawable/ic_clear"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      app:srcCompat="@drawable/ic_clear"
       />
 
   <ImageView
@@ -60,9 +60,9 @@
       android:contentDescription="@string/delete"
       android:focusable="true"
       android:scaleType="center"
-      android:src="@drawable/ic_delete"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      app:srcCompat="@drawable/ic_delete"
       />
 
   <androidx.constraintlayout.widget.Group
@@ -92,12 +92,12 @@
       android:layout_width="96dp"
       android:layout_height="96dp"
       android:contentDescription="@string/no_apps_found"
-      android:src="@drawable/ic_sad"
       android:visibility="invisible"
       app:layout_constraintBottom_toTopOf="@+id/cancel_textview"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/textView"
+      app:srcCompat="@drawable/ic_sad"
       />
 
   <ProgressBar
