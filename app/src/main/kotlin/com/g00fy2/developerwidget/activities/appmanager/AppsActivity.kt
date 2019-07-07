@@ -28,6 +28,7 @@ import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.utils.AnimationUtils
+import com.g00fy2.developerwidget.utils.hideKeyboard
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_apps.*
 import kotlinx.android.synthetic.main.app_filter_info.*
@@ -163,7 +164,7 @@ class AppsActivity : BaseActivity(R.layout.activity_apps, true), AppsContract.Ap
       if (presenter.getCurrentFilter().isNotEmpty()) AnimationUtils.expandView(app_filter_info, true,
         FastOutLinearInInterpolator())
       AnimationUtils.collapseView(filter_linearlayout, easing = FastOutLinearInInterpolator())
-      hideKeyboard(filter_edittext)
+      filter_edittext.hideKeyboard()
     } else {
       if (app_filter_info.isVisible) AnimationUtils.collapseView(app_filter_info, true, LinearOutSlowInInterpolator())
       filter_edittext.text.clear()

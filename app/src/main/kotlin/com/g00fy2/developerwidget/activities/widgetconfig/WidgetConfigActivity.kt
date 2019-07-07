@@ -34,6 +34,8 @@ import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.data.DeviceDataItem
 import com.g00fy2.developerwidget.receiver.widget.WidgetProviderImpl
+import com.g00fy2.developerwidget.utils.hideKeyboard
+import com.g00fy2.developerwidget.utils.showKeyboard
 import kotlinx.android.synthetic.main.activity_widget_config.*
 import javax.inject.Inject
 
@@ -222,9 +224,9 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
     device_title_edittextview.visibility = if (editable) View.VISIBLE else View.INVISIBLE
     if (editable) {
       device_title_edittextview.requestFocus()
-      showKeyboard(device_title_edittextview)
+      device_title_edittextview.showKeyboard()
     } else {
-      hideKeyboard(device_title_edittextview)
+      device_title_edittextview.hideKeyboard()
     }
   }
 
