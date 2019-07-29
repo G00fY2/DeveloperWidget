@@ -65,12 +65,6 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int, private val isDialo
     }
   }
 
-  protected fun hideKeyboard(view: View) =
-    getSystemService<InputMethodManager>()?.hideSoftInputFromWindow(view.windowToken, 0)
-
-  protected fun showKeyboard(view: View) =
-    getSystemService<InputMethodManager>()?.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
-
   private fun initCompatNavigationBar() {
     // api 27+ allow applying flag via xml (windowLightNavigationBar)
     if (VERSION.SDK_INT == VERSION_CODES.O && isInNightMode()) {
