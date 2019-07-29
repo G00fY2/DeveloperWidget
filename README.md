@@ -2,7 +2,7 @@
 
 # Developer Widget [![Build Status](https://travis-ci.com/G00fY2/DeveloperWidget.svg?branch=develop)](https://travis-ci.com/G00fY2/DeveloperWidget) [![Release](https://img.shields.io/github/release/G00fY2/DeveloperWidget.svg)](https://github.com/G00fY2/DeveloperWidget/releases) [![API](https://img.shields.io/badge/API-14%2B-green.svg?style=flat)](https://android-arsenal.com/api?level=14)
 
-**Small Android app that offers a widget to show device data, manage installed apps and list locally stored APK files.**
+**Lightweight Android app that offers a widget to show device data, manage installed apps and list locally stored APK files.**
 
 ## Screenshots 
 
@@ -13,7 +13,7 @@
 [<img src="https://raw.githubusercontent.com/G00fY2/DeveloperWidget/gh-pages/media/store_screenshot_5.png" width=160>](https://raw.githubusercontent.com/G00fY2/DeveloperWidget/gh-pages/media/store_screenshot_5.png)
 
 ## Description
-The app was built from a developer for developers. You may know the hassle of having multiple physical devices running different software. This app will help you keep track of important device information as well as organize your apps and local APK files. You will never again struggle to find APK files using a file browser or search for the app settings menu on a custom manufacturer UI.
+The app was built from a developer for developers. You may know the hassle of having multiple physical devices running different software. This app will help you keep track of important device information and allows you to organize your apps and local APK files. You will never again struggle to find APK files using a file browser or search for the app settings menu on a custom manufacturer UI.
 
 The main feature of the app is an 4x1 (horizontally resizable) homescreen widget that shows dynamically fetched device data and allows you to browse your installed apps and local APK files.
 
@@ -43,13 +43,13 @@ The main feature of the app is an 4x1 (horizontally resizable) homescreen widget
 #### Planned Features
 * Customize the displayed device data of the widget
 * Allow changing the button shortcuts
-* Show more information in the APK install activity
-  * currently installed version, filepath, certificate ...
+* Show more information in the APK install view
+  * currently installed version, filepath, certificates ...
 
 ## Download
 <a href='https://play.google.com/store/apps/details?id=com.g00fy2.developerwidget'><img alt='Get it on Google Play' width='215' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
 
-You also find the latest APK files in the [GitHub Releases](https://github.com/G00fY2/DeveloperWidget/releases).
+You also find the latest APK in the [GitHub releases](https://github.com/G00fY2/DeveloperWidget/releases).
 
 ## Release Notes
 
