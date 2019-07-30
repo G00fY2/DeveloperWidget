@@ -68,7 +68,7 @@
           android:layout_marginBottom="2dp"
           android:layout_marginLeft="@dimen/filter_input_inset"
           android:layout_marginRight="@dimen/filter_input_inset"
-          android:background="@drawable/filter_edittext_background"
+          android:background="@drawable/bg_filter_edittext"
           android:clickable="true"
           android:drawablePadding="8dp"
           android:focusable="true"
