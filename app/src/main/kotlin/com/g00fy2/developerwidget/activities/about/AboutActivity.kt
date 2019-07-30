@@ -13,15 +13,6 @@ import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.widgetconfig.ConfigLauncherActivity
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
-import com.g00fy2.developerwidget.utils.CHANGES
-import com.g00fy2.developerwidget.utils.GITHUB_ISSUE
-import com.g00fy2.developerwidget.utils.GITHUB_PROJECT
-import com.g00fy2.developerwidget.utils.GITHUB_USER
-import com.g00fy2.developerwidget.utils.ICON_CREDITS
-import com.g00fy2.developerwidget.utils.MIT_LICENSE
-import com.g00fy2.developerwidget.utils.OSS_LICENSES
-import com.g00fy2.developerwidget.utils.PRIVACY_POLICY
-import com.g00fy2.developerwidget.utils.TWITTER_USER
 import kotlinx.android.synthetic.main.activity_about.*
 import javax.inject.Inject
 

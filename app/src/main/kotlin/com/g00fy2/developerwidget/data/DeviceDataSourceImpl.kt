@@ -10,7 +10,7 @@ import com.g00fy2.developerwidget.data.device.hardwarefeature.HardwareFeaturePro
 import com.g00fy2.developerwidget.data.device.ram.RamDataProvider
 import com.g00fy2.developerwidget.data.device.system.SystemDataProvider
 import com.g00fy2.developerwidget.data.device.systemapps.SystemAppsDataProvider
-import com.g00fy2.developerwidget.utils.APPLICATION
+import com.g00fy2.developerwidget.di.annotations.APPLICATION
 import javax.inject.Inject
 import javax.inject.Named
 

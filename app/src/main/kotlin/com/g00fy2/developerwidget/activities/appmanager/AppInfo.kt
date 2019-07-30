@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.pm.PackageInfo
 import android.graphics.drawable.Drawable
 import androidx.core.content.pm.PackageInfoCompat
-import com.g00fy2.developerwidget.utils.ACTIVITY
+import com.g00fy2.developerwidget.di.annotations.ACTIVITY
 import javax.inject.Inject
 import javax.inject.Named
 

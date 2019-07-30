@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.receiver.widget.WidgetProviderImpl
-import com.g00fy2.developerwidget.utils.APPLICATION
+import com.g00fy2.developerwidget.di.annotations.APPLICATION
 import javax.inject.Inject
 import javax.inject.Named
 

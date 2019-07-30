@@ -7,7 +7,7 @@ import android.content.pm.PackageManager
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import androidx.core.content.ContextCompat
-import com.g00fy2.developerwidget.utils.ACTIVITY
+import com.g00fy2.developerwidget.di.annotations.ACTIVITY
 import javax.inject.Inject
 import javax.inject.Named
 

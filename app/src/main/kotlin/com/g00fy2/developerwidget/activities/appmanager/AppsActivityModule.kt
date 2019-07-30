@@ -4,7 +4,7 @@ import android.appwidget.AppWidgetManager
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.di.ActivityModule
 import com.g00fy2.developerwidget.di.annotations.ActivityScope
-import com.g00fy2.developerwidget.utils.WIDGET_ID
+import com.g00fy2.developerwidget.di.annotations.WIDGET_ID
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

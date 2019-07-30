@@ -2,7 +2,7 @@ package com.g00fy2.developerwidget.di
 
 import android.content.Context
 import com.g00fy2.developerwidget.DevWidgetApp
-import com.g00fy2.developerwidget.utils.APPLICATION
+import com.g00fy2.developerwidget.di.annotations.APPLICATION
 import dagger.Binds
 import dagger.Module
 import javax.inject.Named
