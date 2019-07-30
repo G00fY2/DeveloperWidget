@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BaseAdapter
 import com.g00fy2.developerwidget.base.BaseViewHolder
-import com.g00fy2.developerwidget.utils.FilterUtils
+import com.g00fy2.developerwidget.ktx.filterPackageName
 import kotlinx.android.synthetic.main.app_item.*
 
 class AppsAdapter : BaseAdapter<AppInfo, BaseViewHolder>(AppsDiffUtilsCallback()) {
@@ -48,11 +48,7 @@ class AppsAdapter : BaseAdapter<AppInfo, BaseViewHolder>(AppsDiffUtilsCallback()
     if (filter.isEmpty()) {
       resetAppFilter()
     } else {
-      val filteredItems = ArrayList<AppInfo>()
-      for (i in itemsCopy) {
-        if (FilterUtils.filterValue(i.packageName, filter)) filteredItems.add(i)
-      }
-      submitList(filteredItems)
+      submitList(itemsCopy.filter { it.filterPackageName(filter) })
     }
   }
 
@@ -60,11 +56,7 @@ class AppsAdapter : BaseAdapter<AppInfo, BaseViewHolder>(AppsDiffUtilsCallback()
     if (filters.isEmpty()) {
       resetAppFilter()
     } else {
-      val filteredItems = ArrayList<AppInfo>()
-      for (i in itemsCopy) {
-        if (FilterUtils.filterValueByCollection(i.packageName, filters)) filteredItems.add(i)
-      }
-      submitList(filteredItems)
+      submitList(itemsCopy.filter { it.filterPackageName(filters) })
     }
   }
 
