@@ -33,9 +33,9 @@ import com.g00fy2.developerwidget.activities.about.AboutActivity
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.data.DeviceDataItem
-import com.g00fy2.developerwidget.receiver.widget.WidgetProviderImpl
 import com.g00fy2.developerwidget.ktx.hideKeyboard
 import com.g00fy2.developerwidget.ktx.showKeyboard
+import com.g00fy2.developerwidget.receiver.widget.WidgetProviderImpl
 import kotlinx.android.synthetic.main.activity_widget_config.*
 import javax.inject.Inject
 

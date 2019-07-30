@@ -10,8 +10,8 @@ import android.provider.Settings
 import androidx.core.net.toUri
 import com.g00fy2.developerwidget.BuildConfig
 import com.g00fy2.developerwidget.R
-import com.g00fy2.developerwidget.activities.apkinstall.ApkFile
 import com.g00fy2.developerwidget.activities.about.DEVELOPER_EMAIL
+import com.g00fy2.developerwidget.activities.apkinstall.ApkFile
 import com.g00fy2.developerwidget.di.annotations.ACTIVITY
 import timber.log.Timber
 import javax.inject.Inject
