@@ -29,9 +29,8 @@ android_phases:
 - phase: &before_install
   # check if OpenJDK8 is installed and install if missing
   - if ! dpkg -s openjdk-8-jdk >/dev/null 2>&1; then sudo apt-get update; sudo apt-get install openjdk-8-jdk; fi
+  - sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
   - java -version
-  # print available Java versions with their path (must contain java-8-openjdk-amd64)
-  - sudo update-alternatives --config java
   # set JAVA_HOME path
   - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
   # download and unzip Android SDK command line tools
