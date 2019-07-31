@@ -3,12 +3,12 @@ package com.g00fy2.developerwidget.ktx
 import android.animation.TimeInterpolator
 import android.animation.ValueAnimator
 import android.view.View
-import android.widget.LinearLayout
+import android.view.ViewGroup
 import androidx.core.animation.doOnEnd
 import com.g00fy2.developerwidget.R
 
-fun View.expand(fade: Boolean = false, easing: TimeInterpolator? = null) = this.apply {
-  val params = layoutParams as LinearLayout.LayoutParams
+fun ViewGroup.expand(fade: Boolean = false, easing: TimeInterpolator? = null) = this.apply {
+  val params = layoutParams as ViewGroup.MarginLayoutParams
   params.topMargin = -height
   requestLayout()
   if (fade) alpha = 0f
@@ -28,8 +28,8 @@ fun View.expand(fade: Boolean = false, easing: TimeInterpolator? = null) = this.
   }.start()
 }
 
-fun View.collapse(fade: Boolean = false, easing: TimeInterpolator? = null) = this.apply {
-  val params = layoutParams as LinearLayout.LayoutParams
+fun ViewGroup.collapse(fade: Boolean = false, easing: TimeInterpolator? = null) = this.apply {
+  val params = layoutParams as ViewGroup.MarginLayoutParams
   params.topMargin = 0
   requestLayout()
   if (fade) alpha = 1f

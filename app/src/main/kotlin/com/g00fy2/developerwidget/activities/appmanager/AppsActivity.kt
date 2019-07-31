@@ -32,7 +32,6 @@ import com.g00fy2.developerwidget.ktx.expand
 import com.g00fy2.developerwidget.ktx.hideKeyboard
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_apps.*
-import kotlinx.android.synthetic.main.app_filter_info.*
 import javax.inject.Inject
 
 class AppsActivity : BaseActivity(R.layout.activity_apps, true), AppsContract.AppsView {

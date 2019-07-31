@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     >
 
@@ -97,10 +98,34 @@
 
     </LinearLayout>
 
-    <include
-        layout="@layout/app_filter_info"
+    <LinearLayout
         android:id="@+id/app_filter_info"
-        />
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/action_bar_inset"
+        android:paddingRight="@dimen/action_bar_inset"
+        tools:ignore="UseCompoundDrawables"
+        >
+      <ImageView
+          android:layout_width="12dp"
+          android:layout_height="12dp"
+          android:layout_gravity="center|start"
+          android:contentDescription="@string/show_all"
+          android:tint="@color/colorAccent"
+          app:srcCompat="@drawable/ic_chevron_right"
+          />
+      <TextView
+          android:id="@+id/show_all_textview"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginLeft="16dp"
+          android:layout_marginStart="16dp"
+          android:gravity="center|start"
+          android:textColor="@color/colorAccent"
+          android:textSize="16sp"
+          />
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
