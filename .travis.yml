@@ -2,7 +2,6 @@ language: java
 os: linux
 dist: bionic
 group: edge
-sudo: required
 jdk: openjdk10
 git:
   depth: false
