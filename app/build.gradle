@@ -60,6 +60,12 @@ android {
   kotlinOptions {
     jvmTarget = '1.8'
   }
+  kapt {
+    javacOptions {
+      option("-source", "8")
+      option("-target", "8")
+    }
+  }
 }
 
 dependencies {
