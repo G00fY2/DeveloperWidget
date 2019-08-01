@@ -1,8 +1,9 @@
-language: minimal
+language: java
 os: linux
-dist: xenial
+dist: bionic
 group: edge
 sudo: required
+jdk: openjdk10
 git:
   depth: false
 env:
@@ -27,15 +28,11 @@ stages:
 
 android_phases:
 - phase: &before_install
-  # check if OpenJDK8 is installed and install if missing
-  - if ! dpkg -s openjdk-8-jdk >/dev/null 2>&1; then sudo apt-get update; sudo apt-get install openjdk-8-jdk; fi
-  - sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
-  - java -version
-  # set JAVA_HOME path
-  - export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
   # download and unzip Android SDK command line tools
   - wget -nv https://dl.google.com/android/repository/$ANDROID_SDK_TOOLS
   - unzip -q $ANDROID_SDK_TOOLS -d $HOME/sdk
+  # add deprecated java ee module to jdk10 to run the sdkmanager
+  - export JAVA_OPTS="-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee"
   # set SDK tools path variable and ANDROID_HOME
   - export PATH=$PATH:$HOME/sdk/tools/bin
   - export ANDROID_HOME=$HOME/sdk
