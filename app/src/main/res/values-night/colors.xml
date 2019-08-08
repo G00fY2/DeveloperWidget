@@ -19,4 +19,5 @@
 
   <color name="chipColor">@color/nightGrey</color>
   <color name="filterTextColor">#e4e4e5</color>
+  <color name="adaptiveShadow">#33000000</color>
 </resources>

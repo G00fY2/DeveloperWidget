@@ -1,5 +1,8 @@
 package com.g00fy2.developerwidget.activities.appmanager
 
+import android.graphics.drawable.InsetDrawable
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -31,6 +34,9 @@ class AppsAdapter : BaseAdapter<AppInfo, BaseViewHolder>(AppsDiffUtilsCallback()
       app_version_textview.text =
         String.format(itemView.context.getString(R.string.apk_version), appInfo.versionName, appInfo.versionCode)
       app_icon_imageview.setImageDrawable(appInfo.appIcon)
+      if (VERSION.SDK_INT >= VERSION_CODES.O) {
+        app_icon_imageview.setBackgroundResource(if (appInfo.appIcon is InsetDrawable) R.drawable.bg_adaptive_launcher_icon else 0)
+      }
     }
   }
 

@@ -2,7 +2,9 @@ package com.g00fy2.developerwidget.activities.apkinstall
 
 import android.content.Context
 import android.content.pm.ApplicationInfo
+import android.graphics.drawable.AdaptiveIconDrawable
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.InsetDrawable
 import android.net.Uri
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
@@ -74,8 +76,14 @@ class ApkFile private constructor() : Comparable<ApkFile> {
             appInfo.sourceDir = filePath
             appInfo.publicSourceDir = filePath
             packageManager.getApplicationLabel(appInfo).let { appName = it.toString() }
-            appIcon = packageManager.getApplicationIcon(appInfo)
             debuggable = appInfo.flags.and(ApplicationInfo.FLAG_DEBUGGABLE) != 0
+            packageManager.getApplicationIcon(appInfo.packageName).let {
+              if (VERSION.SDK_INT >= VERSION_CODES.O && it is AdaptiveIconDrawable) {
+                appIcon = InsetDrawable(it, 0.025f, 0.01f, 0.025f, 0.04f)
+              } else {
+                appIcon = it
+              }
+            }
           }
         }
 

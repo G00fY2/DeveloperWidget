@@ -2,7 +2,11 @@ package com.g00fy2.developerwidget.activities.appmanager
 
 import android.content.Context
 import android.content.pm.PackageInfo
+import android.graphics.drawable.AdaptiveIconDrawable
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.InsetDrawable
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import androidx.core.content.pm.PackageInfoCompat
 import com.g00fy2.developerwidget.di.annotations.ACTIVITY
 import javax.inject.Inject
@@ -46,7 +50,13 @@ class AppInfo private constructor() : Comparable<AppInfo> {
           packageInfo.applicationInfo
         }?.let { appInfo ->
           appName = packageManager.getApplicationLabel(appInfo).toString()
-          appIcon = packageManager.getApplicationIcon(appInfo.packageName)
+          packageManager.getApplicationIcon(appInfo.packageName).let {
+            if (VERSION.SDK_INT >= VERSION_CODES.O && it is AdaptiveIconDrawable) {
+              appIcon = InsetDrawable(it, 0.025f, 0.01f, 0.025f, 0.04f)
+            } else {
+              appIcon = it
+            }
+          }
         }
       }
     }
