@@ -1,12 +1,15 @@
 package com.g00fy2.developerwidget.activities.appmanager
 
+import android.graphics.drawable.InsetDrawable
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BaseAdapter
 import com.g00fy2.developerwidget.base.BaseViewHolder
-import com.g00fy2.developerwidget.utils.FilterUtils
+import com.g00fy2.developerwidget.ktx.filterPackageName
 import kotlinx.android.synthetic.main.app_item.*
 
 class AppsAdapter : BaseAdapter<AppInfo, BaseViewHolder>(AppsDiffUtilsCallback()) {
@@ -31,6 +34,9 @@ class AppsAdapter : BaseAdapter<AppInfo, BaseViewHolder>(AppsDiffUtilsCallback()
       app_version_textview.text =
         String.format(itemView.context.getString(R.string.apk_version), appInfo.versionName, appInfo.versionCode)
       app_icon_imageview.setImageDrawable(appInfo.appIcon)
+      if (VERSION.SDK_INT >= VERSION_CODES.O) {
+        app_icon_imageview.setBackgroundResource(if (appInfo.appIcon is InsetDrawable) R.drawable.bg_adaptive_launcher_icon else 0)
+      }
     }
   }
 
@@ -48,11 +54,7 @@ class AppsAdapter : BaseAdapter<AppInfo, BaseViewHolder>(AppsDiffUtilsCallback()
     if (filter.isEmpty()) {
       resetAppFilter()
     } else {
-      val filteredItems = ArrayList<AppInfo>()
-      for (i in itemsCopy) {
-        if (FilterUtils.filterValue(i.packageName, filter)) filteredItems.add(i)
-      }
-      submitList(filteredItems)
+      submitList(itemsCopy.filter { it.filterPackageName(filter) })
     }
   }
 
@@ -60,11 +62,7 @@ class AppsAdapter : BaseAdapter<AppInfo, BaseViewHolder>(AppsDiffUtilsCallback()
     if (filters.isEmpty()) {
       resetAppFilter()
     } else {
-      val filteredItems = ArrayList<AppInfo>()
-      for (i in itemsCopy) {
-        if (FilterUtils.filterValueByCollection(i.packageName, filters)) filteredItems.add(i)
-      }
-      submitList(filteredItems)
+      submitList(itemsCopy.filter { it.filterPackageName(filters) })
     }
   }
 

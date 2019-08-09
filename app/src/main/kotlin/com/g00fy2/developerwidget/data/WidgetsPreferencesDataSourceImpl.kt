@@ -3,7 +3,7 @@ package com.g00fy2.developerwidget.data
 import android.content.Context
 import android.util.SparseArray
 import com.g00fy2.developerwidget.controllers.WidgetPreferenceControllerImpl
-import com.g00fy2.developerwidget.utils.APPLICATION
+import com.g00fy2.developerwidget.di.annotations.APPLICATION
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

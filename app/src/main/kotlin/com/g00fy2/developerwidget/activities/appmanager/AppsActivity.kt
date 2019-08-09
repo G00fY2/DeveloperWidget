@@ -27,11 +27,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
-import com.g00fy2.developerwidget.utils.AnimationUtils
-import com.g00fy2.developerwidget.utils.hideKeyboard
+import com.g00fy2.developerwidget.ktx.collapse
+import com.g00fy2.developerwidget.ktx.expand
+import com.g00fy2.developerwidget.ktx.hideKeyboard
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_apps.*
-import kotlinx.android.synthetic.main.app_filter_info.*
 import javax.inject.Inject
 
 class AppsActivity : BaseActivity(R.layout.activity_apps, true), AppsContract.AppsView {
@@ -74,7 +74,7 @@ class AppsActivity : BaseActivity(R.layout.activity_apps, true), AppsContract.Ap
     app_filter_info.setOnClickListener {
       scrollToTopAfterCommit = true
       presenter.disableFilter()
-      AnimationUtils.collapseView(app_filter_info, true, LinearOutSlowInInterpolator())
+      app_filter_info.collapse(true, LinearOutSlowInInterpolator())
     }
     TooltipCompat.setTooltipText(filter_imageview, filter_imageview.contentDescription)
     filter_imageview.setOnClickListener {
@@ -161,15 +161,14 @@ class AppsActivity : BaseActivity(R.layout.activity_apps, true), AppsContract.Ap
 
   private fun toggleFilterView() {
     if (filter_linearlayout.isVisible) {
-      if (presenter.getCurrentFilter().isNotEmpty()) AnimationUtils.expandView(app_filter_info, true,
-        FastOutLinearInInterpolator())
-      AnimationUtils.collapseView(filter_linearlayout, easing = FastOutLinearInInterpolator())
+      if (presenter.getCurrentFilter().isNotEmpty()) app_filter_info.expand(true, FastOutLinearInInterpolator())
+      filter_linearlayout.collapse(easing = FastOutLinearInInterpolator())
       filter_edittext.hideKeyboard()
     } else {
-      if (app_filter_info.isVisible) AnimationUtils.collapseView(app_filter_info, true, LinearOutSlowInInterpolator())
+      if (app_filter_info.isVisible) app_filter_info.collapse(true, LinearOutSlowInInterpolator())
       filter_edittext.text.clear()
       setFilterChips(presenter.getCurrentFilter())
-      AnimationUtils.expandView(filter_linearlayout, easing = LinearOutSlowInInterpolator())
+      filter_linearlayout.expand(easing = LinearOutSlowInInterpolator())
     }
   }
 

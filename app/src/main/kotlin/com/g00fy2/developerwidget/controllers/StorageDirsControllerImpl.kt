@@ -5,7 +5,7 @@ import android.content.Context
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Environment
-import com.g00fy2.developerwidget.utils.ACTIVITY
+import com.g00fy2.developerwidget.di.annotations.ACTIVITY
 import timber.log.Timber
 import java.io.File
 import java.io.File.pathSeparator

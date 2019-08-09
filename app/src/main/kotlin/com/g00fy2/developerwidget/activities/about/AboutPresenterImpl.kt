@@ -5,7 +5,6 @@ import com.g00fy2.developerwidget.base.BasePresenterImpl
 import com.g00fy2.developerwidget.controllers.DayNightController
 import com.g00fy2.developerwidget.controllers.IntentController
 import com.g00fy2.developerwidget.controllers.ToastController
-import com.g00fy2.developerwidget.utils.GITHUB_PROJECT_IO
 import javax.inject.Inject
 
 class AboutPresenterImpl @Inject constructor() : BasePresenterImpl(), AboutContract.AboutPresenter {

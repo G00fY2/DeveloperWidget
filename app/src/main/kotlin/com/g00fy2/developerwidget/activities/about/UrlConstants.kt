@@ -1,15 +1,5 @@
-package com.g00fy2.developerwidget.utils
+package com.g00fy2.developerwidget.activities.about
 
-// Dagger scopes
-const val ACTIVITY = "activity"
-const val APPLICATION = "application"
-const val WIDGET_ID = "widgetId"
-
-// Activity window layout
-const val DIALOG_ACTIVITY_WIDTH_FACTOR = 0.95
-const val DIALOG_ACTIVITY_HEIGHT_FACTOR = 0.80
-
-// Urls
 const val GITHUB_PROJECT = "https://github.com/G00fY2/DeveloperWidget"
 const val CHANGES = "$GITHUB_PROJECT/releases"
 const val MIT_LICENSE = "$GITHUB_PROJECT/blob/master/LICENSE"

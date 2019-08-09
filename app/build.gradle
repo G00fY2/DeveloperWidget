@@ -60,6 +60,12 @@ android {
   kotlinOptions {
     jvmTarget = '1.8'
   }
+  kapt {
+    javacOptions {
+      option("-source", "8")
+      option("-target", "8")
+    }
+  }
 }
 
 dependencies {
@@ -73,10 +79,10 @@ dependencies {
   implementation "androidx.activity:activity:$activityVersion"
   implementation "androidx.recyclerview:recyclerview:$recyclerviewVersion"
   implementation "androidx.constraintlayout:constraintlayout:$constraintlayoutVersion"
+  implementation "androidx.vectordrawable:vectordrawable:$vectorDrawableVersion"
 
   // UI
   implementation "com.google.android.material:material:$materialVersion"
-  implementation "androidx.vectordrawable:vectordrawable:$vectorDrawableVersion"
 
   // Misc
   implementation "com.jakewharton.timber:timber:$timberVersion"

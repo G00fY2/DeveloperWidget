@@ -7,13 +7,9 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.getSystemService
 import com.g00fy2.developerwidget.controllers.DayNightController
-import com.g00fy2.developerwidget.utils.DIALOG_ACTIVITY_HEIGHT_FACTOR
-import com.g00fy2.developerwidget.utils.DIALOG_ACTIVITY_WIDTH_FACTOR
 import dagger.android.AndroidInjection
 import timber.log.Timber
 import javax.inject.Inject
@@ -32,8 +28,8 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int, private val isDialo
       requestWindowFeature(Window.FEATURE_NO_TITLE)
       super.onCreate(savedInstanceState)
 
-      val width = (resources.displayMetrics.widthPixels * DIALOG_ACTIVITY_WIDTH_FACTOR).toInt()
-      val height = (resources.displayMetrics.heightPixels * DIALOG_ACTIVITY_HEIGHT_FACTOR).toInt()
+      val width = (resources.displayMetrics.widthPixels * 0.95).toInt()
+      val height = (resources.displayMetrics.heightPixels * 0.80).toInt()
       window.setLayout(width, height)
     } else {
       super.onCreate(savedInstanceState)

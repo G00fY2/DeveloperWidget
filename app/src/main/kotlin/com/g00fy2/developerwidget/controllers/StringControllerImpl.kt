@@ -1,7 +1,7 @@
 package com.g00fy2.developerwidget.controllers
 
 import android.content.Context
-import com.g00fy2.developerwidget.utils.ACTIVITY
+import com.g00fy2.developerwidget.di.annotations.ACTIVITY
 import javax.inject.Inject
 import javax.inject.Named
 

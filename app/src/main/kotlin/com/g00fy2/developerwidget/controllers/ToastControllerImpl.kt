@@ -2,7 +2,7 @@ package com.g00fy2.developerwidget.controllers
 
 import android.content.Context
 import android.widget.Toast
-import com.g00fy2.developerwidget.utils.APPLICATION
+import com.g00fy2.developerwidget.di.annotations.APPLICATION
 import javax.inject.Inject
 import javax.inject.Named
 

@@ -4,6 +4,7 @@
   <color name="colorEdgeEffect">@color/black</color>
 
   <color name="dividerGrey">#1f1f1f</color>
+  <color name="adaptiveShadow">@color/black</color>
 
   <color name="menuIcon">@color/white</color>
 </resources>

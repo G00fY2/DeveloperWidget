@@ -1,11 +1,9 @@
-# Created by https://www.gitignore.io/api/androidstudio
-
-### AndroidStudio ###
-# Covers files to be ignored for android development using Android Studio.
+# Reference gitignore https://gist.github.com/G00fY2/81c0aa67943cca021e915840bf73ee1b
 
 # Built application files
 *.apk
 *.ap_
+*.aab
 
 # Files for the ART/Dalvik VM
 *.dex
@@ -43,8 +41,7 @@ proguard/
 /*/out
 /*/*/build
 /*/*/production
-captures/
-.navigation/
+/*/*/staging
 *.ipr
 *~
 *.swp
@@ -52,97 +49,165 @@ captures/
 # Android Patch
 gen-external-apklibs
 
+# Android Studio Navigation editor temp files
+.navigation/
+
+# Android Studio captures folder
+captures/
+
+# IntelliJ
+*.iml
+*.iws
+.idea/artifacts
+.idea/modules
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/tasks.xml
+.idea/gradle.xml
+.idea/assetWizardSettings.xml
+.idea/libraries
+.idea/caches
+.idea/shelf
+.idea/.name
+.idea/compiler.xml
+.idea/copyright/profiles_settings.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/scopes/scope_settings.xml
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+.idea/dataSources
+.idea/datasources.xml
+.idea/dataSources.local.xml
+.idea/dataSources.ids
+.idea/sqlDataSources.xml
+.idea/dbnavigator.xml
+.idea/dynamic.xml
+.idea/uiDesigner.xml
+.idea/usage.statistics.xml
+.idea/contentModel.xml
+.idea/kotlinc.xml
+# optional
+.idea/dictionaries
+.idea/inspectionProfiles
+.idea/runConfigurations
+.idea/runConfigurations.xml
+
+# Keystore files
+*.jks
+*.keystore
+
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
 
 # NDK
 obj/
 
-# IntelliJ IDEA
-*.iml
-*.iws
-/out/
+# CMake
+cmake-build-*/
 
-# User-specific or generated
-.idea/libraries/
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/gradle.xml
-.idea/usage.statistics.xml
-.idea/assetWizardSettings.xml
-.idea/.name
-.idea/compiler.xml
-.idea/copyright/profiles_settings.xml
-.idea/encodings.xml
-.idea/misc.xml
-.idea/caches
-.idea/modules
-.idea/modules.xml
-.idea/scopes/scope_settings.xml
-.idea/dictionaries
-.idea/shelf
-.idea/vcs.xml
-.idea/jsLibraryMappings.xml
-.idea/datasources
-.idea/datasources.xml
-.idea/dataSources.ids
-.idea/datasources.local.xml
-.idea/sqlDataSources.xml
-.idea/dynamic.xml
-.idea/uiDesigner.xml
-.idea/dbnavigator.xml
-.idea/contentModel.xml
-.idea/kotlinc.xml
-.idea/inspectionProfiles
+# Google Services (e.g. APIs or Firebase)
+google-services.json
 
-# Keystore files
-*.jks
+# Freeline
+freeline.py
+freeline/
+freeline_project_description.json
 
-# OS-specific files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+fastlane/readme.md
 
-# Legacy Eclipse project files
-.classpath
-.project
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.ear
-
-# virtual machine crash logs (Reference: http://www.java.com/en/download/help/error_hotspot.xml)
-hs_err_pid*
+#Crashlytics
+crashlytics-build.properties
+com_crashlytics_export_strings.xml
+crashlytics.properties
+fabric.properties
 
 ## Plugin-specific files:
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
-# JIRA plugin
-atlassian-ide-plugin.xml
-
 # Mongo Explorer plugin
 .idea/mongoSettings.xml
 
-# Crashlytics plugin (for Android Studio and IntelliJ)
-com_crashlytics_export_strings.xml
-crashlytics.properties
-crashlytics-build.properties
-fabric.properties
+# JIRA plugin
+atlassian-ide-plugin.xml
 
-### AndroidStudio Patch ###
-# Google Services plugin
-google-services.json
+# Cursive Clojure plugin
+.idea/replstate.xml
 
-!/gradle/wrapper/gradle-wrapper.jar
+# Editor-based Rest Client
+.idea/httpRequests
 
-# End of https://www.gitignore.io/api/androidstudio
+## OS specific files:
+
+# General
+.DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+
+# Dump file
+*.stackdump
+
+# Folder config file
+[Dd]esktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*

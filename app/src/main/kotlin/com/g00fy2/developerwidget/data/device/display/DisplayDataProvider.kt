@@ -7,8 +7,6 @@ import android.util.DisplayMetrics
 import android.view.WindowManager
 import androidx.core.content.getSystemService
 import java.text.NumberFormat
-import kotlin.math.max
-import kotlin.math.min
 import kotlin.math.roundToInt
 
 class DisplayDataProvider {

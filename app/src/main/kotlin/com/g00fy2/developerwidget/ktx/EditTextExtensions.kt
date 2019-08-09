@@ -1,4 +1,4 @@
-package com.g00fy2.developerwidget.utils
+package com.g00fy2.developerwidget.ktx
 
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText

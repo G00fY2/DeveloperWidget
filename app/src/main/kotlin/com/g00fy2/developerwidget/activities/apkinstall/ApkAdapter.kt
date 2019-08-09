@@ -1,5 +1,8 @@
 package com.g00fy2.developerwidget.activities.apkinstall
 
+import android.graphics.drawable.InsetDrawable
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -72,6 +75,9 @@ class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>(ApksDiffUtilsCallback()) 
       app_debug_imageview.visibility = if (apkFile.debuggable) View.VISIBLE else View.INVISIBLE
       file_date_textview.text = apkFile.lastModified
       app_icon_imageview.setImageDrawable(apkFile.appIcon)
+      if (VERSION.SDK_INT >= VERSION_CODES.O) {
+        app_icon_imageview.setBackgroundResource(if (apkFile.appIcon is InsetDrawable) R.drawable.bg_adaptive_launcher_icon else 0)
+      }
       setSelected(position)
     }
   }
