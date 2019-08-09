@@ -77,7 +77,7 @@ class ApkFile private constructor() : Comparable<ApkFile> {
             appInfo.publicSourceDir = filePath
             packageManager.getApplicationLabel(appInfo).let { appName = it.toString() }
             debuggable = appInfo.flags.and(ApplicationInfo.FLAG_DEBUGGABLE) != 0
-            packageManager.getApplicationIcon(appInfo.packageName).let {
+            packageManager.getApplicationIcon(appInfo).let {
               if (VERSION.SDK_INT >= VERSION_CODES.O && it is AdaptiveIconDrawable) {
                 appIcon = InsetDrawable(it, 0.025f, 0.01f, 0.025f, 0.04f)
               } else {
