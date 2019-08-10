@@ -13,16 +13,6 @@ import javax.inject.Named
 
 class PermissionControllerImpl @Inject constructor() : PermissionController {
 
-  @TargetApi(VERSION_CODES.M)
-  override fun requestPermission(permission: String) {
-    requestPermissions(arrayOf(permission))
-  }
-
-  @TargetApi(VERSION_CODES.M)
-  override fun requestPermissions(permissions: Array<String>) {
-    if (!hasPermissions(permissions)) (context as Activity).requestPermissions(permissions, 1)
-  }
-
   @Inject
   @field:Named(ACTIVITY)
   lateinit var context: Context
@@ -45,4 +35,15 @@ class PermissionControllerImpl @Inject constructor() : PermissionController {
     }
     return granted
   }
+
+  @TargetApi(VERSION_CODES.M)
+  override fun requestPermission(permission: String) {
+    requestPermissions(arrayOf(permission))
+  }
+
+  @TargetApi(VERSION_CODES.M)
+  override fun requestPermissions(permissions: Array<String>) {
+    if (!hasPermissions(permissions)) (context as Activity).requestPermissions(permissions, 1)
+  }
+
 }
