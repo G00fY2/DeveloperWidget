@@ -15,7 +15,7 @@ buildscript {
     coreKtxVersion = '1.2.0-alpha03'
     activityVersion = '1.1.0-alpha02'
     materialVersion = '1.1.0-alpha09'
-    recyclerviewVersion = '1.1.0-beta02'
+    recyclerviewVersion = '1.1.0-beta03'
     vectorDrawableVersion = '1.1.0-rc01'
     constraintlayoutVersion = '2.0.0-beta2'
     timberVersion = '4.7.1'
