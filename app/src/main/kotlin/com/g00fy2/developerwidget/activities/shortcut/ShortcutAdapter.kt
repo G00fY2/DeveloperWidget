@@ -1,10 +1,10 @@
 package com.g00fy2.developerwidget.activities.shortcut
 
-import android.annotation.TargetApi
 import android.content.pm.ShortcutInfo
 import android.os.Build.VERSION_CODES
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BaseAdapter
 import com.g00fy2.developerwidget.base.BaseViewHolder
@@ -21,7 +21,7 @@ class ShortcutAdapter : BaseAdapter<ShortcutInfo, BaseViewHolder>(ShortcutDiffUt
     }
   }
 
-  @TargetApi(VERSION_CODES.N_MR1)
+  @RequiresApi(VERSION_CODES.N_MR1)
   override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
     holder.apply {
       shortcut_title_textview.text =

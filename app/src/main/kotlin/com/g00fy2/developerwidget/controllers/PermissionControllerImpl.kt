@@ -1,11 +1,11 @@
 package com.g00fy2.developerwidget.controllers
 
-import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.g00fy2.developerwidget.di.annotations.ACTIVITY
 import javax.inject.Inject
@@ -36,12 +36,12 @@ class PermissionControllerImpl @Inject constructor() : PermissionController {
     return granted
   }
 
-  @TargetApi(VERSION_CODES.M)
+  @RequiresApi(VERSION_CODES.M)
   override fun requestPermission(permission: String) {
     requestPermissions(arrayOf(permission))
   }
 
-  @TargetApi(VERSION_CODES.M)
+  @RequiresApi(VERSION_CODES.M)
   override fun requestPermissions(permissions: Array<String>) {
     if (!hasPermissions(permissions)) (context as Activity).requestPermissions(permissions, 1)
   }

@@ -1,6 +1,5 @@
 package com.g00fy2.developerwidget.activities.shortcut
 
-import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.ShortcutInfo
@@ -13,6 +12,7 @@ import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
+import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.getSystemService
@@ -27,7 +27,7 @@ import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import kotlinx.android.synthetic.main.activity_create_shortcut.*
 import javax.inject.Inject
 
-@TargetApi(VERSION_CODES.N_MR1)
+@RequiresApi(VERSION_CODES.N_MR1)
 class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
   CreateShortcutContract.CreateShortcutView {
 
