@@ -22,10 +22,10 @@ android {
   }
   signingConfigs {
     release {
-      storeFile file("../keystore.jks")
-      storePassword project.hasProperty('my_storepass') ? my_storepass : ""
-      keyAlias project.hasProperty('my_keyalias') ? my_keyalias : ""
-      keyPassword project.hasProperty('my_keypass') ? my_keypass : ""
+      storeFile file('../keystore.jks')
+      storePassword project.hasProperty('my_storepass') ? my_storepass : ''
+      keyAlias project.hasProperty('my_keyalias') ? my_keyalias : ''
+      keyPassword project.hasProperty('my_keypass') ? my_keypass : ''
       v1SigningEnabled true
       v2SigningEnabled true
     }
@@ -42,10 +42,10 @@ android {
     }
   }
   versioning {
-    baseName = "developerwidget"
+    baseName = 'developerwidget'
   }
   applicationVariants.all { variant ->
-    if (variant.getName().toLowerCase().contains("release")) {
+    if (variant.getName().toLowerCase().contains('release')) {
       variant.outputs.all {
         outputFileName = versioning.getApkName(variant)
       }
@@ -63,8 +63,8 @@ android {
   }
   kapt {
     javacOptions {
-      option("-source", "8")
-      option("-target", "8")
+      option('-source', '8')
+      option('-target', '8')
     }
   }
 }
