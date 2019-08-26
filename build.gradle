@@ -55,15 +55,6 @@ allprojects {
       }
     }
   }
-
-  afterEvaluate { project ->
-    if (project.hasProperty("android")) {
-      android {
-        compileSdkVersion compileSdkVersion
-        buildToolsVersion buildToolsVersion
-      }
-    }
-  }
 }
 
 task clean(type: Delete) {

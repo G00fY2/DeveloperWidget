@@ -10,6 +10,7 @@ androidExtensions {
 
 android {
   compileSdkVersion rootProject.compileSdkVersion
+  buildToolsVersion rootProject.buildToolsVersion
   defaultConfig {
     applicationId 'com.g00fy2.developerwidget'
     minSdkVersion rootProject.minSdkVersion
