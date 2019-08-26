@@ -216,7 +216,7 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
         true
       }
     }
-    share_fab.setOnClickListener { presenter.shareDeviceData()}
+    share_fab.setOnClickListener { presenter.shareDeviceData() }
   }
 
   private fun toggleDeviceNameEdit(editable: Boolean) {

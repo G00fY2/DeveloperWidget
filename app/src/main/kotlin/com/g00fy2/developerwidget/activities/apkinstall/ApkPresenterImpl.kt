@@ -1,8 +1,6 @@
 package com.g00fy2.developerwidget.activities.apkinstall
 
 import android.Manifest
-import android.annotation.TargetApi
-import android.os.Build.VERSION_CODES
 import androidx.lifecycle.Lifecycle.Event
 import androidx.lifecycle.OnLifecycleEvent
 import com.g00fy2.developerwidget.base.BasePresenterImpl
@@ -29,7 +27,6 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
   lateinit var apkFileBuilder: ApkFile.ApkFileBuilder
 
   @OnLifecycleEvent(Event.ON_CREATE)
-  @TargetApi(VERSION_CODES.JELLY_BEAN)
   fun requestPermission() {
     permissionController.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
   }

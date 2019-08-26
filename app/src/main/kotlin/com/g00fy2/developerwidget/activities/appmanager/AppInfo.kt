@@ -51,10 +51,10 @@ class AppInfo private constructor() : Comparable<AppInfo> {
         }?.let { appInfo ->
           appName = packageManager.getApplicationLabel(appInfo).toString()
           packageManager.getApplicationIcon(appInfo.packageName).let {
-            if (VERSION.SDK_INT >= VERSION_CODES.O && it is AdaptiveIconDrawable) {
-              appIcon = InsetDrawable(it, 0.025f, 0.01f, 0.025f, 0.04f)
+            appIcon = if (VERSION.SDK_INT >= VERSION_CODES.O && it is AdaptiveIconDrawable) {
+              InsetDrawable(it, 0.025f, 0.01f, 0.025f, 0.04f)
             } else {
-              appIcon = it
+              it
             }
           }
         }
