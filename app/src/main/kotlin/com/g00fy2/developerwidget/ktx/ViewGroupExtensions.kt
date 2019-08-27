@@ -10,7 +10,7 @@ import com.g00fy2.developerwidget.R
 fun ViewGroup.expand(fade: Boolean = false, easing: TimeInterpolator? = null) = this.apply {
   val params = layoutParams as ViewGroup.MarginLayoutParams
   params.topMargin = -height
-  requestLayout()
+  layoutParams = params
   if (fade) alpha = 0f
   visibility = View.VISIBLE
 
@@ -19,9 +19,9 @@ fun ViewGroup.expand(fade: Boolean = false, easing: TimeInterpolator? = null) = 
     addUpdateListener {
       (it.animatedValue as Int).let { value ->
         params.topMargin = value
+        layoutParams = params
         if (fade) alpha = (viewHeight + value) / viewHeight.toFloat()
       }
-      requestLayout()
     }
     easing?.let { easing -> interpolator = easing }
     duration = resources.getInteger(R.integer.animation_duration).toLong()
@@ -31,7 +31,7 @@ fun ViewGroup.expand(fade: Boolean = false, easing: TimeInterpolator? = null) = 
 fun ViewGroup.collapse(fade: Boolean = false, easing: TimeInterpolator? = null) = this.apply {
   val params = layoutParams as ViewGroup.MarginLayoutParams
   params.topMargin = 0
-  requestLayout()
+  layoutParams = params
   if (fade) alpha = 1f
   visibility = View.VISIBLE
 
@@ -40,9 +40,9 @@ fun ViewGroup.collapse(fade: Boolean = false, easing: TimeInterpolator? = null) 
     addUpdateListener {
       (it.animatedValue as Int).let { value ->
         params.topMargin = value
+        layoutParams = params
         if (fade) alpha = (viewHeight + value) / viewHeight.toFloat()
       }
-      requestLayout()
     }
     easing?.let { easing -> interpolator = easing }
     duration = resources.getInteger(R.integer.animation_duration).toLong()
