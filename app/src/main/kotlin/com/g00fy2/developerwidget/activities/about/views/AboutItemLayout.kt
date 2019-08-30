@@ -2,8 +2,6 @@ package com.g00fy2.developerwidget.activities.about.views
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.LayoutInflater
-import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -12,50 +10,49 @@ import androidx.core.view.isVisible
 import com.g00fy2.developerwidget.R
 import kotlinx.android.synthetic.main.about_item.view.*
 
-class AboutItemLayout : ConstraintLayout {
+class AboutItemLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+  ConstraintLayout(context, attrs, defStyleAttr) {
 
-  constructor(context: Context) : this(context, null)
-  constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-  constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-    LayoutInflater.from(context).inflate(R.layout.about_item, this, true)
+  init {
+    inflate(context, R.layout.about_item, this)
   }
 
   override fun setEnabled(enabled: Boolean) {
     super.setEnabled(enabled)
-    for (child in constraint_layout.children) child.isEnabled = enabled
+    for (child in children) child.isEnabled = enabled
   }
 
   fun icon(@DrawableRes iconRes: Int): AboutItemLayout {
     icon_imageview.setImageResource(iconRes)
-    icon_imageview.visibility = View.VISIBLE
+    icon_imageview.isVisible = true
     return this
   }
 
   fun title(@StringRes titleRes: Int): AboutItemLayout {
     title_textview.setText(titleRes)
-    title_textview.visibility = View.VISIBLE
+    title_textview.isVisible = true
     return this
   }
 
   fun description(@StringRes descriptionRes: Int): AboutItemLayout {
     description_textview.setText(descriptionRes)
-    description_textview.visibility = View.VISIBLE
+    description_textview.isVisible = true
     return this
   }
 
   fun description(description: String): AboutItemLayout {
     if (description.isNotBlank()) {
       description_textview.text = description
-      description_textview.visibility = View.VISIBLE
+      description_textview.isVisible = true
     } else {
-      description_textview.visibility = View.GONE
+      description_textview.isVisible = false
     }
     return this
   }
 
   fun switch(on: Boolean): AboutItemLayout {
     setting_switch.isChecked = on
-    setting_switch.visibility = View.VISIBLE
+    setting_switch.isVisible = true
     return this
   }
 
