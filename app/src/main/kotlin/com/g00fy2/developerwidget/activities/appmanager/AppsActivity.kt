@@ -7,9 +7,7 @@ import android.graphics.drawable.Drawable
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
-import android.text.Editable
 import android.text.InputFilter
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -21,6 +19,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -102,18 +101,10 @@ class AppsActivity : BaseActivity(R.layout.activity_apps, true), AppsContract.Ap
         }
         true
       }
-      addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {
-          presenter.updateFilter(s)
-          setCompoundDrawables(null, null, if (!s.isNullOrEmpty()) clearDrawable else null, null)
-        }
-
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        }
-      })
+      doAfterTextChanged {
+        presenter.updateFilter(it)
+        setCompoundDrawables(null, null, if (!it.isNullOrEmpty()) clearDrawable else null, null)
+      }
       setOnTouchListener { v, event ->
         var consumed = false
         if (v is EditText) {
