@@ -12,5 +12,4 @@ class StringControllerImpl @Inject constructor() : StringController {
   lateinit var context: Context
 
   override fun getString(resId: Int): String = context.getString(resId)
-
 }

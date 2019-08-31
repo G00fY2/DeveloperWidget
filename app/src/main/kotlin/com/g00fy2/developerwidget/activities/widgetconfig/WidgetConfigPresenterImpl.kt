@@ -113,6 +113,5 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
     }.removeSurrounding("\n")
   }
 
-
   override fun showManuallyAddWidgetNotice() = toastController.showToast(R.string.manually_add_widget)
 }

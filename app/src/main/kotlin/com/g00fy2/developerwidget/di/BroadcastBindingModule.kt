@@ -10,5 +10,4 @@ abstract class BroadcastBindingModule {
 
   @ContributesAndroidInjector(modules = [WidgetProviderModule::class])
   abstract fun bindWidgetProvider(): WidgetProviderImpl
-
 }

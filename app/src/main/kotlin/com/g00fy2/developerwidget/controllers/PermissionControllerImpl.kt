@@ -45,5 +45,4 @@ class PermissionControllerImpl @Inject constructor() : PermissionController {
   override fun requestPermissions(permissions: Array<String>) {
     if (!hasPermissions(permissions)) (context as Activity).requestPermissions(permissions, 1)
   }
-
 }

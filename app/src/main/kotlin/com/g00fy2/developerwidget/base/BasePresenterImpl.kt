@@ -14,5 +14,4 @@ abstract class BasePresenterImpl : BaseContract.BasePresenter {
 
   @OnLifecycleEvent(Event.ON_DESTROY)
   fun cancelJob() = job.cancel()
-
 }
