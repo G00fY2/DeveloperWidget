@@ -19,12 +19,6 @@ cache:
   - $HOME/.gradle/wrapper/
   - $HOME/.android/build-cache/
 
-stages:
-- name: Build debug
-  if: branch IN (develop, master)
-- name: Build and deploy release on tags
-  if: tag IS present
-
 android_phases:
 - phase: &before_install
   # download and unzip Android SDK command line tools
@@ -87,13 +81,15 @@ android_phases:
 
 jobs:
   include:
-  - stage: Build debug
+  - # Build debug
+    if: branch IN (develop, master)
     before_install: *before_install
     install: *install
     before_script: *before_script
     script: "./gradlew assembleDebug --scan"
     before_cache: *before_cache
-  - stage: Build and deploy release on tags
+  - # Build and deploy release on tags
+    if: tag IS present
     before_install: *before_install
     install: *install
     before_script: *before_script
