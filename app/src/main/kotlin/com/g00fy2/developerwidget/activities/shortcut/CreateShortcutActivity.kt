@@ -9,7 +9,6 @@ import android.graphics.Canvas
 import android.graphics.drawable.Icon
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
-import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
@@ -38,8 +37,7 @@ class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
 
   override fun providePresenter(): BasePresenter = presenter
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
+  override fun initView() {
     setResult(Activity.RESULT_CANCELED)
 
     adapter = ShortcutAdapter()

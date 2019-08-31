@@ -1,6 +1,5 @@
 package com.g00fy2.developerwidget.activities.apkinstall
 
-import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.view.ViewCompat
@@ -20,9 +19,15 @@ class ApkActivity : BaseActivity(R.layout.activity_apk, true), ApkContract.ApkVi
 
   override fun providePresenter(): BasePresenter = presenter
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
+  override fun onResume() {
+    super.onResume()
+    progressbar.visibility = View.VISIBLE
+    no_items_imageview.visibility = View.INVISIBLE
+    no_items_textview.text = getString(R.string.scanning_apks)
+    no_items_textview.visibility = View.VISIBLE
+  }
 
+  override fun initView() {
     adapter = ApkAdapter()
     adapter.setOnApkClicked { apkFile -> presenter.installApk(apkFile) }
     adapter.setOnApkSelect { selectedCount -> showOptions(selectedCount > 0) }
@@ -47,11 +52,6 @@ class ApkActivity : BaseActivity(R.layout.activity_apk, true), ApkContract.ApkVi
     }
   }
 
-  override fun onResume() {
-    super.onResume()
-    initView()
-  }
-
   override fun toggleResultView(apkFiles: List<ApkFile>, missingPermissions: Boolean) {
     if (missingPermissions) {
       progressbar.visibility = View.GONE
@@ -66,13 +66,6 @@ class ApkActivity : BaseActivity(R.layout.activity_apk, true), ApkContract.ApkVi
         }.start()
     }
     adapter.submitList(apkFiles)
-  }
-
-  private fun initView() {
-    progressbar.visibility = View.VISIBLE
-    no_items_imageview.visibility = View.INVISIBLE
-    no_items_textview.text = getString(R.string.scanning_apks)
-    no_items_textview.visibility = View.VISIBLE
   }
 
   private fun showOptions(show: Boolean) {

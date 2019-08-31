@@ -15,7 +15,6 @@ import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
-import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
@@ -61,8 +60,17 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
 
   override fun providePresenter(): BasePresenter = presenter
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
+  override fun onResume() {
+    super.onResume()
+    resetView()
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    if (VERSION.SDK_INT >= VERSION_CODES.O) unregisterReceiver(closeConfigureActivityReceiver)
+  }
+
+  override fun initView() {
     setResult(Activity.RESULT_CANCELED)
 
     intent.extras?.let {
@@ -102,17 +110,23 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
     if (VERSION.SDK_INT in VERSION_CODES.LOLLIPOP until VERSION_CODES.O) {
       WebView(this)
     }
-    initViews()
-  }
 
-  override fun onResume() {
-    super.onResume()
-    initViews()
-  }
-
-  override fun onDestroy() {
-    super.onDestroy()
-    if (VERSION.SDK_INT >= VERSION_CODES.O) unregisterReceiver(closeConfigureActivityReceiver)
+    device_title_edittextview.apply {
+      onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
+        if (!hasFocus) {
+          presenter.setCustomDeviceName(device_title_edittextview.text.toString())
+          toggleDeviceNameEdit(false)
+        }
+      }
+      setOnEditorActionListener { v, actionId, _ ->
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+          v.clearFocus()
+        }
+        true
+      }
+    }
+    share_fab.setOnClickListener { presenter.shareDeviceData() }
+    resetView()
   }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -162,7 +176,7 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
     return super.dispatchTouchEvent(event)
   }
 
-  private fun initViews() {
+  private fun resetView() {
     val showAddWidget = (!launchedFromAppLauncher || (widgetCount() < 1 && isPinAppWidgetSupported()))
     if (showAddWidget) {
       apply_button.apply {
@@ -202,21 +216,6 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
         setPadding(paddingLeft, paddingTop, (16 * resources.displayMetrics.density).toInt(), paddingBottom)
       }
     }
-    device_title_edittextview.apply {
-      onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
-        if (!hasFocus) {
-          presenter.setCustomDeviceName(device_title_edittextview.text.toString())
-          toggleDeviceNameEdit(false)
-        }
-      }
-      setOnEditorActionListener { v, actionId, _ ->
-        if (actionId == EditorInfo.IME_ACTION_DONE) {
-          v.clearFocus()
-        }
-        true
-      }
-    }
-    share_fab.setOnClickListener { presenter.shareDeviceData() }
   }
 
   private fun toggleDeviceNameEdit(editable: Boolean) {

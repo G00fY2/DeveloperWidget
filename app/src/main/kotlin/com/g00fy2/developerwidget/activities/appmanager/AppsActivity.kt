@@ -6,7 +6,6 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
-import android.os.Bundle
 import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -44,9 +43,7 @@ class AppsActivity : BaseActivity(R.layout.activity_apps, true), AppsContract.Ap
 
   override fun providePresenter(): BasePresenter = presenter
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-
+  override fun initView() {
     adapter = AppsAdapter()
     adapter.setOnAppClicked { appInfo -> presenter.openAppSettingsActivity(appInfo) }
     adapter.setCommitCallback(Runnable {

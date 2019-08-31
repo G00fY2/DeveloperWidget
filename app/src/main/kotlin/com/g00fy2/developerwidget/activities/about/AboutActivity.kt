@@ -5,7 +5,6 @@ import android.content.ComponentName
 import android.content.pm.PackageManager
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
-import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
 import com.g00fy2.developerwidget.BuildConfig
@@ -23,11 +22,6 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
 
   override fun providePresenter(): BasePresenter = presenter
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    initView()
-  }
-
   override fun onResume() {
     super.onResume()
     updateThemeToggleView()
@@ -44,7 +38,7 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
     }
   }
 
-  private fun initView() {
+  override fun initView() {
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
     setActionbarElevationListener(about_root_scrollview)
 

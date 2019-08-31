@@ -79,5 +79,4 @@ class AppsAdapter : BaseAdapter<AppInfo, BaseViewHolder>(AppsDiffUtilsCallback()
       submitList(itemsCopy)
     }
   }
-
 }

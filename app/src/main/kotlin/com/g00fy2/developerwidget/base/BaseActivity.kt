@@ -38,6 +38,7 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int, private val isDialo
     dayNightController.loadCustomDefaultMode()
     lifecycle.addObserver(providePresenter())
     initCompatNavigationBar()
+    initView()
   }
 
   override fun onDestroy() {
@@ -77,4 +78,6 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int, private val isDialo
     resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_NO
 
   abstract fun providePresenter(): BaseContract.BasePresenter
+
+  abstract fun initView()
 }
