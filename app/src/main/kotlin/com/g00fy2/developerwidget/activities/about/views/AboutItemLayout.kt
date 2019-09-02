@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
 import androidx.core.view.isVisible
 import com.g00fy2.developerwidget.R
+import com.g00fy2.developerwidget.ktx.addRipple
 import kotlinx.android.synthetic.main.about_item.view.*
 
 class AboutItemLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
@@ -57,6 +58,7 @@ class AboutItemLayout @JvmOverloads constructor(context: Context, attrs: Attribu
   }
 
   fun action(action: () -> Unit): AboutItemLayout {
+    addRipple()
     setOnClickListener {
       action()
       if (setting_switch.isVisible) setting_switch.isChecked = !setting_switch.isChecked

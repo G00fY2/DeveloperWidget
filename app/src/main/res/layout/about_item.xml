@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:background="?android:attr/selectableItemBackground"
-    tools:ignore="ContentDescription"
     >
 
   <ImageView
@@ -19,6 +17,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      tools:ignore="ContentDescription"
       tools:src="@drawable/ic_open_source_logo"
       tools:visibility="visible"
       />
