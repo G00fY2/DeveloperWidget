@@ -47,6 +47,15 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int, private val isDialo
     lifecycle.removeObserver(providePresenter())
   }
 
+  // TODO check if there will be a fix for https://issuetracker.google.com/issues/139738913 in AppCompatActivity or next Android release
+  override fun onBackPressed() {
+    if (VERSION.SDK_INT == VERSION_CODES.Q && isTaskRoot && supportFragmentManager.backStackEntryCount == 0) {
+      finishAfterTransition()
+    } else {
+      super.onBackPressed()
+    }
+  }
+
   protected fun setActionbarElevationListener(viewGroup: ViewGroup) {
     supportActionBar?.elevation = 0f
     viewGroup.viewTreeObserver.addOnScrollChangedListener {
