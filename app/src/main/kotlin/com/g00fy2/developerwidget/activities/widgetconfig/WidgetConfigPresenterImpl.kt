@@ -2,6 +2,7 @@ package com.g00fy2.developerwidget.activities.widgetconfig
 
 import androidx.lifecycle.Lifecycle.Event
 import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.lifecycleScope
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BasePresenterImpl
 import com.g00fy2.developerwidget.controllers.IntentController
@@ -35,7 +36,7 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
 
   @OnLifecycleEvent(Event.ON_CREATE)
   override fun loadDeviceData() {
-    launch {
+    view.lifecycleScope.launch {
       withContext(Dispatchers.IO) {
         getDeviceData()
       }.let {
@@ -46,7 +47,7 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
 
   @OnLifecycleEvent(Event.ON_CREATE)
   override fun loadCustomDeviceName() {
-    launch {
+    view.lifecycleScope.launch {
       withContext(Dispatchers.IO) {
         widgetPreferenceController.getCustomDeviceName()
       }.let {
@@ -96,7 +97,7 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
   }
 
   override fun shareDeviceData() {
-    launch {
+    view.lifecycleScope.launch {
       withContext(Dispatchers.IO) {
         getDeviceData()
       }.let { intentController.shareDeviceData(formatDeviceDataString(it)) }

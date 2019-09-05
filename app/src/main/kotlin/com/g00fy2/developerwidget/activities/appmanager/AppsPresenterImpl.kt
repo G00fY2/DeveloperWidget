@@ -4,6 +4,7 @@ import android.content.pm.ApplicationInfo
 import android.text.Editable
 import androidx.lifecycle.Lifecycle.Event
 import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.lifecycleScope
 import com.g00fy2.developerwidget.base.BasePresenterImpl
 import com.g00fy2.developerwidget.controllers.IntentController
 import com.g00fy2.developerwidget.controllers.WidgetPreferenceController
@@ -32,7 +33,7 @@ class AppsPresenterImpl @Inject constructor() : BasePresenterImpl(), AppsContrac
 
   @OnLifecycleEvent(Event.ON_RESUME)
   fun scanApps() {
-    launch {
+    view.lifecycleScope.launch {
       withContext(Dispatchers.IO) {
         getInstalledUserApps()
       }.let {
