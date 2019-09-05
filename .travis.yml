@@ -78,6 +78,7 @@ android_phases:
     name: $TRAVIS_TAG
     tag_name: $TRAVIS_TAG
     body: "Generated release from Travis CI for build $TRAVIS_BUILD_NUMBER"
+    prerelease: true
 
 jobs:
   include:
