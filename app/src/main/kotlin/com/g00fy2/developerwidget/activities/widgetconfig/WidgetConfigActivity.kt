@@ -87,7 +87,7 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
     setActionbarElevationListener(widget_config_root_scrollview)
     widget_config_root_scrollview.viewTreeObserver.addOnScrollChangedListener {
       val scrollableRange =
-        widget_config_root_scrollview.computeVerticalScrollRange() - widget_config_root_scrollview.height
+        widget_config_root_scrollview.getChildAt(0).bottom - widget_config_root_scrollview.height
       val fabOffset = (share_fab.height / 2) + share_fab.marginBottom
       if (widget_config_root_scrollview.scrollY < scrollableRange - fabOffset) {
         share_fab.hide()
