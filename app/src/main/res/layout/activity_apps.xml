@@ -47,12 +47,14 @@
         app:srcCompat="@drawable/ic_filter"
         />
   </LinearLayout>
+
   <FrameLayout
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:layout_weight="1"
       >
-  <LinearLayout
+
+    <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:orientation="vertical"
@@ -111,6 +113,7 @@
         android:paddingRight="@dimen/action_bar_inset"
         tools:ignore="UseCompoundDrawables"
         >
+
       <ImageView
           android:layout_width="12dp"
           android:layout_height="12dp"
@@ -119,6 +122,7 @@
           android:tint="@color/colorAccent"
           app:srcCompat="@drawable/ic_chevron_right"
           />
+
       <TextView
           android:id="@+id/show_all_textview"
           android:layout_width="match_parent"
@@ -189,6 +193,7 @@
           />
     </LinearLayout>
   </FrameLayout>
+
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
