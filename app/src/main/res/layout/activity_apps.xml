@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     >
 
@@ -55,85 +55,85 @@
       >
 
     <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:orientation="vertical"
-      >
-
-    <LinearLayout
-        android:id="@+id/filter_linearlayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/backgroundColor"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         >
 
-      <EditText
-          android:id="@+id/filter_edittext"
+      <LinearLayout
+          android:id="@+id/filter_linearlayout"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginBottom="2dp"
-          android:layout_marginLeft="@dimen/filter_input_inset"
-          android:layout_marginRight="@dimen/filter_input_inset"
-          android:background="@drawable/bg_filter_edittext"
-          android:clickable="true"
-          android:drawablePadding="8dp"
-          android:focusable="true"
-          android:hint="@string/filter_hint"
-          android:imeOptions="actionDone"
-          android:importantForAutofill="no"
-          android:inputType="textVisiblePassword"
-          android:lines="1"
-          android:maxLines="1"
-          android:paddingBottom="12dp"
-          android:paddingLeft="24dp"
-          android:paddingRight="24dp"
-          android:paddingTop="12dp"
-          android:singleLine="true"
-          android:textColor="@color/filterTextColor"
-          />
+          android:background="@color/backgroundColor"
+          android:orientation="vertical"
+          >
 
-      <com.google.android.material.chip.ChipGroup
-          android:id="@+id/chip_group"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="2dp"
-          android:layout_marginLeft="@dimen/filter_input_inset"
-          android:layout_marginRight="@dimen/filter_input_inset"
-          />
+        <EditText
+            android:id="@+id/filter_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/filter_input_inset"
+            android:layout_marginRight="@dimen/filter_input_inset"
+            android:background="@drawable/bg_filter_edittext"
+            android:clickable="true"
+            android:drawablePadding="8dp"
+            android:focusable="true"
+            android:hint="@string/filter_hint"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="textVisiblePassword"
+            android:lines="1"
+            android:maxLines="1"
+            android:paddingBottom="12dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="12dp"
+            android:singleLine="true"
+            android:textColor="@color/filterTextColor"
+            />
 
-    </LinearLayout>
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="@dimen/filter_input_inset"
+            android:layout_marginRight="@dimen/filter_input_inset"
+            />
 
-    <LinearLayout
-        android:id="@+id/app_filter_info"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/action_bar_inset"
-        android:paddingRight="@dimen/action_bar_inset"
-        tools:ignore="UseCompoundDrawables"
-        >
+      </LinearLayout>
 
-      <ImageView
-          android:layout_width="12dp"
-          android:layout_height="12dp"
-          android:layout_gravity="center|start"
-          android:contentDescription="@string/show_all"
-          android:tint="@color/colorAccent"
-          app:srcCompat="@drawable/ic_chevron_right"
-          />
+      <LinearLayout
+          android:id="@+id/app_filter_info"
+          android:layout_width="wrap_content"
+          android:layout_height="40dp"
+          android:orientation="horizontal"
+          android:paddingLeft="@dimen/action_bar_inset"
+          android:paddingRight="@dimen/action_bar_inset"
+          tools:ignore="UseCompoundDrawables"
+          >
 
-      <TextView
-          android:id="@+id/show_all_textview"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_marginLeft="16dp"
-          android:layout_marginStart="16dp"
-          android:gravity="center|start"
-          android:textColor="@color/colorAccent"
-          android:textSize="16sp"
-          />
-    </LinearLayout>
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_gravity="center|start"
+            android:contentDescription="@string/show_all"
+            android:tint="@color/colorAccent"
+            app:srcCompat="@drawable/ic_chevron_right"
+            />
+
+        <TextView
+            android:id="@+id/show_all_textview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:gravity="center|start"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
+            />
+      </LinearLayout>
 
       <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/recyclerview"
@@ -144,7 +144,7 @@
           android:scrollbars="vertical"
           android:splitMotionEvents="false"
           />
-  </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
