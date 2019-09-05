@@ -130,9 +130,9 @@ class AppsActivity : BaseActivity(R.layout.activity_apps, true), AppsContract.Ap
     }
 
     ViewCompat.animate(progressbar).alpha(0f)
-      .setDuration(resources.getInteger(android.R.integer.config_shortAnimTime).toLong()).withEndAction {
-        progressbar.visibility = View.INVISIBLE
-      }.start()
+      .setDuration(resources.getInteger(android.R.integer.config_shortAnimTime).toLong())
+      .withEndAction { progressbar.visibility = View.INVISIBLE }
+      .start()
   }
 
   override fun updateAppFilter(filters: List<String>) = adapter.updateAppFilters(filters)
