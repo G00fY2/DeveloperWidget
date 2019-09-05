@@ -17,7 +17,7 @@ buildscript {
     activityVersion = '1.1.0-alpha03'
     lifecycleVersion = '2.2.0-alpha04'
     materialVersion = '1.1.0-alpha10'
-    recyclerviewVersion = '1.1.0-beta03'
+    recyclerviewVersion = '1.1.0-beta04'
     vectorDrawableVersion = '1.1.0'
     constraintlayoutVersion = '2.0.0-beta2'
     timberVersion = '4.7.1'
