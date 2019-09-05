@@ -47,7 +47,11 @@
         app:srcCompat="@drawable/ic_filter"
         />
   </LinearLayout>
-
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      >
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
@@ -127,99 +131,92 @@
           />
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        >
-
       <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/recyclerview"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
           android:fadeScrollbars="false"
           android:scrollbars="vertical"
           android:splitMotionEvents="false"
           />
-
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:layout_margin="@dimen/action_bar_inset"
-          android:orientation="vertical"
-          >
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            >
-
-          <ImageView
-              android:id="@+id/no_items_imageview"
-              android:layout_width="96dp"
-              android:layout_height="96dp"
-              android:layout_gravity="center"
-              android:contentDescription="@string/no_apps_found"
-              android:visibility="invisible"
-              app:srcCompat="@drawable/ic_sad"
-              />
-
-          <ProgressBar
-              android:id="@+id/progressbar"
-              android:layout_width="64dp"
-              android:layout_height="64dp"
-              android:layout_gravity="center"
-              android:indeterminate="true"
-              />
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/no_items_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text="@string/no_apps_found"
-            android:textSize="14sp"
-            android:visibility="invisible"
-            />
-      </LinearLayout>
-
-    </FrameLayout>
+  </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/action_bar_inset"
+        android:orientation="vertical"
         >
 
-      <View
-          android:layout_width="0dp"
-          android:layout_height="0dp"
-          android:layout_weight="1"
-          />
+      <FrameLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          >
+
+        <ImageView
+            android:id="@+id/no_items_imageview"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/no_apps_found"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/ic_sad"
+            />
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            />
+      </FrameLayout>
 
       <TextView
-          android:id="@+id/cancel_textview"
-          android:layout_width="wrap_content"
-          android:layout_height="match_parent"
-          android:layout_marginBottom="4dp"
-          android:layout_marginEnd="16dp"
-          android:layout_marginRight="16dp"
-          android:layout_marginTop="4dp"
-          android:background="@drawable/bg_dialog_button_ripple"
-          android:clickable="true"
-          android:focusable="true"
-          android:gravity="center_vertical"
-          android:paddingLeft="12dp"
-          android:paddingRight="12dp"
-          android:text="@string/cancel"
-          style="@style/DialogButtonAppearance"
+          android:id="@+id/no_items_textview"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:ellipsize="end"
+          android:gravity="center"
+          android:singleLine="true"
+          android:text="@string/no_apps_found"
+          android:textSize="14sp"
+          android:visibility="invisible"
           />
     </LinearLayout>
+  </FrameLayout>
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:orientation="horizontal"
+      >
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+    <TextView
+        android:id="@+id/cancel_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_dialog_button_ripple"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:text="@string/cancel"
+        style="@style/DialogButtonAppearance"
+        />
   </LinearLayout>
 </LinearLayout>

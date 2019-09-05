@@ -93,10 +93,12 @@
       android:layout_height="96dp"
       android:contentDescription="@string/no_apps_found"
       android:visibility="invisible"
-      app:layout_constraintBottom_toTopOf="@+id/cancel_textview"
+      app:layout_constraintBottom_toTopOf="@+id/no_items_textview"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/textView"
+      app:layout_constraintTop_toTopOf="@+id/recyclerview"
+      app:layout_constraintVertical_chainStyle="packed"
       app:srcCompat="@drawable/ic_sad"
       />
 
@@ -106,10 +108,10 @@
       android:layout_height="64dp"
       android:layout_gravity="center"
       android:indeterminate="true"
-      app:layout_constraintBottom_toTopOf="@+id/cancel_textview"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/textView"
+      app:layout_constraintBottom_toBottomOf="@+id/no_items_imageview"
+      app:layout_constraintEnd_toEndOf="@+id/no_items_imageview"
+      app:layout_constraintStart_toStartOf="@+id/no_items_imageview"
+      app:layout_constraintTop_toTopOf="@+id/no_items_imageview"
       />
 
   <TextView
@@ -124,7 +126,9 @@
       android:singleLine="true"
       android:text="@string/scanning_apks"
       android:textSize="14sp"
+      app:layout_constraintBottom_toBottomOf="@+id/recyclerview"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/no_items_imageview"
       />
