@@ -30,7 +30,7 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
-class WidgetProvider : AppWidgetProvider() {
+class WidgetProviderImpl : AppWidgetProvider() {
 
   @Inject
   lateinit var deviceDataSource: DeviceDataSource
@@ -61,7 +61,7 @@ class WidgetProvider : AppWidgetProvider() {
         onUpdate(
           context,
           appWidgetManager,
-          appWidgetManager.getAppWidgetIds(ComponentName(context, WidgetProvider::class.java))
+          appWidgetManager.getAppWidgetIds(ComponentName(context, WidgetProviderImpl::class.java))
         )
       } else {
         intent.extras?.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID)?.let {

@@ -84,7 +84,7 @@
         android:taskAffinity=""
         android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
-    <receiver android:name=".receiver.widget.WidgetProvider">
+    <receiver android:name=".receiver.widget.WidgetProviderImpl">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
       </intent-filter>
