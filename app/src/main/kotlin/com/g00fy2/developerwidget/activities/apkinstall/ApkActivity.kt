@@ -21,10 +21,12 @@ class ApkActivity : BaseActivity(R.layout.activity_apk, true), ApkContract.ApkVi
 
   override fun onResume() {
     super.onResume()
-    progressbar.visibility = View.VISIBLE
-    no_items_imageview.visibility = View.INVISIBLE
-    no_items_textview.text = getString(R.string.scanning_apks)
-    no_items_textview.visibility = View.VISIBLE
+    if (adapter.itemCount == 0) {
+      progressbar.visibility = View.VISIBLE
+      no_items_imageview.visibility = View.INVISIBLE
+      no_items_textview.text = getString(R.string.scanning_apks)
+      no_items_textview.visibility = View.VISIBLE
+    }
   }
 
   override fun initView() {
