@@ -4,22 +4,14 @@ import android.content.Context
 import android.util.SparseArray
 import com.g00fy2.developerwidget.controllers.WidgetPreferenceControllerImpl
 import com.g00fy2.developerwidget.di.annotations.APPLICATION
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import javax.inject.Inject
 import javax.inject.Named
-import kotlin.coroutines.CoroutineContext
 
-class WidgetsPreferencesDataSourceImpl @Inject constructor() : WidgetsPreferencesDataSource, CoroutineScope {
+class WidgetsPreferencesDataSourceImpl @Inject constructor() : WidgetsPreferencesDataSource {
 
   @Inject
   @field:Named(APPLICATION)
   lateinit var context: Context
-
-  private val job: Job by lazy { Job() }
-
-  override val coroutineContext: CoroutineContext = Dispatchers.Main + job
 
   override suspend fun getCustomDeviceNames(widgetIds: IntArray): SparseArray<String> {
     val customDeviceNames = SparseArray<String>()

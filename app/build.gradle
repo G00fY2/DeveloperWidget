@@ -78,6 +78,7 @@ dependencies {
   implementation "androidx.appcompat:appcompat:$appcompatVersion"
   implementation "androidx.core:core-ktx:$coreKtxVersion"
   implementation "androidx.activity:activity:$activityVersion"
+  implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
   implementation "androidx.recyclerview:recyclerview:$recyclerviewVersion"
   implementation "androidx.constraintlayout:constraintlayout:$constraintlayoutVersion"
   implementation "androidx.vectordrawable:vectordrawable:$vectorDrawableVersion"

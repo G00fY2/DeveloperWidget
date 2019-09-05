@@ -3,6 +3,7 @@ package com.g00fy2.developerwidget.activities.apkinstall
 import android.Manifest
 import androidx.lifecycle.Lifecycle.Event
 import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.lifecycleScope
 import com.g00fy2.developerwidget.base.BasePresenterImpl
 import com.g00fy2.developerwidget.controllers.IntentController
 import com.g00fy2.developerwidget.controllers.PermissionController
@@ -34,7 +35,7 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
   @OnLifecycleEvent(Event.ON_RESUME)
   fun scanStorageForApks() {
     if (permissionController.hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-      launch {
+      view.lifecycleScope.launch {
         withContext(Dispatchers.IO) {
           mutableSetOf<ApkFile>().apply {
             for (dir in storageDirsController.getStorageDirectories()) {
@@ -66,7 +67,7 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
   override fun deleteApkFiles(apkFiles: List<ApkFile>?) {
     if (permissionController.hasPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE))
     ) {
-      launch {
+      view.lifecycleScope.launch {
         withContext(Dispatchers.IO) {
           apkFiles?.let { files ->
             for (apkFile in files) {
