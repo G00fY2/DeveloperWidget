@@ -19,17 +19,23 @@ import com.g00fy2.developerwidget.activities.widgetconfig.WidgetConfigActivity
 import com.g00fy2.developerwidget.controllers.DayNightController
 import com.g00fy2.developerwidget.controllers.DayNightControllerImpl
 import com.g00fy2.developerwidget.data.DeviceDataItem
+import com.g00fy2.developerwidget.data.DeviceDataSource
 import com.g00fy2.developerwidget.data.DeviceDataSourceImpl
-import com.g00fy2.developerwidget.receiver.widget.WidgetProviderContract.WidgetProvider
-import com.g00fy2.developerwidget.receiver.widget.WidgetProviderContract.WidgetProviderPresenter
+import com.g00fy2.developerwidget.data.WidgetsPreferencesDataSource
 import dagger.android.AndroidInjection
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
-class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
+class WidgetProvider : AppWidgetProvider() {
 
   @Inject
-  lateinit var presenter: WidgetProviderPresenter
+  lateinit var deviceDataSource: DeviceDataSource
+  @Inject
+  lateinit var widgetsPreferencesDataSource: WidgetsPreferencesDataSource
   @Inject
   lateinit var dayNightController: DayNightController
 
@@ -46,7 +52,7 @@ class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
       val widgetId = intent.extras?.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID) ?: AppWidgetManager.INVALID_APPWIDGET_ID
       val customDeviceName = intent.extras?.getString(WidgetConfigActivity.EXTRA_APPWIDGET_CUSTOM_DEVICE_NAME) ?: ""
       if (widgetId != AppWidgetManager.INVALID_APPWIDGET_ID && customDeviceName.isNotBlank()) {
-        presenter.saveCustomDeviceName(widgetId, customDeviceName)
+        widgetsPreferencesDataSource.saveCustomDeviceName(widgetId, customDeviceName)
       }
       context.sendBroadcast(Intent(WidgetConfigActivity.EXTRA_APPWIDGET_CLOSE_CONFIGURE))
     }
@@ -55,7 +61,7 @@ class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
         onUpdate(
           context,
           appWidgetManager,
-          appWidgetManager.getAppWidgetIds(ComponentName(context, WidgetProviderImpl::class.java))
+          appWidgetManager.getAppWidgetIds(ComponentName(context, WidgetProvider::class.java))
         )
       } else {
         intent.extras?.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID)?.let {
@@ -65,15 +71,22 @@ class WidgetProviderImpl : AppWidgetProvider(), WidgetProvider {
     }
   }
 
-  override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) =
-    presenter.getDeviceData(appWidgetIds)
+  override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
+    GlobalScope.launch {
+      withContext(Dispatchers.IO) {
+        val data = deviceDataSource.getStaticDeviceData()
+        val customDeviceNames = widgetsPreferencesDataSource.getCustomDeviceNames(appWidgetIds)
+        updateWidgetData(appWidgetIds, data, customDeviceNames)
+      }
+    }
+  }
 
   override fun onDeleted(context: Context?, appWidgetIds: IntArray) {
     Timber.d("onDeleted widget %s", appWidgetIds.first())
-    presenter.clearWidgetPreferences(appWidgetIds.first())
+    widgetsPreferencesDataSource.clearWidgetPreferences(appWidgetIds.first())
   }
 
-  override fun updateWidgetData(
+  private fun updateWidgetData(
     appWidgetIds: IntArray,
     data: Map<String, DeviceDataItem>,
     customDeviceNames: SparseArray<String>

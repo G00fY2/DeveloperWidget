@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.di.annotations.APPLICATION
-import com.g00fy2.developerwidget.receiver.widget.WidgetProviderImpl
+import com.g00fy2.developerwidget.receiver.widget.WidgetProvider
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -49,8 +49,8 @@ class DayNightControllerImpl @Inject constructor() : DayNightController {
   private fun applyMode(mode: Int) = AppCompatDelegate.setDefaultNightMode(mode)
 
   private fun updateWidgetTheme() {
-    context.sendBroadcast(Intent(context, WidgetProviderImpl::class.java).apply {
-      action = WidgetProviderImpl.UPDATE_WIDGET_MANUALLY_ACTION
+    context.sendBroadcast(Intent(context, WidgetProvider::class.java).apply {
+      action = WidgetProvider.UPDATE_WIDGET_MANUALLY_ACTION
       putExtra(UPDATE_WIDGET_THEME, true)
     })
   }

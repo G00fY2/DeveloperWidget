@@ -34,7 +34,7 @@ import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.data.DeviceDataItem
 import com.g00fy2.developerwidget.ktx.hideKeyboard
 import com.g00fy2.developerwidget.ktx.showKeyboard
-import com.g00fy2.developerwidget.receiver.widget.WidgetProviderImpl
+import com.g00fy2.developerwidget.receiver.widget.WidgetProvider
 import kotlinx.android.synthetic.main.activity_widget_config.*
 import javax.inject.Inject
 
@@ -234,8 +234,8 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
     if (!existing) {
       setResult(Activity.RESULT_OK, Intent().apply { putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId) })
     }
-    sendBroadcast(Intent(applicationContext, WidgetProviderImpl::class.java).apply {
-      action = WidgetProviderImpl.UPDATE_WIDGET_MANUALLY_ACTION
+    sendBroadcast(Intent(applicationContext, WidgetProvider::class.java).apply {
+      action = WidgetProvider.UPDATE_WIDGET_MANUALLY_ACTION
       putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
     })
     finish()
@@ -248,15 +248,15 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
         if (appWidgetManager.isRequestPinAppWidgetSupported) {
           supported = true
           val successCallback = PendingIntent.getBroadcast(
-            this, 0, Intent(applicationContext, WidgetProviderImpl::class.java).apply {
-              action = WidgetProviderImpl.UPDATE_WIDGET_MANUALLY_ACTION
+            this, 0, Intent(applicationContext, WidgetProvider::class.java).apply {
+              action = WidgetProvider.UPDATE_WIDGET_MANUALLY_ACTION
               putExtra(EXTRA_APPWIDGET_FROM_PIN_APP, true)
               putExtra(EXTRA_APPWIDGET_CUSTOM_DEVICE_NAME, device_title_edittextview.text.toString())
             },
             PendingIntent.FLAG_UPDATE_CURRENT
           )
           appWidgetManager.requestPinAppWidget(
-            ComponentName(applicationContext, WidgetProviderImpl::class.java),
+            ComponentName(applicationContext, WidgetProvider::class.java),
             null,
             successCallback
           )
@@ -277,7 +277,7 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
   private fun widgetCount() = AppWidgetManager.getInstance(this).getAppWidgetIds(
     ComponentName(
       applicationContext,
-      WidgetProviderImpl::class.java
+      WidgetProvider::class.java
     )
   ).size
 
