@@ -21,7 +21,7 @@ class SystemAppsDataProvider {
       }
     }
 
-    @SuppressLint("PrivateApi")
+    @SuppressLint("PrivateApi", "WebViewApiAvailability")
     fun getWebViewImplementation(context: Context): String {
       return when {
         VERSION.SDK_INT >= VERSION_CODES.O -> WebView.getCurrentWebViewPackage()?.let {
