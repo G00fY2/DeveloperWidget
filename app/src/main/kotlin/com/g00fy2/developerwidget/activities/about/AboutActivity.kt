@@ -7,11 +7,13 @@ import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.updatePadding
 import com.g00fy2.developerwidget.BuildConfig
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.widgetconfig.ConfigLauncherActivity
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
+import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
 import kotlinx.android.synthetic.main.activity_about.*
 import javax.inject.Inject
 
@@ -112,6 +114,11 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
       title(R.string.build_number)
       description(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ") " + BuildConfig.BUILD_TYPE)
       action { presenter.honorClicking() }
+    }
+    if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
+      about_root_scrollview.doOnApplyWindowInsets { view, insets, padding ->
+        view.updatePadding(bottom = padding.bottom + insets.systemWindowInsetBottom)
+      }
     }
   }
 

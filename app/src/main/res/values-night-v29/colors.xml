@@ -3,6 +3,8 @@
   <color name="backgroundColor">@color/black</color>
   <color name="colorEdgeEffect">@color/black</color>
 
+  <color name="navigationBarColor">@color/transparent</color>
+
   <color name="dividerGrey">#1f1f1f</color>
   <color name="adaptiveShadow">@color/black</color>
 

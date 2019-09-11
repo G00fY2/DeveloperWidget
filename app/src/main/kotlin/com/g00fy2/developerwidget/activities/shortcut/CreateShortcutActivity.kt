@@ -16,6 +16,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.getSystemService
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.g00fy2.developerwidget.R
@@ -23,6 +24,7 @@ import com.g00fy2.developerwidget.activities.apkinstall.ApkActivity
 import com.g00fy2.developerwidget.activities.appmanager.AppsActivity
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
+import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
 import kotlinx.android.synthetic.main.activity_create_shortcut.*
 import javax.inject.Inject
 
@@ -51,6 +53,11 @@ class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
     shortcutInfoList = generateShortcutInfoList()
     adapter.submitList(shortcutInfoList)
     adapter.setOnShortcutSelected { shortcutPosition -> onItemClick(shortcutPosition) }
+    if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
+      recyclerview.doOnApplyWindowInsets { view, insets, padding ->
+        view.updatePadding(bottom = padding.bottom + insets.systemWindowInsetBottom)
+      }
+    }
   }
 
   private fun onItemClick(position: Int) {

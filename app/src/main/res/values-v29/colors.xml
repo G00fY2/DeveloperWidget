@@ -4,4 +4,6 @@
   <color name="nightAccent">#8ab4f8</color>
 
   <color name="menuIcon">@color/colorAccent</color>
+  <color name="navigationBarColor">@color/transparent</color>
+  <color name="navigationBarDividerColor">@color/transparent</color>
 </resources>

@@ -8,8 +8,7 @@
   <color name="transparentBackground50">#80212121</color>
   <color name="dividerGrey">#3c3c3c</color>
 
-  <color name="navigationBarColor">@color/black</color>
-  <color name="navigationBarDividerColor">@color/black</color>
+  <color name="navigationBarColor">#A6000000</color>
   <color name="colorEdgeEffect">#a0a0a0</color>
   <color name="rippleBackground">#1ffafafa</color>
 

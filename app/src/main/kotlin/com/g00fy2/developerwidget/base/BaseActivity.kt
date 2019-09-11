@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.updatePadding
 import com.g00fy2.developerwidget.controllers.DayNightController
+import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
 import dagger.android.AndroidInjection
 import timber.log.Timber
 import javax.inject.Inject
@@ -39,6 +41,7 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int, private val isDialo
     lifecycle.addObserver(providePresenter())
     initCompatNavigationBar()
     initView()
+    if (!isDialogActivity) initGestureNavigation()
   }
 
   override fun onDestroy() {
@@ -71,12 +74,28 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int, private val isDialo
     }
   }
 
+  private fun initGestureNavigation() {
+    if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
+      window.decorView.let {
+        it.systemUiVisibility.let { flags ->
+          it.systemUiVisibility =
+            flags or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        }
+      }
+      findViewById<View>(android.R.id.content)?.let {
+        it.doOnApplyWindowInsets { view, insets, padding ->
+          view.updatePadding(top = padding.top + insets.systemWindowInsetTop)
+        }
+      }
+    }
+  }
+
   private fun initCompatNavigationBar() {
     // api 27+ allow applying flag via xml (windowLightNavigationBar)
     if (VERSION.SDK_INT == VERSION_CODES.O && isInNightMode()) {
-      window.decorView.let { view ->
-        view.systemUiVisibility.let { flags ->
-          view.systemUiVisibility = flags or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+      window.decorView.let {
+        it.systemUiVisibility.let { flags ->
+          it.systemUiVisibility = flags or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
         }
       }
     }

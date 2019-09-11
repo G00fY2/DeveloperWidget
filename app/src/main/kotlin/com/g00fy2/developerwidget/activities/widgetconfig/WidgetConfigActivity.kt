@@ -26,12 +26,14 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.marginBottom
+import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.about.AboutActivity
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.data.DeviceDataItem
+import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
 import com.g00fy2.developerwidget.ktx.hideKeyboard
 import com.g00fy2.developerwidget.ktx.showKeyboard
 import com.g00fy2.developerwidget.receiver.widget.WidgetProviderImpl
@@ -85,14 +87,15 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
     }
 
     setActionbarElevationListener(widget_config_root_scrollview)
-    widget_config_root_scrollview.viewTreeObserver.addOnScrollChangedListener {
-      val scrollableRange =
-        widget_config_root_scrollview.getChildAt(0).bottom - widget_config_root_scrollview.height
-      val fabOffset = (share_fab.height / 2) + share_fab.marginBottom
-      if (widget_config_root_scrollview.scrollY < scrollableRange - fabOffset) {
-        share_fab.hide()
-      } else {
-        share_fab.show()
+    widget_config_root_scrollview.apply {
+      viewTreeObserver.addOnScrollChangedListener {
+        val scrollableRange = getChildAt(0).bottom - height + paddingBottom
+        val fabOffset = (share_fab.height / 2) + share_fab.marginBottom
+        if (scrollY < scrollableRange - fabOffset) {
+          share_fab.hide()
+        } else {
+          share_fab.show()
+        }
       }
     }
 
@@ -126,6 +129,11 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
       }
     }
     share_fab.setOnClickListener { presenter.shareDeviceData() }
+    if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
+      widget_config_root_scrollview.doOnApplyWindowInsets { view, insets, padding ->
+        view.updatePadding(bottom = padding.bottom + insets.systemWindowInsetBottom)
+      }
+    }
     resetView()
   }
 
