@@ -47,7 +47,7 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
         }
       }
     } else {
-      view.toggleResultView(emptyList(), missingPermissions = true)
+      view.toggleResultView(emptyList(), true)
     }
   }
 
