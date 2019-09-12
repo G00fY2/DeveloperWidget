@@ -9,49 +9,40 @@ import com.g00fy2.developerwidget.data.DeviceDataItem
 import com.g00fy2.developerwidget.databinding.DeviceDataHeaderItemBinding
 import com.g00fy2.developerwidget.databinding.DeviceDataValueItemBinding
 
-class DeviceDataAdapter : BaseAdapter<Pair<String, DeviceDataItem>, BaseViewHolder>(DeviceDataDiffUtilsCallback()) {
+class DeviceDataAdapter :
+  BaseAdapter<Pair<String, DeviceDataItem>, BaseViewHolder<Pair<String, DeviceDataItem>>>(DeviceDataDiffUtilsCallback()) {
 
-  inner class DeviceDataHeaderViewHolder(val binding: DeviceDataHeaderItemBinding) : BaseViewHolder(binding)
-  inner class DeviceDataValueViewHolder(val binding: DeviceDataValueItemBinding) : BaseViewHolder(binding)
-
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-    return when (viewType) {
-      HEADER_TYPE -> DeviceDataHeaderViewHolder(
-        DeviceDataHeaderItemBinding.inflate(
-          LayoutInflater.from(parent.context),
-          parent,
-          false
-        )
-      )
-      VALUE_TYPE
-      -> DeviceDataValueViewHolder(
-        DeviceDataValueItemBinding.inflate(
-          LayoutInflater.from(parent.context),
-          parent,
-          false
-        )
-      )
-      else -> {
-        throw IllegalStateException("Unknown ViewType")
+  inner class DeviceDataHeaderViewHolder(val binding: DeviceDataHeaderItemBinding) :
+    BaseViewHolder<Pair<String, DeviceDataItem>>(binding) {
+    override fun onBind(item: Pair<String, DeviceDataItem>) {
+      item.run {
+        binding.headerDividerView.visibility = if (adapterPosition == 0) View.INVISIBLE else View.VISIBLE
+        binding.headerTitleTextview.text = itemView.context.getString(second.title)
       }
     }
   }
 
-  override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-    if (holder is DeviceDataHeaderViewHolder) {
-      holder.apply {
-        getItem(position).let {
-          binding.headerDividerView.visibility = if (position == 0) View.INVISIBLE else View.VISIBLE
-          binding.headerTitleTextview.text = itemView.context.getString(it.second.title)
-        }
+  inner class DeviceDataValueViewHolder(val binding: DeviceDataValueItemBinding) :
+    BaseViewHolder<Pair<String, DeviceDataItem>>(binding) {
+    override fun onBind(item: Pair<String, DeviceDataItem>) {
+      item.run {
+        binding.deviceDataTitle.text = itemView.context.getString(second.title)
+        binding.deviceData.text = second.value
       }
-    } else if (holder is DeviceDataValueViewHolder) {
-      holder.apply {
-        getItem(position).let {
-          binding.deviceDataTitle.text = itemView.context.getString(it.second.title)
-          binding.deviceData.text = it.second.value
+    }
+  }
 
-        }
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<Pair<String, DeviceDataItem>> {
+    return when (viewType) {
+      HEADER_TYPE -> DeviceDataHeaderViewHolder(
+        DeviceDataHeaderItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+      )
+      VALUE_TYPE
+      -> DeviceDataValueViewHolder(
+        DeviceDataValueItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+      )
+      else -> {
+        throw IllegalStateException("Unknown ViewType")
       }
     }
   }

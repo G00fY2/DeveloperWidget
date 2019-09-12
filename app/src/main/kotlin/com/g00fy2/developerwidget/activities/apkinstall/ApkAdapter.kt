@@ -19,7 +19,24 @@ class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>(ApksDiffUtilsCallback()) 
   private var onApkClicked: ((ApkFile?) -> Unit) = {}
   private var onApkSelected: ((Int) -> Unit) = {}
 
-  inner class ApkViewHolder(val binding: ApkItemBinding) : BaseViewHolder(binding) {
+  inner class ApkViewHolder(val binding: ApkItemBinding) : BaseViewHolder<ApkFile>(binding) {
+    override fun onBind(item: ApkFile) {
+      item.run {
+        binding.filenameTextview.text = fileName
+        binding.appNameTextview.text = appName
+        binding.appVersionTextview.text =
+          String.format(itemView.context.getString(R.string.apk_version), item.versionName, item.versionCode)
+        binding.fileSizeTextview.text = item.size
+        binding.appDebugImageview.visibility = if (item.debuggable) View.VISIBLE else View.INVISIBLE
+        binding.fileDateTextview.text = item.lastModified
+        binding.appIconImageview.setImageDrawable(item.appIcon)
+        if (VERSION.SDK_INT >= VERSION_CODES.O) {
+          binding.appIconImageview.setBackgroundResource(if (item.appIcon is InsetDrawable) R.drawable.bg_adaptive_launcher_icon else 0)
+        }
+      }
+      setSelected(adapterPosition)
+    }
+
     fun setSelected(position: Int) {
       selectedPositions.contains(position).let { selected ->
         binding.appIconImageview.visibility = if (selected) View.INVISIBLE else View.VISIBLE
@@ -61,29 +78,11 @@ class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>(ApksDiffUtilsCallback()) 
     }
   }
 
-  override fun onBindViewHolder(holderApk: ApkViewHolder, position: Int) {
-    holderApk.apply {
-      val apkFile = getItem(position)
-      binding.filenameTextview.text = apkFile.fileName
-      binding.appNameTextview.text = apkFile.appName
-      binding.appVersionTextview.text =
-        String.format(itemView.context.getString(R.string.apk_version), apkFile.versionName, apkFile.versionCode)
-      binding.fileSizeTextview.text = apkFile.size
-      binding.appDebugImageview.visibility = if (apkFile.debuggable) View.VISIBLE else View.INVISIBLE
-      binding.fileDateTextview.text = apkFile.lastModified
-      binding.appIconImageview.setImageDrawable(apkFile.appIcon)
-      if (VERSION.SDK_INT >= VERSION_CODES.O) {
-        binding.appIconImageview.setBackgroundResource(if (apkFile.appIcon is InsetDrawable) R.drawable.bg_adaptive_launcher_icon else 0)
-      }
-      setSelected(position)
-    }
-  }
-
-  override fun onBindViewHolder(holderApk: ApkViewHolder, position: Int, payloads: List<Any>) {
+  override fun onBindViewHolder(holder: ApkViewHolder, position: Int, payloads: List<Any>) {
     if (payloads.isEmpty()) {
-      onBindViewHolder(holderApk, position)
+      super.onBindViewHolder(holder, position)
     } else {
-      holderApk.setSelected(position)
+      holder.setSelected(position)
     }
   }
 

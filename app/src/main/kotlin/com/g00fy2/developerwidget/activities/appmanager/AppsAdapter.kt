@@ -18,27 +18,26 @@ class AppsAdapter : BaseAdapter<AppInfo, AppViewHolder>(AppsDiffUtilsCallback())
   private var onAppClicked: ((AppInfo?) -> Unit) = {}
   private var itemsCopy = ArrayList<AppInfo>()
 
-  inner class AppViewHolder(val binding: AppItemBinding) : BaseViewHolder(binding)
+  inner class AppViewHolder(val binding: AppItemBinding) : BaseViewHolder<AppInfo>(binding) {
+    override fun onBind(item: AppInfo) {
+      item.run {
+        binding.appenameTextview.text = appName
+        binding.apppackageTextview.text = packageName
+        binding.appVersionTextview.text =
+          String.format(itemView.context.getString(R.string.apk_version), versionName, versionCode)
+        binding.appIconImageview.setImageDrawable(appIcon)
+        if (VERSION.SDK_INT >= VERSION_CODES.O) {
+          binding.appIconImageview.setBackgroundResource(if (appIcon is InsetDrawable) R.drawable.bg_adaptive_launcher_icon else 0)
+        }
+      }
+    }
+  }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AppViewHolder {
     return AppViewHolder(AppItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)).apply {
       addRipple()
       itemView.setOnClickListener {
         onAppClicked(getSelectedPackageName(adapterPosition))
-      }
-    }
-  }
-
-  override fun onBindViewHolder(holderApk: AppViewHolder, position: Int) {
-    holderApk.apply {
-      val appInfo = getItem(position)
-      binding.appenameTextview.text = appInfo.appName
-      binding.apppackageTextview.text = appInfo.packageName
-      binding.appVersionTextview.text =
-        String.format(itemView.context.getString(R.string.apk_version), appInfo.versionName, appInfo.versionCode)
-      binding.appIconImageview.setImageDrawable(appInfo.appIcon)
-      if (VERSION.SDK_INT >= VERSION_CODES.O) {
-        binding.appIconImageview.setBackgroundResource(if (appInfo.appIcon is InsetDrawable) R.drawable.bg_adaptive_launcher_icon else 0)
       }
     }
   }
