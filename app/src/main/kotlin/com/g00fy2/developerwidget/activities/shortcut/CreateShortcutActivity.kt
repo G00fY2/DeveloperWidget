@@ -19,42 +19,52 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewbinding.ViewBinding
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.apkinstall.ApkActivity
 import com.g00fy2.developerwidget.activities.appmanager.AppsActivity
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
+import com.g00fy2.developerwidget.databinding.ActivityCreateShortcutBinding
 import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
-import kotlinx.android.synthetic.main.activity_create_shortcut.*
 import javax.inject.Inject
 
 @RequiresApi(VERSION_CODES.N_MR1)
-class CreateShortcutActivity : BaseActivity(R.layout.activity_create_shortcut),
-  CreateShortcutContract.CreateShortcutView {
+class CreateShortcutActivity : BaseActivity(), CreateShortcutContract.CreateShortcutView {
 
   @Inject
   lateinit var presenter: CreateShortcutContract.CreateShortcutPresenter
+  private lateinit var binding: ActivityCreateShortcutBinding
   private lateinit var adapter: ShortcutAdapter
   private lateinit var shortcutInfoList: List<ShortcutInfo>
 
   override fun providePresenter(): BasePresenter = presenter
 
+  override fun setViewBinding(): ViewBinding {
+    binding = ActivityCreateShortcutBinding.inflate(layoutInflater)
+    return binding
+  }
+
   override fun initView() {
     setResult(Activity.RESULT_CANCELED)
 
     adapter = ShortcutAdapter()
-    recyclerview.setHasFixedSize(true)
-    recyclerview.layoutManager = LinearLayoutManager(this)
-    recyclerview.adapter = adapter
+    binding.recyclerview.setHasFixedSize(true)
+    binding.recyclerview.layoutManager = LinearLayoutManager(this)
+    binding.recyclerview.adapter = adapter
     getDrawable(R.drawable.divider_line)?.let {
-      recyclerview.addItemDecoration(DividerItemDecoration(this, LinearLayout.VERTICAL).apply { setDrawable(it) })
+      binding.recyclerview.addItemDecoration(
+        DividerItemDecoration(
+          this,
+          LinearLayout.VERTICAL
+        ).apply { setDrawable(it) })
     }
 
     shortcutInfoList = generateShortcutInfoList()
     adapter.submitList(shortcutInfoList)
     adapter.setOnShortcutSelected { shortcutPosition -> onItemClick(shortcutPosition) }
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
-      recyclerview.doOnApplyWindowInsets { view, insets, padding ->
+      binding.recyclerview.doOnApplyWindowInsets { view, insets, padding ->
         view.updatePadding(bottom = padding.bottom + insets.systemWindowInsetBottom)
       }
     }

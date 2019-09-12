@@ -11,8 +11,7 @@ import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.apkinstall.ApkAdapter.ApkViewHolder
 import com.g00fy2.developerwidget.base.BaseAdapter
 import com.g00fy2.developerwidget.base.BaseViewHolder
-import kotlinx.android.synthetic.main.apk_item.*
-import kotlinx.android.synthetic.main.apk_item.view.*
+import com.g00fy2.developerwidget.databinding.ApkItemBinding
 
 class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>(ApksDiffUtilsCallback()) {
 
@@ -20,19 +19,17 @@ class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>(ApksDiffUtilsCallback()) 
   private var onApkClicked: ((ApkFile?) -> Unit) = {}
   private var onApkSelected: ((Int) -> Unit) = {}
 
-  inner class ApkViewHolder(containerView: View) : BaseViewHolder(containerView) {
+  inner class ApkViewHolder(val binding: ApkItemBinding) : BaseViewHolder(binding) {
     fun setSelected(position: Int) {
       selectedPositions.contains(position).let { selected ->
-        itemView.app_icon_imageview.visibility =
-          if (selected) View.INVISIBLE else View.VISIBLE
-        itemView.selected_icon_imageview.visibility =
-          if (selected) View.VISIBLE else View.INVISIBLE
+        binding.appIconImageview.visibility = if (selected) View.INVISIBLE else View.VISIBLE
+        binding.selectedIconImageview.visibility = if (selected) View.VISIBLE else View.INVISIBLE
       }
     }
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ApkViewHolder {
-    return ApkViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.apk_item, parent, false)).apply {
+    return ApkViewHolder(ApkItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)).apply {
       addRipple()
       itemView.setOnClickListener {
         adapterPosition.let {
@@ -67,16 +64,16 @@ class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>(ApksDiffUtilsCallback()) 
   override fun onBindViewHolder(holderApk: ApkViewHolder, position: Int) {
     holderApk.apply {
       val apkFile = getItem(position)
-      filename_textview.text = apkFile.fileName
-      app_name_textview.text = apkFile.appName
-      app_version_textview.text =
+      binding.filenameTextview.text = apkFile.fileName
+      binding.appNameTextview.text = apkFile.appName
+      binding.appVersionTextview.text =
         String.format(itemView.context.getString(R.string.apk_version), apkFile.versionName, apkFile.versionCode)
-      file_size_textview.text = apkFile.size
-      app_debug_imageview.visibility = if (apkFile.debuggable) View.VISIBLE else View.INVISIBLE
-      file_date_textview.text = apkFile.lastModified
-      app_icon_imageview.setImageDrawable(apkFile.appIcon)
+      binding.fileSizeTextview.text = apkFile.size
+      binding.appDebugImageview.visibility = if (apkFile.debuggable) View.VISIBLE else View.INVISIBLE
+      binding.fileDateTextview.text = apkFile.lastModified
+      binding.appIconImageview.setImageDrawable(apkFile.appIcon)
       if (VERSION.SDK_INT >= VERSION_CODES.O) {
-        app_icon_imageview.setBackgroundResource(if (apkFile.appIcon is InsetDrawable) R.drawable.bg_adaptive_launcher_icon else 0)
+        binding.appIconImageview.setBackgroundResource(if (apkFile.appIcon is InsetDrawable) R.drawable.bg_adaptive_launcher_icon else 0)
       }
       setSelected(position)
     }

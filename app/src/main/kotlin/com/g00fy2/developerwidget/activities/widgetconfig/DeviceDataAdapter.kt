@@ -3,27 +3,30 @@ package com.g00fy2.developerwidget.activities.widgetconfig
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BaseAdapter
 import com.g00fy2.developerwidget.base.BaseViewHolder
 import com.g00fy2.developerwidget.data.DeviceDataItem
-import kotlinx.android.synthetic.main.device_data_header_item.*
-import kotlinx.android.synthetic.main.device_data_value_item.*
+import com.g00fy2.developerwidget.databinding.DeviceDataHeaderItemBinding
+import com.g00fy2.developerwidget.databinding.DeviceDataValueItemBinding
 
 class DeviceDataAdapter : BaseAdapter<Pair<String, DeviceDataItem>, BaseViewHolder>(DeviceDataDiffUtilsCallback()) {
 
+  inner class DeviceDataHeaderViewHolder(val binding: DeviceDataHeaderItemBinding) : BaseViewHolder(binding)
+  inner class DeviceDataValueViewHolder(val binding: DeviceDataValueItemBinding) : BaseViewHolder(binding)
+
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
     return when (viewType) {
-      HEADER_TYPE -> BaseViewHolder(
-        LayoutInflater.from(parent.context).inflate(
-          R.layout.device_data_header_item,
+      HEADER_TYPE -> DeviceDataHeaderViewHolder(
+        DeviceDataHeaderItemBinding.inflate(
+          LayoutInflater.from(parent.context),
           parent,
           false
         )
       )
-      VALUE_TYPE -> BaseViewHolder(
-        LayoutInflater.from(parent.context).inflate(
-          R.layout.device_data_value_item,
+      VALUE_TYPE
+      -> DeviceDataValueViewHolder(
+        DeviceDataValueItemBinding.inflate(
+          LayoutInflater.from(parent.context),
           parent,
           false
         )
@@ -35,17 +38,19 @@ class DeviceDataAdapter : BaseAdapter<Pair<String, DeviceDataItem>, BaseViewHold
   }
 
   override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-    holder.apply {
-      getItem(position).let {
-        when (holder.itemViewType) {
-          HEADER_TYPE -> {
-            header_divider_view.visibility = if (position == 0) View.INVISIBLE else View.VISIBLE
-            header_title_textview.text = itemView.context.getString(it.second.title)
-          }
-          VALUE_TYPE -> {
-            device_data_title.text = itemView.context.getString(it.second.title)
-            device_data.text = it.second.value
-          }
+    if (holder is DeviceDataHeaderViewHolder) {
+      holder.apply {
+        getItem(position).let {
+          binding.headerDividerView.visibility = if (position == 0) View.INVISIBLE else View.VISIBLE
+          binding.headerTitleTextview.text = itemView.context.getString(it.second.title)
+        }
+      }
+    } else if (holder is DeviceDataValueViewHolder) {
+      holder.apply {
+        getItem(position).let {
+          binding.deviceDataTitle.text = itemView.context.getString(it.second.title)
+          binding.deviceData.text = it.second.value
+
         }
       }
     }

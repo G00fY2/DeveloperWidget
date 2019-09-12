@@ -7,18 +7,21 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.g00fy2.developerwidget.R
+import com.g00fy2.developerwidget.activities.appmanager.AppsAdapter.AppViewHolder
 import com.g00fy2.developerwidget.base.BaseAdapter
 import com.g00fy2.developerwidget.base.BaseViewHolder
+import com.g00fy2.developerwidget.databinding.AppItemBinding
 import com.g00fy2.developerwidget.ktx.filterPackageName
-import kotlinx.android.synthetic.main.app_item.*
 
-class AppsAdapter : BaseAdapter<AppInfo, BaseViewHolder>(AppsDiffUtilsCallback()) {
+class AppsAdapter : BaseAdapter<AppInfo, AppViewHolder>(AppsDiffUtilsCallback()) {
 
   private var onAppClicked: ((AppInfo?) -> Unit) = {}
   private var itemsCopy = ArrayList<AppInfo>()
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-    return BaseViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.app_item, parent, false)).apply {
+  inner class AppViewHolder(val binding: AppItemBinding) : BaseViewHolder(binding)
+
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AppViewHolder {
+    return AppViewHolder(AppItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)).apply {
       addRipple()
       itemView.setOnClickListener {
         onAppClicked(getSelectedPackageName(adapterPosition))
@@ -26,16 +29,16 @@ class AppsAdapter : BaseAdapter<AppInfo, BaseViewHolder>(AppsDiffUtilsCallback()
     }
   }
 
-  override fun onBindViewHolder(holderApk: BaseViewHolder, position: Int) {
+  override fun onBindViewHolder(holderApk: AppViewHolder, position: Int) {
     holderApk.apply {
       val appInfo = getItem(position)
-      appename_textview.text = appInfo.appName
-      apppackage_textview.text = appInfo.packageName
-      app_version_textview.text =
+      binding.appenameTextview.text = appInfo.appName
+      binding.apppackageTextview.text = appInfo.packageName
+      binding.appVersionTextview.text =
         String.format(itemView.context.getString(R.string.apk_version), appInfo.versionName, appInfo.versionCode)
-      app_icon_imageview.setImageDrawable(appInfo.appIcon)
+      binding.appIconImageview.setImageDrawable(appInfo.appIcon)
       if (VERSION.SDK_INT >= VERSION_CODES.O) {
-        app_icon_imageview.setBackgroundResource(if (appInfo.appIcon is InsetDrawable) R.drawable.bg_adaptive_launcher_icon else 0)
+        binding.appIconImageview.setBackgroundResource(if (appInfo.appIcon is InsetDrawable) R.drawable.bg_adaptive_launcher_icon else 0)
       }
     }
   }

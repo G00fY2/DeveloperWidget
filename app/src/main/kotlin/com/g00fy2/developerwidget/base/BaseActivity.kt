@@ -7,17 +7,16 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.updatePadding
+import androidx.viewbinding.ViewBinding
 import com.g00fy2.developerwidget.controllers.DayNightController
 import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
 import dagger.android.AndroidInjection
 import timber.log.Timber
 import javax.inject.Inject
 
-abstract class BaseActivity(@LayoutRes contentLayoutId: Int, private val isDialogActivity: Boolean = false) :
-  AppCompatActivity(contentLayoutId) {
+abstract class BaseActivity(private val isDialogActivity: Boolean = false) : AppCompatActivity() {
 
   @Inject
   lateinit var dayNightController: DayNightController
@@ -29,12 +28,14 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int, private val isDialo
     if (isDialogActivity) {
       requestWindowFeature(Window.FEATURE_NO_TITLE)
       super.onCreate(savedInstanceState)
+      setContentView(setViewBinding().root)
 
       val width = (resources.displayMetrics.widthPixels * 0.95).toInt()
       val height = (resources.displayMetrics.heightPixels * 0.80).toInt()
       window.setLayout(width, height)
     } else {
       super.onCreate(savedInstanceState)
+      setContentView(setViewBinding().root)
     }
 
     dayNightController.loadCustomDefaultMode()
@@ -106,6 +107,8 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int, private val isDialo
     resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_NO
 
   abstract fun providePresenter(): BaseContract.BasePresenter
+
+  abstract fun setViewBinding(): ViewBinding
 
   abstract fun initView()
 }

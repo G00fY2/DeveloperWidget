@@ -2,10 +2,10 @@ package com.g00fy2.developerwidget.activities.about.views
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.annotation.StringRes
-import com.g00fy2.developerwidget.R
-import kotlinx.android.synthetic.main.about_item_header.view.*
+import com.g00fy2.developerwidget.databinding.AboutItemHeaderBinding
 
 class AboutHeaderLayout @JvmOverloads constructor(
   context: Context,
@@ -13,12 +13,10 @@ class AboutHeaderLayout @JvmOverloads constructor(
   defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-  init {
-    inflate(context, R.layout.about_item_header, this)
-  }
+  private val binding = AboutItemHeaderBinding.inflate(LayoutInflater.from(context), this)
 
   fun title(@StringRes titleRes: Int): AboutHeaderLayout {
-    header_textview.setText(titleRes)
+    binding.headerTextview.setText(titleRes)
     return this
   }
 

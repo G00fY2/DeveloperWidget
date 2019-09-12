@@ -28,27 +28,29 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.marginBottom
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewbinding.ViewBinding
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.about.AboutActivity
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.data.DeviceDataItem
+import com.g00fy2.developerwidget.databinding.ActivityWidgetConfigBinding
 import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
 import com.g00fy2.developerwidget.ktx.hideKeyboard
 import com.g00fy2.developerwidget.ktx.showKeyboard
 import com.g00fy2.developerwidget.receiver.widget.WidgetProviderImpl
-import kotlinx.android.synthetic.main.activity_widget_config.*
 import javax.inject.Inject
 
-class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), WidgetConfigContract.WidgetConfigView {
+class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigView {
 
   @Inject
   lateinit var presenter: WidgetConfigContract.WidgetConfigPresenter
 
+  private lateinit var binding: ActivityWidgetConfigBinding
+  private lateinit var adapter: DeviceDataAdapter
   private var updateExistingWidget = false
   private var launchedFromAppLauncher = true
   private var widgetId: Int = AppWidgetManager.INVALID_APPWIDGET_ID
-  private lateinit var adapter: DeviceDataAdapter
   private val editDrawable by lazy { initEditDrawable() }
 
   private val closeConfigureActivityReceiver by lazy {
@@ -61,6 +63,11 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
   }
 
   override fun providePresenter(): BasePresenter = presenter
+
+  override fun setViewBinding(): ViewBinding {
+    binding = ActivityWidgetConfigBinding.inflate(layoutInflater)
+    return binding
+  }
 
   override fun onResume() {
     super.onResume()
@@ -86,24 +93,24 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
       return
     }
 
-    setActionbarElevationListener(widget_config_root_scrollview)
-    widget_config_root_scrollview.apply {
+    setActionbarElevationListener(binding.widgetConfigRootScrollview)
+    binding.widgetConfigRootScrollview.apply {
       viewTreeObserver.addOnScrollChangedListener {
         val scrollableRange = getChildAt(0).bottom - height + paddingBottom
-        val fabOffset = (share_fab.height / 2) + share_fab.marginBottom
+        val fabOffset = (binding.shareFab.height / 2) + binding.shareFab.marginBottom
         if (scrollY < scrollableRange - fabOffset) {
-          share_fab.hide()
+          binding.shareFab.hide()
         } else {
-          share_fab.show()
+          binding.shareFab.show()
         }
       }
     }
 
     adapter = DeviceDataAdapter()
-    recyclerview.setHasFixedSize(false)
-    recyclerview.layoutManager = LinearLayoutManager(this)
-    recyclerview.isNestedScrollingEnabled = false
-    recyclerview.adapter = adapter
+    binding.recyclerview.setHasFixedSize(false)
+    binding.recyclerview.layoutManager = LinearLayoutManager(this)
+    binding.recyclerview.isNestedScrollingEnabled = false
+    binding.recyclerview.adapter = adapter
 
     // register broadcast receiver to finish activity after pin widget
     if (VERSION.SDK_INT >= VERSION_CODES.O) {
@@ -114,10 +121,10 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
       WebView(this)
     }
 
-    device_title_edittextview.apply {
+    binding.deviceTitleEdittextview.apply {
       onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
         if (!hasFocus) {
-          presenter.setCustomDeviceName(device_title_edittextview.text.toString())
+          presenter.setCustomDeviceName(binding.deviceTitleEdittextview.text.toString())
           toggleDeviceNameEdit(false)
         }
       }
@@ -128,9 +135,9 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
         true
       }
     }
-    share_fab.setOnClickListener { presenter.shareDeviceData() }
+    binding.shareFab.setOnClickListener { presenter.shareDeviceData() }
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
-      widget_config_root_scrollview.doOnApplyWindowInsets { view, insets, padding ->
+      binding.widgetConfigRootScrollview.doOnApplyWindowInsets { view, insets, padding ->
         view.updatePadding(bottom = padding.bottom + insets.systemWindowInsetBottom)
       }
     }
@@ -154,24 +161,24 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
   override fun showDeviceData(data: List<Pair<String, DeviceDataItem>>) = adapter.submitList(data)
 
   override fun setDeviceTitle(title: String) {
-    device_title_textview.text = title
-    device_title_textview.visibility = View.VISIBLE
-    device_title_edittextview.setText(title)
-    device_title_edittextview.setSelection(device_title_edittextview.text.length)
+    binding.deviceTitleTextview.text = title
+    binding.deviceTitleTextview.visibility = View.VISIBLE
+    binding.deviceTitleEdittextview.setText(title)
+    binding.deviceTitleEdittextview.setSelection(binding.deviceTitleEdittextview.text.length)
   }
 
   override fun setDeviceTitleHint(hint: String) {
-    device_title_edittextview.hint = hint
+    binding.deviceTitleEdittextview.hint = hint
   }
 
   override fun setSubtitle(data: Pair<String, String>) {
-    device_subtitle_textview.text = getString(R.string.subtitle).format(data.first, data.second)
+    binding.deviceSubtitleTextview.text = getString(R.string.subtitle).format(data.first, data.second)
   }
 
   override fun dispatchTouchEvent(event: MotionEvent): Boolean {
     if (event.action == MotionEvent.ACTION_DOWN) {
       currentFocus.let {
-        if (it != null && it == device_title_edittextview) {
+        if (it != null && it == binding.deviceTitleEdittextview) {
           Rect().let { rect ->
             it.getGlobalVisibleRect(rect)
             if (!rect.contains(event.rawX.toInt(), event.rawY.toInt())) {
@@ -187,7 +194,7 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
   private fun resetView() {
     val showAddWidget = (!launchedFromAppLauncher || (widgetCount() < 1 && isPinAppWidgetSupported()))
     if (showAddWidget) {
-      apply_button.apply {
+      binding.applyButton.apply {
         visibility = View.VISIBLE
         when {
           launchedFromAppLauncher -> {
@@ -205,9 +212,9 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
         }
       }
     } else {
-      apply_button.visibility = View.GONE
+      binding.applyButton.visibility = View.GONE
     }
-    device_title_textview.apply {
+    binding.deviceTitleTextview.apply {
       setOnClickListener { toggleDeviceNameEdit(true) }
       if (showAddWidget) {
         isClickable = true
@@ -227,18 +234,18 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
   }
 
   private fun toggleDeviceNameEdit(editable: Boolean) {
-    device_title_textview.visibility = if (editable) View.INVISIBLE else View.VISIBLE
-    device_title_edittextview.visibility = if (editable) View.VISIBLE else View.INVISIBLE
+    binding.deviceTitleTextview.visibility = if (editable) View.INVISIBLE else View.VISIBLE
+    binding.deviceTitleEdittextview.visibility = if (editable) View.VISIBLE else View.INVISIBLE
     if (editable) {
-      device_title_edittextview.requestFocus()
-      device_title_edittextview.showKeyboard()
+      binding.deviceTitleEdittextview.requestFocus()
+      binding.deviceTitleEdittextview.showKeyboard()
     } else {
-      device_title_edittextview.hideKeyboard()
+      binding.deviceTitleEdittextview.hideKeyboard()
     }
   }
 
   private fun updateWidgetAndFinish(existing: Boolean) {
-    presenter.setCustomDeviceName(device_title_edittextview.text.toString(), true)
+    presenter.setCustomDeviceName(binding.deviceTitleEdittextview.text.toString(), true)
     if (!existing) {
       setResult(Activity.RESULT_OK, Intent().apply { putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId) })
     }
@@ -259,7 +266,7 @@ class WidgetConfigActivity : BaseActivity(R.layout.activity_widget_config), Widg
             this, 0, Intent(applicationContext, WidgetProviderImpl::class.java).apply {
               action = WidgetProviderImpl.UPDATE_WIDGET_MANUALLY_ACTION
               putExtra(EXTRA_APPWIDGET_FROM_PIN_APP, true)
-              putExtra(EXTRA_APPWIDGET_CUSTOM_DEVICE_NAME, device_title_edittextview.text.toString())
+              putExtra(EXTRA_APPWIDGET_CUSTOM_DEVICE_NAME, binding.deviceTitleEdittextview.text.toString())
             },
             PendingIntent.FLAG_UPDATE_CURRENT
           )
