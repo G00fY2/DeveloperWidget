@@ -36,6 +36,7 @@ import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.data.DeviceDataItem
 import com.g00fy2.developerwidget.databinding.ActivityWidgetConfigBinding
 import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
+import com.g00fy2.developerwidget.ktx.gesturalNavigationMode
 import com.g00fy2.developerwidget.ktx.hideKeyboard
 import com.g00fy2.developerwidget.ktx.showKeyboard
 import com.g00fy2.developerwidget.receiver.widget.WidgetProviderImpl
@@ -102,6 +103,9 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
           binding.shareFab.hide()
         } else {
           binding.shareFab.show()
+        }
+        if (VERSION.SDK_INT >= VERSION_CODES.O_MR1 && !gesturalNavigationMode()) {
+          clipToPadding = (scrollY >= scrollableRange)
         }
       }
     }

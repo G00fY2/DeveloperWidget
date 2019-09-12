@@ -16,6 +16,7 @@ import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.databinding.ActivityAboutBinding
 import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
+import com.g00fy2.developerwidget.ktx.gesturalNavigationMode
 import javax.inject.Inject
 
 class AboutActivity : BaseActivity(), AboutContract.AboutView {
@@ -125,6 +126,14 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
       binding.aboutRootScrollview.doOnApplyWindowInsets { view, insets, padding ->
         view.updatePadding(bottom = padding.bottom + insets.systemWindowInsetBottom)
+      }
+      binding.aboutRootScrollview.apply {
+        viewTreeObserver.addOnScrollChangedListener {
+          val scrollableRange = getChildAt(0).bottom - height + paddingBottom
+          if (!gesturalNavigationMode()) {
+            clipToPadding = (scrollY >= scrollableRange)
+          }
+        }
       }
     }
   }
