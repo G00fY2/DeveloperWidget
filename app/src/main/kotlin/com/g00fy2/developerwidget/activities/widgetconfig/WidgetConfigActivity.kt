@@ -285,13 +285,8 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
     if (!supported) presenter.showManuallyAddWidgetNotice()
   }
 
-  private fun isPinAppWidgetSupported(): Boolean {
-    return if (VERSION.SDK_INT >= VERSION_CODES.O) {
-      getSystemService<AppWidgetManager>()?.isRequestPinAppWidgetSupported ?: false
-    } else {
-      false
-    }
-  }
+  private fun isPinAppWidgetSupported() =
+    VERSION.SDK_INT >= VERSION_CODES.O && getSystemService<AppWidgetManager>()?.isRequestPinAppWidgetSupported ?: false
 
   private fun widgetCount() = AppWidgetManager.getInstance(this).getAppWidgetIds(
     ComponentName(
