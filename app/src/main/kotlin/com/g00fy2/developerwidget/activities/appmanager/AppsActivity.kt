@@ -199,7 +199,7 @@ class AppsActivity : BaseActivity(true), AppsContract.AppsView {
         @Suppress("DEPRECATION")
         setColorFilter(ResourcesCompat.getColor(resources, R.color.iconTintColor, null), PorterDuff.Mode.SRC_IN)
       }
-      setBounds(0, 0, this.intrinsicWidth, this.intrinsicHeight)
+      setBounds(0, 0, intrinsicWidth, intrinsicHeight)
     }
   }
 }
