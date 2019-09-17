@@ -63,7 +63,17 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
       title(R.string.privacy_policy)
       action { presenter.openUrl(PRIVACY_POLICY) }
     }
-    binding.privacyItem.init {
+    binding.sourceCodeItem.init {
+      icon(R.drawable.ic_github_logo_shape)
+      title(R.string.source_code)
+      action { presenter.openUrl(GITHUB_PROJECT) }
+    }
+    binding.changelogItem.init {
+      icon(R.drawable.ic_changes_logo)
+      title(R.string.changelog)
+      action { presenter.openUrl(CHANGES) }
+    }
+    binding.licenseItem.init {
       icon(R.drawable.ic_open_source_logo)
       title(R.string.license)
       description(R.string.mit_license)
@@ -74,16 +84,6 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
       title(R.string.feedback)
       description(R.string.feedback_description)
       action { showFeedbackOptions() }
-    }
-    binding.sourceCodeItem.init {
-      icon(R.drawable.ic_github_logo_shape)
-      title(R.string.source_code)
-      action { presenter.openUrl(GITHUB_PROJECT) }
-    }
-    binding.changelogItem.init {
-      icon(R.drawable.ic_changes_logo)
-      title(R.string.changelog)
-      action { presenter.openUrl(CHANGES) }
     }
     binding.authorHeader.init {
       title(R.string.author)
@@ -100,7 +100,7 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
       description(R.string.github_username)
       action { presenter.openUrl(GITHUB_USER) }
     }
-    binding.licenseItem.init {
+    binding.licensesHeader.init {
       title(R.string.licenses)
     }
     binding.openSourceLicensesItem.init {
