@@ -5,7 +5,7 @@ buildscript {
     buildToolsVersion = '29.0.2'
     minSdkVersion = 14
     targetSdkVersion = 29
-    androidGradleVersion = '3.6.0-alpha11'
+    androidGradleVersion = '3.6.0-alpha12'
     gradleScanVersion = '2.4.1'
     versioningPluginVersion = '1.0.0'
 
@@ -60,4 +60,13 @@ allprojects {
 
 task clean(type: Delete) {
   delete rootProject.buildDir
+}
+
+task printR8Version() {
+  def version = 'unkown'
+  try {
+    version = com.android.tools.r8.Version.getVersionString()
+  } finally {
+    println "R8 version: $version"
+  }
 }
