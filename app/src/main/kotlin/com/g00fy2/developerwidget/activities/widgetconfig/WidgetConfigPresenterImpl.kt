@@ -81,7 +81,7 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
   override fun showHomescreen() = intentController.showHomescreen()
 
   private suspend fun getDeviceData(): List<Pair<String, DeviceDataItem>> {
-    return deviceDataSource
+    val itemList = deviceDataSource
       .getStaticDeviceData()
       .plus(deviceDataSource.getHardwareData())
       .plus(deviceDataSource.getSoftwareInfo())
@@ -94,6 +94,9 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
           { !it.second.isHeader },
           { stringController.getString(it.second.title) })
       )
+
+    val emptyCategories = itemList.groupingBy { it.second.category }.eachCount().filter { it.value > 1 }
+    return itemList.filter { emptyCategories.containsKey(it.second.category) }
   }
 
   override fun shareDeviceData() {
