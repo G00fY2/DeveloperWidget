@@ -8,6 +8,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.res.Resources
 import android.graphics.BlendMode
 import android.graphics.BlendModeColorFilter
 import android.graphics.PorterDuff
@@ -122,7 +123,11 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
     }
     // set up webview pre oreo to get implementation information
     if (VERSION.SDK_INT in VERSION_CODES.LOLLIPOP until VERSION_CODES.O) {
-      WebView(this)
+      try {
+        WebView(this)
+      } catch (e: Resources.NotFoundException) {
+        WebView(applicationContext)
+      }
     }
 
     binding.deviceTitleEdittextview.apply {
