@@ -12,13 +12,13 @@ class DeviceDataItem(value: String, @StringRes title: Int, category: Category, i
   var category = category; private set
   var isHeader = isHeader; private set
 
-  enum class Category(val title: String, @StringRes val titleRes: Int) {
-    DEVICE("Device", R.string.device_title),
-    SYSTEM("System", R.string.system_title),
-    CPU("CPU", R.string.cpu_title),
-    MEMORY("Memory", R.string.memory_title),
-    DISPLAY("Display", R.string.display_title),
-    FEATURES("Features", R.string.features_title),
-    SOFTWARE("Software", R.string.software_title)
+  enum class Category(@StringRes val titleRes: Int) {
+    DEVICE(R.string.device_title),
+    SYSTEM(R.string.system_title),
+    CPU(R.string.cpu_title),
+    MEMORY(R.string.memory_title),
+    DISPLAY(R.string.display_title),
+    FEATURES(R.string.features_title),
+    SOFTWARE(R.string.software_title)
   }
 }
