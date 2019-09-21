@@ -12,8 +12,8 @@
     <item name="android:windowContentOverlay">@null</item>
     <!--api 21-->
     <item name="android:colorEdgeEffect" tools:targetApi="21">@color/colorEdgeEffect</item>
+    <item name="android:navigationBarColor" tools:targetApi="21">@color/navigationBarColor</item>
     <!--api 27-->
-    <item name="android:navigationBarColor" tools:targetApi="27">@color/navigationBarColor</item>
     <item name="android:navigationBarDividerColor" tools:targetApi="27">@color/navigationBarDividerColor</item>
   </style>
 

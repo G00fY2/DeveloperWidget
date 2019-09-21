@@ -13,7 +13,7 @@
   <color name="transparentBackground50_night">#80212121</color>
   <color name="dividerGrey">@color/lighterGrey</color>
 
-  <color name="navigationBarColor">#A6FFFFFF</color>
+  <color name="navigationBarColor">@color/black</color>
   <color name="navigationBarDividerColor">@color/navigationBarColor</color>
   <color name="colorEdgeEffect">@color/black</color>
   <color name="rippleBackground">#33303030</color>
