@@ -64,8 +64,9 @@ task clean(type: Delete) {
 
 task printR8Version() {
   try {
+    //noinspection UnnecessaryQualifiedReference
     println "R8 version: " + com.android.tools.r8.Version.getVersionString()
   } catch (ignored) {
-    println 'R8 version: unkown'
+    println 'R8 version: unknown'
   }
 }
