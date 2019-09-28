@@ -12,6 +12,8 @@
 [<img src="https://raw.githubusercontent.com/G00fY2/DeveloperWidget/gh-pages/media/store_screenshot_4.png" width=160>](https://raw.githubusercontent.com/G00fY2/DeveloperWidget/gh-pages/media/store_screenshot_4.png)
 [<img src="https://raw.githubusercontent.com/G00fY2/DeveloperWidget/gh-pages/media/store_screenshot_5.png" width=160>](https://raw.githubusercontent.com/G00fY2/DeveloperWidget/gh-pages/media/store_screenshot_5.png)
 
+created with [App Mockup](https://app-mockup.com)
+
 ## Description
 The app was built from a developer for developers. You may know the hassle of having multiple physical devices running different software. This app will help you keep track of important device information and allows you to organize your apps and local APK files. You will never again struggle to find APK files using a file browser or search for the app settings menu on a custom manufacturer UI.
 
