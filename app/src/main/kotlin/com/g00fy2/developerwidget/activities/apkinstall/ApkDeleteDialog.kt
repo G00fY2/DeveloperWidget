@@ -1,20 +1,22 @@
 package com.g00fy2.developerwidget.activities.apkinstall
 
 import android.content.Context
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatDialog
 import com.g00fy2.developerwidget.R
+import com.g00fy2.developerwidget.databinding.ApkDeleteDialogBinding
 
 class ApkDeleteDialog(context: Context) {
 
+  private var binding: ApkDeleteDialogBinding
   private val dialog = AppCompatDialog(context, R.style.DialogTheme).apply {
     setCancelable(true)
-    setContentView(R.layout.apk_delete_dialog)
-    findViewById<TextView>(R.id.dialog_cancel_textview)?.setOnClickListener { dismiss() }
+    binding = ApkDeleteDialogBinding.inflate(layoutInflater)
+    setContentView(binding.root)
+    binding.dialogCancelTextview.setOnClickListener { dismiss() }
   }
 
   fun deleteMessage(count: Int): ApkDeleteDialog {
-    dialog.findViewById<TextView>(R.id.dialog_message_textview)?.text = if (count > 1) String.format(
+    binding.dialogMessageTextview.text = if (count > 1) String.format(
       dialog.context.resources.getString(R.string.message_delete_multi),
       count
     ) else dialog.context.resources.getString(R.string.message_delete_single)
@@ -23,7 +25,7 @@ class ApkDeleteDialog(context: Context) {
   }
 
   fun deleteAction(deleteAction: () -> Unit): ApkDeleteDialog {
-    dialog.findViewById<TextView>(R.id.dialog_delete_textview)?.setOnClickListener {
+    binding.dialogDeleteTextview.setOnClickListener {
       dialog.dismiss()
       deleteAction()
     }

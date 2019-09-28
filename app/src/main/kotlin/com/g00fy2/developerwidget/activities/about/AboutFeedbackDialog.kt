@@ -1,20 +1,22 @@
 package com.g00fy2.developerwidget.activities.about
 
 import android.content.Context
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatDialog
 import com.g00fy2.developerwidget.R
+import com.g00fy2.developerwidget.databinding.AboutFeedbackDialogBinding
 
 class AboutFeedbackDialog(context: Context) {
 
+  private var binding: AboutFeedbackDialogBinding
   private val dialog = AppCompatDialog(context, R.style.DialogTheme).apply {
     setCancelable(true)
     setCanceledOnTouchOutside(true)
+    binding = AboutFeedbackDialogBinding.inflate(layoutInflater)
     setContentView(R.layout.about_feedback_dialog)
   }
 
   fun mailAction(mailIssueAction: () -> Unit): AboutFeedbackDialog {
-    dialog.findViewById<TextView>(R.id.mailTextView)?.setOnClickListener {
+    binding.mailTextView.setOnClickListener {
       dialog.dismiss()
       mailIssueAction()
     }
@@ -22,7 +24,7 @@ class AboutFeedbackDialog(context: Context) {
   }
 
   fun githubAction(githubIssueAction: () -> Unit): AboutFeedbackDialog {
-    dialog.findViewById<TextView>(R.id.githubTextView)?.setOnClickListener {
+    binding.githubTextView.setOnClickListener {
       dialog.dismiss()
       githubIssueAction()
     }
