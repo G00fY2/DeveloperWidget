@@ -7,22 +7,20 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.updatePadding
 import androidx.viewbinding.ViewBinding
 import com.g00fy2.developerwidget.controllers.DayNightController
 import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
-import dagger.android.AndroidInjection
+import dagger.android.support.DaggerAppCompatActivity
 import timber.log.Timber
 import javax.inject.Inject
 
-abstract class BaseActivity(private val isDialogActivity: Boolean = false) : AppCompatActivity() {
+abstract class BaseActivity(private val isDialogActivity: Boolean = false) : DaggerAppCompatActivity() {
 
   @Inject
   lateinit var dayNightController: DayNightController
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    AndroidInjection.inject(this)
     Timber.d("Lifecycle: %s1 onCreate %s2", localClassName, hashCode())
 
     if (isDialogActivity) {
