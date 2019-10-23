@@ -76,6 +76,7 @@ repositories {
       includeModule 'org.jetbrains.trove4j', 'trove4j' // required by com.android.tools.lint:lint-gradle
     }
   }
+  maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
 }
 dependencies {
   // Kotlin
