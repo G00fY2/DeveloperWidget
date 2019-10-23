@@ -10,7 +10,7 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Named
 
-@Module(includes = [ActivityModule::class])
+@Module(includes = [ActivityModule::class, WidgetIDModule::class])
 abstract class WidgetConfigActivityModule {
 
   @Binds
@@ -24,17 +24,16 @@ abstract class WidgetConfigActivityModule {
   @Binds
   @ActivityScope
   abstract fun provideWidgetConfigPresenter(presenter: WidgetConfigPresenterImpl): WidgetConfigContract.WidgetConfigPresenter
+}
 
-  @Module
-  companion object {
+@Module
+object WidgetIDModule {
 
-    @JvmStatic
-    @Provides
-    @ActivityScope
-    @Named(WIDGET_ID)
-    fun provideWidgetId(activity: WidgetConfigActivity): String {
-      return (activity.intent.extras?.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
-        ?: AppWidgetManager.INVALID_APPWIDGET_ID).toString()
-    }
+  @Provides
+  @ActivityScope
+  @Named(WIDGET_ID)
+  fun provideWidgetId(activity: WidgetConfigActivity): String {
+    return (activity.intent.extras?.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
+      ?: AppWidgetManager.INVALID_APPWIDGET_ID).toString()
   }
 }
