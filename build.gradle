@@ -18,9 +18,9 @@ buildscript {
     materialVersion = '1.2.0-alpha01'
     recyclerviewVersion = '1.1.0-rc01'
     vectorDrawableVersion = '1.1.0'
-    constraintlayoutVersion = '2.0.0-beta2'
+    constraintlayoutVersion = '2.0.0-beta3'
     timberVersion = '4.7.1'
-    daggerVersion = '2.25'
+    daggerVersion = '2.25.2'
     versCompVersion = '1.3.3'
   }
   repositories {
