@@ -18,7 +18,7 @@ import javax.inject.Named
 class StorageDirsControllerImpl @Inject constructor() : StorageDirsController {
 
   @Inject
-  @field:Named(ACTIVITY)
+  @Named(ACTIVITY)
   lateinit var context: Context
 
   /**

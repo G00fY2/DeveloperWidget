@@ -17,7 +17,7 @@ import javax.inject.Named
 class DeviceDataSourceImpl @Inject constructor() : DeviceDataSource {
 
   @Inject
-  @field:Named(APPLICATION)
+  @Named(APPLICATION)
   lateinit var context: Context
 
   override suspend fun getStaticDeviceData(): Map<String, DeviceDataItem> {

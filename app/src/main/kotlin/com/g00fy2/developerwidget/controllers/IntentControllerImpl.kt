@@ -20,7 +20,7 @@ import javax.inject.Named
 class IntentControllerImpl @Inject constructor() : IntentController {
 
   @Inject
-  @field:Named(ACTIVITY)
+  @Named(ACTIVITY)
   lateinit var context: Context
   @Inject
   lateinit var toastController: ToastController

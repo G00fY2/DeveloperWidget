@@ -10,7 +10,7 @@ import javax.inject.Named
 class WidgetsPreferencesDataSourceImpl @Inject constructor() : WidgetsPreferencesDataSource {
 
   @Inject
-  @field:Named(APPLICATION)
+  @Named(APPLICATION)
   lateinit var context: Context
 
   override suspend fun getCustomDeviceNames(widgetIds: IntArray): SparseArray<String> {
