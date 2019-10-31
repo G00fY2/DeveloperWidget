@@ -26,6 +26,8 @@ android_phases:
   # set SDK tools path variable and ANDROID_HOME
   - export PATH=$PATH:$HOME/sdk/cmdline-tools/tools/bin
   - export ANDROID_HOME=$HOME/sdk
+  # create empty cfg file to prevent sdkmanager warning message
+  - mkdir -p $HOME/.android && touch $HOME/.android/repositories.cfg
   # decrypt private keystore
   - openssl aes-256-cbc -K $encrypted_a8fbd6bbc21d_key -iv $encrypted_a8fbd6bbc21d_iv -in keystore.jks.enc -out keystore.jks -d
 - phase: &install
