@@ -2,7 +2,6 @@ language: java
 os: linux
 dist: bionic
 group: edge
-jdk: openjdk10
 git:
   depth: false
 env:
@@ -23,17 +22,13 @@ android_phases:
 - phase: &before_install
   # download and unzip Android SDK command line tools
   - wget -nv https://dl.google.com/android/repository/$ANDROID_SDK_CMD_TOOLS
-  - mkdir -p $HOME/sdk/cmdline-tools
-  - unzip -q $ANDROID_SDK_CMD_TOOLS -d $HOME/sdk/cmdline-tools
+  - mkdir -p $HOME/sdk/cmdline-tools && unzip -q $ANDROID_SDK_CMD_TOOLS -d $HOME/sdk/cmdline-tools
   # set SDK tools path variable and ANDROID_HOME
   - export PATH=$PATH:$HOME/sdk/cmdline-tools/tools/bin
   - export ANDROID_HOME=$HOME/sdk
-  # create empty cfg file to prevent sdkmanager warning message
-  - mkdir -p $HOME/.android && touch $HOME/.android/repositories.cfg
   # decrypt private keystore
   - openssl aes-256-cbc -K $encrypted_a8fbd6bbc21d_key -iv $encrypted_a8fbd6bbc21d_iv -in keystore.jks.enc -out keystore.jks -d
 - phase: &install
-  - sdkmanager --version
   # accept licenses for all available packages that have not already been accepted
   - yes | sdkmanager --licenses >/dev/null
 - phase: &before_script
