@@ -59,12 +59,6 @@ android {
   kotlinOptions {
     jvmTarget = '1.8'
   }
-  kapt {
-    javacOptions {
-      option('-source', '8')
-      option('-target', '8')
-    }
-  }
 }
 
 repositories {
@@ -105,4 +99,5 @@ dependencies {
   implementation "com.google.dagger:dagger-android:$daggerVersion"
   implementation "com.google.dagger:dagger-android-support:$daggerVersion"
   kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+  compileOnly "javax.annotation:javax.annotation-api:1.3.2"
 }
