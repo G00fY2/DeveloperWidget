@@ -38,6 +38,10 @@ android_phases:
   - chmod +x gradlew
   # create dir for gradle settings
   - mkdir -p $HOME/.gradle
+  # disable kotlin incremental compilation
+  - echo "kotlin.incremental=false" >> $HOME/.gradle/gradle.properties
+  # disable kotlin compiler daemon
+  - echo "kotlin.compiler.execution.strategy=in-process" >> $HOME/.gradle/gradle.properties
   # disable gradle daemon for current user
   - echo "org.gradle.daemon=false" >> $HOME/.gradle/gradle.properties
   # set gradle log format to plain
