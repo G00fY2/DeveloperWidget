@@ -9,7 +9,7 @@ buildscript {
     versioningPluginVersion = '1.0.2'
 
     // Library versions
-    kotlinVersion = '1.3.60-eap-76'
+    kotlinVersion = '1.3.60'
     coroutinesVersion = '1.3.2'
     appcompatVersion = '1.1.0'
     coreKtxVersion = '1.2.0-beta02'
@@ -32,12 +32,16 @@ buildscript {
         includeModule 'org.jetbrains.trove4j', 'trove4j'
       }
     }
-    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
   }
   dependencies {
     classpath "com.android.tools.build:gradle:$androidGradleVersion"
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     classpath "eu.appcom.gradle:android-versioning:$versioningPluginVersion"
+  }
+  configurations.all {
+    resolutionStrategy {
+      force "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    }
   }
 }
 
