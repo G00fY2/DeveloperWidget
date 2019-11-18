@@ -66,9 +66,9 @@ android_phases:
   - ls -d $HOME/.gradle/wrapper/dists/* -1t | tail -n +2 | xargs rm -rf
 - phase: &deploy
     provider: releases
+    edge: true
     token:
       secure: J5U/QxYAcGZn/pZeU8+YK7ani5dn64McDEVj5BxTBbywfhfpabzug+6H8k6Mnvs8m8CEvi2NsgptyvsxMt6952dNFI9F0URRsDkDdBvKQKdBmhCmCWVckRushfrn5k8RTjpJFYExiuDw6mSPZVtVzdXgHTgiZzPW20skROgoOq6Jb2CMa9awyI1Pbni7Emirkdl3N+h8krCyi/T06va1QebbWYsdLem8EvPgREBV+fDZ8RR+ABnT68aV7Jyq5YWortThT0TRAQ5f17C/T/aDWU7TqL4+HbfGEMvlO4vFYKUHNhxB6ZssaOpLSRVZKq4kecr2PQWIzQX+VFo4Fyxe3kTqfgidR2ptihkAERFz5FCHsEDDSRliatUUFpXxNLaa4ZIooo5p5uThRniu9COjdwuJZtFUIqstL1IrLntv4+3P2SY2BfdsTkgSuq7NT37u6MbT/cdr+dO7jgCoRIyxRzQGoeViALjzwIdXS2iBCwEpex9IDdvjsHmFJIo+8IsJGeGUCRsJL0tFBtZ8lIks1bh+t7pxKywhS3vXGny2ZCaIdA55g0b5N0D64P12ibWI80B7EAEv43Xmb5oVkVYdq9PdPJFoG/b4nDy8NfbQCWv9P/xgP6KwogAPsCJJ7tS4qn2HV6eUKrsj7ioBwpHsn/3ZEL0gU3sBnGJk20hyZyc=
-    file_glob: true
     file:
       - $TRAVIS_BUILD_DIR/app/build/outputs/apk/release/*.apk
       - $TRAVIS_BUILD_DIR/app/build/outputs/mapping/release/mapping.txt
