@@ -71,16 +71,6 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
     return binding
   }
 
-  override fun onResume() {
-    super.onResume()
-    resetView()
-  }
-
-  override fun onDestroy() {
-    super.onDestroy()
-    if (VERSION.SDK_INT >= VERSION_CODES.O) unregisterReceiver(closeConfigureActivityReceiver)
-  }
-
   override fun initView() {
     setResult(Activity.RESULT_CANCELED)
 
@@ -150,7 +140,16 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
         view.updatePadding(bottom = padding.bottom + insets.systemWindowInsetBottom)
       }
     }
-    resetView()
+  }
+
+  override fun onResume() {
+    super.onResume()
+    updateWidgetButton()
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    if (VERSION.SDK_INT >= VERSION_CODES.O) unregisterReceiver(closeConfigureActivityReceiver)
   }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -200,7 +199,7 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
     return super.dispatchTouchEvent(event)
   }
 
-  private fun resetView() {
+  private fun updateWidgetButton() {
     val showAddWidget = (!launchedFromAppLauncher || (widgetCount() < 1 && isPinAppWidgetSupported()))
     if (showAddWidget) {
       binding.applyButton.apply {

@@ -32,22 +32,6 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
     return binding
   }
 
-  override fun onResume() {
-    super.onResume()
-    updateThemeToggleView()
-    updateLauncherIconSwitch()
-    updateLauncherIconItem()
-  }
-
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    return if (item.itemId == id.home) {
-      finish()
-      true
-    } else {
-      super.onOptionsItemSelected(item)
-    }
-  }
-
   override fun initView() {
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
     setActionbarElevationListener(binding.aboutRootScrollview)
@@ -135,6 +119,22 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
           }
         }
       }
+    }
+  }
+
+  override fun onResume() {
+    super.onResume()
+    updateThemeToggleView()
+    updateLauncherIconSwitch()
+    updateLauncherIconItem()
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    return if (item.itemId == id.home) {
+      finish()
+      true
+    } else {
+      super.onOptionsItemSelected(item)
     }
   }
 
