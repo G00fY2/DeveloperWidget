@@ -1,3 +1,9 @@
+import com.android.tools.r8.Version
+import com.github.jk1.license.filter.*
+import com.github.jk1.license.render.*
+
+apply plugin: 'com.github.jk1.dependency-license-report'
+
 buildscript {
   ext {
     // SDK and plugins
@@ -7,6 +13,7 @@ buildscript {
     targetSdkVersion = 29
     androidGradleVersion = '4.0.0-alpha04'
     versioningPluginVersion = '1.0.2'
+    licenseReportVersion = '1.11'
 
     // Library versions
     kotlinVersion = '1.3.61'
@@ -32,11 +39,13 @@ buildscript {
         includeModule 'org.jetbrains.trove4j', 'trove4j'
       }
     }
+    gradlePluginPortal()
   }
   dependencies {
     classpath "com.android.tools.build:gradle:$androidGradleVersion"
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     classpath "eu.appcom.gradle:android-versioning:$versioningPluginVersion"
+    classpath "com.github.jk1:gradle-license-report:$licenseReportVersion"
   }
   configurations.all {
     resolutionStrategy {
@@ -45,14 +54,19 @@ buildscript {
   }
 }
 
+licenseReport {
+  configurations = ['releaseRuntimeClasspath']
+  renderers = [new SimpleHtmlReportRenderer(), new JsonReportRenderer()]
+  filters = [new LicenseBundleNormalizer()]
+}
+
 task clean(type: Delete) {
   delete rootProject.buildDir
 }
 
 task printR8Version() {
   try {
-    //noinspection UnnecessaryQualifiedReference
-    println "R8 version: " + com.android.tools.r8.Version.getVersionString()
+    println "R8 version: " + Version.getVersionString()
   } catch (ignored) {
     println 'R8 version: unknown'
   }
