@@ -18,10 +18,10 @@ buildscript {
     // Library versions
     kotlinVersion = '1.3.61'
     coroutinesVersion = '1.3.2'
-    appcompatVersion = '1.1.0'
+    appcompatVersion = '1.2.0-alpha01'
     coreKtxVersion = '1.2.0-rc01'
-    activityVersion = '1.1.0-rc02'
-    lifecycleVersion = '2.2.0-rc02'
+    activityVersion = '1.1.0-rc03'
+    lifecycleVersion = '2.2.0-rc03'
     materialVersion = '1.2.0-alpha02'
     recyclerviewVersion = '1.1.0'
     vectorDrawableVersion = '1.1.0'
