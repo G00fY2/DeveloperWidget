@@ -36,31 +36,18 @@ android_phases:
 - phase: &before_script
   # set executable flag for gradle wrapper
   - chmod +x gradlew
-  # create dir for gradle settings
-  - mkdir -p $HOME/.gradle
-  # disable kotlin incremental compilation
-  - echo "kotlin.incremental=false" >> $HOME/.gradle/gradle.properties
-  # disable kotlin compiler daemon
-  - echo "kotlin.compiler.execution.strategy=in-process" >> $HOME/.gradle/gradle.properties
-  # disable gradle daemon for current user
-  - echo "org.gradle.daemon=false" >> $HOME/.gradle/gradle.properties
-  # set gradle log format to plain
-  - echo "org.gradle.console=plain" >> $HOME/.gradle/gradle.properties
-  # enable gradle build cache
-  - echo "org.gradle.caching=true" >> $HOME/.gradle/gradle.properties
-  # log all gradle warnings
-  - echo "org.gradle.warning.mode=all" >> $HOME/.gradle/gradle.properties
 - phase: &before_cache
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-  - rm -f  $HOME/.gradle/caches/*/fileHashes/fileHashes.bin
-  - rm -f  $HOME/.gradle/caches/*/fileHashes/fileHashes.lock
-  - rm -f  $HOME/.gradle/caches/*/javaCompile/javaCompile.lock
-  - rm -f  $HOME/.gradle/caches/*/executionHistory/executionHistory.lock
-  - rm -f  $HOME/.gradle/caches/journal-1/file-access.bin
-  - rm -f  $HOME/.gradle/caches/journal-1/journal-1.lock
-  - rm -f  $HOME/.gradle/caches/transforms-1/transforms-1.lock
-  - rm -f  $HOME/.gradle/caches/user-id.txt.lock
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -rf $HOME/.gradle/caches/*/plugin-resolution/
+  - rm -f $HOME/.gradle/caches/*/fileHashes/fileHashes.bin
+  - rm -f $HOME/.gradle/caches/*/fileHashes/fileHashes.lock
+  - rm -f $HOME/.gradle/caches/*/javaCompile/javaCompile.lock
+  - rm -f $HOME/.gradle/caches/*/executionHistory/executionHistory.bin
+  - rm -f $HOME/.gradle/caches/*/executionHistory/executionHistory.lock
+  - rm -f $HOME/.gradle/caches/journal-1/file-access.bin
+  - rm -f $HOME/.gradle/caches/journal-1/journal-1.lock
+  - rm -f $HOME/.gradle/caches/transforms-1/transforms-1.lock
+  - rm -f $HOME/.gradle/caches/user-id.txt.lock
   # only cache latest gradle version used by the wrapper
   # list content in wrapper/dist sorted by modification time and remove entries starting by the second entry
   - ls -d $HOME/.gradle/wrapper/dists/* -1t | tail -n +2 | xargs rm -rf
@@ -87,13 +74,13 @@ jobs:
     before_install: *before_install
     install: *install
     before_script: *before_script
-    script: "./gradlew assembleDebug --scan"
+    script: "./gradlew assembleDebug --no-daemon --build-cache --console=plain --warning-mode=all --scan"
     before_cache: *before_cache
   - # Build and deploy release on tags
     if: tag IS present
     before_install: *before_install
     install: *install
     before_script: *before_script
-    script: "./gradlew assembleRelease -Pmy_storepass=$storepass -Pmy_keyalias=$keyalias -Pmy_keypass=$keypass --scan"
+    script: "./gradlew assembleRelease -Pmy_storepass=$storepass -Pmy_keyalias=$keyalias -Pmy_keypass=$keypass --no-daemon --no-build-cache --console=plain --warning-mode=all --scan"
     before_cache: *before_cache
     deploy: *deploy
