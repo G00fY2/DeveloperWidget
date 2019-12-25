@@ -108,7 +108,7 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
       action { presenter.honorClicking() }
     }
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
-      binding.aboutRootScrollview.doOnApplyWindowInsets { view, insets, padding ->
+      binding.aboutRootScrollview.doOnApplyWindowInsets { view, insets, padding, _ ->
         view.updatePadding(bottom = padding.bottom + insets.systemWindowInsetBottom)
       }
       binding.aboutRootScrollview.apply {

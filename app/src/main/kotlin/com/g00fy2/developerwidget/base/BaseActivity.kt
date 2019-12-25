@@ -82,7 +82,7 @@ abstract class BaseActivity(private val isDialogActivity: Boolean = false) : Dag
         }
       }
       findViewById<View>(Window.ID_ANDROID_CONTENT)?.let {
-        it.doOnApplyWindowInsets { view, insets, padding ->
+        it.doOnApplyWindowInsets { view, insets, padding, _ ->
           view.updatePadding(top = padding.top + insets.systemWindowInsetTop)
         }
       }

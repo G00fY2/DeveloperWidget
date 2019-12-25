@@ -26,7 +26,6 @@ import android.webkit.WebView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.marginBottom
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
@@ -40,6 +39,7 @@ import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
 import com.g00fy2.developerwidget.ktx.gesturalNavigationMode
 import com.g00fy2.developerwidget.ktx.hideKeyboard
 import com.g00fy2.developerwidget.ktx.showKeyboard
+import com.g00fy2.developerwidget.ktx.updateMargin
 import com.g00fy2.developerwidget.receiver.widget.WidgetProviderImpl
 import javax.inject.Inject
 
@@ -89,7 +89,7 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
     binding.widgetConfigRootScrollview.apply {
       viewTreeObserver.addOnScrollChangedListener {
         val scrollableRange = getChildAt(0).bottom - height + paddingBottom
-        val fabOffset = (binding.shareFab.height / 2) + binding.shareFab.marginBottom
+        val fabOffset = binding.shareFab.height + (12 * resources.displayMetrics.density).toInt()
         if (scrollY < scrollableRange - fabOffset) {
           binding.shareFab.hide()
         } else {
@@ -136,8 +136,11 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
     }
     binding.shareFab.setOnClickListener { presenter.shareDeviceData() }
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
-      binding.widgetConfigRootScrollview.doOnApplyWindowInsets { view, insets, padding ->
+      binding.widgetConfigRootScrollview.doOnApplyWindowInsets { view, insets, padding, _ ->
         view.updatePadding(bottom = padding.bottom + insets.systemWindowInsetBottom)
+      }
+      binding.shareFab.doOnApplyWindowInsets { view, insets, _, margin ->
+        view.updateMargin(bottom = margin.bottom + insets.systemWindowInsetBottom)
       }
     }
   }
