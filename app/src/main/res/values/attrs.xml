@@ -3,12 +3,4 @@
   <bool name="caps_header">false</bool>
   <bool name="shortcut_support">false</bool>
   <integer name="animation_duration">300</integer>
-
-  <!--  Temporary fix for https://issuetracker.google.com/issues/136103084-->
-  <attr name="flow_horizontalSeparator"/>
-  <attr name="flow_verticalSeparator"/>
-  <attr name="motionProgress"/>
-  <attr name="waveDecay"/>
-  <attr name="motionPathRotate"/>
-  <attr name="duration"/>
 </resources>
