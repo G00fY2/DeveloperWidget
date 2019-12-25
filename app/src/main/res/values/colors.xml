@@ -35,8 +35,8 @@
   <color name="chipColor">@color/lighterGrey</color>
   <color name="adaptiveShadow">#33808080</color>
 
-  <color name="nightBackground">#212121</color>
-  <color name="nightPrimary">#262728</color>
+  <color name="nightBackground">#202124</color>
+  <color name="nightPrimary">@color/nightBackground</color>
   <color name="nightAccent">#2581df</color>
   <color name="nightGrey">#313235</color>
 

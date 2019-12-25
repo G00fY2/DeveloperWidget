@@ -6,7 +6,7 @@
 
   <color name="backgroundColor">@color/nightBackground</color>
   <color name="transparentBackground50">#80212121</color>
-  <color name="dividerGrey">#3c3c3c</color>
+  <color name="dividerGrey">#5f6368</color>
 
   <color name="navigationBarColor">#A6000000</color>
   <color name="colorEdgeEffect">#a0a0a0</color>
