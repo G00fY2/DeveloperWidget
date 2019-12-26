@@ -12,7 +12,7 @@ class AboutFeedbackDialog(context: Context) {
     setCancelable(true)
     setCanceledOnTouchOutside(true)
     binding = AboutFeedbackDialogBinding.inflate(layoutInflater)
-    setContentView(R.layout.about_feedback_dialog)
+    setContentView(binding.root)
   }
 
   fun mailAction(mailIssueAction: () -> Unit): AboutFeedbackDialog {
