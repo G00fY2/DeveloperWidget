@@ -21,11 +21,8 @@
   <color name="rippleBackground">#33303030</color>
 
   <color name="widgetTextColor">@color/textTertiary</color>
-  <color name="widgetTextColor_day">@color/dayTextTertiary</color>
-  <color name="widgetTextColor_night">@color/nightTextPrimary</color>
   <color name="widgetIconColor">@color/textTertiary</color>
-  <color name="widgetIconColor_day">@color/dayTextTertiary</color>
-  <color name="widgetIconColor_night">@color/nightTextPrimary</color>
+
   <color name="iconTintColor">@color/textTertiary</color>
 
   <color name="chipColor">@color/lighterGrey</color>
@@ -46,6 +43,11 @@
   <color name="nightPrimary">@color/nightBackground</color>
   <color name="nightAccent">#8ab4f8</color>
   <color name="nightGrey">#3c4043</color>
+
+  <color name="widgetTextColor_day">@color/dayTextTertiary</color>
+  <color name="widgetIconColor_day">@color/dayTextTertiary</color>
+  <color name="widgetTextColor_night">@color/nightTextPrimary</color>
+  <color name="widgetIconColor_night">@color/nightTextPrimary</color>
 
   <color name="ic_launcher_background">#1a73e8</color>
 </resources>

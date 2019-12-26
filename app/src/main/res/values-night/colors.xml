@@ -15,6 +15,9 @@
   <color name="colorEdgeEffect">#a0a0a0</color>
   <color name="rippleBackground">#1ffafafa</color>
 
+  <color name="widgetTextColor">@color/nightTextPrimary</color>
+  <color name="widgetIconColor">@color/nightTextPrimary</color>
+
   <color name="chipColor">@color/nightGrey</color>
   <color name="adaptiveShadow">#33000000</color>
 </resources>
