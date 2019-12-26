@@ -10,6 +10,7 @@ import androidx.core.view.children
 import androidx.core.view.isVisible
 import com.g00fy2.developerwidget.databinding.AboutItemBinding
 import com.g00fy2.developerwidget.ktx.addRipple
+import com.google.android.material.textview.MaterialTextView
 
 class AboutItemLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
   ConstraintLayout(context, attrs, defStyleAttr) {
@@ -18,7 +19,13 @@ class AboutItemLayout @JvmOverloads constructor(context: Context, attrs: Attribu
 
   override fun setEnabled(enabled: Boolean) {
     super.setEnabled(enabled)
-    for (child in children) child.isEnabled = enabled
+    for (child in children) {
+      if (child::class == MaterialTextView::class) {
+        child.alpha = if (enabled) 1f else 0.38f
+      } else {
+        child.isEnabled = enabled
+      }
+    }
   }
 
   fun icon(@DrawableRes iconRes: Int): AboutItemLayout {
