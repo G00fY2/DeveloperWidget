@@ -6,6 +6,9 @@
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
 
+    <item name="android:textColorPrimary">@color/textPrimary</item>
+    <item name="android:textColorTertiary">@color/textTertiary</item>
+
     <item name="android:windowBackground">@color/backgroundColor</item>
     <item name="actionBarTheme">@style/ActionBarAccent</item>
     <item name="actionBarStyle">@style/ActionBarBackground</item>
@@ -36,6 +39,9 @@
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
+
+    <item name="android:textColorPrimary">@color/textPrimary</item>
+    <item name="android:textColorTertiary">@color/textTertiary</item>
 
     <item name="windowNoTitle">true</item>
     <item name="android:windowBackground">@drawable/bg_dialog_shape</item>

@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="nightAccent">#8ab4f8</color>
-
-  <color name="menuIcon">@color/colorAccent</color>
   <color name="navigationBarColor">@color/transparent</color>
   <color name="navigationBarDividerColor">@color/transparent</color>
 </resources>
