@@ -18,8 +18,7 @@ cache:
   - $HOME/.gradle/wrapper/
   - $HOME/.android/build-cache/
 
-android_phases:
-- phase: &before_install
+before_install:
   # download and unzip Android SDK command line tools
   - wget -nv https://dl.google.com/android/repository/$ANDROID_SDK_CMD_TOOLS
   - mkdir -p $HOME/sdk/cmdline-tools && unzip -q $ANDROID_SDK_CMD_TOOLS -d $HOME/sdk/cmdline-tools
@@ -30,31 +29,29 @@ android_phases:
   - mkdir -p $HOME/.android && touch $HOME/.android/repositories.cfg
   # decrypt private keystore
   - openssl aes-256-cbc -K $encrypted_a8fbd6bbc21d_key -iv $encrypted_a8fbd6bbc21d_iv -in keystore.jks.enc -out keystore.jks -d
-- phase: &install
+install:
   # accept licenses for all available packages that have not already been accepted
   - yes | sdkmanager --licenses >/dev/null
-- phase: &before_script
+before_script:
   # set executable flag for gradle wrapper
   - chmod +x gradlew
   # create dir for gradle settings
   - mkdir -p $HOME/.gradle
-  # disable gradle daemon for current user
+  # disable gradle daemon
   - echo "org.gradle.daemon=false" >> $HOME/.gradle/gradle.properties
   # set gradle log format to plain
   - echo "org.gradle.console=plain" >> $HOME/.gradle/gradle.properties
   # log all gradle warnings
   - echo "org.gradle.warning.mode=all" >> $HOME/.gradle/gradle.properties
   # control gradle build cache
-  - if [[ $TRAVIS_TAG == "" ]]; then
+  - if [[ $CACHING == "true" ]]; then
       echo "org.gradle.caching=true" >> $HOME/.gradle/gradle.properties;
       echo "android.enableBuildCache=true" >> $HOME/.gradle/gradle.properties;
-      echo "Build cache enabled";
     else
       echo "org.gradle.caching=false" >> $HOME/.gradle/gradle.properties;
       echo "android.enableBuildCache=false" >> $HOME/.gradle/gradle.properties;
-      echo "Build cache disabled";
     fi
-- phase: &before_cache
+before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -rf $HOME/.gradle/caches/*/plugin-resolution/
   - rm -f $HOME/.gradle/caches/*/fileHashes/fileHashes.bin
@@ -69,39 +66,32 @@ android_phases:
   # only cache latest gradle version used by the wrapper
   # list content in wrapper/dist sorted by modification time and remove entries starting by the second entry
   - ls -d $HOME/.gradle/wrapper/dists/* -1t | tail -n +2 | xargs rm -rf
-- phase: &deploy
-    provider: releases
-    edge: true
-    token:
-      secure: J5U/QxYAcGZn/pZeU8+YK7ani5dn64McDEVj5BxTBbywfhfpabzug+6H8k6Mnvs8m8CEvi2NsgptyvsxMt6952dNFI9F0URRsDkDdBvKQKdBmhCmCWVckRushfrn5k8RTjpJFYExiuDw6mSPZVtVzdXgHTgiZzPW20skROgoOq6Jb2CMa9awyI1Pbni7Emirkdl3N+h8krCyi/T06va1QebbWYsdLem8EvPgREBV+fDZ8RR+ABnT68aV7Jyq5YWortThT0TRAQ5f17C/T/aDWU7TqL4+HbfGEMvlO4vFYKUHNhxB6ZssaOpLSRVZKq4kecr2PQWIzQX+VFo4Fyxe3kTqfgidR2ptihkAERFz5FCHsEDDSRliatUUFpXxNLaa4ZIooo5p5uThRniu9COjdwuJZtFUIqstL1IrLntv4+3P2SY2BfdsTkgSuq7NT37u6MbT/cdr+dO7jgCoRIyxRzQGoeViALjzwIdXS2iBCwEpex9IDdvjsHmFJIo+8IsJGeGUCRsJL0tFBtZ8lIks1bh+t7pxKywhS3vXGny2ZCaIdA55g0b5N0D64P12ibWI80B7EAEv43Xmb5oVkVYdq9PdPJFoG/b4nDy8NfbQCWv9P/xgP6KwogAPsCJJ7tS4qn2HV6eUKrsj7ioBwpHsn/3ZEL0gU3sBnGJk20hyZyc=
-    file:
-      - $TRAVIS_BUILD_DIR/app/build/outputs/bundle/release/*.aab
-      - $TRAVIS_BUILD_DIR/app/build/outputs/apk/release/*.apk
-      - $TRAVIS_BUILD_DIR/app/build/outputs/mapping/release/mapping.txt
-    draft: false
-    on:
-      tags: true
-    name: $TRAVIS_TAG
-    tag_name: $TRAVIS_TAG
-    release_notes: "Generated release from Travis CI for build $TRAVIS_BUILD_NUMBER"
-    prerelease: true
 
 jobs:
   include:
   - # Build debug
     if: branch IN (develop, master)
-    before_install: *before_install
-    install: *install
-    before_script: *before_script
+    env: CACHING=true
     script: "./gradlew assembleDebug --scan"
-    before_cache: *before_cache
   - # Build and deploy release on tags
     if: tag IS present
-    before_install: *before_install
-    install: *install
-    before_script: *before_script
+    env: CACHING=false
     script:
       - "./gradlew assembleRelease -Pmy_storepass=$storepass -Pmy_keyalias=$keyalias -Pmy_keypass=$keypass --scan"
       - "./gradlew :app:bundleRelease -Pmy_storepass=$storepass -Pmy_keyalias=$keyalias -Pmy_keypass=$keypass"
-    before_cache: *before_cache
-    deploy: *deploy
+    deploy:
+      provider: releases
+      edge: true
+      token:
+        secure: J5U/QxYAcGZn/pZeU8+YK7ani5dn64McDEVj5BxTBbywfhfpabzug+6H8k6Mnvs8m8CEvi2NsgptyvsxMt6952dNFI9F0URRsDkDdBvKQKdBmhCmCWVckRushfrn5k8RTjpJFYExiuDw6mSPZVtVzdXgHTgiZzPW20skROgoOq6Jb2CMa9awyI1Pbni7Emirkdl3N+h8krCyi/T06va1QebbWYsdLem8EvPgREBV+fDZ8RR+ABnT68aV7Jyq5YWortThT0TRAQ5f17C/T/aDWU7TqL4+HbfGEMvlO4vFYKUHNhxB6ZssaOpLSRVZKq4kecr2PQWIzQX+VFo4Fyxe3kTqfgidR2ptihkAERFz5FCHsEDDSRliatUUFpXxNLaa4ZIooo5p5uThRniu9COjdwuJZtFUIqstL1IrLntv4+3P2SY2BfdsTkgSuq7NT37u6MbT/cdr+dO7jgCoRIyxRzQGoeViALjzwIdXS2iBCwEpex9IDdvjsHmFJIo+8IsJGeGUCRsJL0tFBtZ8lIks1bh+t7pxKywhS3vXGny2ZCaIdA55g0b5N0D64P12ibWI80B7EAEv43Xmb5oVkVYdq9PdPJFoG/b4nDy8NfbQCWv9P/xgP6KwogAPsCJJ7tS4qn2HV6eUKrsj7ioBwpHsn/3ZEL0gU3sBnGJk20hyZyc=
+      file:
+        - $TRAVIS_BUILD_DIR/app/build/outputs/bundle/release/*.aab
+        - $TRAVIS_BUILD_DIR/app/build/outputs/apk/release/*.apk
+        - $TRAVIS_BUILD_DIR/app/build/outputs/mapping/release/mapping.txt
+      draft: false
+      on:
+        tags: true
+      name: $TRAVIS_TAG
+      tag_name: $TRAVIS_TAG
+      release_notes: "Generated release from Travis CI for build $TRAVIS_BUILD_NUMBER"
+      prerelease: true
