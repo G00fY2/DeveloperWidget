@@ -11,13 +11,13 @@ buildscript {
     buildToolsVersion = '29.0.2'
     minSdkVersion = 14
     targetSdkVersion = 29
-    androidGradleVersion = '4.0.0-alpha07'
+    androidGradleVersion = '4.0.0-alpha08'
     versioningPluginVersion = '1.0.2'
-    licenseReportVersion = '1.11'
+    licenseReportVersion = '1.12'
 
     // Library versions
     kotlinVersion = '1.3.61'
-    coroutinesVersion = '1.3.2'
+    coroutinesVersion = '1.3.3'
     appcompatVersion = '1.2.0-alpha01'
     coreKtxVersion = '1.2.0-rc01'
     activityVersion = '1.1.0-rc03'
@@ -27,8 +27,8 @@ buildscript {
     vectorDrawableVersion = '1.1.0'
     constraintlayoutVersion = '2.0.0-beta4'
     timberVersion = '4.7.1'
-    daggerVersion = '2.25.3'
-    versCompVersion = '1.3.3'
+    daggerVersion = '2.25.4'
+    versCompVersion = '1.3.4'
   }
   repositories {
     google()
