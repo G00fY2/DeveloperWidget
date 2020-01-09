@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.content.res.ResourcesCompat
@@ -94,14 +93,14 @@ class AppsActivity : BaseActivity(true), AppsContract.AppsView {
         }
       })
       setOnEditorActionListener { _, actionId, _ ->
-        val filterString = binding.filterEdittext.text.toString().trim()
+        val filterString = text.toString().trim()
         if (actionId == EditorInfo.IME_ACTION_DONE && filterString.isNotEmpty() && !presenter.duplicateFilter(
             filterString
           )
         ) {
           presenter.addAppFilter(filterString)
           addFilterChip(filterString)
-          binding.filterEdittext.text.clear()
+          text.clear()
         }
         true
       }
@@ -109,17 +108,15 @@ class AppsActivity : BaseActivity(true), AppsContract.AppsView {
         presenter.updateFilter(it)
         setCompoundDrawables(null, null, if (!it.isNullOrEmpty()) clearDrawable else null, null)
       }
-      setOnTouchListener { v, event ->
-        var consumed = false
-        if (v is EditText) {
-          if (event.x >= v.width - v.totalPaddingRight) {
-            if (event.action == MotionEvent.ACTION_UP) {
-              binding.filterEdittext.text.clear()
-            }
-            consumed = true
+      setOnTouchListener { _, event ->
+        if (event.x >= width - totalPaddingRight) {
+          if (event.action == MotionEvent.ACTION_UP) {
+            performClick()
+            text.clear()
           }
+          return@setOnTouchListener true
         }
-        consumed
+        false
       }
     }
     // necessary to measure the view heights for animations

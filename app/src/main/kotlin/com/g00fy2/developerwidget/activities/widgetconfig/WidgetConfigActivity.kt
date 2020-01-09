@@ -127,9 +127,9 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
           toggleDeviceNameEdit(false)
         }
       }
-      setOnEditorActionListener { v, actionId, _ ->
+      setOnEditorActionListener { _, actionId, _ ->
         if (actionId == EditorInfo.IME_ACTION_DONE) {
-          v.clearFocus()
+          clearFocus()
         }
         true
       }

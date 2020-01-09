@@ -108,10 +108,10 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
       action { presenter.honorClicking() }
     }
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
-      binding.aboutRootScrollview.doOnApplyWindowInsets { view, insets, padding, _ ->
-        view.updatePadding(bottom = padding.bottom + insets.systemWindowInsetBottom)
-      }
       binding.aboutRootScrollview.apply {
+        doOnApplyWindowInsets { _, insets, padding, _ ->
+          updatePadding(bottom = padding.bottom + insets.systemWindowInsetBottom)
+        }
         viewTreeObserver.addOnScrollChangedListener {
           val scrollableRange = getChildAt(0).bottom - height + paddingBottom
           if (!gesturalNavigationMode()) {
