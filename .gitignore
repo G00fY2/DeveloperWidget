@@ -88,6 +88,7 @@ captures/
 .idea/usage.statistics.xml
 .idea/contentModel.xml
 .idea/kotlinc.xml
+.idea/jarRepositories.xml
 # optional
 .idea/dictionaries
 .idea/inspectionProfiles

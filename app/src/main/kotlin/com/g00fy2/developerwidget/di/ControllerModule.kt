@@ -53,5 +53,4 @@ abstract class ActivityControllerModule {
   @Binds
   @ActivityScope
   abstract fun provideStorageDirsController(storageDirsControllerImpl: StorageDirsControllerImpl): StorageDirsController
-
 }

@@ -6,38 +6,37 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
-import android.os.Bundle
-import android.text.Editable
 import android.text.InputFilter
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewbinding.ViewBinding
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
+import com.g00fy2.developerwidget.databinding.ActivityAppsBinding
 import com.g00fy2.developerwidget.ktx.collapse
 import com.g00fy2.developerwidget.ktx.expand
 import com.g00fy2.developerwidget.ktx.hideKeyboard
 import com.google.android.material.chip.Chip
-import kotlinx.android.synthetic.main.activity_apps.*
 import javax.inject.Inject
 
-class AppsActivity : BaseActivity(R.layout.activity_apps, true), AppsContract.AppsView {
+class AppsActivity : BaseActivity(true), AppsContract.AppsView {
 
   @Inject
   lateinit var presenter: AppsContract.AppsPresenter
+  private lateinit var binding: ActivityAppsBinding
 
   private lateinit var adapter: AppsAdapter
   private var scrollToTopAfterCommit = false
@@ -45,44 +44,47 @@ class AppsActivity : BaseActivity(R.layout.activity_apps, true), AppsContract.Ap
 
   override fun providePresenter(): BasePresenter = presenter
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
+  override fun setViewBinding(): ViewBinding {
+    binding = ActivityAppsBinding.inflate(layoutInflater)
+    return binding
+  }
 
+  override fun initView() {
     adapter = AppsAdapter()
     adapter.setOnAppClicked { appInfo -> presenter.openAppSettingsActivity(appInfo) }
     adapter.setCommitCallback(Runnable {
       adapter.itemCount.let {
-        no_items_textview.visibility = if (it == 0) View.VISIBLE else View.INVISIBLE
-        no_items_imageview.visibility = if (it == 0) View.VISIBLE else View.INVISIBLE
-        recyclerview.overScrollMode = if (it == 0) View.OVER_SCROLL_NEVER else View.OVER_SCROLL_ALWAYS
+        binding.noItemsTextview.visibility = if (it == 0) View.VISIBLE else View.INVISIBLE
+        binding.noItemsImageview.visibility = if (it == 0) View.VISIBLE else View.INVISIBLE
+        binding.recyclerview.overScrollMode = if (it == 0) View.OVER_SCROLL_NEVER else View.OVER_SCROLL_ALWAYS
       }
       if (scrollToTopAfterCommit) {
         scrollToTopAfterCommit = false
-        recyclerview.scrollToPosition(0)
+        binding.recyclerview.scrollToPosition(0)
       }
     })
-    recyclerview.setHasFixedSize(true)
-    recyclerview.itemAnimator = null
-    recyclerview.layoutManager = LinearLayoutManager(this)
-    recyclerview.adapter = adapter
+    binding.recyclerview.setHasFixedSize(true)
+    binding.recyclerview.itemAnimator = null
+    binding.recyclerview.layoutManager = LinearLayoutManager(this)
+    binding.recyclerview.adapter = adapter
 
-    cancel_textview.setOnClickListener { finish() }
+    binding.cancelTextview.setOnClickListener { finish() }
     initFilterViews()
   }
 
   private fun initFilterViews() {
-    app_filter_info.setOnClickListener {
+    binding.appFilterInfo.setOnClickListener {
       scrollToTopAfterCommit = true
       presenter.disableFilter()
-      app_filter_info.collapse(true, LinearOutSlowInInterpolator())
+      binding.appFilterInfo.collapse(true, LinearOutSlowInInterpolator())
     }
-    TooltipCompat.setTooltipText(filter_imageview, filter_imageview.contentDescription)
-    filter_imageview.setOnClickListener {
+    TooltipCompat.setTooltipText(binding.filterImageview, binding.filterImageview.contentDescription)
+    binding.filterImageview.setOnClickListener {
       presenter.updateFilter(null)
       toggleFilterView()
     }
 
-    filter_edittext.apply {
+    binding.filterEdittext.apply {
       filters = arrayOf(InputFilter { source, _, _, _, _, _ ->
         if (source.isEmpty() || source.matches("^[a-zA-Z0-9._*]*$".toRegex())) {
           null
@@ -91,60 +93,51 @@ class AppsActivity : BaseActivity(R.layout.activity_apps, true), AppsContract.Ap
         }
       })
       setOnEditorActionListener { _, actionId, _ ->
-        val filterString = filter_edittext.text.toString().trim()
+        val filterString = text.toString().trim()
         if (actionId == EditorInfo.IME_ACTION_DONE && filterString.isNotEmpty() && !presenter.duplicateFilter(
             filterString
           )
         ) {
           presenter.addAppFilter(filterString)
           addFilterChip(filterString)
-          filter_edittext.text.clear()
+          text.clear()
         }
         true
       }
-      addTextChangedListener(object : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {
-          presenter.updateFilter(s)
-          setCompoundDrawables(null, null, if (!s.isNullOrEmpty()) clearDrawable else null, null)
-        }
-
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        }
-      })
-      setOnTouchListener { v, event ->
-        var consumed = false
-        if (v is EditText) {
-          if (event.x >= v.width - v.totalPaddingRight) {
-            if (event.action == MotionEvent.ACTION_UP) {
-              filter_edittext.text.clear()
-            }
-            consumed = true
+      doAfterTextChanged {
+        presenter.updateFilter(it)
+        setCompoundDrawables(null, null, if (!it.isNullOrEmpty()) clearDrawable else null, null)
+      }
+      setOnTouchListener { _, event ->
+        if (event.x >= width - totalPaddingRight) {
+          if (event.action == MotionEvent.ACTION_UP) {
+            performClick()
+            text.clear()
           }
+          return@setOnTouchListener true
         }
-        consumed
+        false
       }
     }
     // necessary to measure the view heights for animations
     setFilterChips(presenter.getCurrentFilter())
-    filter_linearlayout.doOnPreDraw { it.visibility = View.GONE }
-    app_filter_info.doOnPreDraw { it.visibility = View.GONE }
+    binding.filterLinearlayout.doOnPreDraw { it.visibility = View.GONE }
+    binding.appFilterInfo.doOnPreDraw { it.visibility = View.GONE }
   }
 
   override fun toggleResultView(installedAppPackages: List<AppInfo>, filters: List<String>) {
     adapter.initialList(installedAppPackages, filters)
-    show_all_textview.text = getString(R.string.show_all_apps).format(installedAppPackages.size)
-    app_filter_info.visibility = if (filters.isEmpty() || installedAppPackages.isEmpty()) View.GONE else View.VISIBLE
-    if (filter_edittext.text.toString().isNotEmpty()) {
-      adapter.updateAppFilter(filter_edittext.text.toString())
+    binding.showAllTextview.text = getString(R.string.show_all_apps).format(installedAppPackages.size)
+    binding.appFilterInfo.visibility =
+      if (filters.isEmpty() || installedAppPackages.isEmpty()) View.GONE else View.VISIBLE
+    if (binding.filterEdittext.text.toString().isNotEmpty()) {
+      adapter.updateAppFilter(binding.filterEdittext.text.toString())
     }
 
-    ViewCompat.animate(progressbar).alpha(0f)
-      .setDuration(resources.getInteger(android.R.integer.config_shortAnimTime).toLong()).withEndAction {
-        progressbar.visibility = View.INVISIBLE
-      }.start()
+    ViewCompat.animate(binding.progressbar).alpha(0f)
+      .setDuration(resources.getInteger(android.R.integer.config_shortAnimTime).toLong())
+      .withEndAction { binding.progressbar.visibility = View.INVISIBLE }
+      .start()
   }
 
   override fun updateAppFilter(filters: List<String>) = adapter.updateAppFilters(filters)
@@ -153,43 +146,43 @@ class AppsActivity : BaseActivity(R.layout.activity_apps, true), AppsContract.Ap
 
   override fun updateFilterIcon(filterActive: Boolean) {
     if (filterActive) {
-      filter_imageview.setColorFilter(ResourcesCompat.getColor(resources, R.color.colorAccent, null))
+      binding.filterImageview.setColorFilter(ResourcesCompat.getColor(resources, R.color.colorAccent, null))
     } else {
-      filter_imageview.clearColorFilter()
+      binding.filterImageview.clearColorFilter()
     }
   }
 
   private fun toggleFilterView() {
-    if (filter_linearlayout.isVisible) {
-      if (presenter.getCurrentFilter().isNotEmpty()) app_filter_info.expand(true, FastOutLinearInInterpolator())
-      filter_linearlayout.collapse(easing = FastOutLinearInInterpolator())
-      filter_edittext.hideKeyboard()
+    if (binding.filterLinearlayout.isVisible) {
+      if (presenter.getCurrentFilter().isNotEmpty()) binding.appFilterInfo.expand(true, FastOutLinearInInterpolator())
+      binding.filterLinearlayout.collapse(easing = FastOutLinearInInterpolator())
+      binding.filterEdittext.hideKeyboard()
     } else {
-      if (app_filter_info.isVisible) app_filter_info.collapse(true, LinearOutSlowInInterpolator())
-      filter_edittext.text.clear()
+      if (binding.appFilterInfo.isVisible) binding.appFilterInfo.collapse(true, LinearOutSlowInInterpolator())
+      binding.filterEdittext.text.clear()
       setFilterChips(presenter.getCurrentFilter())
-      filter_linearlayout.expand(easing = LinearOutSlowInInterpolator())
+      binding.filterLinearlayout.expand(easing = LinearOutSlowInInterpolator())
     }
   }
 
   private fun removeAppFilter(chip: Chip) {
-    chip_group.removeView(chip)
+    binding.chipGroup.removeView(chip)
     scrollToTopAfterCommit = true
-    presenter.removeAppFilter(chip.text.toString(), filter_edittext.text.toString())
+    presenter.removeAppFilter(chip.text.toString(), binding.filterEdittext.text.toString())
   }
 
   private fun setFilterChips(filters: Collection<String>) {
-    chip_group.removeAllViews()
+    binding.chipGroup.removeAllViews()
     for (i in filters) {
       addFilterChip(i)
     }
   }
 
   private fun addFilterChip(filterString: String) {
-    (LayoutInflater.from(this).inflate(R.layout.filter_chip, chip_group, false) as Chip).let {
+    (LayoutInflater.from(this).inflate(R.layout.filter_chip, binding.chipGroup, false) as Chip).let {
       it.text = filterString
       it.isClickable = false
-      chip_group.addView(it)
+      binding.chipGroup.addView(it)
       it.setOnCloseIconClickListener { view -> removeAppFilter(view as Chip) }
     }
   }
@@ -203,7 +196,7 @@ class AppsActivity : BaseActivity(R.layout.activity_apps, true), AppsContract.Ap
         @Suppress("DEPRECATION")
         setColorFilter(ResourcesCompat.getColor(resources, R.color.iconTintColor, null), PorterDuff.Mode.SRC_IN)
       }
-      setBounds(0, 0, this.intrinsicWidth, this.intrinsicHeight)
+      setBounds(0, 0, intrinsicWidth, intrinsicHeight)
     }
   }
 }

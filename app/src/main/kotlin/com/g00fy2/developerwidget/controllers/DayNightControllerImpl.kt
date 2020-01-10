@@ -15,7 +15,7 @@ import javax.inject.Named
 class DayNightControllerImpl @Inject constructor() : DayNightController {
 
   @Inject
-  @field:Named(APPLICATION)
+  @Named(APPLICATION)
   lateinit var context: Context
   @Inject
   lateinit var toastController: ToastController

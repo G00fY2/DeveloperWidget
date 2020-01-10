@@ -14,7 +14,7 @@ import javax.inject.Named
 class PermissionControllerImpl @Inject constructor() : PermissionController {
 
   @Inject
-  @field:Named(ACTIVITY)
+  @Named(ACTIVITY)
   lateinit var context: Context
 
   override fun hasPermission(permission: String): Boolean {
@@ -45,5 +45,4 @@ class PermissionControllerImpl @Inject constructor() : PermissionController {
   override fun requestPermissions(permissions: Array<String>) {
     if (!hasPermissions(permissions)) (context as Activity).requestPermissions(permissions, 1)
   }
-
 }

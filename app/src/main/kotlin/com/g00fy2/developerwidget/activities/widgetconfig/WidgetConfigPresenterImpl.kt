@@ -2,6 +2,7 @@ package com.g00fy2.developerwidget.activities.widgetconfig
 
 import androidx.lifecycle.Lifecycle.Event
 import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.lifecycleScope
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BasePresenterImpl
 import com.g00fy2.developerwidget.controllers.IntentController
@@ -35,7 +36,7 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
 
   @OnLifecycleEvent(Event.ON_CREATE)
   override fun loadDeviceData() {
-    launch {
+    view.lifecycleScope.launch {
       withContext(Dispatchers.IO) {
         getDeviceData()
       }.let {
@@ -46,7 +47,7 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
 
   @OnLifecycleEvent(Event.ON_CREATE)
   override fun loadCustomDeviceName() {
-    launch {
+    view.lifecycleScope.launch {
       withContext(Dispatchers.IO) {
         widgetPreferenceController.getCustomDeviceName()
       }.let {
@@ -80,7 +81,7 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
   override fun showHomescreen() = intentController.showHomescreen()
 
   private suspend fun getDeviceData(): List<Pair<String, DeviceDataItem>> {
-    return deviceDataSource
+    val itemList = deviceDataSource
       .getStaticDeviceData()
       .plus(deviceDataSource.getHardwareData())
       .plus(deviceDataSource.getSoftwareInfo())
@@ -93,10 +94,13 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
           { !it.second.isHeader },
           { stringController.getString(it.second.title) })
       )
+
+    val emptyCategories = itemList.groupingBy { it.second.category }.eachCount().filter { it.value > 1 }
+    return itemList.filter { emptyCategories.containsKey(it.second.category) }
   }
 
   override fun shareDeviceData() {
-    launch {
+    view.lifecycleScope.launch {
       withContext(Dispatchers.IO) {
         getDeviceData()
       }.let { intentController.shareDeviceData(formatDeviceDataString(it)) }
@@ -112,7 +116,6 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
       }
     }.removeSurrounding("\n")
   }
-
 
   override fun showManuallyAddWidgetNotice() = toastController.showToast(R.string.manually_add_widget)
 }

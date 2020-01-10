@@ -9,7 +9,7 @@ import javax.inject.Named
 class ToastControllerImpl @Inject constructor() : ToastController {
 
   @Inject
-  @field:Named(APPLICATION)
+  @Named(APPLICATION)
   lateinit var context: Context
   private var toast: Toast? = null
 

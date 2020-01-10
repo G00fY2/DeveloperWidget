@@ -10,10 +10,10 @@ import javax.inject.Named
 class WidgetPreferenceControllerImpl @Inject constructor() : WidgetPreferenceController {
 
   @Inject
-  @field:Named(ACTIVITY)
+  @Named(ACTIVITY)
   lateinit var context: Context
   @Inject
-  @field:Named(WIDGET_ID)
+  @Named(WIDGET_ID)
   lateinit var widgetId: String
 
   private val sharedPreference by lazy {

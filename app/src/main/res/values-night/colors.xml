@@ -4,20 +4,20 @@
   <color name="colorPrimaryDark">@color/nightPrimary</color>
   <color name="colorAccent">@color/nightAccent</color>
 
-  <color name="backgroundColor">@color/nightBackground</color>
-  <color name="transparentBackground50">#80212121</color>
-  <color name="dividerGrey">#3c3c3c</color>
+  <color name="textPrimary">@color/nightTextPrimary</color>
+  <color name="textTertiary">@color/nightTextTertiary</color>
 
-  <color name="navigationBarColor">@color/black</color>
-  <color name="navigationBarDividerColor">@color/black</color>
+  <color name="backgroundColor">@color/nightBackground</color>
+  <color name="transparentBackground50">@color/transparentBackground50_night</color>
+  <color name="dividerGrey">#5f6368</color>
+
+  <color name="navigationBarColor">#A6202124</color>
   <color name="colorEdgeEffect">#a0a0a0</color>
   <color name="rippleBackground">#1ffafafa</color>
 
-  <color name="widgetTextColor">@color/white</color>
-  <color name="widgetIconColor">@color/white</color>
-  <color name="iconTintColor">#b3b3b3</color>
+  <color name="widgetTextColor">@color/nightTextPrimary</color>
+  <color name="widgetIconColor">@color/nightTextPrimary</color>
 
   <color name="chipColor">@color/nightGrey</color>
-  <color name="filterTextColor">#e4e4e5</color>
   <color name="adaptiveShadow">#33000000</color>
 </resources>

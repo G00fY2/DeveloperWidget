@@ -5,27 +5,121 @@ import android.content.ComponentName
 import android.content.pm.PackageManager
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
-import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.updatePadding
+import androidx.viewbinding.ViewBinding
 import com.g00fy2.developerwidget.BuildConfig
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.widgetconfig.ConfigLauncherActivity
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
-import kotlinx.android.synthetic.main.activity_about.*
+import com.g00fy2.developerwidget.databinding.ActivityAboutBinding
+import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
+import com.g00fy2.developerwidget.ktx.gesturalNavigationMode
 import javax.inject.Inject
 
-class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.AboutView {
+class AboutActivity : BaseActivity(), AboutContract.AboutView {
 
   @Inject
   lateinit var presenter: AboutContract.AboutPresenter
+  private lateinit var binding: ActivityAboutBinding
 
   override fun providePresenter(): BasePresenter = presenter
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    initView()
+  override fun setViewBinding(): ViewBinding {
+    binding = ActivityAboutBinding.inflate(layoutInflater)
+    return binding
+  }
+
+  override fun initView() {
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    setActionbarElevationListener(binding.aboutRootScrollview)
+
+    binding.appVersionTextview.text = String.format(getString(R.string.app_version), BuildConfig.VERSION_NAME)
+
+    binding.themeItem.init {
+      title(R.string.app_theme)
+      action { presenter.toggleDayNightMode() }
+    }
+    binding.privacyItem.init {
+      icon(R.drawable.ic_privacy_logo)
+      title(R.string.privacy_policy)
+      action { presenter.openUrl(PRIVACY_POLICY) }
+    }
+    binding.sourceCodeItem.init {
+      icon(R.drawable.ic_github_logo_shape)
+      title(R.string.source_code)
+      action { presenter.openUrl(GITHUB_PROJECT) }
+    }
+    binding.changelogItem.init {
+      icon(R.drawable.ic_changes_logo)
+      title(R.string.changelog)
+      action { presenter.openUrl(CHANGES) }
+    }
+    binding.licenseItem.init {
+      icon(R.drawable.ic_open_source_logo)
+      title(R.string.license)
+      description(R.string.mit_license)
+      action { presenter.openUrl(MIT_LICENSE) }
+    }
+    binding.feedbackItem.init {
+      icon(R.drawable.ic_feedback)
+      title(R.string.feedback)
+      description(R.string.feedback_description)
+      action { showFeedbackOptions() }
+    }
+    binding.authorHeader.init {
+      title(R.string.author)
+    }
+    binding.twitterItem.init {
+      icon(R.drawable.ic_twitter_logo)
+      title(R.string.twitter)
+      description(R.string.twitter_username)
+      action { presenter.openUrl(TWITTER_USER) }
+    }
+    binding.githubItem.init {
+      icon(R.drawable.ic_github_logo_shape)
+      title(R.string.github)
+      description(R.string.github_username)
+      action { presenter.openUrl(GITHUB_USER) }
+    }
+    binding.licensesHeader.init {
+      title(R.string.licenses)
+    }
+    binding.openSourceLicensesItem.init {
+      title(R.string.open_source_licenses)
+      description(R.string.open_source_licenses_description)
+      action { presenter.openUrl(OSS_LICENSES) }
+    }
+    binding.imageLicensesItem.init {
+      title(R.string.icon_credits)
+      description(R.string.icon_credits_description)
+      action { presenter.openUrl(ICON_CREDITS) }
+    }
+    binding.hideLauncherIconItem.init {
+      title(R.string.show_app_icon)
+      description(R.string.show_app_icon_description)
+      action { toggleLauncherIcon() }
+    }
+    binding.buildNumberItem.init {
+      title(R.string.build_number)
+      description(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ") " + BuildConfig.BUILD_TYPE)
+      action { presenter.honorClicking() }
+    }
+    if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
+      binding.aboutRootScrollview.apply {
+        doOnApplyWindowInsets { _, insets, padding, _ ->
+          updatePadding(bottom = padding.bottom + insets.systemWindowInsetBottom)
+        }
+        viewTreeObserver.addOnScrollChangedListener {
+          val scrollableRange = getChildAt(0).bottom - height + paddingBottom
+          if (!gesturalNavigationMode()) {
+            clipToPadding = (scrollY >= scrollableRange)
+          }
+        }
+      }
+    }
   }
 
   override fun onResume() {
@@ -44,85 +138,8 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
     }
   }
 
-  private fun initView() {
-    supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    setActionbarElevationListener(about_root_scrollview)
-
-    app_version_textview.text = String.format(getString(R.string.app_version), BuildConfig.VERSION_NAME)
-
-    theme_item.init {
-      title(R.string.app_theme)
-      action { presenter.toggleDayNightMode() }
-    }
-    privacy_item.init {
-      icon(R.drawable.ic_privacy_logo)
-      title(R.string.privacy_policy)
-      action { presenter.openUrl(PRIVACY_POLICY) }
-    }
-    license_item.init {
-      icon(R.drawable.ic_open_source_logo)
-      title(R.string.license)
-      description(R.string.mit_license)
-      action { presenter.openUrl(MIT_LICENSE) }
-    }
-    feedback_item.init {
-      icon(R.drawable.ic_feedback)
-      title(R.string.feedback)
-      description(R.string.feedback_description)
-      action { showFeedbackOptions() }
-    }
-    source_code_item.init {
-      icon(R.drawable.ic_github_logo_shape)
-      title(R.string.source_code)
-      action { presenter.openUrl(GITHUB_PROJECT) }
-    }
-    changelog_item.init {
-      icon(R.drawable.ic_changes_logo)
-      title(R.string.changelog)
-      action { presenter.openUrl(CHANGES) }
-    }
-    author_header.init {
-      title(R.string.author)
-    }
-    twitter_item.init {
-      icon(R.drawable.ic_twitter_logo)
-      title(R.string.twitter)
-      description(R.string.twitter_username)
-      action { presenter.openUrl(TWITTER_USER) }
-    }
-    github_item.init {
-      icon(R.drawable.ic_github_logo_shape)
-      title(R.string.github)
-      description(R.string.github_username)
-      action { presenter.openUrl(GITHUB_USER) }
-    }
-    licenses_header.init {
-      title(R.string.licenses)
-    }
-    open_source_licenses_item.init {
-      title(R.string.open_source_licenses)
-      description(R.string.open_source_licenses_description)
-      action { presenter.openUrl(OSS_LICENSES) }
-    }
-    image_licenses_item.init {
-      title(R.string.icon_credits)
-      description(R.string.icon_credits_description)
-      action { presenter.openUrl(ICON_CREDITS) }
-    }
-    hide_launcher_icon_item.init {
-      title(R.string.show_app_icon)
-      description(R.string.show_app_icon_description)
-      action { toggleLauncherIcon() }
-    }
-    build_number_item.init {
-      title(R.string.build_number)
-      description(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ") " + BuildConfig.BUILD_TYPE)
-      action { presenter.honorClicking() }
-    }
-  }
-
   override fun updateThemeToggleView() {
-    theme_item.let {
+    binding.themeItem.let {
       when (dayNightController.getCurrentDefaultMode()) {
         AppCompatDelegate.MODE_NIGHT_YES -> it.icon(R.drawable.ic_mode_night).description(R.string.night_mode)
         AppCompatDelegate.MODE_NIGHT_NO -> it.icon(R.drawable.ic_mode_day).description(R.string.day_mode)
@@ -131,10 +148,10 @@ class AboutActivity : BaseActivity(R.layout.activity_about), AboutContract.About
     }
   }
 
-  private fun updateLauncherIconSwitch() = hide_launcher_icon_item.switch(!isLauncherIconDisabled())
+  private fun updateLauncherIconSwitch() = binding.hideLauncherIconItem.switch(!isLauncherIconDisabled())
 
   private fun updateLauncherIconItem() {
-    if (VERSION.SDK_INT >= VERSION_CODES.Q) hide_launcher_icon_item.isEnabled = isLauncherIconDisabled()
+    if (VERSION.SDK_INT >= VERSION_CODES.Q) binding.hideLauncherIconItem.isEnabled = isLauncherIconDisabled()
   }
 
   private fun showFeedbackOptions() {

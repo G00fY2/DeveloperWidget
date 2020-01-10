@@ -5,27 +5,28 @@ import android.os.Build.VERSION_CODES
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import com.g00fy2.developerwidget.R
+import com.g00fy2.developerwidget.activities.shortcut.ShortcutAdapter.ShortcutViewHolder
 import com.g00fy2.developerwidget.base.BaseAdapter
 import com.g00fy2.developerwidget.base.BaseViewHolder
-import kotlinx.android.synthetic.main.shortcut_item.*
+import com.g00fy2.developerwidget.databinding.ShortcutItemBinding
 
-class ShortcutAdapter : BaseAdapter<ShortcutInfo, BaseViewHolder>(ShortcutDiffUtilsCallback()) {
+@RequiresApi(VERSION_CODES.N_MR1)
+class ShortcutAdapter : BaseAdapter<ShortcutInfo, ShortcutViewHolder>(ShortcutDiffUtilsCallback()) {
 
   private var onShortcutSelected: ((Int) -> Unit) = {}
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-    return BaseViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.shortcut_item, parent, false)).apply {
-      addRipple()
-      itemView.setOnClickListener { onShortcutSelected(adapterPosition) }
+  inner class ShortcutViewHolder(val binding: ShortcutItemBinding) : BaseViewHolder<ShortcutInfo>(binding) {
+    override fun onBind(item: ShortcutInfo) {
+      item.run {
+        binding.shortcutTitleTextview.text = item.longLabel ?: item.shortLabel ?: ""
+      }
     }
   }
 
-  @RequiresApi(VERSION_CODES.N_MR1)
-  override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-    holder.apply {
-      shortcut_title_textview.text =
-        getItem(position)?.longLabel?.toString() ?: getItem(position)?.shortLabel.toString()
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShortcutViewHolder {
+    return ShortcutViewHolder(ShortcutItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)).apply {
+      addRipple()
+      itemView.setOnClickListener { onShortcutSelected(adapterPosition) }
     }
   }
 

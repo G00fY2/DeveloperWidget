@@ -15,5 +15,4 @@ abstract class AppModule {
   @Singleton
   @Named(APPLICATION)
   abstract fun provideApplicationContext(application: DevWidgetApp): Context
-
 }

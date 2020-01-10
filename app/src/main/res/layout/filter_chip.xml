@@ -6,8 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="2dp"
     android:layout_marginRight="2dp"
-    android:textAlignment="center"
     style="@style/Widget.MaterialComponents.Chip.Entry"
     app:checkedIconEnabled="false"
     app:chipBackgroundColor="@color/chipColor"
+    app:closeIconTint="@color/iconTintColor"
     />

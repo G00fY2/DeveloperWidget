@@ -8,9 +8,8 @@ import javax.inject.Named
 class StringControllerImpl @Inject constructor() : StringController {
 
   @Inject
-  @field:Named(ACTIVITY)
+  @Named(ACTIVITY)
   lateinit var context: Context
 
   override fun getString(resId: Int): String = context.getString(resId)
-
 }

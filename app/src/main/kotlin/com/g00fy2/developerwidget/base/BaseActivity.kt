@@ -7,43 +7,55 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import androidx.annotation.LayoutRes
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.updatePadding
+import androidx.viewbinding.ViewBinding
 import com.g00fy2.developerwidget.controllers.DayNightController
-import dagger.android.AndroidInjection
+import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
+import dagger.android.support.DaggerAppCompatActivity
 import timber.log.Timber
 import javax.inject.Inject
 
-abstract class BaseActivity(@LayoutRes contentLayoutId: Int, private val isDialogActivity: Boolean = false) :
-  AppCompatActivity(contentLayoutId) {
+abstract class BaseActivity(private val isDialogActivity: Boolean = false) : DaggerAppCompatActivity() {
 
   @Inject
   lateinit var dayNightController: DayNightController
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    AndroidInjection.inject(this)
     Timber.d("Lifecycle: %s1 onCreate %s2", localClassName, hashCode())
 
     if (isDialogActivity) {
       requestWindowFeature(Window.FEATURE_NO_TITLE)
       super.onCreate(savedInstanceState)
+      setContentView(setViewBinding().root)
 
       val width = (resources.displayMetrics.widthPixels * 0.95).toInt()
       val height = (resources.displayMetrics.heightPixels * 0.80).toInt()
       window.setLayout(width, height)
     } else {
       super.onCreate(savedInstanceState)
+      setContentView(setViewBinding().root)
     }
 
     dayNightController.loadCustomDefaultMode()
     lifecycle.addObserver(providePresenter())
     initCompatNavigationBar()
+    initView()
+    if (!isDialogActivity) initGestureNavigation()
   }
 
   override fun onDestroy() {
     Timber.d("Lifecycle: %s1 onDestroy %s2", localClassName, hashCode())
     super.onDestroy()
     lifecycle.removeObserver(providePresenter())
+  }
+
+  // TODO check if there will be a fix for https://issuetracker.google.com/issues/139738913 in AppCompatActivity or next Android release
+  override fun onBackPressed() {
+    if (VERSION.SDK_INT == VERSION_CODES.Q && isTaskRoot && supportFragmentManager.backStackEntryCount == 0) {
+      finishAfterTransition()
+    } else {
+      super.onBackPressed()
+    }
   }
 
   protected fun setActionbarElevationListener(viewGroup: ViewGroup) {
@@ -61,12 +73,28 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int, private val isDialo
     }
   }
 
+  private fun initGestureNavigation() {
+    if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
+      window.decorView.let {
+        it.systemUiVisibility.let { flags ->
+          it.systemUiVisibility =
+            flags or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        }
+      }
+      findViewById<View>(Window.ID_ANDROID_CONTENT)?.let {
+        it.doOnApplyWindowInsets { view, insets, padding, _ ->
+          view.updatePadding(top = padding.top + insets.systemWindowInsetTop)
+        }
+      }
+    }
+  }
+
   private fun initCompatNavigationBar() {
     // api 27+ allow applying flag via xml (windowLightNavigationBar)
     if (VERSION.SDK_INT == VERSION_CODES.O && isInNightMode()) {
-      window.decorView.let { view ->
-        view.systemUiVisibility.let { flags ->
-          view.systemUiVisibility = flags or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+      window.decorView.let {
+        it.systemUiVisibility.let { flags ->
+          it.systemUiVisibility = flags or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
         }
       }
     }
@@ -77,4 +105,8 @@ abstract class BaseActivity(@LayoutRes contentLayoutId: Int, private val isDialo
     resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_NO
 
   abstract fun providePresenter(): BaseContract.BasePresenter
+
+  abstract fun setViewBinding(): ViewBinding
+
+  abstract fun initView()
 }
