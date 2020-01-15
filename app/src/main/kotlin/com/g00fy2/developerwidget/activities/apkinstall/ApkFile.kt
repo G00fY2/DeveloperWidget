@@ -2,6 +2,8 @@ package com.g00fy2.developerwidget.activities.apkinstall
 
 import android.content.Context
 import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
+import android.content.pm.PermissionInfo
 import android.graphics.drawable.AdaptiveIconDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.InsetDrawable
@@ -45,6 +47,10 @@ class ApkFile private constructor() : Comparable<ApkFile> {
     private set
   var fileUri: Uri? = null
     private set
+  var dangerousPermissions: Map<String, String?> = emptyMap()
+    private set
+  var targetSdkVersion: Int = 0
+    private set
 
   override fun compareTo(other: ApkFile) = compareValues(other.lastModifiedTimestamp, lastModifiedTimestamp)
 
@@ -67,12 +73,14 @@ class ApkFile private constructor() : Comparable<ApkFile> {
         size = getFormattedSize(file.length())
 
         file.absolutePath.let { filePath ->
-          packageManager.getPackageArchiveInfo(filePath, 0)?.let { packageInfo ->
+          packageManager.getPackageArchiveInfo(filePath, PackageManager.GET_PERMISSIONS)?.let { packageInfo ->
             packageInfo.versionName?.let { versionName = it }
             PackageInfoCompat.getLongVersionCode(packageInfo).let { versionCode = it.toString() }
+            dangerousPermissions = extractDangerousPermissions(packageInfo.requestedPermissions)
             packageInfo.applicationInfo
           }?.let { appInfo ->
             valid = true
+            targetSdkVersion = appInfo.targetSdkVersion
             appInfo.sourceDir = filePath
             appInfo.publicSourceDir = filePath
             packageManager.getApplicationLabel(appInfo).let { appName = it.toString() }
@@ -96,6 +104,25 @@ class ApkFile private constructor() : Comparable<ApkFile> {
           }
         } catch (e: IllegalArgumentException) {
           Timber.e(e)
+        }
+      }
+    }
+
+    private fun extractDangerousPermissions(requestedPermissions: Array<String>?): Map<String, String?> {
+      return mutableMapOf<String, String?>().apply {
+        requestedPermissions?.distinct()?.forEach { permission ->
+          try {
+            packageManager.getPermissionInfo(permission, 0).let {
+              @Suppress("DEPRECATION")
+              if ((VERSION.SDK_INT >= VERSION_CODES.P && it.protection == PermissionInfo.PROTECTION_DANGEROUS)
+                || it.protectionLevel == PermissionInfo.PROTECTION_DANGEROUS
+              ) {
+                put(it.name.substringAfterLast("."), it.loadDescription(packageManager)?.toString())
+              }
+            }
+          } catch (e: Exception) {
+            // unknown permission qualifier
+          }
         }
       }
     }

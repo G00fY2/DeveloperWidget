@@ -28,7 +28,7 @@ class ApkActivity : BaseActivity(true), ApkContract.ApkView {
 
   override fun initView() {
     adapter = ApkAdapter()
-    adapter.setOnApkClicked { apkFile -> presenter.installApk(apkFile) }
+    adapter.setOnApkClicked { apkFile -> presenter.installOrShowPermissionWarning(apkFile) }
     adapter.setOnApkSelect { selectedCount -> showOptions(selectedCount > 0) }
     adapter.setCommitCallback(Runnable {
       adapter.itemCount.let {
@@ -75,6 +75,10 @@ class ApkActivity : BaseActivity(true), ApkContract.ApkView {
         }.start()
     }
     adapter.submitList(apkFiles)
+  }
+
+  override fun showPermissionWarning(apkFile: ApkFile) {
+    ApkWarningDialog(this).init { }.show()
   }
 
   private fun showOptions(show: Boolean) {

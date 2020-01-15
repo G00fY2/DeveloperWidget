@@ -1,6 +1,8 @@
 package com.g00fy2.developerwidget.activities.apkinstall
 
 import android.Manifest
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import androidx.lifecycle.Lifecycle.Event
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.lifecycleScope
@@ -58,6 +60,18 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
       .map { apkFileBuilder.build(it) }
       .filter { it.valid }
       .toList()
+  }
+
+  override fun installOrShowPermissionWarning(apkFile: ApkFile?) {
+    apkFile?.let {
+      if (VERSION.SDK_INT >= VERSION_CODES.M && it.targetSdkVersion < VERSION_CODES.M
+        && it.dangerousPermissions.isNotEmpty()
+      ) {
+        view.showPermissionWarning(it)
+      } else {
+        installApk(it)
+      }
+    }
   }
 
   override fun installApk(apkFile: ApkFile?) {
