@@ -62,6 +62,9 @@
   <string name="manually_add_widget">You have to manually add a new widget using your launcher.</string>
   <string name="day_night_issue">You may need to restart the app to fully take effect.</string>
   <string name="share_device_data">Share device data</string>
+  <string name="apk_warning_title">Potentially harmful app</string>
+  <string name="apk_warning_description">This app contains code that attempts to bypass Android\'s security protections.</string>
+  <string name="apk_warning_list_title">Permissions without runtime request:</string>
   <string name="keep_me_safe">Keep me safe</string>
   <string name="install_anyway">Install anyway</string>
 

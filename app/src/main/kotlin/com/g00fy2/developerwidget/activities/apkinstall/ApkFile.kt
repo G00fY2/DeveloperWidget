@@ -47,7 +47,7 @@ class ApkFile private constructor() : Comparable<ApkFile> {
     private set
   var fileUri: Uri? = null
     private set
-  var dangerousPermissions: Map<String, String?> = emptyMap()
+  var dangerousPermissions: List<Pair<String, String?>> = emptyList()
     private set
   var targetSdkVersion: Int = 0
     private set
@@ -108,8 +108,8 @@ class ApkFile private constructor() : Comparable<ApkFile> {
       }
     }
 
-    private fun extractDangerousPermissions(requestedPermissions: Array<String>?): Map<String, String?> {
-      return mutableMapOf<String, String?>().apply {
+    private fun extractDangerousPermissions(requestedPermissions: Array<String>?): List<Pair<String, String?>> {
+      return mutableListOf<Pair<String, String?>>().apply {
         requestedPermissions?.distinct()?.forEach { permission ->
           try {
             packageManager.getPermissionInfo(permission, 0).let {
@@ -117,7 +117,7 @@ class ApkFile private constructor() : Comparable<ApkFile> {
               if ((VERSION.SDK_INT >= VERSION_CODES.P && it.protection == PermissionInfo.PROTECTION_DANGEROUS)
                 || it.protectionLevel == PermissionInfo.PROTECTION_DANGEROUS
               ) {
-                put(it.name.substringAfterLast("."), it.loadDescription(packageManager)?.toString())
+                add(Pair(it.name.substringAfterLast("."), it.loadDescription(packageManager)?.toString()))
               }
             }
           } catch (e: Exception) {

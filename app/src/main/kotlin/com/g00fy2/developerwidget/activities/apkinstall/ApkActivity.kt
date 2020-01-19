@@ -6,6 +6,8 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
 import com.g00fy2.developerwidget.R
+import com.g00fy2.developerwidget.activities.apkinstall.dialogs.ApkDeleteDialog
+import com.g00fy2.developerwidget.activities.apkinstall.dialogs.ApkWarningDialog
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.databinding.ActivityApkBinding
@@ -78,7 +80,10 @@ class ApkActivity : BaseActivity(true), ApkContract.ApkView {
   }
 
   override fun showPermissionWarning(apkFile: ApkFile) {
-    ApkWarningDialog(this).init { }.show()
+    ApkWarningDialog(this).init {
+      installCallback { presenter.installApk(apkFile) }
+      permissionList(apkFile.dangerousPermissions)
+    }.show()
   }
 
   private fun showOptions(show: Boolean) {

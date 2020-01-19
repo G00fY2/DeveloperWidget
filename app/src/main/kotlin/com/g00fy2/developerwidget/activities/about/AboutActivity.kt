@@ -11,6 +11,7 @@ import androidx.core.view.updatePadding
 import androidx.viewbinding.ViewBinding
 import com.g00fy2.developerwidget.BuildConfig
 import com.g00fy2.developerwidget.R
+import com.g00fy2.developerwidget.activities.about.dialogs.AboutFeedbackDialog
 import com.g00fy2.developerwidget.activities.widgetconfig.ConfigLauncherActivity
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter

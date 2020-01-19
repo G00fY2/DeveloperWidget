@@ -13,6 +13,8 @@
     <item name="actionBarTheme">@style/ActionBarAccent</item>
     <item name="actionBarStyle">@style/ActionBarBackground</item>
     <item name="android:windowContentOverlay">@null</item>
+    <!--api 16-->
+    <item name="android:fontFamily" tools:targetApi="jelly_bean">sans-serif</item>
     <!--api 21-->
     <item name="android:colorEdgeEffect" tools:targetApi="21">@color/colorEdgeEffect</item>
     <item name="android:navigationBarColor" tools:targetApi="21">@color/navigationBarColor</item>
