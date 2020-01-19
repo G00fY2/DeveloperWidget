@@ -7,9 +7,13 @@ interface ApkContract {
   interface ApkView : BaseContract.BaseView {
 
     fun toggleResultView(apkFiles: List<ApkFile>, missingPermissions: Boolean)
+
+    fun showPermissionWarning(apkFile: ApkFile)
   }
 
   interface ApkPresenter : BaseContract.BasePresenter {
+
+    fun installOrShowPermissionWarning(apkFile: ApkFile?)
 
     fun installApk(apkFile: ApkFile?)
 
