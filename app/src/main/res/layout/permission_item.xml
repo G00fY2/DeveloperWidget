@@ -14,7 +14,7 @@
       android:textAllCaps="true"
       android:textColor="@color/textPrimary"
       android:textSize="14sp"
-      android:textStyle="bold"
+      android:textAppearance="@style/TextAppearance.AppCompat.Title"
       tools:text="ACCESS_FINE_LOCATION"
       />
   <TextView
