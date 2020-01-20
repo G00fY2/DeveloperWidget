@@ -12,7 +12,10 @@
 [<img src="https://raw.githubusercontent.com/G00fY2/DeveloperWidget/gh-pages/media/store_screenshot_4.png" width=160>](https://raw.githubusercontent.com/G00fY2/DeveloperWidget/gh-pages/media/store_screenshot_4.png)
 [<img src="https://raw.githubusercontent.com/G00fY2/DeveloperWidget/gh-pages/media/store_screenshot_5.png" width=160>](https://raw.githubusercontent.com/G00fY2/DeveloperWidget/gh-pages/media/store_screenshot_5.png)
 
-created with [App Mockup](https://app-mockup.com)
+## Download
+<a href='https://play.google.com/store/apps/details?id=com.g00fy2.developerwidget'><img alt='Get it on Google Play' width='215' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
+
+You also find the latest APK in the [GitHub releases](https://github.com/G00fY2/DeveloperWidget/releases).
 
 ## Description
 The app was built from a developer for developers. You may know the hassle of having multiple physical devices running different software. This app will help you keep track of important device information and allows you to organize your apps and local APK files. You will never again struggle to find APK files using a file browser or search for the app settings menu on a custom manufacturer UI.
@@ -47,11 +50,6 @@ The main feature of the app is an 4x1 (horizontally resizable) homescreen widget
 * Allow changing the button shortcuts
 * Show more information in the APK install view
   * currently installed version, filepath, certificates ...
-
-## Download
-<a href='https://play.google.com/store/apps/details?id=com.g00fy2.developerwidget'><img alt='Get it on Google Play' width='215' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
-
-You also find the latest APK in the [GitHub releases](https://github.com/G00fY2/DeveloperWidget/releases).
 
 ## Release Notes
 
