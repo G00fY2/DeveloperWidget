@@ -44,7 +44,7 @@ class ApkActivity : BaseActivity(true), ApkContract.ApkView {
     binding.recyclerview.adapter = adapter
 
     binding.cancelTextview.setOnClickListener { finish() }
-    TooltipCompat.setTooltipText(binding.clearImageview, binding.clearImageview.contentDescription)
+    TooltipCompat.setTooltipText(binding.deleteImageview, binding.deleteImageview.contentDescription)
     binding.deleteImageview.setOnClickListener { showConfirmationDialog() }
     TooltipCompat.setTooltipText(binding.clearImageview, binding.clearImageview.contentDescription)
     binding.clearImageview.setOnClickListener {
