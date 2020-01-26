@@ -27,6 +27,7 @@
 
   <color name="chipColor">@color/lighterGrey</color>
   <color name="adaptiveShadow">#33808080</color>
+  <color name="menuItem">@color/colorAccent</color>
 
   <!--  fix color values-->
   <color name="transparent">#00000000</color>

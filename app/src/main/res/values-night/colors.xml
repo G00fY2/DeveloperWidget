@@ -20,4 +20,5 @@
 
   <color name="chipColor">@color/nightGrey</color>
   <color name="adaptiveShadow">#33000000</color>
+  <color name="menuItem">@color/iconTintColor</color>
 </resources>
