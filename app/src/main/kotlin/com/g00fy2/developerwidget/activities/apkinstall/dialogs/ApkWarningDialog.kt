@@ -11,7 +11,7 @@ class ApkWarningDialog(context: Context) {
   private val binding: ApkWarningDialogBinding
   private val adapter: PermissionsAdapter
   private var installAction: () -> Unit = {}
-  private val dialog = AppCompatDialog(context, R.style.DialogTheme).apply {
+  private val dialog = AppCompatDialog(context, R.style.DialogNestedTheme).apply {
     setCancelable(true)
     binding = ApkWarningDialogBinding.inflate(layoutInflater)
     setContentView(binding.root)

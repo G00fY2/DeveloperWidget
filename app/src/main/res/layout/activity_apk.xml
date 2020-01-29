@@ -141,7 +141,6 @@
       android:layout_marginEnd="@dimen/action_bar_inset"
       android:layout_marginRight="@dimen/action_bar_inset"
       android:layout_marginTop="4dp"
-      android:background="@drawable/bg_dialog_button_ripple"
       android:clickable="true"
       android:focusable="true"
       android:gravity="center_vertical"

@@ -24,44 +24,20 @@
 
   <TextView
       android:id="@+id/dialog_cancel_textview"
-      android:layout_width="wrap_content"
-      android:layout_height="48dp"
-      android:layout_marginBottom="4dp"
-      android:layout_marginEnd="8dp"
-      android:layout_marginRight="8dp"
-      android:layout_marginTop="4dp"
-      android:background="@drawable/bg_dialog_button_ripple"
-      android:clickable="true"
-      android:focusable="true"
-      android:gravity="center_vertical"
-      android:paddingLeft="8dp"
-      android:paddingRight="8dp"
       android:text="@string/cancel"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@+id/dialog_delete_textview"
       app:layout_constraintTop_toBottomOf="@id/dialog_message_textview"
-      style="@style/DialogButtonAppearance"
+      style="@style/DialogNestedButtonAppearance"
       />
 
   <TextView
       android:id="@+id/dialog_delete_textview"
-      android:layout_width="wrap_content"
-      android:layout_height="48dp"
-      android:layout_marginBottom="4dp"
-      android:layout_marginEnd="8dp"
-      android:layout_marginRight="8dp"
-      android:layout_marginTop="4dp"
-      android:background="@drawable/bg_dialog_button_ripple"
-      android:clickable="true"
-      android:focusable="true"
-      android:gravity="center_vertical"
-      android:paddingLeft="8dp"
-      android:paddingRight="8dp"
       android:text="@string/delete"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/dialog_message_textview"
-      style="@style/DialogButtonAppearance"
+      style="@style/DialogNestedButtonAppearance"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
