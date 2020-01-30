@@ -43,9 +43,9 @@
       android:contentDescription="@string/clear"
       android:focusable="true"
       android:scaleType="center"
-      android:tint="@color/backgroundColor"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      app:tint="@color/backgroundColor"
       app:srcCompat="@drawable/ic_clear"
       />
 
@@ -61,9 +61,9 @@
       android:contentDescription="@string/delete"
       android:focusable="true"
       android:scaleType="center"
-      android:tint="@color/backgroundColor"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      app:tint="@color/backgroundColor"
       app:srcCompat="@drawable/ic_delete"
       />
 

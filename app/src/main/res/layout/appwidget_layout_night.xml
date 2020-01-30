@@ -1,5 +1,6 @@
 <!--suppress AndroidLintNestedWeights, AndroidLintSpUsage -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,8 +30,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:ellipsize="end"
-        android:maxLines="1"
         android:gravity="center_vertical"
+        android:maxLines="1"
         android:textColor="@color/widgetTextColor_night"
         android:textSize="16dp"
         style="@style/TextAppearance.AppCompat.Title"
@@ -42,8 +43,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:ellipsize="end"
-        android:maxLines="1"
         android:gravity="center_vertical"
+        android:maxLines="1"
         android:textColor="@color/widgetTextColor_night"
         android:textSize="16dp"
         style="@style/TextAppearance.AppCompat.Title"
@@ -55,8 +56,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:ellipsize="end"
-        android:maxLines="1"
         android:gravity="center_vertical"
+        android:maxLines="1"
         android:textColor="@color/widgetTextColor_night"
         android:textSize="16dp"
         style="@style/TextAppearance.AppCompat.Title"
@@ -90,7 +91,7 @@
           android:id="@+id/apps_imageview"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:tint="@color/widgetIconColor_night"
+          app:tint="@color/widgetIconColor_night"
           />
       <TextView
           android:layout_width="match_parent"
@@ -120,7 +121,7 @@
           android:id="@+id/apk_imageview"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:tint="@color/widgetIconColor_night"
+          app:tint="@color/widgetIconColor_night"
           />
       <TextView
           android:layout_width="match_parent"

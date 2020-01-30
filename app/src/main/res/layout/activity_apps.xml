@@ -43,7 +43,7 @@
         android:contentDescription="@string/filter"
         android:focusable="true"
         android:scaleType="center"
-        android:tint="@color/iconTintColor"
+        app:tint="@color/iconTintColor"
         app:srcCompat="@drawable/ic_filter"
         />
   </LinearLayout>
@@ -119,7 +119,7 @@
             android:layout_height="12dp"
             android:layout_gravity="center|start"
             android:contentDescription="@string/show_all"
-            android:tint="@color/colorAccent"
+            app:tint="@color/colorAccent"
             app:srcCompat="@drawable/ic_chevron_right"
             />
 
