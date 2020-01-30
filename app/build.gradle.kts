@@ -86,10 +86,10 @@ dependencies {
   implementation("com.g00fy2:versioncompare:1.3.4")
 
 // Dagger
-  implementation("com.google.dagger:dagger:2.25.4")
-  kapt("com.google.dagger:dagger-compiler:2.25.4")
-  implementation("com.google.dagger:dagger-android:2.25.4")
-  implementation("com.google.dagger:dagger-android-support:2.25.4")
-  kapt("com.google.dagger:dagger-android-processor:2.25.4")
+  implementation("com.google.dagger:dagger:2.26")
+  kapt("com.google.dagger:dagger-compiler:2.26")
+  implementation("com.google.dagger:dagger-android:2.26")
+  implementation("com.google.dagger:dagger-android-support:2.26")
+  kapt("com.google.dagger:dagger-android-processor:2.26")
   compileOnly("javax.annotation:javax.annotation-api:1.3.2")
 }
