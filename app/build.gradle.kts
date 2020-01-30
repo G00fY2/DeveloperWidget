@@ -70,8 +70,8 @@ dependencies {
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3")
 
 // AndroidX
-  implementation("androidx.appcompat:appcompat:1.2.0-alpha01")
-  implementation("androidx.core:core-ktx:1.2.0-rc01")
+  implementation("androidx.appcompat:appcompat:1.2.0-alpha02")
+  implementation("androidx.core:core-ktx:1.3.0-alpha01")
   implementation("androidx.activity:activity:1.1.0")
   implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.2.0")
   implementation("androidx.recyclerview:recyclerview:1.2.0-alpha01")
@@ -79,7 +79,7 @@ dependencies {
   implementation("androidx.vectordrawable:vectordrawable:1.1.0")
 
 // UI
-  implementation("com.google.android.material:material:1.2.0-alpha03")
+  implementation("com.google.android.material:material:1.2.0-alpha04")
 
 // Misc
   implementation("com.jakewharton.timber:timber:4.7.1")
