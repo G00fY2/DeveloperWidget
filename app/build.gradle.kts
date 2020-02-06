@@ -57,6 +57,7 @@ android {
 repositories {
   google()
   mavenCentral()
+  maven("https://dl.bintray.com/kotlin/kotlin-eap")
   jcenter {
     content {
       includeModule("com.g00fy2", "versioncompare")
