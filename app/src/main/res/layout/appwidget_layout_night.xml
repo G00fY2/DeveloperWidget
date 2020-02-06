@@ -1,13 +1,12 @@
 <!--suppress AndroidLintNestedWeights, AndroidLintSpUsage -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_widget_outer_shape_night"
     android:baselineAligned="false"
     android:orientation="horizontal"
-    tools:ignore="ContentDescription"
+    tools:ignore="ContentDescription,UseAppTint"
     >
 
   <LinearLayout
@@ -91,7 +90,7 @@
           android:id="@+id/apps_imageview"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          app:tint="@color/widgetIconColor_night"
+          android:tint="@color/widgetIconColor_night"
           />
       <TextView
           android:layout_width="match_parent"
@@ -121,7 +120,7 @@
           android:id="@+id/apk_imageview"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          app:tint="@color/widgetIconColor_night"
+          android:tint="@color/widgetIconColor_night"
           />
       <TextView
           android:layout_width="match_parent"
