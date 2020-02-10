@@ -6,10 +6,10 @@ import android.os.Build.VERSION_CODES
 import androidx.lifecycle.Lifecycle.Event
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.lifecycleScope
+import com.g00fy2.developerwidget.activities.apkinstall.controllers.StorageDirsController
 import com.g00fy2.developerwidget.base.BasePresenterImpl
 import com.g00fy2.developerwidget.controllers.IntentController
 import com.g00fy2.developerwidget.controllers.PermissionController
-import com.g00fy2.developerwidget.controllers.StorageDirsController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

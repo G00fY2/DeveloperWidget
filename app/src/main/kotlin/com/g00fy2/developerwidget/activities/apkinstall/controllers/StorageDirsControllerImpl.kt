@@ -1,4 +1,4 @@
-package com.g00fy2.developerwidget.controllers
+package com.g00fy2.developerwidget.activities.apkinstall.controllers
 
 import android.content.Context
 import android.os.Build.VERSION

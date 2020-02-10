@@ -10,10 +10,10 @@ import javax.inject.Inject
 
 class DevWidgetApp : DaggerApplication() {
 
-  override fun applicationInjector(): AndroidInjector<out DaggerApplication> = DaggerAppComponent.factory().create(this)
-
   @Inject
   lateinit var dayNightController: DayNightController
+
+  override fun applicationInjector(): AndroidInjector<out DaggerApplication> = DaggerAppComponent.factory().create(this)
 
   override fun onCreate() {
     super.onCreate()

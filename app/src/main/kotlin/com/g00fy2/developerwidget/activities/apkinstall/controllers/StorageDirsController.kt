@@ -1,4 +1,4 @@
-package com.g00fy2.developerwidget.controllers
+package com.g00fy2.developerwidget.activities.apkinstall.controllers
 
 import java.io.File
 
