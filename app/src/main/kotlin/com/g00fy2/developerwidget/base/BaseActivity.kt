@@ -64,6 +64,14 @@ abstract class BaseActivity(private val isDialogActivity: Boolean = false) : Dag
     }
   }
 
+  protected fun gesturalNavigationMode(): Boolean {
+    return if (VERSION.SDK_INT >= VERSION_CODES.Q) {
+      window.decorView.rootWindowInsets.systemGestureInsets.left > 0
+    } else {
+      false
+    }
+  }
+
   private fun initGestureNavigation() {
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
       window.decorView.let {

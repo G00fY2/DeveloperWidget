@@ -17,7 +17,6 @@ import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.databinding.ActivityAboutBinding
 import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
-import com.g00fy2.developerwidget.ktx.gesturalNavigationMode
 import javax.inject.Inject
 
 class AboutActivity : BaseActivity(), AboutContract.AboutView {

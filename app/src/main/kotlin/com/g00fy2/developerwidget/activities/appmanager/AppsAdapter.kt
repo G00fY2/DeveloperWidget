@@ -11,7 +11,6 @@ import com.g00fy2.developerwidget.activities.appmanager.AppsAdapter.AppViewHolde
 import com.g00fy2.developerwidget.base.BaseAdapter
 import com.g00fy2.developerwidget.base.BaseViewHolder
 import com.g00fy2.developerwidget.databinding.AppItemBinding
-import com.g00fy2.developerwidget.ktx.filterPackageName
 
 class AppsAdapter : BaseAdapter<AppInfo, AppViewHolder>(AppsDiffUtilsCallback()) {
 

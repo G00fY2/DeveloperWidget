@@ -34,6 +34,28 @@ class AppInfo private constructor() : Comparable<AppInfo> {
     fun build(packageInfo: PackageInfo): AppInfo
   }
 
+  fun filterPackageName(filter: String): Boolean {
+    var result = false
+    val filterInputs = filter.split("*")
+    var tempValue = packageName
+    for (i in filterInputs) {
+      if (tempValue.contains(i, true)) {
+        tempValue = tempValue.substringAfter(i)
+        result = true
+      } else {
+        return false
+      }
+    }
+    return result
+  }
+
+  fun filterPackageName(filterEntries: Collection<String>): Boolean {
+    for (i in filterEntries) {
+      if (filterPackageName(i)) return true
+    }
+    return false
+  }
+
   class AppInfoBuilderImpl @Inject constructor(@Named(ACTIVITY) context: Context) : AppInfoBuilder {
     private val packageManager = context.packageManager
 

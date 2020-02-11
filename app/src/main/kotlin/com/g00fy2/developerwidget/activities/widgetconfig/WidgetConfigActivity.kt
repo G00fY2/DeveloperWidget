@@ -36,7 +36,6 @@ import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.data.DeviceDataItem
 import com.g00fy2.developerwidget.databinding.ActivityWidgetConfigBinding
 import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
-import com.g00fy2.developerwidget.ktx.gesturalNavigationMode
 import com.g00fy2.developerwidget.ktx.hideKeyboard
 import com.g00fy2.developerwidget.ktx.showKeyboard
 import com.g00fy2.developerwidget.ktx.updateMargin
