@@ -64,7 +64,7 @@ class CreateShortcutActivity : BaseActivity(), CreateShortcutContract.CreateShor
     adapter.submitList(shortcutInfoList)
     adapter.setOnShortcutSelected { shortcutPosition -> onItemClick(shortcutPosition) }
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
-      binding.recyclerview.doOnApplyWindowInsets { view, insets, padding, _ ->
+      binding.root.doOnApplyWindowInsets { view, insets, padding, _ ->
         view.updatePadding(bottom = padding.bottom + insets.systemWindowInsetBottom)
       }
     }
