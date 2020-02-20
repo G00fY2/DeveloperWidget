@@ -19,7 +19,7 @@ pluginManagement {
         useModule("eu.appcom.gradle:android-versioning:1.0.2")
       }
       if (requested.id.namespace == "org.jetbrains.kotlin") {
-        useVersion("1.3.70-eap-184")
+        useVersion("1.3.70-eap-274")
       }
     }
   }

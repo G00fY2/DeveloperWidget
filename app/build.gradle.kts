@@ -67,7 +67,7 @@ repositories {
 }
 dependencies {
   // Kotlin
-  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.70-eap-184")
+  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.70-eap-274")
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3")
 
 // AndroidX
