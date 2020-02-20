@@ -43,9 +43,9 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
             for (dir in storageDirsController.getStorageDirectories()) {
               addAll(searchAPKs(dir))
             }
-          }
+          }.sorted()
         }.let {
-          view.toggleResultView(it.sorted(), false)
+          view.toggleResultView(it, false)
         }
       }
     } else {
