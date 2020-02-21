@@ -94,7 +94,7 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
         } else {
           binding.shareFab.show()
         }
-        if (VERSION.SDK_INT >= VERSION_CODES.O_MR1 && !gesturalNavigationMode()) {
+        if (VERSION.SDK_INT >= VERSION_CODES.O_MR1 && !isGesturalNavMode()) {
           clipToPadding = (scrollY >= scrollableRange)
         }
       }
