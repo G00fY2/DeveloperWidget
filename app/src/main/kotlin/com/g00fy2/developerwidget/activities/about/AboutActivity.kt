@@ -114,7 +114,7 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
         }
         viewTreeObserver.addOnScrollChangedListener {
           val scrollableRange = getChildAt(0).bottom - height + paddingBottom
-          if (!gesturalNavigationMode()) {
+          if (!isGesturalNavMode()) {
             clipToPadding = (scrollY >= scrollableRange)
           }
         }

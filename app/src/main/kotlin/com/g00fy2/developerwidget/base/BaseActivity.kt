@@ -54,7 +54,7 @@ abstract class BaseActivity(private val isDialogActivity: Boolean = false) : Dag
   @RequiresApi(VERSION_CODES.Q)
   override fun onAttachedToWindow() {
     super.onAttachedToWindow()
-    if (gesturalNavigationMode()) {
+    if (isGesturalNavMode()) {
       getColor(R.color.transparent).let {
         window.navigationBarColor = it
         window.navigationBarDividerColor = it
@@ -77,7 +77,7 @@ abstract class BaseActivity(private val isDialogActivity: Boolean = false) : Dag
     }
   }
 
-  protected fun gesturalNavigationMode(): Boolean {
+  protected fun isGesturalNavMode(): Boolean {
     return if (VERSION.SDK_INT >= VERSION_CODES.Q) {
       window.decorView.rootWindowInsets?.systemGestureInsets?.let { it.left > 0 } ?: false
     } else {
