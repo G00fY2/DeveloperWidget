@@ -26,7 +26,8 @@ class AppsAdapter : BaseAdapter<AppInfo, AppViewHolder>(AppsDiffUtilsCallback())
           String.format(itemView.context.getString(R.string.apk_version), versionName, versionCode)
         binding.appIconImageview.setImageDrawable(appIcon)
         if (VERSION.SDK_INT >= VERSION_CODES.O) {
-          binding.appIconImageview.setBackgroundResource(if (appIcon is InsetDrawable) R.drawable.bg_adaptive_launcher_icon else 0)
+          binding.appIconImageview
+            .setBackgroundResource(if (appIcon is InsetDrawable) R.drawable.bg_adaptive_launcher_icon else 0)
         }
       }
     }

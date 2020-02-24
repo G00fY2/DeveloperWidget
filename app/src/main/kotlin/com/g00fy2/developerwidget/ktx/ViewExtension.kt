@@ -16,9 +16,9 @@ import androidx.core.view.marginTop
 fun View.addRipple(asForeground: Boolean = false) {
   TypedValue().apply { context.theme.resolveAttribute(android.R.attr.selectableItemBackground, this, true) }
     .resourceId.let {
-    if (VERSION.SDK_INT < VERSION_CODES.M || !asForeground) setBackgroundResource(it) else foreground =
-      context.getDrawable(it)
-  }
+      if (VERSION.SDK_INT < VERSION_CODES.M || !asForeground) setBackgroundResource(it) else foreground =
+        context.getDrawable(it)
+    }
 }
 
 fun View.updateMargin(

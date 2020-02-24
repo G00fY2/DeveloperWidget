@@ -31,7 +31,8 @@ class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>(ApksDiffUtilsCallback()) 
         binding.fileDateTextview.text = item.lastModified
         binding.appIconImageview.setImageDrawable(item.appIcon)
         if (VERSION.SDK_INT >= VERSION_CODES.O) {
-          binding.appIconImageview.setBackgroundResource(if (item.appIcon is InsetDrawable) R.drawable.bg_adaptive_launcher_icon else 0)
+          binding.appIconImageview
+            .setBackgroundResource(if (item.appIcon is InsetDrawable) R.drawable.bg_adaptive_launcher_icon else 0)
         }
       }
       setSelected(adapterPosition)

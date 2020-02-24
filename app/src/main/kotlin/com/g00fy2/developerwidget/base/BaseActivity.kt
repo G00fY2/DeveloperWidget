@@ -22,7 +22,9 @@ abstract class BaseActivity(private val isDialogActivity: Boolean = false) : Dag
 
   @Inject
   lateinit var dayNightController: DayNightController
+
   protected abstract val binding: ViewBinding
+
   override fun onCreate(savedInstanceState: Bundle?) {
     Timber.d("Lifecycle: %s1 onCreate %s2", localClassName, hashCode())
 
