@@ -28,7 +28,6 @@ import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewbinding.ViewBinding
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.about.AboutActivity
 import com.g00fy2.developerwidget.base.BaseActivity
@@ -47,7 +46,7 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
   @Inject
   lateinit var presenter: WidgetConfigContract.WidgetConfigPresenter
 
-  private lateinit var binding: ActivityWidgetConfigBinding
+  override val binding: ActivityWidgetConfigBinding by viewBinding(ActivityWidgetConfigBinding::inflate)
   private lateinit var adapter: DeviceDataAdapter
   private var updateExistingWidget = false
   private var launchedFromAppLauncher = true
@@ -64,11 +63,6 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
   }
 
   override fun providePresenter(): BasePresenter = presenter
-
-  override fun setViewBinding(): ViewBinding {
-    binding = ActivityWidgetConfigBinding.inflate(layoutInflater)
-    return binding
-  }
 
   override fun initView() {
     setResult(Activity.RESULT_CANCELED)

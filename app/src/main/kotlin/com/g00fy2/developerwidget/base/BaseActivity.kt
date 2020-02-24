@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
@@ -21,21 +22,21 @@ abstract class BaseActivity(private val isDialogActivity: Boolean = false) : Dag
 
   @Inject
   lateinit var dayNightController: DayNightController
-
+  protected abstract val binding: ViewBinding
   override fun onCreate(savedInstanceState: Bundle?) {
     Timber.d("Lifecycle: %s1 onCreate %s2", localClassName, hashCode())
 
     if (isDialogActivity) {
       requestWindowFeature(Window.FEATURE_NO_TITLE)
       super.onCreate(savedInstanceState)
-      setContentView(setViewBinding().root)
+      setContentView(binding.root)
 
       val width = (resources.displayMetrics.widthPixels * 0.95).toInt()
       val height = (resources.displayMetrics.heightPixels * 0.80).toInt()
       window.setLayout(width, height)
     } else {
       super.onCreate(savedInstanceState)
-      setContentView(setViewBinding().root)
+      setContentView(binding.root)
     }
 
     dayNightController.loadCustomDefaultMode()
@@ -50,6 +51,9 @@ abstract class BaseActivity(private val isDialogActivity: Boolean = false) : Dag
     super.onDestroy()
     lifecycle.removeObserver(providePresenter())
   }
+
+  inline fun <T : ViewBinding> DaggerAppCompatActivity.viewBinding(crossinline bindingInflater: (LayoutInflater) -> T) =
+    lazy(LazyThreadSafetyMode.NONE) { bindingInflater.invoke(layoutInflater) }
 
   @RequiresApi(VERSION_CODES.Q)
   override fun onAttachedToWindow() {
@@ -116,8 +120,6 @@ abstract class BaseActivity(private val isDialogActivity: Boolean = false) : Dag
     resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
 
   abstract fun providePresenter(): BaseContract.BasePresenter
-
-  abstract fun setViewBinding(): ViewBinding
 
   abstract fun initView()
 }

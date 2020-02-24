@@ -8,7 +8,6 @@ import android.os.Build.VERSION_CODES
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.updatePadding
-import androidx.viewbinding.ViewBinding
 import com.g00fy2.developerwidget.BuildConfig
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.about.dialogs.AboutFeedbackDialog
@@ -23,14 +22,9 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
 
   @Inject
   lateinit var presenter: AboutContract.AboutPresenter
-  private lateinit var binding: ActivityAboutBinding
 
+  override val binding: ActivityAboutBinding by viewBinding(ActivityAboutBinding::inflate)
   override fun providePresenter(): BasePresenter = presenter
-
-  override fun setViewBinding(): ViewBinding {
-    binding = ActivityAboutBinding.inflate(layoutInflater)
-    return binding
-  }
 
   override fun initView() {
     supportActionBar?.setDisplayHomeAsUpEnabled(true)

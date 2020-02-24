@@ -4,7 +4,6 @@ import android.view.View
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewbinding.ViewBinding
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.apkinstall.dialogs.ApkDeleteDialog
 import com.g00fy2.developerwidget.activities.apkinstall.dialogs.ApkWarningDialog
@@ -18,15 +17,10 @@ class ApkActivity : BaseActivity(true), ApkContract.ApkView {
   @Inject
   lateinit var presenter: ApkContract.ApkPresenter
 
+  override val binding: ActivityApkBinding by viewBinding(ActivityApkBinding::inflate)
   private lateinit var adapter: ApkAdapter
-  private lateinit var binding: ActivityApkBinding
 
   override fun providePresenter(): BasePresenter = presenter
-
-  override fun setViewBinding(): ViewBinding {
-    binding = ActivityApkBinding.inflate(layoutInflater)
-    return binding
-  }
 
   override fun initView() {
     adapter = ApkAdapter()

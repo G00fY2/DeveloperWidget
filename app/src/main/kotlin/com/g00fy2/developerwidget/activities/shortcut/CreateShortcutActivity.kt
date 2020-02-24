@@ -19,7 +19,6 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewbinding.ViewBinding
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.apkinstall.ApkActivity
 import com.g00fy2.developerwidget.activities.appmanager.AppsActivity
@@ -34,16 +33,12 @@ class CreateShortcutActivity : BaseActivity(), CreateShortcutContract.CreateShor
 
   @Inject
   lateinit var presenter: CreateShortcutContract.CreateShortcutPresenter
-  private lateinit var binding: ActivityCreateShortcutBinding
+
+  override val binding: ActivityCreateShortcutBinding by viewBinding(ActivityCreateShortcutBinding::inflate)
   private lateinit var adapter: ShortcutAdapter
   private lateinit var shortcutInfoList: List<ShortcutInfo>
 
   override fun providePresenter(): BasePresenter = presenter
-
-  override fun setViewBinding(): ViewBinding {
-    binding = ActivityCreateShortcutBinding.inflate(layoutInflater)
-    return binding
-  }
 
   override fun initView() {
     setResult(Activity.RESULT_CANCELED)
