@@ -118,6 +118,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="bottom|end"
       android:layout_margin="12dp"
+      android:contentDescription="@string/share_device_data"
       android:visibility="invisible"
       app:tint="@color/backgroundColor"
       app:rippleColor="@color/rippleBackground"
