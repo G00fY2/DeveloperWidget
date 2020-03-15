@@ -86,9 +86,9 @@ dependencies {
   implementation("com.g00fy2:versioncompare:1.3.4")
 
   // Dagger
-  implementation("com.google.dagger:dagger:2.26")
-  kapt("com.google.dagger:dagger-compiler:2.26")
-  implementation("com.google.dagger:dagger-android:2.26")
-  implementation("com.google.dagger:dagger-android-support:2.26")
-  kapt("com.google.dagger:dagger-android-processor:2.26")
+  implementation("com.google.dagger:dagger:2.27")
+  kapt("com.google.dagger:dagger-compiler:2.27")
+  implementation("com.google.dagger:dagger-android:2.27")
+  implementation("com.google.dagger:dagger-android-support:2.27")
+  kapt("com.google.dagger:dagger-android-processor:2.27")
 }
