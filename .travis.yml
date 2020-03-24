@@ -44,13 +44,7 @@ before_script:
   # log all gradle warnings
   - echo "org.gradle.warning.mode=all" >> $HOME/.gradle/gradle.properties
   # control gradle build cache
-  - if [[ $CACHING == "true" ]]; then
-      echo "org.gradle.caching=true" >> $HOME/.gradle/gradle.properties;
-      echo "android.enableBuildCache=true" >> $HOME/.gradle/gradle.properties;
-    else
-      echo "org.gradle.caching=false" >> $HOME/.gradle/gradle.properties;
-      echo "android.enableBuildCache=false" >> $HOME/.gradle/gradle.properties;
-    fi
+  - echo "org.gradle.caching=$CACHING" >> $HOME/.gradle/gradle.properties;
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -rf $HOME/.gradle/caches/*/plugin-resolution/
