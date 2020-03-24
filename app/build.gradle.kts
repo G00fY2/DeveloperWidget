@@ -57,6 +57,8 @@ android {
 repositories {
   google()
   mavenCentral()
+  maven("https://dl.bintray.com/kotlin/kotlin-eap")
+  maven("https://kotlin.bintray.com/kotlinx")
   jcenter {
     content {
       includeModule("com.g00fy2", "versioncompare")
@@ -66,8 +68,8 @@ repositories {
 }
 dependencies {
   // Kotlin
-  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.70")
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5")
+  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4-M1")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5-1.4-M1")
 
   // AndroidX
   implementation("androidx.appcompat:appcompat:1.2.0-alpha03")

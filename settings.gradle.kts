@@ -3,6 +3,7 @@ pluginManagement {
     google()
     gradlePluginPortal()
     mavenCentral()
+    maven("https://dl.bintray.com/kotlin/kotlin-eap")
     jcenter {
       content {
         includeModule("eu.appcom.gradle", "android-versioning")
@@ -18,7 +19,7 @@ pluginManagement {
         useModule("eu.appcom.gradle:android-versioning:1.0.2")
       }
       if (requested.id.namespace == "org.jetbrains.kotlin") {
-        useVersion("1.3.70")
+        useVersion("1.4-M1")
       }
     }
   }
