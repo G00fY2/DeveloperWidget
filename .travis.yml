@@ -66,12 +66,12 @@ jobs:
   - # Build debug
     if: branch IN (develop, master)
     env: CACHING=true
-    script: "./gradlew assembleDebug --scan"
+    script: "./gradlew assembleDebug"
   - # Build and deploy release on tags
     if: tag IS present
     env: CACHING=false
     script:
-      - "./gradlew assembleRelease -Pmy_storepass=$storepass -Pmy_keyalias=$keyalias -Pmy_keypass=$keypass --scan"
+      - "./gradlew assembleRelease -Pmy_storepass=$storepass -Pmy_keyalias=$keyalias -Pmy_keypass=$keypass"
       - "./gradlew :app:bundleRelease -Pmy_storepass=$storepass -Pmy_keyalias=$keyalias -Pmy_keypass=$keypass"
     deploy:
       provider: releases
