@@ -1,3 +1,5 @@
+include("app")
+
 pluginManagement {
   repositories {
     google()
@@ -36,5 +38,3 @@ gradleEnterprise {
     publishAlwaysIf(!System.getenv("CI").isNullOrEmpty())
   }
 }
-
-include(":app")

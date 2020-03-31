@@ -21,9 +21,9 @@ android {
   signingConfigs {
     create("release") {
       storeFile = file("../keystore.jks")
-      storePassword = findProperty("my_storepass") as String? ?: ""
-      keyAlias = findProperty("my_keyalias") as String? ?: ""
-      keyPassword = findProperty("my_keypass") as String? ?: ""
+      storePassword = findProperty("my_storepass") as String?
+      keyAlias = findProperty("my_keyalias") as String?
+      keyPassword = findProperty("my_keypass") as String?
       isV1SigningEnabled = true
       isV2SigningEnabled = true
     }
@@ -50,7 +50,7 @@ android {
     targetCompatibility = JavaVersion.VERSION_1_8
   }
   kotlinOptions {
-    jvmTarget = "1.8"
+    jvmTarget = JavaVersion.VERSION_1_8.toString()
   }
 }
 
@@ -68,7 +68,7 @@ repositories {
 }
 dependencies {
   // Kotlin
-  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4-M1")
+  implementation(kotlin("stdlib-jdk7"))
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5-1.4-M1")
 
   // AndroidX
