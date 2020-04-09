@@ -15,7 +15,7 @@ pluginManagement {
   resolutionStrategy {
     eachPlugin {
       if (requested.id.namespace == "com.android") {
-        useModule("com.android.tools.build:gradle:4.1.0-alpha04")
+        useModule("com.android.tools.build:gradle:4.1.0-alpha05")
       }
       if (requested.id.id == "eu.appcom.gradle.android-versioning") {
         useModule("eu.appcom.gradle:android-versioning:1.0.2")
