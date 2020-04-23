@@ -37,7 +37,7 @@ class AppsAdapter : BaseAdapter<AppInfo, AppViewHolder>(AppsDiffUtilsCallback())
     return AppViewHolder(AppItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)).apply {
       addRipple()
       itemView.setOnClickListener {
-        onAppClicked(getSelectedPackageName(adapterPosition))
+        onAppClicked(getSelectedPackageName(bindingAdapterPosition))
       }
     }
   }

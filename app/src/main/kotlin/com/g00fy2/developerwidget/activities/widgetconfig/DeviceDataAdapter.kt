@@ -16,7 +16,7 @@ class DeviceDataAdapter :
     BaseViewHolder<Pair<String, DeviceDataItem>>(binding) {
     override fun onBind(item: Pair<String, DeviceDataItem>) {
       item.run {
-        binding.headerDividerView.visibility = if (adapterPosition == 0) View.INVISIBLE else View.VISIBLE
+        binding.headerDividerView.visibility = if (bindingAdapterPosition == 0) View.INVISIBLE else View.VISIBLE
         binding.headerTitleTextview.text = itemView.context.getString(second.title)
       }
     }

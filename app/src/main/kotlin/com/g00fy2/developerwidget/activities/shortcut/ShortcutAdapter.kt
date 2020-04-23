@@ -26,7 +26,7 @@ class ShortcutAdapter : BaseAdapter<ShortcutInfo, ShortcutViewHolder>(ShortcutDi
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShortcutViewHolder {
     return ShortcutViewHolder(ShortcutItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)).apply {
       addRipple()
-      itemView.setOnClickListener { onShortcutSelected(adapterPosition) }
+      itemView.setOnClickListener { onShortcutSelected(bindingAdapterPosition) }
     }
   }
 
