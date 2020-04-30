@@ -30,26 +30,24 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
   lateinit var apkFileBuilder: ApkFile.ApkFileBuilder
 
   @OnLifecycleEvent(Event.ON_CREATE)
-  fun requestPermission() {
-    permissionController.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+  fun scanStoreageIfPermissionGranted() {
+    permissionController.requestPermissions(
+      Manifest.permission.WRITE_EXTERNAL_STORAGE,
+      onGranted = { scanStorageForApks() },
+      onDenied = { view.toggleResultView(emptyList(), true) })
   }
 
-  @OnLifecycleEvent(Event.ON_RESUME)
-  fun scanStorageForApks() {
-    if (permissionController.hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-      view.lifecycleScope.launch {
-        withContext(Dispatchers.IO) {
-          mutableSetOf<ApkFile>().apply {
-            for (dir in storageDirsController.getStorageDirectories()) {
-              addAll(searchAPKs(dir))
-            }
-          }.sorted()
-        }.let {
-          view.toggleResultView(it, false)
-        }
+  private fun scanStorageForApks() {
+    view.lifecycleScope.launch {
+      withContext(Dispatchers.IO) {
+        mutableSetOf<ApkFile>().apply {
+          for (dir in storageDirsController.getStorageDirectories()) {
+            addAll(searchAPKs(dir))
+          }
+        }.sorted()
+      }.let {
+        view.toggleResultView(it, false)
       }
-    } else {
-      view.toggleResultView(emptyList(), true)
     }
   }
 
@@ -79,8 +77,7 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
   }
 
   override fun deleteApkFiles(apkFiles: List<ApkFile>?) {
-    if (permissionController.hasPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE))
-    ) {
+    if (permissionController.hasPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
       view.lifecycleScope.launch {
         withContext(Dispatchers.IO) {
           apkFiles?.let { files ->

@@ -1,6 +1,5 @@
 package com.g00fy2.developerwidget.controllers
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build.VERSION
@@ -12,6 +11,7 @@ import com.g00fy2.developerwidget.BuildConfig
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.about.DEVELOPER_EMAIL
 import com.g00fy2.developerwidget.activities.apkinstall.ApkFile
+import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.di.annotations.ACTIVITY
 import timber.log.Timber
 import javax.inject.Inject
@@ -21,7 +21,7 @@ class IntentControllerImpl @Inject constructor() : IntentController {
 
   @Inject
   @Named(ACTIVITY)
-  lateinit var context: Context
+  lateinit var activity: BaseActivity
   @Inject
   lateinit var toastController: ToastController
 
@@ -72,12 +72,12 @@ class IntentControllerImpl @Inject constructor() : IntentController {
       action = Intent.ACTION_SEND
       putExtra(Intent.EXTRA_TEXT, data)
       type = "text/plain"
-    }, context.getString(R.string.share_device_data)))
+    }, activity.getString(R.string.share_device_data)))
   }
 
   private fun startActivity(intent: Intent) {
-    if (intent.resolveActivity(context.packageManager) != null) {
-      context.startActivity(intent)
+    if (intent.resolveActivity(activity.packageManager) != null) {
+      activity.startActivity(intent)
     } else {
       Timber.w("Intent could not get resolved.")
     }

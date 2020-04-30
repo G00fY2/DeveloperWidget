@@ -1,6 +1,5 @@
 package com.g00fy2.developerwidget.activities.apkinstall
 
-import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.content.pm.PermissionInfo
@@ -13,6 +12,7 @@ import android.os.Build.VERSION_CODES
 import android.text.format.DateFormat
 import androidx.core.content.FileProvider
 import androidx.core.content.pm.PackageInfoCompat
+import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.di.annotations.ACTIVITY
 import timber.log.Timber
 import java.io.File
@@ -59,11 +59,11 @@ class ApkFile private constructor() : Comparable<ApkFile> {
     fun build(file: File): ApkFile
   }
 
-  class ApkFileBuilderImpl @Inject constructor(@Named(ACTIVITY) private val context: Context) : ApkFileBuilder {
+  class ApkFileBuilderImpl @Inject constructor(@Named(ACTIVITY) private val activity: BaseActivity) : ApkFileBuilder {
 
-    private val dateFormat = DateFormat.getDateFormat(context)
-    private val timeFormat = DateFormat.getTimeFormat(context)
-    private val packageManager = context.packageManager
+    private val dateFormat = DateFormat.getDateFormat(activity)
+    private val timeFormat = DateFormat.getTimeFormat(activity)
+    private val packageManager = activity.packageManager
 
     override fun build(file: File): ApkFile {
       return ApkFile().apply {
@@ -98,7 +98,7 @@ class ApkFile private constructor() : Comparable<ApkFile> {
         filePath = file.path
         try {
           fileUri = if (VERSION.SDK_INT >= VERSION_CODES.N) {
-            FileProvider.getUriForFile(context, context.applicationContext.packageName + ".fileprovider", file)
+            FileProvider.getUriForFile(activity, activity.applicationContext.packageName + ".fileprovider", file)
           } else {
             Uri.fromFile(file)
           }

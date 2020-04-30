@@ -47,16 +47,6 @@ class ApkActivity : BaseActivity(true), ApkContract.ApkView {
     }
   }
 
-  override fun onResume() {
-    super.onResume()
-    if (adapter.itemCount == 0) {
-      binding.progressbar.visibility = View.VISIBLE
-      binding.noItemsImageview.visibility = View.INVISIBLE
-      binding.noItemsTextview.text = getString(R.string.scanning_apks)
-      binding.noItemsTextview.visibility = View.VISIBLE
-    }
-  }
-
   override fun toggleResultView(apkFiles: List<ApkFile>, missingPermissions: Boolean) {
     if (missingPermissions) {
       binding.progressbar.visibility = View.GONE

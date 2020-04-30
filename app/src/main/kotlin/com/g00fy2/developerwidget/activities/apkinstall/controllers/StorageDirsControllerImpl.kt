@@ -1,10 +1,10 @@
 package com.g00fy2.developerwidget.activities.apkinstall.controllers
 
-import android.content.Context
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Environment
 import androidx.annotation.RequiresApi
+import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.di.annotations.ACTIVITY
 import timber.log.Timber
 import java.io.File
@@ -19,7 +19,7 @@ class StorageDirsControllerImpl @Inject constructor() : StorageDirsController {
 
   @Inject
   @Named(ACTIVITY)
-  lateinit var context: Context
+  lateinit var activity: BaseActivity
 
   /**
    * Return all storage directories.
@@ -79,7 +79,7 @@ class StorageDirsControllerImpl @Inject constructor() : StorageDirsController {
   @RequiresApi(VERSION_CODES.KITKAT)
   private fun getExtSdCardPaths(): Collection<File> {
     val dirs = mutableListOf<File>()
-    for (file in context.getExternalFilesDirs("external")) {
+    for (file in activity.getExternalFilesDirs("external")) {
       file?.let {
         val index = it.absolutePath.lastIndexOf("/Android/data")
         if (index < 0) {

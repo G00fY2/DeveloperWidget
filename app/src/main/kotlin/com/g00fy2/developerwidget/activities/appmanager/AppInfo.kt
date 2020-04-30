@@ -1,6 +1,5 @@
 package com.g00fy2.developerwidget.activities.appmanager
 
-import android.content.Context
 import android.content.pm.PackageInfo
 import android.graphics.drawable.AdaptiveIconDrawable
 import android.graphics.drawable.Drawable
@@ -8,6 +7,7 @@ import android.graphics.drawable.InsetDrawable
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import androidx.core.content.pm.PackageInfoCompat
+import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.di.annotations.ACTIVITY
 import javax.inject.Inject
 import javax.inject.Named
@@ -56,8 +56,8 @@ class AppInfo private constructor() : Comparable<AppInfo> {
     return false
   }
 
-  class AppInfoBuilderImpl @Inject constructor(@Named(ACTIVITY) context: Context) : AppInfoBuilder {
-    private val packageManager = context.packageManager
+  class AppInfoBuilderImpl @Inject constructor(@Named(ACTIVITY) activity: BaseActivity) : AppInfoBuilder {
+    private val packageManager = activity.packageManager
 
     override fun getInstalledPackages(): List<PackageInfo> {
       return packageManager.getInstalledPackages(0)
