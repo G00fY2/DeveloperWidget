@@ -44,8 +44,8 @@
 
     <item name="android:textColorPrimary">@color/textPrimary</item>
     <item name="android:textColorTertiary">@color/textTertiary</item>
-    <item name="windowFixedWidthMajor">100%</item>
-    <item name="windowFixedWidthMinor">100%</item>
+    <item name="windowMinWidthMajor">@dimen/dialog_width</item>
+    <item name="windowMinWidthMinor">@dimen/dialog_width</item>
 
     <item name="windowNoTitle">true</item>
     <item name="android:windowBackground">@drawable/bg_dialog_shape</item>
