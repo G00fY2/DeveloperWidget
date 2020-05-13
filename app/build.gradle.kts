@@ -24,8 +24,6 @@ android {
       storePassword = findProperty("my_storepass") as String?
       keyAlias = findProperty("my_keyalias") as String?
       keyPassword = findProperty("my_keypass") as String?
-      isV1SigningEnabled = true
-      isV2SigningEnabled = true
     }
   }
   buildTypes {
