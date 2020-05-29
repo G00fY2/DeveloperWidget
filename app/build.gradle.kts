@@ -55,8 +55,6 @@ android {
 repositories {
   google()
   mavenCentral()
-  maven("https://dl.bintray.com/kotlin/kotlin-eap")
-  maven("https://kotlin.bintray.com/kotlinx")
   jcenter {
     content {
       includeModule("com.g00fy2", "versioncompare")
@@ -67,7 +65,7 @@ repositories {
 dependencies {
   // Kotlin
   implementation(kotlin("stdlib-jdk7"))
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5-1.4-M1")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7")
 
   // AndroidX
   implementation("androidx.appcompat:appcompat:1.3.0-alpha01")
@@ -80,16 +78,16 @@ dependencies {
   implementation("androidx.vectordrawable:vectordrawable:1.2.0-alpha01")
 
   // UI
-  implementation("com.google.android.material:material:1.2.0-alpha06")
+  implementation("com.google.android.material:material:1.2.0-beta01")
 
   // Misc
   implementation("com.jakewharton.timber:timber:4.7.1")
   implementation("com.g00fy2:versioncompare:1.3.4")
 
   // Dagger
-  implementation("com.google.dagger:dagger:2.27")
-  kapt("com.google.dagger:dagger-compiler:2.27")
-  implementation("com.google.dagger:dagger-android:2.27")
-  implementation("com.google.dagger:dagger-android-support:2.27")
-  kapt("com.google.dagger:dagger-android-processor:2.27")
+  implementation("com.google.dagger:dagger:2.28")
+  kapt("com.google.dagger:dagger-compiler:2.28")
+  implementation("com.google.dagger:dagger-android:2.28")
+  implementation("com.google.dagger:dagger-android-support:2.28")
+  kapt("com.google.dagger:dagger-android-processor:2.28")
 }

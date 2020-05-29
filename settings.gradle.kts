@@ -1,11 +1,13 @@
 include("app")
 
 pluginManagement {
+  val kotlinVersion: String by settings
+  val androidGradlePluginVersion: String by settings
+  val gradleEnterpriseVersion: String by settings
   repositories {
     google()
     gradlePluginPortal()
     mavenCentral()
-    maven("https://dl.bintray.com/kotlin/kotlin-eap")
     jcenter {
       content {
         includeModule("eu.appcom.gradle", "android-versioning")
@@ -14,21 +16,18 @@ pluginManagement {
   }
   resolutionStrategy {
     eachPlugin {
-      if (requested.id.namespace == "com.android") {
-        useModule("com.android.tools.build:gradle:4.1.0-alpha09")
+      when (requested.id.id) {
+        "com.android.application" -> useModule("com.android.tools.build:gradle:$androidGradlePluginVersion")
+        "eu.appcom.gradle.android-versioning" -> useModule("eu.appcom.gradle:android-versioning:1.0.2")
+        "com.gradle.enterprise" -> useVersion(gradleEnterpriseVersion)
       }
-      if (requested.id.id == "eu.appcom.gradle.android-versioning") {
-        useModule("eu.appcom.gradle:android-versioning:1.0.2")
-      }
-      if (requested.id.namespace == "org.jetbrains.kotlin") {
-        useVersion("1.4-M1")
-      }
+      if (requested.id.namespace == "org.jetbrains.kotlin") useVersion(kotlinVersion)
     }
   }
 }
 
 plugins {
-  id("com.gradle.enterprise") version "3.3.1"
+  id("com.gradle.enterprise")
 }
 
 gradleEnterprise {
