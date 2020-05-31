@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.WindowInsets
 import androidx.annotation.Px
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.core.view.marginBottom
 import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
@@ -17,7 +18,7 @@ fun View.addRipple(asForeground: Boolean = false) {
   TypedValue().apply { context.theme.resolveAttribute(android.R.attr.selectableItemBackground, this, true) }
     .resourceId.let {
       if (VERSION.SDK_INT < VERSION_CODES.M || !asForeground) setBackgroundResource(it) else foreground =
-        context.getDrawable(it)
+        ContextCompat.getDrawable(context, it)
     }
 }
 

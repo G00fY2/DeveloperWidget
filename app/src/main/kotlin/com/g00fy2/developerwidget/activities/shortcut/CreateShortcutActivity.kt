@@ -14,6 +14,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.updatePadding
@@ -47,7 +48,7 @@ class CreateShortcutActivity : BaseActivity(), CreateShortcutContract.CreateShor
     binding.recyclerview.setHasFixedSize(true)
     binding.recyclerview.layoutManager = LinearLayoutManager(this)
     binding.recyclerview.adapter = adapter
-    getDrawable(R.drawable.divider_line)?.let {
+    ContextCompat.getDrawable(this,R.drawable.divider_line)?.let {
       binding.recyclerview.addItemDecoration(
         DividerItemDecoration(
           this,
