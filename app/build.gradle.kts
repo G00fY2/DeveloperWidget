@@ -40,6 +40,10 @@ android {
   buildFeatures {
     viewBinding = true
   }
+  dependenciesInfo {
+    includeInApk = false
+    includeInBundle = true
+  }
   sourceSets {
     getByName("main").java.srcDirs("src/main/kotlin")
   }
@@ -78,7 +82,7 @@ dependencies {
   implementation("androidx.vectordrawable:vectordrawable:1.2.0-alpha01")
 
   // UI
-  implementation("com.google.android.material:material:1.2.0-beta01")
+  implementation("com.google.android.material:material:1.3.0-alpha01")
 
   // Misc
   implementation("com.jakewharton.timber:timber:4.7.1")
