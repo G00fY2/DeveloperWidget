@@ -2,7 +2,7 @@ plugins {
   id("com.android.application")
   kotlin("android")
   kotlin("kapt")
-  id("eu.appcom.gradle.android-versioning")
+  id("eu.nanogiants.android-versioning")
 }
 
 android {
@@ -16,7 +16,7 @@ android {
     versionName = versioning.getVersionName()
 
     vectorDrawables.useSupportLibrary = true
-    setProperty("archivesBaseName", "developerwidget-$versionName-$versionCode")
+    setProperty("archivesBaseName", "developerwidget")
   }
   signingConfigs {
     create("release") {

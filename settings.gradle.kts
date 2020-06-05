@@ -10,7 +10,7 @@ pluginManagement {
     mavenCentral()
     jcenter {
       content {
-        includeModule("eu.appcom.gradle", "android-versioning")
+        includeModule("eu.nanogiants", "android-versioning")
       }
     }
   }
@@ -18,7 +18,7 @@ pluginManagement {
     eachPlugin {
       when (requested.id.id) {
         "com.android.application" -> useModule("com.android.tools.build:gradle:$androidGradlePluginVersion")
-        "eu.appcom.gradle.android-versioning" -> useModule("eu.appcom.gradle:android-versioning:1.0.2")
+        "eu.nanogiants.android-versioning" -> useModule("eu.nanogiants:android-versioning:2.0.1")
         "com.gradle.enterprise" -> useVersion(gradleEnterpriseVersion)
       }
       if (requested.id.namespace == "org.jetbrains.kotlin") useVersion(kotlinVersion)
