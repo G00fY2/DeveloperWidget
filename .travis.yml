@@ -81,7 +81,7 @@ jobs:
       file:
         - $TRAVIS_BUILD_DIR/app/build/outputs/bundle/release/*.aab
         - $TRAVIS_BUILD_DIR/app/build/outputs/apk/release/*.apk
-        - $TRAVIS_BUILD_DIR/app/build/outputs/mapping/release/mapping.txt
+        - $TRAVIS_BUILD_DIR/app/build/outputs/mapping/release/*mapping.txt
       draft: false
       on:
         tags: true
