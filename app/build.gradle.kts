@@ -6,12 +6,12 @@ plugins {
 }
 
 android {
-  compileSdkVersion(29)
-  buildToolsVersion = "29.0.3"
+  compileSdkVersion(30)
+  buildToolsVersion = "30.0.0"
   defaultConfig {
     applicationId = "com.g00fy2.developerwidget"
     minSdkVersion(14)
-    targetSdkVersion(29)
+    targetSdkVersion(30)
     versionCode = versioning.getVersionCode()
     versionName = versioning.getVersionName()
 
@@ -73,10 +73,10 @@ dependencies {
 
   // AndroidX
   implementation("androidx.appcompat:appcompat:1.3.0-alpha01")
-  implementation("androidx.core:core-ktx:1.4.0-alpha01")
-  implementation("androidx.activity:activity:1.2.0-alpha05")
-  implementation("androidx.fragment:fragment:1.3.0-alpha05")
-  implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha03")
+  implementation("androidx.core:core-ktx:1.5.0-alpha01")
+  implementation("androidx.activity:activity:1.2.0-alpha06")
+  implementation("androidx.fragment:fragment:1.3.0-alpha06")
+  implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha04")
   implementation("androidx.recyclerview:recyclerview:1.2.0-alpha03")
   implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta6")
   implementation("androidx.vectordrawable:vectordrawable:1.2.0-alpha01")
