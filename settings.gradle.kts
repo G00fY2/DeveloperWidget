@@ -18,7 +18,7 @@ pluginManagement {
     eachPlugin {
       when (requested.id.id) {
         "com.android.application" -> useModule("com.android.tools.build:gradle:$androidGradlePluginVersion")
-        "eu.nanogiants.android-versioning" -> useModule("eu.nanogiants:android-versioning:2.2.1")
+        "de.nanogiants.android-versioning" -> useModule("de.nanogiants:android-versioning:2.3.0")
         "com.gradle.enterprise" -> useVersion(gradleEnterpriseVersion)
       }
       if (requested.id.namespace == "org.jetbrains.kotlin") useVersion(kotlinVersion)

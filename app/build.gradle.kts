@@ -2,7 +2,7 @@ plugins {
   id("com.android.application")
   kotlin("android")
   kotlin("kapt")
-  id("eu.nanogiants.android-versioning")
+  id("de.nanogiants.android-versioning")
 }
 
 android {
@@ -78,7 +78,7 @@ dependencies {
   implementation("androidx.fragment:fragment:1.3.0-alpha06")
   implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha04")
   implementation("androidx.recyclerview:recyclerview:1.2.0-alpha03")
-  implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta6")
+  implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta7")
   implementation("androidx.vectordrawable:vectordrawable:1.2.0-alpha01")
 
   // UI
