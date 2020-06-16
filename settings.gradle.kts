@@ -13,12 +13,13 @@ pluginManagement {
         includeModule("eu.nanogiants", "android-versioning")
       }
     }
+    maven ("https://dl.bintray.com/kotlin/kotlin-eap")
   }
   resolutionStrategy {
     eachPlugin {
       when (requested.id.id) {
         "com.android.application" -> useModule("com.android.tools.build:gradle:$androidGradlePluginVersion")
-        "de.nanogiants.android-versioning" -> useModule("de.nanogiants:android-versioning:2.3.0")
+        "de.nanogiants.android-versioning" -> useModule("de.nanogiants:android-versioning:2.3.1")
         "com.gradle.enterprise" -> useVersion(gradleEnterpriseVersion)
       }
       if (requested.id.namespace == "org.jetbrains.kotlin") useVersion(kotlinVersion)

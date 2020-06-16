@@ -65,11 +65,13 @@ repositories {
       includeModule("org.jetbrains.trove4j", "trove4j") // required by com.android.tools.lint:lint-gradle
     }
   }
+  maven ("https://dl.bintray.com/kotlin/kotlin-eap")
+  maven("https://kotlin.bintray.com/kotlinx")
 }
 dependencies {
   // Kotlin
   implementation(kotlin("stdlib-jdk7"))
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7-1.4-M2")
 
   // AndroidX
   implementation("androidx.appcompat:appcompat:1.3.0-alpha01")

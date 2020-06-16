@@ -12,7 +12,7 @@ import com.g00fy2.developerwidget.databinding.DeviceDataValueItemBinding
 class DeviceDataAdapter :
   BaseAdapter<Pair<String, DeviceDataItem>, BaseViewHolder<Pair<String, DeviceDataItem>>>(DeviceDataDiffUtilsCallback()) {
 
-  inner class DeviceDataHeaderViewHolder(val binding: DeviceDataHeaderItemBinding) :
+  class DeviceDataHeaderViewHolder(val binding: DeviceDataHeaderItemBinding) :
     BaseViewHolder<Pair<String, DeviceDataItem>>(binding) {
     override fun onBind(item: Pair<String, DeviceDataItem>) {
       item.run {
@@ -22,7 +22,7 @@ class DeviceDataAdapter :
     }
   }
 
-  inner class DeviceDataValueViewHolder(val binding: DeviceDataValueItemBinding) :
+  class DeviceDataValueViewHolder(val binding: DeviceDataValueItemBinding) :
     BaseViewHolder<Pair<String, DeviceDataItem>>(binding) {
     override fun onBind(item: Pair<String, DeviceDataItem>) {
       item.run {

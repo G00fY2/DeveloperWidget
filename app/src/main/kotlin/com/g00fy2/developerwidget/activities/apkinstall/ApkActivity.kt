@@ -26,13 +26,13 @@ class ApkActivity : BaseActivity(true), ApkContract.ApkView {
     adapter = ApkAdapter()
     adapter.setOnApkClicked { apkFile -> presenter.installOrShowPermissionWarning(apkFile) }
     adapter.setOnApkSelect { selectedCount -> showOptions(selectedCount > 0) }
-    adapter.setCommitCallback(Runnable {
+    adapter.setCommitCallback {
       adapter.itemCount.let {
         binding.recyclerview.overScrollMode = if (it == 0) View.OVER_SCROLL_NEVER else View.OVER_SCROLL_ALWAYS
         binding.noItemsTextview.visibility = if (it == 0) View.VISIBLE else View.INVISIBLE
         binding.noItemsImageview.visibility = if (it == 0) View.VISIBLE else View.INVISIBLE
       }
-    })
+    }
     binding.recyclerview.setHasFixedSize(true)
     binding.recyclerview.layoutManager = LinearLayoutManager(this)
     binding.recyclerview.adapter = adapter

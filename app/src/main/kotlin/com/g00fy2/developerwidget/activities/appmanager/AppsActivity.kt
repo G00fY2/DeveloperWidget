@@ -46,7 +46,7 @@ class AppsActivity : BaseActivity(true), AppsContract.AppsView {
   override fun initView() {
     adapter = AppsAdapter()
     adapter.setOnAppClicked { appInfo -> presenter.openAppSettingsActivity(appInfo) }
-    adapter.setCommitCallback(Runnable {
+    adapter.setCommitCallback {
       adapter.itemCount.let {
         binding.noItemsTextview.visibility = if (it == 0) View.VISIBLE else View.INVISIBLE
         binding.noItemsImageview.visibility = if (it == 0) View.VISIBLE else View.INVISIBLE
@@ -56,7 +56,7 @@ class AppsActivity : BaseActivity(true), AppsContract.AppsView {
         scrollToTopAfterCommit = false
         binding.recyclerview.scrollToPosition(0)
       }
-    })
+    }
     binding.recyclerview.setHasFixedSize(true)
     binding.recyclerview.itemAnimator = null
     binding.recyclerview.layoutManager = LinearLayoutManager(this)

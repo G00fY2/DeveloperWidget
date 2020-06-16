@@ -15,7 +15,7 @@ class ShortcutAdapter : BaseAdapter<ShortcutInfo, ShortcutViewHolder>(ShortcutDi
 
   private var onShortcutSelected: ((Int) -> Unit) = {}
 
-  inner class ShortcutViewHolder(val binding: ShortcutItemBinding) : BaseViewHolder<ShortcutInfo>(binding) {
+  class ShortcutViewHolder(val binding: ShortcutItemBinding) : BaseViewHolder<ShortcutInfo>(binding) {
     override fun onBind(item: ShortcutInfo) {
       item.run {
         binding.shortcutTitleTextview.text = item.longLabel ?: item.shortLabel ?: ""

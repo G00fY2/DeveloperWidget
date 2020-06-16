@@ -9,8 +9,7 @@ import com.g00fy2.developerwidget.databinding.PermissionItemBinding
 
 class PermissionsAdapter : BaseAdapter<Pair<String, String?>, PermissionViewHolder>(null) {
 
-  inner class PermissionViewHolder(val binding: PermissionItemBinding) :
-    BaseViewHolder<Pair<String, String?>>(binding) {
+  class PermissionViewHolder(val binding: PermissionItemBinding) : BaseViewHolder<Pair<String, String?>>(binding) {
     override fun onBind(item: Pair<String, String?>) {
       item.run {
         binding.permissionTitle.text = item.first

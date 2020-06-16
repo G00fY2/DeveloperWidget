@@ -17,7 +17,7 @@ class AppsAdapter : BaseAdapter<AppInfo, AppViewHolder>(AppsDiffUtilsCallback())
   private var onAppClicked: ((AppInfo?) -> Unit) = {}
   private var itemsCopy = ArrayList<AppInfo>()
 
-  inner class AppViewHolder(val binding: AppItemBinding) : BaseViewHolder<AppInfo>(binding) {
+  class AppViewHolder(val binding: AppItemBinding) : BaseViewHolder<AppInfo>(binding) {
     override fun onBind(item: AppInfo) {
       item.run {
         binding.appenameTextview.text = appName
