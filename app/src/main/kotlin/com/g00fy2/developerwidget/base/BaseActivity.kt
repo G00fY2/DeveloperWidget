@@ -14,6 +14,8 @@ import androidx.viewbinding.ViewBinding
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.controllers.DayNightController
 import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
+import com.g00fy2.developerwidget.ktx.systemGestureInsetsCompat
+import com.g00fy2.developerwidget.ktx.systemWindowInsetTopCompat
 import dagger.android.support.DaggerAppCompatActivity
 import timber.log.Timber
 import javax.inject.Inject
@@ -85,7 +87,7 @@ abstract class BaseActivity(private val isDialogActivity: Boolean = false) : Dag
 
   protected fun isGesturalNavMode(): Boolean {
     return if (VERSION.SDK_INT >= VERSION_CODES.Q) {
-      window.decorView.rootWindowInsets?.systemGestureInsets?.let { it.left > 0 } ?: false
+      window.decorView.rootWindowInsets?.systemGestureInsetsCompat?.let { it.left > 0 } ?: false
     } else {
       false
     }
@@ -93,20 +95,26 @@ abstract class BaseActivity(private val isDialogActivity: Boolean = false) : Dag
 
   private fun initGestureNavigation() {
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
-      window.decorView.let {
-        it.systemUiVisibility.let { flags ->
-          it.systemUiVisibility =
-            flags or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+      if (VERSION.SDK_INT >= VERSION_CODES.R) {
+        window.setDecorFitsSystemWindows(true)
+      } else {
+        @Suppress("DEPRECATION")
+        window.decorView.let {
+          it.systemUiVisibility.let { flags ->
+            it.systemUiVisibility =
+              flags or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+          }
         }
       }
       findViewById<View>(Window.ID_ANDROID_CONTENT)?.let {
         it.doOnApplyWindowInsets { view, insets, padding, _ ->
-          view.updatePadding(top = padding.top + insets.systemWindowInsetTop)
+          view.updatePadding(top = padding.top + insets.systemWindowInsetTopCompat)
         }
       }
     }
   }
 
+  @Suppress("DEPRECATION")
   private fun initCompatNavigationBar() {
     // api 27+ allow applying flag via xml (windowLightNavigationBar)
     if (VERSION.SDK_INT == VERSION_CODES.O && !isNightMode()) {

@@ -6,17 +6,29 @@
 
   <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <uses-permission
+      android:name="android.permission.QUERY_ALL_PACKAGES"
+      tools:ignore="QueryAllPackagesPermission"/>
+
+  <!--  remove when https://github.com/google/dagger/issues/1864 is fixed-->
+  <uses-permission
+      android:name="android.permission.READ_PHONE_STATE"
+      tools:node="remove"/>
+  <uses-permission
+      android:name="android.permission.READ_EXTERNAL_STORAGE"
+      tools:node="remove"/>
 
   <application
       android:name=".DevWidgetApp"
       android:allowBackup="false"
+      android:autoRevokePermissions="allowed"
       android:icon="@mipmap/ic_launcher"
       android:label="@string/app_name"
       android:requestLegacyExternalStorage="true"
       android:supportsRtl="false"
       android:theme="@style/AppTheme"
       tools:ignore="GoogleAppIndexingWarning"
-      tools:targetApi="q">
+      tools:targetApi="r">
 
     <activity
         android:name=".activities.apkinstall.ApkActivity"
