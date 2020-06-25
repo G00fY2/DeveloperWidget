@@ -10,13 +10,13 @@ import androidx.annotation.RequiresApi
 val WindowInsets.systemGestureInsetsCompat: Insets
   @RequiresApi(VERSION_CODES.Q)
   get() = if (VERSION.SDK_INT >= VERSION_CODES.R) {
-    getInsets(WindowInsets.Type.systemGestures())
+    getInsetsIgnoringVisibility(WindowInsets.Type.systemGestures())
   } else {
     systemGestureInsets
   }
 
 @Suppress("DEPRECATION")
-val WindowInsets.systemWindowInsetTopCompat: Int
+val WindowInsets.systemWindowInsetTopVisibleCompat: Int
   @RequiresApi(VERSION_CODES.Q)
   get() = if (VERSION.SDK_INT >= VERSION_CODES.R) {
     getInsets(WindowInsets.Type.systemBars()).top
@@ -28,7 +28,7 @@ val WindowInsets.systemWindowInsetTopCompat: Int
 val WindowInsets.systemWindowInsetBottomCompat: Int
   @RequiresApi(VERSION_CODES.Q)
   get() = if (VERSION.SDK_INT >= VERSION_CODES.R) {
-    getInsets(WindowInsets.Type.systemBars()).bottom
+    getInsetsIgnoringVisibility(WindowInsets.Type.systemBars()).bottom
   } else {
     systemWindowInsetBottom
   }
