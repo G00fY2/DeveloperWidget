@@ -16,7 +16,7 @@ object DisplayDataProvider {
 
   @SuppressLint("NewApi")
   fun getResolution(context: Context): Point? {
-   getDisplay(context)?.let { windowManager ->
+    getDisplay(context)?.let { windowManager ->
       Point().let { point ->
         try {
           windowManager.getRealSize(point)
@@ -73,12 +73,15 @@ object DisplayDataProvider {
   }
 
   private fun getDisplay(context: Context): Display? {
-    return if (VERSION.SDK_INT >= VERSION_CODES.R) {
-      context.display
-    } else {
-      @Suppress("DEPRECATION")
-      context.getSystemService<WindowManager>()?.defaultDisplay
+    if (VERSION.SDK_INT >= VERSION_CODES.R) {
+      try {
+        return context.display
+      } catch (e: UnsupportedOperationException) {
+        // expected if context is not am Activity or created with Context#createWindowContext
+      }
     }
+    @Suppress("DEPRECATION")
+    return context.getSystemService<WindowManager>()?.defaultDisplay
   }
 
   private fun gcd(p: Int, q: Int): Int {
