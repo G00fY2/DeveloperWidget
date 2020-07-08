@@ -37,7 +37,7 @@ import com.g00fy2.developerwidget.databinding.ActivityWidgetConfigBinding
 import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
 import com.g00fy2.developerwidget.ktx.hideKeyboard
 import com.g00fy2.developerwidget.ktx.showKeyboard
-import com.g00fy2.developerwidget.ktx.systemWindowInsetBottomCompat
+import com.g00fy2.developerwidget.ktx.systemWindowInsetIgnoringVisibilityBottomCompat
 import com.g00fy2.developerwidget.ktx.updateMargin
 import com.g00fy2.developerwidget.receiver.widget.WidgetProviderImpl
 import javax.inject.Inject
@@ -131,10 +131,10 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
     binding.shareFab.setOnClickListener { presenter.shareDeviceData() }
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
       binding.widgetConfigRootScrollview.doOnApplyWindowInsets { view, insets, padding, _ ->
-        view.updatePadding(bottom = padding.bottom + insets.systemWindowInsetBottomCompat)
+        view.updatePadding(bottom = padding.bottom + insets.systemWindowInsetIgnoringVisibilityBottomCompat)
       }
       binding.shareFab.doOnApplyWindowInsets { view, insets, _, margin ->
-        view.updateMargin(bottom = margin.bottom + insets.systemWindowInsetBottomCompat)
+        view.updateMargin(bottom = margin.bottom + insets.systemWindowInsetIgnoringVisibilityBottomCompat)
       }
     }
   }

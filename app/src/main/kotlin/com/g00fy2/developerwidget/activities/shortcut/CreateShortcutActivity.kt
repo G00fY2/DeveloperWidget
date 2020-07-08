@@ -27,7 +27,7 @@ import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.databinding.ActivityCreateShortcutBinding
 import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
-import com.g00fy2.developerwidget.ktx.systemWindowInsetBottomCompat
+import com.g00fy2.developerwidget.ktx.systemWindowInsetIgnoringVisibilityBottomCompat
 import javax.inject.Inject
 
 @RequiresApi(VERSION_CODES.N_MR1)
@@ -62,7 +62,7 @@ class CreateShortcutActivity : BaseActivity(), CreateShortcutContract.CreateShor
     adapter.setOnShortcutSelected { shortcutPosition -> onItemClick(shortcutPosition) }
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
       binding.root.doOnApplyWindowInsets { view, insets, padding, _ ->
-        view.updatePadding(bottom = padding.bottom + insets.systemWindowInsetBottomCompat)
+        view.updatePadding(bottom = padding.bottom + insets.systemWindowInsetIgnoringVisibilityBottomCompat)
       }
     }
   }

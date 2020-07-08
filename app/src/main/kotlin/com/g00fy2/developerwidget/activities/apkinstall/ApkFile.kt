@@ -113,10 +113,7 @@ class ApkFile private constructor() : Comparable<ApkFile> {
         requestedPermissions?.distinct()?.forEach { permission ->
           try {
             packageManager.getPermissionInfo(permission, 0).let {
-              @Suppress("DEPRECATION")
-              if ((VERSION.SDK_INT >= VERSION_CODES.P && it.protection == PermissionInfo.PROTECTION_DANGEROUS)
-                || it.protectionLevel == PermissionInfo.PROTECTION_DANGEROUS
-              ) {
+              if (it.hasDangerousPermissions()) {
                 add(Pair(it.name.substringAfterLast("."), it.loadDescription(packageManager)?.toString()))
               }
             }
@@ -124,6 +121,15 @@ class ApkFile private constructor() : Comparable<ApkFile> {
             // unknown permission qualifier
           }
         }
+      }
+    }
+
+    private fun PermissionInfo.hasDangerousPermissions(): Boolean {
+      return if (VERSION.SDK_INT >= VERSION_CODES.P) {
+        protection == PermissionInfo.PROTECTION_DANGEROUS
+      } else {
+        @Suppress("DEPRECATION")
+        protectionLevel == PermissionInfo.PROTECTION_DANGEROUS
       }
     }
 

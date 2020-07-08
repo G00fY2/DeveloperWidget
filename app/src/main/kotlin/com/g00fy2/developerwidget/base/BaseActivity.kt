@@ -14,8 +14,7 @@ import androidx.viewbinding.ViewBinding
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.controllers.DayNightController
 import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
-import com.g00fy2.developerwidget.ktx.systemGestureInsetsCompat
-import com.g00fy2.developerwidget.ktx.systemWindowInsetTopVisibleCompat
+import com.g00fy2.developerwidget.ktx.systemWindowInsetVisibleTopCompat
 import dagger.android.support.DaggerAppCompatActivity
 import timber.log.Timber
 import javax.inject.Inject
@@ -86,15 +85,13 @@ abstract class BaseActivity(private val isDialogActivity: Boolean = false) : Dag
   }
 
   protected fun isGesturalNavMode(): Boolean {
-    return if (VERSION.SDK_INT >= VERSION_CODES.Q) {
-      window.decorView.rootWindowInsets?.systemGestureInsetsCompat?.let { it.left > 0 } ?: false
-    } else {
-      false
-    }
+    return resources.getIdentifier("config_navBarInteractionMode", "integer", "android")
+      .takeIf { it != 0 }?.let { resources.getInteger(it) == 2 } ?: false
   }
 
   private fun initGestureNavigation() {
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
+      // TODO check how to use API 30 features
       @Suppress("DEPRECATION")
       window.decorView.let {
         it.systemUiVisibility.let { flags ->
@@ -105,7 +102,7 @@ abstract class BaseActivity(private val isDialogActivity: Boolean = false) : Dag
 
       findViewById<View>(Window.ID_ANDROID_CONTENT)?.let {
         it.doOnApplyWindowInsets { view, insets, padding, _ ->
-          view.updatePadding(top = padding.top + insets.systemWindowInsetTopVisibleCompat)
+          view.updatePadding(top = padding.top + insets.systemWindowInsetVisibleTopCompat)
         }
       }
     }
