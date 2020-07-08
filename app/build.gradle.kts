@@ -7,7 +7,7 @@ plugins {
 
 android {
   compileSdkVersion(30)
-  buildToolsVersion = "30.0.0"
+  buildToolsVersion = "30.0.1"
   defaultConfig {
     applicationId = "com.g00fy2.developerwidget"
     minSdkVersion(14)
@@ -71,7 +71,7 @@ repositories {
 dependencies {
   // Kotlin
   implementation(kotlin("stdlib-jdk7"))
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7-1.4-M2")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7-1.4-M3")
 
   // AndroidX
   implementation("androidx.appcompat:appcompat:1.3.0-alpha01")
@@ -80,7 +80,7 @@ dependencies {
   implementation("androidx.fragment:fragment:1.3.0-alpha06")
   implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha05")
   implementation("androidx.recyclerview:recyclerview:1.2.0-alpha04")
-  implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta7")
+  implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta8")
   implementation("androidx.vectordrawable:vectordrawable:1.2.0-alpha01")
 
   // UI
