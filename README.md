@@ -1,6 +1,6 @@
 <p align="center"><a href="#"><img src="https://raw.githubusercontent.com/G00fY2/DeveloperWidget/gh-pages/media/app_icon.png" alt="DeveloperWidget Icon" height="160px"></a></p>
 
-# Developer Widget [![Build Status](https://travis-ci.com/G00fY2/DeveloperWidget.svg?branch=develop)](https://travis-ci.com/G00fY2/DeveloperWidget) [![Release](https://img.shields.io/github/v/release/G00fY2/DeveloperWidget)](https://github.com/G00fY2/DeveloperWidget/releases) [![Pre-Release](https://img.shields.io/github/v/release/G00fY2/DeveloperWidget?include_prereleases&label=pre-release)](https://github.com/G00fY2/DeveloperWidget/releases) [![API](https://img.shields.io/badge/API-14%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=14)
+# Developer Widget [![Build Status](https://travis-ci.com/G00fY2/DeveloperWidget.svg?branch=develop)](https://travis-ci.com/G00fY2/DeveloperWidget) [![Release](https://img.shields.io/github/v/release/G00fY2/DeveloperWidget)](https://github.com/G00fY2/DeveloperWidget/releases) [![Pre-Release](https://img.shields.io/github/v/release/G00fY2/DeveloperWidget?include_prereleases&label=pre-release)](https://github.com/G00fY2/DeveloperWidget/releases) [![API](https://img.shields.io/badge/API-14%2B-blue.svg?style=flat)](https://developer.android.com/studio/releases/platforms#4.0)
 
 **Lightweight Android app that offers a widget to show device data, manage installed apps and list locally stored APK files.**
 
