@@ -39,6 +39,10 @@ android {
   }
   buildFeatures {
     viewBinding = true
+    aidl = false
+    renderScript = false
+    resValues = false
+    shaders = false
   }
   dependenciesInfo {
     includeInApk = false
