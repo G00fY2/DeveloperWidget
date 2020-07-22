@@ -84,10 +84,10 @@ dependencies {
   // AndroidX
   implementation("androidx.appcompat:appcompat:1.3.0-alpha01")
   implementation("androidx.core:core-ktx:1.5.0-alpha01")
-  implementation("androidx.activity:activity:1.2.0-alpha06")
-  implementation("androidx.fragment:fragment:1.3.0-alpha06")
-  implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha05")
-  implementation("androidx.recyclerview:recyclerview:1.2.0-alpha04")
+  implementation("androidx.activity:activity:1.2.0-alpha07")
+  implementation("androidx.fragment:fragment:1.3.0-alpha07")
+  implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha06")
+  implementation("androidx.recyclerview:recyclerview:1.2.0-alpha05")
   implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta8")
   implementation("androidx.vectordrawable:vectordrawable:1.2.0-alpha01")
 
