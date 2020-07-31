@@ -78,7 +78,6 @@ repositories {
 }
 dependencies {
   // Kotlin
-  implementation(kotlin("stdlib-jdk7"))
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.8-1.4.0-rc")
 
   // AndroidX
@@ -88,7 +87,7 @@ dependencies {
   implementation("androidx.fragment:fragment:1.3.0-alpha07")
   implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha06")
   implementation("androidx.recyclerview:recyclerview:1.2.0-alpha05")
-  implementation("androidx.constraintlayout:constraintlayout:2.0.0-beta8")
+  implementation("androidx.constraintlayout:constraintlayout:2.0.0-rc1")
   implementation("androidx.vectordrawable:vectordrawable:1.2.0-alpha01")
 
   // UI
