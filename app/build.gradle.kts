@@ -64,6 +64,10 @@ android {
   }
 }
 
+versioning {
+  keepOriginalMappingFile = false
+}
+
 repositories {
   google()
   mavenCentral()
