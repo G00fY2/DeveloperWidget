@@ -82,7 +82,7 @@ repositories {
 }
 dependencies {
   // Kotlin
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.8-1.4.0-rc")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
 
   // AndroidX
   implementation("androidx.appcompat:appcompat:1.3.0-alpha01")
