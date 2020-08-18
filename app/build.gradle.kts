@@ -57,6 +57,7 @@ android {
   }
   kotlinOptions {
     jvmTarget = JavaVersion.VERSION_1_8.toString()
+    useIR = true
   }
   lintOptions {
     // TODO remove when https://issuetracker.google.com/issues/141126614 is fixed
