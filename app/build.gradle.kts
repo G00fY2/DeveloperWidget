@@ -44,10 +44,6 @@ android {
     resValues = false
     shaders = false
   }
-  dependenciesInfo {
-    includeInApk = false
-    includeInBundle = true
-  }
   sourceSets {
     getByName("main").java.srcDirs("src/main/kotlin")
   }
@@ -60,8 +56,7 @@ android {
     useIR = true
   }
   lintOptions {
-    // TODO remove when https://issuetracker.google.com/issues/141126614 is fixed
-    isCheckReleaseBuilds = false
+    isCheckReleaseBuilds = false // TODO remove when https://issuetracker.google.com/issues/141126614 is fixed
   }
 }
 
@@ -78,22 +73,20 @@ repositories {
       includeModule("org.jetbrains.trove4j", "trove4j") // required by com.android.tools.lint:lint-gradle
     }
   }
-  maven ("https://dl.bintray.com/kotlin/kotlin-eap")
-  maven("https://kotlin.bintray.com/kotlinx")
 }
 dependencies {
   // Kotlin
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
 
   // AndroidX
-  implementation("androidx.appcompat:appcompat:1.3.0-alpha01")
-  implementation("androidx.core:core-ktx:1.5.0-alpha01")
-  implementation("androidx.activity:activity:1.2.0-alpha07")
-  implementation("androidx.fragment:fragment:1.3.0-alpha07")
-  implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha06")
+  implementation("androidx.appcompat:appcompat:1.3.0-alpha02")
+  implementation("androidx.core:core-ktx:1.5.0-alpha02")
+  implementation("androidx.activity:activity:1.2.0-alpha08")
+  implementation("androidx.fragment:fragment:1.3.0-alpha08")
+  implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha07")
   implementation("androidx.recyclerview:recyclerview:1.2.0-alpha05")
   implementation("androidx.constraintlayout:constraintlayout:2.0.0-rc1")
-  implementation("androidx.vectordrawable:vectordrawable:1.2.0-alpha01")
+  implementation("androidx.vectordrawable:vectordrawable:1.2.0-alpha02")
 
   // UI
   implementation("com.google.android.material:material:1.3.0-alpha02")
