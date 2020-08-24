@@ -85,7 +85,7 @@ dependencies {
   implementation("androidx.fragment:fragment:1.3.0-alpha08")
   implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha07")
   implementation("androidx.recyclerview:recyclerview:1.2.0-alpha05")
-  implementation("androidx.constraintlayout:constraintlayout:2.0.0-rc1")
+  implementation("androidx.constraintlayout:constraintlayout:2.0.0")
   implementation("androidx.vectordrawable:vectordrawable:1.2.0-alpha02")
 
   // UI
