@@ -26,6 +26,7 @@ import android.webkit.WebView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.g00fy2.developerwidget.R
@@ -37,7 +38,6 @@ import com.g00fy2.developerwidget.databinding.ActivityWidgetConfigBinding
 import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
 import com.g00fy2.developerwidget.ktx.hideKeyboard
 import com.g00fy2.developerwidget.ktx.showKeyboard
-import com.g00fy2.developerwidget.ktx.systemWindowInsetIgnoringVisibilityBottomCompat
 import com.g00fy2.developerwidget.ktx.updateMargin
 import com.g00fy2.developerwidget.receiver.widget.WidgetProviderImpl
 import javax.inject.Inject
@@ -131,10 +131,16 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
     binding.shareFab.setOnClickListener { presenter.shareDeviceData() }
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
       binding.widgetConfigRootScrollview.doOnApplyWindowInsets { view, insets, padding, _ ->
-        view.updatePadding(bottom = padding.bottom + insets.systemWindowInsetIgnoringVisibilityBottomCompat)
+        view.updatePadding(
+          bottom = padding.bottom + WindowInsetsCompat.toWindowInsetsCompat(insets)
+            .getInsetsIgnoringVisibility(WindowInsetsCompat.Type.systemBars()).bottom
+        )
       }
       binding.shareFab.doOnApplyWindowInsets { view, insets, _, margin ->
-        view.updateMargin(bottom = margin.bottom + insets.systemWindowInsetIgnoringVisibilityBottomCompat)
+        view.updateMargin(
+          bottom = margin.bottom + WindowInsetsCompat.toWindowInsetsCompat(insets)
+            .getInsetsIgnoringVisibility(WindowInsetsCompat.Type.systemBars()).bottom
+        )
       }
     }
   }

@@ -9,12 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.annotation.RequiresApi
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.viewbinding.ViewBinding
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.controllers.DayNightController
 import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
-import com.g00fy2.developerwidget.ktx.systemWindowInsetVisibleTopCompat
 import dagger.android.support.DaggerAppCompatActivity
 import timber.log.Timber
 import javax.inject.Inject
@@ -102,7 +102,10 @@ abstract class BaseActivity(private val isDialogActivity: Boolean = false) : Dag
 
       findViewById<View>(Window.ID_ANDROID_CONTENT)?.let {
         it.doOnApplyWindowInsets { view, insets, padding, _ ->
-          view.updatePadding(top = padding.top + insets.systemWindowInsetVisibleTopCompat)
+          view.updatePadding(
+            top = padding.top + WindowInsetsCompat.toWindowInsetsCompat(insets)
+              .getInsets(WindowInsetsCompat.Type.systemBars()).top
+          )
         }
       }
     }

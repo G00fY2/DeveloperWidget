@@ -17,6 +17,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,7 +28,6 @@ import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.databinding.ActivityCreateShortcutBinding
 import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
-import com.g00fy2.developerwidget.ktx.systemWindowInsetIgnoringVisibilityBottomCompat
 import javax.inject.Inject
 
 @RequiresApi(VERSION_CODES.N_MR1)
@@ -49,7 +49,7 @@ class CreateShortcutActivity : BaseActivity(), CreateShortcutContract.CreateShor
     binding.recyclerview.setHasFixedSize(true)
     binding.recyclerview.layoutManager = LinearLayoutManager(this)
     binding.recyclerview.adapter = adapter
-    ContextCompat.getDrawable(this,R.drawable.divider_line)?.let {
+    ContextCompat.getDrawable(this, R.drawable.divider_line)?.let {
       binding.recyclerview.addItemDecoration(
         DividerItemDecoration(
           this,
@@ -62,7 +62,10 @@ class CreateShortcutActivity : BaseActivity(), CreateShortcutContract.CreateShor
     adapter.setOnShortcutSelected { shortcutPosition -> onItemClick(shortcutPosition) }
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
       binding.root.doOnApplyWindowInsets { view, insets, padding, _ ->
-        view.updatePadding(bottom = padding.bottom + insets.systemWindowInsetIgnoringVisibilityBottomCompat)
+        view.updatePadding(
+          bottom = padding.bottom + WindowInsetsCompat.toWindowInsetsCompat(insets)
+            .getInsetsIgnoringVisibility(WindowInsetsCompat.Type.systemBars()).bottom
+        )
       }
     }
   }

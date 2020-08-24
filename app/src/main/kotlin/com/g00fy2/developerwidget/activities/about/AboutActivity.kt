@@ -7,6 +7,7 @@ import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import com.g00fy2.developerwidget.BuildConfig
 import com.g00fy2.developerwidget.R
@@ -16,7 +17,6 @@ import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.databinding.ActivityAboutBinding
 import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
-import com.g00fy2.developerwidget.ktx.systemWindowInsetIgnoringVisibilityBottomCompat
 import javax.inject.Inject
 
 class AboutActivity : BaseActivity(), AboutContract.AboutView {
@@ -105,7 +105,10 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
       binding.aboutRootScrollview.apply {
         doOnApplyWindowInsets { _, insets, padding, _ ->
-          updatePadding(bottom = padding.bottom + insets.systemWindowInsetIgnoringVisibilityBottomCompat)
+          updatePadding(
+            bottom = padding.bottom + WindowInsetsCompat.toWindowInsetsCompat(insets)
+              .getInsetsIgnoringVisibility(WindowInsetsCompat.Type.systemBars()).bottom
+          )
         }
         viewTreeObserver.addOnScrollChangedListener {
           val scrollableRange = getChildAt(0).bottom - height + paddingBottom
