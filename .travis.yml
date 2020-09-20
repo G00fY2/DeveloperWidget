@@ -25,7 +25,7 @@ before_install:
   - mv $HOME/sdk/cmdline-tools/cmdline-tools $HOME/sdk/cmdline-tools/latest
   # set SDK tools path variable and ANDROID_HOME
   - export PATH=$PATH:$HOME/sdk/cmdline-tools/latest/bin
-  - export ANDROID_HOME=$HOME/sdk
+  - export ANDROID_SDK_ROOT=$HOME/sdk
   # create empty cfg file to prevent sdkmanager warning message
   - mkdir -p $HOME/.android && touch $HOME/.android/repositories.cfg
   # decrypt private keystore
