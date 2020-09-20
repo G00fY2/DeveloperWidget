@@ -1,6 +1,6 @@
 language: java
 os: linux
-dist: bionic
+dist: focal
 group: edge
 git:
   depth: false
