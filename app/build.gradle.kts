@@ -80,12 +80,12 @@ dependencies {
 
   // AndroidX
   implementation("androidx.appcompat:appcompat:1.3.0-alpha02")
-  implementation("androidx.core:core-ktx:1.5.0-alpha02")
+  implementation("androidx.core:core-ktx:1.5.0-alpha03")
   implementation("androidx.activity:activity:1.2.0-alpha08")
   implementation("androidx.fragment:fragment:1.3.0-alpha08")
   implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha07")
   implementation("androidx.recyclerview:recyclerview:1.2.0-alpha05")
-  implementation("androidx.constraintlayout:constraintlayout:2.0.0")
+  implementation("androidx.constraintlayout:constraintlayout:2.0.1")
   implementation("androidx.vectordrawable:vectordrawable:1.2.0-alpha02")
 
   // UI
@@ -96,9 +96,9 @@ dependencies {
   implementation("com.g00fy2:versioncompare:1.3.4")
 
   // Dagger
-  implementation("com.google.dagger:dagger:2.28.3")
-  kapt("com.google.dagger:dagger-compiler:2.28.3")
-  implementation("com.google.dagger:dagger-android:2.28.3")
-  implementation("com.google.dagger:dagger-android-support:2.28.3")
-  kapt("com.google.dagger:dagger-android-processor:2.28.3")
+  implementation("com.google.dagger:dagger:2.29.1")
+  kapt("com.google.dagger:dagger-compiler:2.29.1")
+  implementation("com.google.dagger:dagger-android:2.29.1")
+  implementation("com.google.dagger:dagger-android-support:2.29.1")
+  kapt("com.google.dagger:dagger-android-processor:2.29.1")
 }
