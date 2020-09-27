@@ -64,7 +64,7 @@ class CreateShortcutActivity : BaseActivity(), CreateShortcutContract.CreateShor
       binding.root.doOnApplyWindowInsets { view, insets, padding, _ ->
         view.updatePadding(
           bottom = padding.bottom + WindowInsetsCompat.toWindowInsetsCompat(insets)
-            .getInsetsIgnoringVisibility(WindowInsetsCompat.Type.systemBars()).bottom
+            .getInsets(WindowInsetsCompat.Type.systemBars()).bottom
         )
       }
     }

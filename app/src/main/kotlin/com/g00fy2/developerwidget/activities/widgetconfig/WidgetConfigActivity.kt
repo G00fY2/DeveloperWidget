@@ -133,13 +133,13 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
       binding.widgetConfigRootScrollview.doOnApplyWindowInsets { view, insets, padding, _ ->
         view.updatePadding(
           bottom = padding.bottom + WindowInsetsCompat.toWindowInsetsCompat(insets)
-            .getInsetsIgnoringVisibility(WindowInsetsCompat.Type.systemBars()).bottom
+            .getInsets(WindowInsetsCompat.Type.systemBars()).bottom
         )
       }
       binding.shareFab.doOnApplyWindowInsets { view, insets, _, margin ->
         view.updateMargin(
           bottom = margin.bottom + WindowInsetsCompat.toWindowInsetsCompat(insets)
-            .getInsetsIgnoringVisibility(WindowInsetsCompat.Type.systemBars()).bottom
+            .getInsets(WindowInsetsCompat.Type.systemBars()).bottom
         )
       }
     }

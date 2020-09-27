@@ -107,7 +107,7 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
         doOnApplyWindowInsets { _, insets, padding, _ ->
           updatePadding(
             bottom = padding.bottom + WindowInsetsCompat.toWindowInsetsCompat(insets)
-              .getInsetsIgnoringVisibility(WindowInsetsCompat.Type.systemBars()).bottom
+              .getInsets(WindowInsetsCompat.Type.systemBars()).bottom
           )
         }
         viewTreeObserver.addOnScrollChangedListener {
