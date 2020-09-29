@@ -58,6 +58,9 @@ android {
   lintOptions {
     isCheckReleaseBuilds = false // TODO remove when https://issuetracker.google.com/issues/141126614 is fixed
   }
+  dependenciesInfo {
+    includeInApk = false
+  }
 }
 
 versioning {
