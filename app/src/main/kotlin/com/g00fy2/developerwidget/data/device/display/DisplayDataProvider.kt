@@ -3,10 +3,7 @@ package com.g00fy2.developerwidget.data.device.display
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Point
-import android.os.Build.VERSION
-import android.os.Build.VERSION_CODES
 import android.util.DisplayMetrics
-import android.view.Display
 import android.view.WindowManager
 import androidx.core.content.getSystemService
 import java.text.NumberFormat
@@ -72,17 +69,7 @@ object DisplayDataProvider {
     return result + if (altResult.isBlank()) "" else " ($altResult)"
   }
 
-  private fun getDisplay(context: Context): Display? {
-    if (VERSION.SDK_INT >= VERSION_CODES.R) {
-      try {
-        return context.display
-      } catch (e: UnsupportedOperationException) {
-        // expected if context is not am Activity or created with Context#createWindowContext
-      }
-    }
-    @Suppress("DEPRECATION")
-    return context.getSystemService<WindowManager>()?.defaultDisplay
-  }
+  private fun getDisplay(context: Context) = context.getSystemService<WindowManager>()?.defaultDisplay
 
   private fun gcd(p: Int, q: Int): Int {
     return if (q == 0) p

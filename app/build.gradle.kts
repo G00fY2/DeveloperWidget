@@ -6,12 +6,12 @@ plugins {
 }
 
 android {
-  compileSdkVersion(30)
+  compileSdkVersion(29)
   buildToolsVersion = "30.0.2"
   defaultConfig {
     applicationId = "com.g00fy2.developerwidget"
     minSdkVersion(14)
-    targetSdkVersion(30)
+    targetSdkVersion(29)
     versionCode = versioning.getVersionCode()
     versionName = versioning.getVersionName()
 
