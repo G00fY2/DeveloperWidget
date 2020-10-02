@@ -53,8 +53,9 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
 
   private fun searchAPKs(dir: File): Collection<ApkFile> {
     return dir.walk()
-      .filter { !it.isDirectory }
+      .maxDepth(2) // TODO allow configuring walking depth
       .filter { it.extension.equals("apk", true) }
+      .filterNot { it.isDirectory }
       .map { apkFileBuilder.build(it) }
       .filter { it.valid }
       .toList()
