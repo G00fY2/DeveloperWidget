@@ -3,6 +3,8 @@ package com.g00fy2.developerwidget.controllers
 import android.content.Context
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.di.annotations.ACTIVITY
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -17,34 +19,50 @@ class PreferenceControllerImpl @Inject constructor() : PreferenceController {
   }
 
   override suspend fun get(key: String, default: String): String {
-    return sharedPreference.getString(key, default) ?: default
+    return withContext(Dispatchers.IO) {
+      sharedPreference.getString(key, default) ?: default
+    }
   }
 
   override suspend fun get(key: String, default: Long): Long {
-    return sharedPreference.getLong(key, default)
+    return withContext(Dispatchers.IO) {
+      sharedPreference.getLong(key, default)
+    }
   }
 
   override suspend fun get(key: String, default: Int): Int {
-    return sharedPreference.getInt(key, default)
+    return withContext(Dispatchers.IO) {
+      sharedPreference.getInt(key, default)
+    }
   }
 
   override suspend fun get(key: String, default: Boolean): Boolean {
-    return sharedPreference.getBoolean(key, default)
+    return withContext(Dispatchers.IO) {
+      sharedPreference.getBoolean(key, default)
+    }
   }
 
   override suspend fun set(key: String, data: String) {
-    return sharedPreference.edit().putString(key, data).apply()
+    return withContext(Dispatchers.IO) {
+      sharedPreference.edit().putString(key, data).apply()
+    }
   }
 
   override suspend fun set(key: String, data: Long) {
-    return sharedPreference.edit().putLong(key, data).apply()
+    return withContext(Dispatchers.IO) {
+      sharedPreference.edit().putLong(key, data).apply()
+    }
   }
 
   override suspend fun set(key: String, data: Int) {
-    return sharedPreference.edit().putInt(key, data).apply()
+    return withContext(Dispatchers.IO) {
+      sharedPreference.edit().putInt(key, data).apply()
+    }
   }
 
   override suspend fun set(key: String, data: Boolean) {
-    return sharedPreference.edit().putBoolean(key, data).apply()
+    return withContext(Dispatchers.IO) {
+      sharedPreference.edit().putBoolean(key, data).apply()
+    }
   }
 }
