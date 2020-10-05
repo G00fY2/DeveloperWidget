@@ -10,6 +10,7 @@ import com.g00fy2.developerwidget.activities.apkinstall.controllers.StorageDirsC
 import com.g00fy2.developerwidget.base.BasePresenterImpl
 import com.g00fy2.developerwidget.controllers.IntentController
 import com.g00fy2.developerwidget.controllers.PermissionController
+import com.g00fy2.developerwidget.controllers.PreferenceController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -20,14 +21,21 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
 
   @Inject
   lateinit var view: ApkContract.ApkView
+
   @Inject
   lateinit var intentController: IntentController
+
   @Inject
   lateinit var permissionController: PermissionController
+
   @Inject
   lateinit var storageDirsController: StorageDirsController
+
   @Inject
   lateinit var apkFileBuilder: ApkFile.ApkFileBuilder
+
+  @Inject
+  lateinit var preferenceController: PreferenceController
 
   @OnLifecycleEvent(Event.ON_CREATE)
   fun scanStoreageIfPermissionGranted() {
@@ -40,9 +48,10 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
   private fun scanStorageForApks() {
     view.lifecycleScope.launch {
       withContext(Dispatchers.IO) {
+        val depth = preferenceController.get(PreferenceController.SEARCH_DEPTH, 2)
         mutableSetOf<ApkFile>().apply {
           for (dir in storageDirsController.getStorageDirectories()) {
-            addAll(searchAPKs(dir))
+            addAll(searchAPKs(dir, depth))
           }
         }.sorted()
       }.let {
@@ -51,9 +60,9 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
     }
   }
 
-  private fun searchAPKs(dir: File): Collection<ApkFile> {
+  private fun searchAPKs(dir: File, depth: Int): Collection<ApkFile> {
     return dir.walk()
-      .maxDepth(2) // TODO allow configuring walking depth
+      .maxDepth(depth)
       .filter { it.extension.equals("apk", true) }
       .filterNot { it.isDirectory }
       .map { apkFileBuilder.build(it) }

@@ -6,6 +6,8 @@ import com.g00fy2.developerwidget.controllers.IntentController
 import com.g00fy2.developerwidget.controllers.IntentControllerImpl
 import com.g00fy2.developerwidget.controllers.PermissionController
 import com.g00fy2.developerwidget.controllers.PermissionControllerImpl
+import com.g00fy2.developerwidget.controllers.PreferenceController
+import com.g00fy2.developerwidget.controllers.PreferenceControllerImpl
 import com.g00fy2.developerwidget.controllers.StringController
 import com.g00fy2.developerwidget.controllers.StringControllerImpl
 import com.g00fy2.developerwidget.controllers.ToastController
@@ -48,4 +50,8 @@ abstract class ActivityControllerModule {
   @Binds
   @ActivityScope
   abstract fun provideStringController(stringControllerImpl: StringControllerImpl): StringController
+
+  @Binds
+  @ActivityScope
+  abstract fun providePreferenceController(preferenceControllerImpl: PreferenceControllerImpl): PreferenceController
 }

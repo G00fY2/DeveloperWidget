@@ -3,6 +3,7 @@
   <string name="app_name">Developer Widget</string>
   <string name="install_apk">Install APK</string>
   <string name="app_settings">Manage Apps</string>
+  <string name="ok">OK</string>
   <string name="cancel">Cancel</string>
   <string name="missing_permissions">Missing permissions</string>
   <string name="no_apk_found">No APK files found</string>
@@ -34,6 +35,7 @@
   <string name="changelog">Release notes</string>
   <string name="feedback">Feedback</string>
   <string name="feedback_description">Request features or report bugs</string>
+  <string name="search_apk_depth">APK search depth</string>
   <string name="show_app_icon">Show app icon</string>
   <string name="show_app_icon_description">Display application icon on launcher</string>
   <string name="reboot_notice">You may need to reboot to take effect.</string>
@@ -67,6 +69,8 @@
   <string name="apk_warning_list_title">Permissions without runtime request:</string>
   <string name="keep_me_safe">Keep me safe</string>
   <string name="install_anyway">Install anyway</string>
+  <string name="infinite_depth">Infinite (can slow down APK search)</string>
+  <string name="default_depth">%d (Default)</string>
 
   <string name="device_title">Device</string>
   <string name="system_title">System</string>

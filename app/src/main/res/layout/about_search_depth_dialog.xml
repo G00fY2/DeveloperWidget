@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+  <TextView
+      android:id="@+id/title_view"
+      android:layout_width="match_parent"
+      android:layout_height="48dp"
+      android:layout_marginLeft="@dimen/action_bar_inset"
+      android:layout_marginStart="@dimen/action_bar_inset"
+      android:gravity="start|bottom"
+      android:text="@string/search_apk_depth"
+      android:textColor="@color/textPrimary"
+      android:textSize="20sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <EditText
+      android:id="@+id/input_edittext"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/action_bar_inset"
+      android:layout_marginStart="@dimen/action_bar_inset"
+      android:hint="@string/search_apk_depth"
+      android:importantForAutofill="no"
+      android:inputType="number"
+      android:textColor="@color/textPrimary"
+      android:textSize="16sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/title_view"
+      tools:text="My delete message"
+      />
+
+  <TextView
+      android:id="@+id/dialog_cancel_textview"
+      android:text="@string/cancel"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@+id/dialog_ok_textview"
+      app:layout_constraintTop_toBottomOf="@id/input_edittext"
+      style="@style/DialogNestedButtonAppearance"
+      />
+
+  <TextView
+      android:id="@+id/dialog_ok_textview"
+      android:gravity="center"
+      android:minWidth="48dp"
+      android:text="@string/ok"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/input_edittext"
+      style="@style/DialogNestedButtonAppearance"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

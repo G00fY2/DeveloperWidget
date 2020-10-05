@@ -12,6 +12,7 @@ import androidx.core.view.updatePadding
 import com.g00fy2.developerwidget.BuildConfig
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.about.dialogs.AboutFeedbackDialog
+import com.g00fy2.developerwidget.activities.about.dialogs.SearchDepthDialog
 import com.g00fy2.developerwidget.activities.widgetconfig.ConfigLauncherActivity
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
@@ -92,6 +93,9 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
       description(R.string.icon_credits_description)
       action { presenter.openUrl(ICON_CREDITS) }
     }
+    binding.searchDepthItem.init {
+      title(R.string.search_apk_depth)
+    }
     binding.hideLauncherIconItem.init {
       title(R.string.show_app_icon)
       description(R.string.show_app_icon_description)
@@ -146,6 +150,16 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
     }
   }
 
+  override fun updateSearchDepthUi(depth: Int) {
+    val description = when (depth) {
+      0 -> getString(R.string.infinite_depth)
+      2 -> getString(R.string.default_depth, depth)
+      else -> depth.toString()
+    }
+    binding.searchDepthItem.description(description)
+    binding.searchDepthItem.action { showSearchDepthOptions(depth) }
+  }
+
   private fun updateLauncherIconSwitch() = binding.hideLauncherIconItem.switch(!isLauncherIconDisabled())
 
   private fun updateLauncherIconItem() {
@@ -156,6 +170,13 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
     AboutFeedbackDialog(this).init {
       mailAction { presenter.sendFeedbackMail() }
       githubAction { presenter.openUrl(GITHUB_ISSUE) }
+    }.show()
+  }
+
+  private fun showSearchDepthOptions(currentDepth: Int) {
+    SearchDepthDialog(this).init {
+      initialValue(currentDepth)
+      onPositive { presenter.saveSearchDepth(it) }
     }.show()
   }
 
