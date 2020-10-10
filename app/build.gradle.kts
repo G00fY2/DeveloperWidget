@@ -88,7 +88,7 @@ dependencies {
   implementation("androidx.fragment:fragment:1.3.0-beta01")
   implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-beta01")
   implementation("androidx.recyclerview:recyclerview:1.2.0-alpha06")
-  implementation("androidx.constraintlayout:constraintlayout:2.0.1")
+  implementation("androidx.constraintlayout:constraintlayout:2.0.2")
   implementation("androidx.vectordrawable:vectordrawable:1.2.0-alpha02")
 
   // UI
@@ -96,7 +96,7 @@ dependencies {
 
   // Misc
   implementation("com.jakewharton.timber:timber:4.7.1")
-  implementation("com.g00fy2:versioncompare:1.3.4")
+  implementation("com.g00fy2:versioncompare:1.3.5")
 
   // Dagger
   implementation("com.google.dagger:dagger:2.29.1")
