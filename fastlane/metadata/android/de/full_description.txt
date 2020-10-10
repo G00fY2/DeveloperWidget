@@ -1,0 +1,8 @@
+<p><i>Developer Widget</i> ist eine schlanke Android-Anwendung. Sie bietet ein Widget zur Anzeige von Gerätedaten, zum Verwalten installierter Apps sowie zur Auflistung lokal gespeicherter APK-Dateien.</p>
+<p>Die App wurde von einem Entwickler für Entwickler erstellt. Vielleicht kennen Sie den Ärger, wenn auf mehreren physischen Geräten unterschiedliche Software läuft. Diese App hilft, wichtige Gerätedaten im Auge zu behalten und ermöglicht es, Apps und lokale APK-Dateien zu verwalten. Sie werden nie wieder Schwierigkeiten haben, APK-Dateien mit einem Dateibrowser zu finden oder auf einer benutzerdefinierten Hersteller-Benutzeroberfläche nach dem Menü für die Anwendungseinstellungen zu suchen.</p>
+<p>Das Hauptmerkmal der App ist ein 4x1 (horizontal größenveränderbares) Homescreen-Widget, das dynamisch abgerufene Gerätedaten anzeigt und es ermöglicht, installierte Apps und lokale gespeicherte APK-Dateien zu durchsuchen.</p>
+<p><br><b>Features:</b></p><ul>
+<li>Homescreen-Widget mit anpassbarem Gerätenamen</li>
+<li>Durchsuchen aller installierten (Nicht-System-)Apps und filtern nach Paketnamen</li>
+<li>Verwalten lokale gespeicherter APK-Dateien</li>
+<li>und mehr</li></ul>
