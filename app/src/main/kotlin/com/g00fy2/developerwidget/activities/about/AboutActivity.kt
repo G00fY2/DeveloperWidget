@@ -5,7 +5,9 @@ import android.content.ComponentName
 import android.content.pm.PackageManager
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
+import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -27,6 +29,20 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
 
   override val binding: ActivityAboutBinding by viewBinding(ActivityAboutBinding::inflate)
   override fun providePresenter(): BasePresenter = presenter
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+
+    if (intent.getBooleanExtra(SCROLL_BOTTOM, false)) {
+      intent.removeExtra(SCROLL_BOTTOM)
+      binding.aboutRootScrollview.run {
+        postDelayed({ smoothScrollTo(0, bottom) }, 300)
+        setPressedState(binding.searchDepthItem, true, 600)
+        setPressedState(binding.searchDepthItem, false, 800)
+        setPressedState(binding.searchDepthItem, true, 1000)
+      }
+    }
+  }
 
   override fun initView() {
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -203,5 +219,13 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
     }
     updateLauncherIconItem()
     presenter.showRebootNotice()
+  }
+
+  private fun setPressedState(item: View, pressed: Boolean, delay: Int) {
+    item.run { postDelayed({ isPressed = pressed }, delay.toLong()) }
+  }
+
+  companion object {
+    const val SCROLL_BOTTOM = "scrollBottom"
   }
 }

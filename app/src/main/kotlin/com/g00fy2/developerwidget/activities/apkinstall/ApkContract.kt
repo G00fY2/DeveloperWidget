@@ -6,7 +6,7 @@ interface ApkContract {
 
   interface ApkView : BaseContract.BaseView {
 
-    fun toggleResultView(apkFiles: List<ApkFile>, missingPermissions: Boolean)
+    fun toggleResultView(apkFiles: List<ApkFile>, missingPermissions: Boolean, searchDepth: Int = 0)
 
     fun showPermissionWarning(apkFile: ApkFile)
   }

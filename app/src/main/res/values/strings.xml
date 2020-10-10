@@ -7,6 +7,7 @@
   <string name="cancel">Cancel</string>
   <string name="missing_permissions">Missing permissions</string>
   <string name="no_apk_found">No APK files found</string>
+  <string name="no_apk_found_search_depth">search depth %d</string>
   <string name="no_apps_found">No apps found</string>
   <string name="loading_data">Loading data…</string>
   <string name="filter">Filter</string>

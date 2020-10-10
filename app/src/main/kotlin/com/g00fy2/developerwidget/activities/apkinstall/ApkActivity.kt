@@ -1,15 +1,19 @@
 package com.g00fy2.developerwidget.activities.apkinstall
 
+import android.content.Intent
 import android.view.View
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.g00fy2.developerwidget.R
+import com.g00fy2.developerwidget.activities.about.AboutActivity
+import com.g00fy2.developerwidget.activities.about.AboutActivity.Companion.SCROLL_BOTTOM
 import com.g00fy2.developerwidget.activities.apkinstall.dialogs.ApkDeleteDialog
 import com.g00fy2.developerwidget.activities.apkinstall.dialogs.ApkWarningDialog
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.databinding.ActivityApkBinding
+import com.g00fy2.developerwidget.ktx.setClickableText
 import javax.inject.Inject
 
 class ApkActivity : BaseActivity(true), ApkContract.ApkView {
@@ -47,13 +51,21 @@ class ApkActivity : BaseActivity(true), ApkContract.ApkView {
     }
   }
 
-  override fun toggleResultView(apkFiles: List<ApkFile>, missingPermissions: Boolean) {
+  override fun toggleResultView(apkFiles: List<ApkFile>, missingPermissions: Boolean, searchDepth: Int) {
     if (missingPermissions) {
       binding.progressbar.visibility = View.GONE
       binding.noItemsTextview.text = getString(R.string.missing_permissions)
     } else {
       binding.noItemsTextview.visibility = View.INVISIBLE
-      binding.noItemsTextview.text = getString(R.string.no_apk_found)
+      if (searchDepth != Int.MAX_VALUE) {
+        binding.noItemsTextview.setClickableText(
+          getString(R.string.no_apk_found) + "\n" + getString(R.string.no_apk_found_search_depth, searchDepth),
+          getString(R.string.no_apk_found_search_depth, searchDepth)
+        ) { openAboutActivity() }
+      } else {
+        binding.noItemsTextview.text = getString(R.string.no_apk_found)
+      }
+
       ViewCompat.animate(binding.progressbar).alpha(0f)
         .setDuration(resources.getInteger(android.R.integer.config_shortAnimTime).toLong()).withEndAction {
           binding.progressbar.visibility = View.INVISIBLE
@@ -68,6 +80,13 @@ class ApkActivity : BaseActivity(true), ApkContract.ApkView {
       installCallback { presenter.installApk(apkFile) }
       permissionList(apkFile.dangerousPermissions)
     }.show()
+  }
+
+  private fun openAboutActivity() {
+    startActivity(Intent(this, AboutActivity::class.java).apply {
+      flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+      putExtra(SCROLL_BOTTOM, true)
+    })
   }
 
   private fun showOptions(show: Boolean) {

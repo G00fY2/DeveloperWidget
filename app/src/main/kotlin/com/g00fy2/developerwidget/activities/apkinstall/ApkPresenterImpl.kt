@@ -46,16 +46,17 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
   }
 
   private fun scanStorageForApks() {
+    var depth: Int
     view.lifecycleScope.launch {
       withContext(Dispatchers.IO) {
-        val depth = preferenceController.get(PreferenceController.SEARCH_DEPTH, 2)
+        depth = preferenceController.get(PreferenceController.SEARCH_DEPTH, 2)
         mutableSetOf<ApkFile>().apply {
           for (dir in storageDirsController.getStorageDirectories()) {
             addAll(searchAPKs(dir, depth))
           }
         }.sorted()
       }.let {
-        view.toggleResultView(it, false)
+        view.toggleResultView(it, false, depth)
       }
     }
   }
