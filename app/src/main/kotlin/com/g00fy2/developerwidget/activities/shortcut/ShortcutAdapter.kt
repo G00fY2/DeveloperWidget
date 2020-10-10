@@ -15,7 +15,7 @@ class ShortcutAdapter : BaseAdapter<ShortcutInfo, ShortcutViewHolder>(ShortcutDi
 
   private var onShortcutSelected: ((Int) -> Unit) = {}
 
-  inner class ShortcutViewHolder(val binding: ShortcutItemBinding) : BaseViewHolder<ShortcutInfo>(binding) {
+  class ShortcutViewHolder(val binding: ShortcutItemBinding) : BaseViewHolder<ShortcutInfo>(binding) {
     override fun onBind(item: ShortcutInfo) {
       item.run {
         binding.shortcutTitleTextview.text = item.longLabel ?: item.shortLabel ?: ""
@@ -26,7 +26,7 @@ class ShortcutAdapter : BaseAdapter<ShortcutInfo, ShortcutViewHolder>(ShortcutDi
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShortcutViewHolder {
     return ShortcutViewHolder(ShortcutItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)).apply {
       addRipple()
-      itemView.setOnClickListener { onShortcutSelected(adapterPosition) }
+      itemView.setOnClickListener { onShortcutSelected(bindingAdapterPosition) }
     }
   }
 

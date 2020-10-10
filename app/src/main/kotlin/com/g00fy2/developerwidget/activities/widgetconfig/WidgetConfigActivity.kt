@@ -26,9 +26,9 @@ import android.webkit.WebView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.getSystemService
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewbinding.ViewBinding
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.about.AboutActivity
 import com.g00fy2.developerwidget.base.BaseActivity
@@ -36,7 +36,6 @@ import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.data.DeviceDataItem
 import com.g00fy2.developerwidget.databinding.ActivityWidgetConfigBinding
 import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
-import com.g00fy2.developerwidget.ktx.gesturalNavigationMode
 import com.g00fy2.developerwidget.ktx.hideKeyboard
 import com.g00fy2.developerwidget.ktx.showKeyboard
 import com.g00fy2.developerwidget.ktx.updateMargin
@@ -48,7 +47,7 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
   @Inject
   lateinit var presenter: WidgetConfigContract.WidgetConfigPresenter
 
-  private lateinit var binding: ActivityWidgetConfigBinding
+  override val binding: ActivityWidgetConfigBinding by viewBinding(ActivityWidgetConfigBinding::inflate)
   private lateinit var adapter: DeviceDataAdapter
   private var updateExistingWidget = false
   private var launchedFromAppLauncher = true
@@ -65,11 +64,6 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
   }
 
   override fun providePresenter(): BasePresenter = presenter
-
-  override fun setViewBinding(): ViewBinding {
-    binding = ActivityWidgetConfigBinding.inflate(layoutInflater)
-    return binding
-  }
 
   override fun initView() {
     setResult(Activity.RESULT_CANCELED)
@@ -95,7 +89,7 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
         } else {
           binding.shareFab.show()
         }
-        if (VERSION.SDK_INT >= VERSION_CODES.O_MR1 && !gesturalNavigationMode()) {
+        if (VERSION.SDK_INT >= VERSION_CODES.O_MR1 && !isGesturalNavMode()) {
           clipToPadding = (scrollY >= scrollableRange)
         }
       }
@@ -137,10 +131,16 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
     binding.shareFab.setOnClickListener { presenter.shareDeviceData() }
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
       binding.widgetConfigRootScrollview.doOnApplyWindowInsets { view, insets, padding, _ ->
-        view.updatePadding(bottom = padding.bottom + insets.systemWindowInsetBottom)
+        view.updatePadding(
+          bottom = padding.bottom + WindowInsetsCompat.toWindowInsetsCompat(insets)
+            .getInsets(WindowInsetsCompat.Type.systemBars()).bottom
+        )
       }
       binding.shareFab.doOnApplyWindowInsets { view, insets, _, margin ->
-        view.updateMargin(bottom = margin.bottom + insets.systemWindowInsetBottom)
+        view.updateMargin(
+          bottom = margin.bottom + WindowInsetsCompat.toWindowInsetsCompat(insets)
+            .getInsets(WindowInsetsCompat.Type.systemBars()).bottom
+        )
       }
     }
   }

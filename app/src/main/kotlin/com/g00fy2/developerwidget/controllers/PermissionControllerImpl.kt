@@ -1,12 +1,9 @@
 package com.g00fy2.developerwidget.controllers
 
-import android.app.Activity
-import android.content.Context
 import android.content.pm.PackageManager
-import android.os.Build.VERSION
-import android.os.Build.VERSION_CODES
-import androidx.annotation.RequiresApi
+import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.core.content.ContextCompat
+import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.di.annotations.ACTIVITY
 import javax.inject.Inject
 import javax.inject.Named
@@ -15,34 +12,15 @@ class PermissionControllerImpl @Inject constructor() : PermissionController {
 
   @Inject
   @Named(ACTIVITY)
-  lateinit var context: Context
+  lateinit var activity: BaseActivity
 
-  override fun hasPermission(permission: String): Boolean {
-    return if (VERSION.SDK_INT >= VERSION_CODES.M) {
-      ContextCompat.checkSelfPermission(
-        context,
-        permission
-      ) == PackageManager.PERMISSION_GRANTED
-    } else {
-      true
-    }
+  override fun hasPermissions(vararg permissions: String): Boolean {
+    return permissions.all { ContextCompat.checkSelfPermission(activity, it) == PackageManager.PERMISSION_GRANTED }
   }
 
-  override fun hasPermissions(permissions: Array<String>): Boolean {
-    var granted = true
-    for (permission in permissions) {
-      granted = granted && hasPermission(permission)
-    }
-    return granted
-  }
-
-  @RequiresApi(VERSION_CODES.M)
-  override fun requestPermission(permission: String) {
-    requestPermissions(arrayOf(permission))
-  }
-
-  @RequiresApi(VERSION_CODES.M)
-  override fun requestPermissions(permissions: Array<String>) {
-    if (!hasPermissions(permissions)) (context as Activity).requestPermissions(permissions, 1)
+  override fun requestPermissions(vararg permissions: String, onGranted: (() -> Unit), onDenied: () -> Unit) {
+    activity.registerForActivityResult(RequestMultiplePermissions()) { result ->
+      if (result.all { it.value }) onGranted() else onDenied()
+    }.launch(permissions)
   }
 }

@@ -45,6 +45,7 @@
       android:scaleType="center"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      app:tint="@color/backgroundColor"
       app:srcCompat="@drawable/ic_clear"
       />
 
@@ -62,6 +63,7 @@
       android:scaleType="center"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      app:tint="@color/backgroundColor"
       app:srcCompat="@drawable/ic_delete"
       />
 
@@ -122,8 +124,8 @@
       android:layout_marginTop="8dp"
       android:ellipsize="end"
       android:gravity="center"
-      android:singleLine="true"
       android:text="@string/scanning_apks"
+      android:textColorHighlight="@color/backgroundColor"
       android:textSize="14sp"
       app:layout_constraintBottom_toBottomOf="@+id/recyclerview"
       app:layout_constraintEnd_toEndOf="parent"
@@ -139,7 +141,6 @@
       android:layout_marginEnd="@dimen/action_bar_inset"
       android:layout_marginRight="@dimen/action_bar_inset"
       android:layout_marginTop="4dp"
-      android:background="@drawable/bg_dialog_button_ripple"
       android:clickable="true"
       android:focusable="true"
       android:gravity="center_vertical"

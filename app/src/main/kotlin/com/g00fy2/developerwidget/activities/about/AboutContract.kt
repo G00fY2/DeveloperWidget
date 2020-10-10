@@ -7,6 +7,8 @@ interface AboutContract {
   interface AboutView : BaseContract.BaseView {
 
     fun updateThemeToggleView()
+
+    fun updateSearchDepthUi(depth: Int)
   }
 
   interface AboutPresenter : BaseContract.BasePresenter {
@@ -20,5 +22,9 @@ interface AboutContract {
     fun honorClicking()
 
     fun showRebootNotice()
+
+    fun updateSearchDepth()
+
+    fun saveSearchDepth(depth: Int)
   }
 }

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+  <TextView
+      android:id="@+id/title"
+      android:layout_width="0dp"
+      android:layout_height="48dp"
+      android:layout_marginEnd="@dimen/action_bar_inset"
+      android:layout_marginStart="@dimen/action_bar_inset"
+      android:gravity="start|bottom"
+      android:minHeight="48dp"
+      android:paddingBottom="6dp"
+      android:text="@string/apk_warning_title"
+      android:textColor="@color/textPrimary"
+      android:textSize="20sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <TextView
+      android:id="@+id/dialog_message_textview"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:text="@string/apk_warning_description"
+      android:textColor="@color/textPrimary"
+      android:textSize="16sp"
+      app:layout_constraintEnd_toEndOf="@id/title"
+      app:layout_constraintStart_toStartOf="@id/title"
+      app:layout_constraintTop_toBottomOf="@id/title"
+      />
+
+  <TextView
+      android:id="@+id/more_details_textview"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:layout_weight="1"
+      android:gravity="center|start"
+      android:text="@string/apk_warning_list_title"
+      android:textColor="@color/textPrimary"
+      android:textSize="16sp"
+      app:layout_constraintEnd_toEndOf="@id/title"
+      app:layout_constraintStart_toStartOf="@id/title"
+      app:layout_constraintTop_toBottomOf="@id/dialog_message_textview"
+      />
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/recyclerview_constraintlayout"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_marginTop="4dp"
+      app:layout_constraintHeight_default="wrap"
+      app:layout_constraintHeight_max="300dp"
+      app:layout_constraintTop_toBottomOf="@id/more_details_textview"
+      >
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fadeScrollbars="false"
+        android:paddingEnd="@dimen/action_bar_inset"
+        android:paddingStart="@dimen/action_bar_inset"
+        android:scrollbarStyle="outsideInset"
+        android:scrollbars="vertical"
+        app:layout_constrainedHeight="true"
+        />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <TextView
+      android:id="@+id/dialog_install_textview"
+      android:text="@string/install_anyway"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@+id/dialog_cancel_textview"
+      app:layout_constraintTop_toBottomOf="@id/recyclerview_constraintlayout"
+      style="@style/DialogNestedButtonAppearance"
+      />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/dialog_cancel_textview"
+      android:text="@string/keep_me_safe"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/recyclerview_constraintlayout"
+      style="@style/DialogNestedColoredButtonAppearance"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>

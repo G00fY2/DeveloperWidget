@@ -1,13 +1,13 @@
 language: java
 os: linux
-dist: bionic
+dist: focal
 group: edge
 git:
   depth: false
 env:
   global:
-  # for updates check (dl.google.com/android/repository/repository2-1.xml)
-  - ANDROID_SDK_CMD_TOOLS=commandlinetools-linux-5842447_latest.zip
+  # for updates check https://developer.android.com/studio#downloads
+  - ANDROID_SDK_CMD_TOOLS=commandlinetools-linux-6825553_latest.zip
   # storepass, keypass, keyalias
   - secure: K4PVOrcYr6ZV16GgZWcw5RGDqxRTrilMK6pjz1r+RkQX6EPywmTsUH0y8EGP44bZc+TFMM0UfGPulHfrKzC3LDVSe+CpvNdQqq8c2Ysc9lQLubvFmVlWZ2rjHhA3jtg33FDIAWipb41WZEdmCJE1EI+OMbh8p8/7cGZ4K4tpd3B8ViXrf16ht50C56glL1lS3Jog/g9OEIPdhzYF23nYPOAeV3xJg3WBGxUUMOwp3vrpMJ/bYvnh/XLHUpPWnCcSWhKZolE3C6Itlv3CUdCyd2u8dnbTFX7KK0g4nrJdXJAyith0aE2RB6APdDDIdZkF3p2qU3aWBWVvNzjGc6tYpP9OB8sjobcx9oG8lIaO09qZnM+fLTs5b3ulvl8d3UZI0KxgSocvjxpltrqeuNODGarzwIWAmjxKr3Qnfo5LFUna1UMxKJ1ARyT7zS9yUbfE6ek42aEe7rEaqryjNFE5X6b9D2WexN+68YynvdRfDXlFx2JIW3hWTi7AG4zBI0LKhhtruwLY1hKty3JR5/Dz/dIMW6JZUmLdE7drPmLNBcKRh1H778EOcaD+1q1bzVnwbA+HLfHkO9Rzmk7UOY1ttWzFBH23W/pI6D6mn4WTFng0/iOEsw7fwHaXPGv6ZXxserC/nzmeYb0AfK3wq2p2ztEDtbSblw9lkMBYlvNi5I8=
   - secure: SEcF7dl6ImTdeUYtw6dGeHRXbS4h8Ec9+Dnt2rFeobupo4e64818Fo10Uqqf+eM/5VVF2FAJLnEiq1SgfWZKjvUz9batJZNknc2JSKEGQPFaUD55USFCt2rxoLPFJKIee07kPTiXGPM2WWA+42cD+HpXAErMTd3BESsGwjni+xj2PhJuETDGrw+0D5T4TOXgd0uXNPl4p1PE+l3SejPqGQ961Wo+hbxd/y9JyZy/jZ9WW8XA6eEXXtecRY33NspwT58mBXDgZLIM/C3W0qfrGCiOPxwk0RpMo7YMbmYVPLG75AzihDtQ2F7P5edHz7v0yCAejrN23hi1LHb4Uku8tC2jzrH5eUpKfZuqap8DRcbdXq5je3oeuLSUu39FrzsDEmennS0eaD4jTsB5Sy2wld/UCmzV0QenUtPdBaFLU2Rxos3xJW4a2KyENRm5TGVNR/NAWpoacLed3zqDmb3K13WwskTGE1/mXRl+o0T0BVOBXuHXQ+nqATnGuAbw97LhhOeBZ/jA2yWBsaTxdjhB3E3uKWYZYdGIIgOwrZdM0RrVSgepg7NP+vh9iO70ckEzP+w4yws2ElKE3ZiOexEmrkFmqlxQW08b1FMaKJwpfsNiHkwW6u1jq1oeEBIzUrAMmo92uAjDAHKfn7FOsx5RVg20EKP9Rk9l2YKRA5dGJFI=
@@ -22,9 +22,10 @@ before_install:
   # download and unzip Android SDK command line tools
   - wget -nv https://dl.google.com/android/repository/$ANDROID_SDK_CMD_TOOLS
   - mkdir -p $HOME/sdk/cmdline-tools && unzip -q $ANDROID_SDK_CMD_TOOLS -d $HOME/sdk/cmdline-tools
+  - mv $HOME/sdk/cmdline-tools/cmdline-tools $HOME/sdk/cmdline-tools/latest
   # set SDK tools path variable and ANDROID_HOME
-  - export PATH=$PATH:$HOME/sdk/cmdline-tools/tools/bin
-  - export ANDROID_HOME=$HOME/sdk
+  - export PATH=$PATH:$HOME/sdk/cmdline-tools/latest/bin
+  - export ANDROID_SDK_ROOT=$HOME/sdk
   # create empty cfg file to prevent sdkmanager warning message
   - mkdir -p $HOME/.android && touch $HOME/.android/repositories.cfg
   # decrypt private keystore
@@ -44,13 +45,7 @@ before_script:
   # log all gradle warnings
   - echo "org.gradle.warning.mode=all" >> $HOME/.gradle/gradle.properties
   # control gradle build cache
-  - if [[ $CACHING == "true" ]]; then
-      echo "org.gradle.caching=true" >> $HOME/.gradle/gradle.properties;
-      echo "android.enableBuildCache=true" >> $HOME/.gradle/gradle.properties;
-    else
-      echo "org.gradle.caching=false" >> $HOME/.gradle/gradle.properties;
-      echo "android.enableBuildCache=false" >> $HOME/.gradle/gradle.properties;
-    fi
+  - echo "org.gradle.caching=$CACHING" >> $HOME/.gradle/gradle.properties;
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -rf $HOME/.gradle/caches/*/plugin-resolution/
@@ -72,12 +67,12 @@ jobs:
   - # Build debug
     if: branch IN (develop, master)
     env: CACHING=true
-    script: "./gradlew assembleDebug --scan"
+    script: "./gradlew assembleDebug"
   - # Build and deploy release on tags
     if: tag IS present
     env: CACHING=false
     script:
-      - "./gradlew assembleRelease -Pmy_storepass=$storepass -Pmy_keyalias=$keyalias -Pmy_keypass=$keypass --scan"
+      - "./gradlew assembleRelease -Pmy_storepass=$storepass -Pmy_keyalias=$keyalias -Pmy_keypass=$keypass"
       - "./gradlew :app:bundleRelease -Pmy_storepass=$storepass -Pmy_keyalias=$keyalias -Pmy_keypass=$keypass"
     deploy:
       provider: releases
@@ -87,7 +82,7 @@ jobs:
       file:
         - $TRAVIS_BUILD_DIR/app/build/outputs/bundle/release/*.aab
         - $TRAVIS_BUILD_DIR/app/build/outputs/apk/release/*.apk
-        - $TRAVIS_BUILD_DIR/app/build/outputs/mapping/release/mapping.txt
+        - $TRAVIS_BUILD_DIR/app/build/outputs/mapping/release/*mapping.txt
       draft: false
       on:
         tags: true

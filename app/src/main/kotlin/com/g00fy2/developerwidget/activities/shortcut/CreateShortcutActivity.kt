@@ -14,12 +14,13 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewbinding.ViewBinding
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.activities.apkinstall.ApkActivity
 import com.g00fy2.developerwidget.activities.appmanager.AppsActivity
@@ -34,16 +35,12 @@ class CreateShortcutActivity : BaseActivity(), CreateShortcutContract.CreateShor
 
   @Inject
   lateinit var presenter: CreateShortcutContract.CreateShortcutPresenter
-  private lateinit var binding: ActivityCreateShortcutBinding
+
+  override val binding: ActivityCreateShortcutBinding by viewBinding(ActivityCreateShortcutBinding::inflate)
   private lateinit var adapter: ShortcutAdapter
   private lateinit var shortcutInfoList: List<ShortcutInfo>
 
   override fun providePresenter(): BasePresenter = presenter
-
-  override fun setViewBinding(): ViewBinding {
-    binding = ActivityCreateShortcutBinding.inflate(layoutInflater)
-    return binding
-  }
 
   override fun initView() {
     setResult(Activity.RESULT_CANCELED)
@@ -52,7 +49,7 @@ class CreateShortcutActivity : BaseActivity(), CreateShortcutContract.CreateShor
     binding.recyclerview.setHasFixedSize(true)
     binding.recyclerview.layoutManager = LinearLayoutManager(this)
     binding.recyclerview.adapter = adapter
-    getDrawable(R.drawable.divider_line)?.let {
+    ContextCompat.getDrawable(this, R.drawable.divider_line)?.let {
       binding.recyclerview.addItemDecoration(
         DividerItemDecoration(
           this,
@@ -64,8 +61,11 @@ class CreateShortcutActivity : BaseActivity(), CreateShortcutContract.CreateShor
     adapter.submitList(shortcutInfoList)
     adapter.setOnShortcutSelected { shortcutPosition -> onItemClick(shortcutPosition) }
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
-      binding.recyclerview.doOnApplyWindowInsets { view, insets, padding, _ ->
-        view.updatePadding(bottom = padding.bottom + insets.systemWindowInsetBottom)
+      binding.root.doOnApplyWindowInsets { view, insets, padding, _ ->
+        view.updatePadding(
+          bottom = padding.bottom + WindowInsetsCompat.toWindowInsetsCompat(insets)
+            .getInsets(WindowInsetsCompat.Type.systemBars()).bottom
+        )
       }
     }
   }

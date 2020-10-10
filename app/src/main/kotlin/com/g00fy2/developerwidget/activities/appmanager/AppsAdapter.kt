@@ -11,14 +11,13 @@ import com.g00fy2.developerwidget.activities.appmanager.AppsAdapter.AppViewHolde
 import com.g00fy2.developerwidget.base.BaseAdapter
 import com.g00fy2.developerwidget.base.BaseViewHolder
 import com.g00fy2.developerwidget.databinding.AppItemBinding
-import com.g00fy2.developerwidget.ktx.filterPackageName
 
 class AppsAdapter : BaseAdapter<AppInfo, AppViewHolder>(AppsDiffUtilsCallback()) {
 
   private var onAppClicked: ((AppInfo?) -> Unit) = {}
   private var itemsCopy = ArrayList<AppInfo>()
 
-  inner class AppViewHolder(val binding: AppItemBinding) : BaseViewHolder<AppInfo>(binding) {
+  class AppViewHolder(val binding: AppItemBinding) : BaseViewHolder<AppInfo>(binding) {
     override fun onBind(item: AppInfo) {
       item.run {
         binding.appenameTextview.text = appName
@@ -27,7 +26,8 @@ class AppsAdapter : BaseAdapter<AppInfo, AppViewHolder>(AppsDiffUtilsCallback())
           String.format(itemView.context.getString(R.string.apk_version), versionName, versionCode)
         binding.appIconImageview.setImageDrawable(appIcon)
         if (VERSION.SDK_INT >= VERSION_CODES.O) {
-          binding.appIconImageview.setBackgroundResource(if (appIcon is InsetDrawable) R.drawable.bg_adaptive_launcher_icon else 0)
+          binding.appIconImageview
+            .setBackgroundResource(if (appIcon is InsetDrawable) R.drawable.bg_adaptive_launcher_icon else 0)
         }
       }
     }
@@ -37,7 +37,7 @@ class AppsAdapter : BaseAdapter<AppInfo, AppViewHolder>(AppsDiffUtilsCallback())
     return AppViewHolder(AppItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)).apply {
       addRipple()
       itemView.setOnClickListener {
-        onAppClicked(getSelectedPackageName(adapterPosition))
+        onAppClicked(getSelectedPackageName(bindingAdapterPosition))
       }
     }
   }

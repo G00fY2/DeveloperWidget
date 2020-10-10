@@ -9,25 +9,22 @@ import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import androidx.core.content.getSystemService
 
-class HardwareFeatureProvider {
+object HardwareFeatureProvider {
 
-  companion object {
+  fun hasNFC(context: Context): Boolean =
+    context.getSystemService<NfcManager>()?.defaultAdapter?.let { true } ?: false
 
-    fun hasNFC(context: Context): Boolean =
-      context.getSystemService<NfcManager>()?.defaultAdapter?.let { true } ?: false
+  fun hasGPS(context: Context): Boolean {
+    return context.getSystemService<LocationManager>()?.allProviders?.contains(
+      LocationManager.GPS_PROVIDER
+    ) ?: false
+  }
 
-    fun hasGPS(context: Context): Boolean {
-      return context.getSystemService<LocationManager>()?.allProviders?.contains(
-        LocationManager.GPS_PROVIDER
-      ) ?: false
-    }
-
-    fun hasBluetooth(context: Context): Boolean {
-      return if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2) {
-        context.getSystemService<BluetoothManager>()?.adapter?.let { true } ?: false
-      } else {
-        BluetoothAdapter.getDefaultAdapter()?.let { true } ?: false
-      }
+  fun hasBluetooth(context: Context): Boolean {
+    return if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2) {
+      context.getSystemService<BluetoothManager>()?.adapter?.let { true } ?: false
+    } else {
+      BluetoothAdapter.getDefaultAdapter()?.let { true } ?: false
     }
   }
 }

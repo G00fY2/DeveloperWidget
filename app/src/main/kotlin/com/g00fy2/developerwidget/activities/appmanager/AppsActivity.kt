@@ -21,7 +21,6 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewbinding.ViewBinding
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
@@ -36,23 +35,18 @@ class AppsActivity : BaseActivity(true), AppsContract.AppsView {
 
   @Inject
   lateinit var presenter: AppsContract.AppsPresenter
-  private lateinit var binding: ActivityAppsBinding
 
+  override val binding: ActivityAppsBinding by viewBinding(ActivityAppsBinding::inflate)
   private lateinit var adapter: AppsAdapter
   private var scrollToTopAfterCommit = false
   private val clearDrawable by lazy { initClearDrawable() }
 
   override fun providePresenter(): BasePresenter = presenter
 
-  override fun setViewBinding(): ViewBinding {
-    binding = ActivityAppsBinding.inflate(layoutInflater)
-    return binding
-  }
-
   override fun initView() {
     adapter = AppsAdapter()
     adapter.setOnAppClicked { appInfo -> presenter.openAppSettingsActivity(appInfo) }
-    adapter.setCommitCallback(Runnable {
+    adapter.setCommitCallback {
       adapter.itemCount.let {
         binding.noItemsTextview.visibility = if (it == 0) View.VISIBLE else View.INVISIBLE
         binding.noItemsImageview.visibility = if (it == 0) View.VISIBLE else View.INVISIBLE
@@ -62,7 +56,7 @@ class AppsActivity : BaseActivity(true), AppsContract.AppsView {
         scrollToTopAfterCommit = false
         binding.recyclerview.scrollToPosition(0)
       }
-    })
+    }
     binding.recyclerview.setHasFixedSize(true)
     binding.recyclerview.itemAnimator = null
     binding.recyclerview.layoutManager = LinearLayoutManager(this)

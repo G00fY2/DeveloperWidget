@@ -1,4 +1,4 @@
-package com.g00fy2.developerwidget.activities.apkinstall
+package com.g00fy2.developerwidget.activities.apkinstall.dialogs
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatDialog
@@ -7,8 +7,8 @@ import com.g00fy2.developerwidget.databinding.ApkDeleteDialogBinding
 
 class ApkDeleteDialog(context: Context) {
 
-  private var binding: ApkDeleteDialogBinding
-  private val dialog = AppCompatDialog(context, R.style.DialogTheme).apply {
+  private val binding: ApkDeleteDialogBinding
+  private val dialog = AppCompatDialog(context, R.style.DialogNestedTheme).apply {
     setCancelable(true)
     binding = ApkDeleteDialogBinding.inflate(layoutInflater)
     setContentView(binding.root)

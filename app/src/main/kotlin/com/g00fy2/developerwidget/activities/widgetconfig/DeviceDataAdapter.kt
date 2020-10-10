@@ -12,17 +12,17 @@ import com.g00fy2.developerwidget.databinding.DeviceDataValueItemBinding
 class DeviceDataAdapter :
   BaseAdapter<Pair<String, DeviceDataItem>, BaseViewHolder<Pair<String, DeviceDataItem>>>(DeviceDataDiffUtilsCallback()) {
 
-  inner class DeviceDataHeaderViewHolder(val binding: DeviceDataHeaderItemBinding) :
+  class DeviceDataHeaderViewHolder(val binding: DeviceDataHeaderItemBinding) :
     BaseViewHolder<Pair<String, DeviceDataItem>>(binding) {
     override fun onBind(item: Pair<String, DeviceDataItem>) {
       item.run {
-        binding.headerDividerView.visibility = if (adapterPosition == 0) View.INVISIBLE else View.VISIBLE
+        binding.headerDividerView.visibility = if (bindingAdapterPosition == 0) View.INVISIBLE else View.VISIBLE
         binding.headerTitleTextview.text = itemView.context.getString(second.title)
       }
     }
   }
 
-  inner class DeviceDataValueViewHolder(val binding: DeviceDataValueItemBinding) :
+  class DeviceDataValueViewHolder(val binding: DeviceDataValueItemBinding) :
     BaseViewHolder<Pair<String, DeviceDataItem>>(binding) {
     override fun onBind(item: Pair<String, DeviceDataItem>) {
       item.run {

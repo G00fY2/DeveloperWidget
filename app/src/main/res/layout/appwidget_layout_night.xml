@@ -6,7 +6,7 @@
     android:background="@drawable/bg_widget_outer_shape_night"
     android:baselineAligned="false"
     android:orientation="horizontal"
-    tools:ignore="ContentDescription"
+    tools:ignore="ContentDescription,UseAppTint"
     >
 
   <LinearLayout
@@ -29,8 +29,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:ellipsize="end"
-        android:maxLines="1"
         android:gravity="center_vertical"
+        android:maxLines="1"
         android:textColor="@color/widgetTextColor_night"
         android:textSize="16dp"
         style="@style/TextAppearance.AppCompat.Title"
@@ -42,8 +42,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:ellipsize="end"
-        android:maxLines="1"
         android:gravity="center_vertical"
+        android:maxLines="1"
         android:textColor="@color/widgetTextColor_night"
         android:textSize="16dp"
         style="@style/TextAppearance.AppCompat.Title"
@@ -55,8 +55,8 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:ellipsize="end"
-        android:maxLines="1"
         android:gravity="center_vertical"
+        android:maxLines="1"
         android:textColor="@color/widgetTextColor_night"
         android:textSize="16dp"
         style="@style/TextAppearance.AppCompat.Title"

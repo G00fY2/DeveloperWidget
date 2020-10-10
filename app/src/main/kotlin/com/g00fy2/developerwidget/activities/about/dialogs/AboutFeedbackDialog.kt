@@ -1,4 +1,4 @@
-package com.g00fy2.developerwidget.activities.about
+package com.g00fy2.developerwidget.activities.about.dialogs
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatDialog
@@ -7,8 +7,8 @@ import com.g00fy2.developerwidget.databinding.AboutFeedbackDialogBinding
 
 class AboutFeedbackDialog(context: Context) {
 
-  private var binding: AboutFeedbackDialogBinding
-  private val dialog = AppCompatDialog(context, R.style.DialogTheme).apply {
+  private val binding: AboutFeedbackDialogBinding
+  private val dialog = AppCompatDialog(context, R.style.DialogNestedTheme).apply {
     setCancelable(true)
     setCanceledOnTouchOutside(true)
     binding = AboutFeedbackDialogBinding.inflate(layoutInflater)

@@ -5,31 +5,43 @@ import android.content.ComponentName
 import android.content.pm.PackageManager
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
+import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import androidx.viewbinding.ViewBinding
 import com.g00fy2.developerwidget.BuildConfig
 import com.g00fy2.developerwidget.R
+import com.g00fy2.developerwidget.activities.about.dialogs.AboutFeedbackDialog
+import com.g00fy2.developerwidget.activities.about.dialogs.SearchDepthDialog
 import com.g00fy2.developerwidget.activities.widgetconfig.ConfigLauncherActivity
 import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.base.BaseContract.BasePresenter
 import com.g00fy2.developerwidget.databinding.ActivityAboutBinding
 import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
-import com.g00fy2.developerwidget.ktx.gesturalNavigationMode
 import javax.inject.Inject
 
 class AboutActivity : BaseActivity(), AboutContract.AboutView {
 
   @Inject
   lateinit var presenter: AboutContract.AboutPresenter
-  private lateinit var binding: ActivityAboutBinding
 
+  override val binding: ActivityAboutBinding by viewBinding(ActivityAboutBinding::inflate)
   override fun providePresenter(): BasePresenter = presenter
 
-  override fun setViewBinding(): ViewBinding {
-    binding = ActivityAboutBinding.inflate(layoutInflater)
-    return binding
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+
+    if (intent.getBooleanExtra(SCROLL_BOTTOM, false)) {
+      intent.removeExtra(SCROLL_BOTTOM)
+      binding.aboutRootScrollview.run {
+        postDelayed({ smoothScrollTo(0, bottom) }, 300)
+        setPressedState(binding.searchDepthItem, true, 600)
+        setPressedState(binding.searchDepthItem, false, 800)
+        setPressedState(binding.searchDepthItem, true, 1000)
+      }
+    }
   }
 
   override fun initView() {
@@ -97,6 +109,9 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
       description(R.string.icon_credits_description)
       action { presenter.openUrl(ICON_CREDITS) }
     }
+    binding.searchDepthItem.init {
+      title(R.string.search_apk_depth)
+    }
     binding.hideLauncherIconItem.init {
       title(R.string.show_app_icon)
       description(R.string.show_app_icon_description)
@@ -110,11 +125,14 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
       binding.aboutRootScrollview.apply {
         doOnApplyWindowInsets { _, insets, padding, _ ->
-          updatePadding(bottom = padding.bottom + insets.systemWindowInsetBottom)
+          updatePadding(
+            bottom = padding.bottom + WindowInsetsCompat.toWindowInsetsCompat(insets)
+              .getInsets(WindowInsetsCompat.Type.systemBars()).bottom
+          )
         }
         viewTreeObserver.addOnScrollChangedListener {
           val scrollableRange = getChildAt(0).bottom - height + paddingBottom
-          if (!gesturalNavigationMode()) {
+          if (!isGesturalNavMode()) {
             clipToPadding = (scrollY >= scrollableRange)
           }
         }
@@ -148,6 +166,16 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
     }
   }
 
+  override fun updateSearchDepthUi(depth: Int) {
+    val description = when (depth) {
+      0 -> getString(R.string.infinite_depth)
+      2 -> getString(R.string.default_depth, depth)
+      else -> depth.toString()
+    }
+    binding.searchDepthItem.description(description)
+    binding.searchDepthItem.action { showSearchDepthOptions(depth) }
+  }
+
   private fun updateLauncherIconSwitch() = binding.hideLauncherIconItem.switch(!isLauncherIconDisabled())
 
   private fun updateLauncherIconItem() {
@@ -158,6 +186,13 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
     AboutFeedbackDialog(this).init {
       mailAction { presenter.sendFeedbackMail() }
       githubAction { presenter.openUrl(GITHUB_ISSUE) }
+    }.show()
+  }
+
+  private fun showSearchDepthOptions(currentDepth: Int) {
+    SearchDepthDialog(this).init {
+      initialValue(currentDepth)
+      onPositive { presenter.saveSearchDepth(it) }
     }.show()
   }
 
@@ -184,5 +219,13 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
     }
     updateLauncherIconItem()
     presenter.showRebootNotice()
+  }
+
+  private fun setPressedState(item: View, pressed: Boolean, delay: Int) {
+    item.run { postDelayed({ isPressed = pressed }, delay.toLong()) }
+  }
+
+  companion object {
+    const val SCROLL_BOTTOM = "scrollBottom"
   }
 }

@@ -5,4 +5,5 @@
   <dimen name="filter_input_inset">14dp</dimen>
   <dimen name="about_item_icon_margin">24dp</dimen>
   <dimen name="item_header_text_size">14sp</dimen>
+  <dimen name="dialog_width">336dp</dimen>
 </resources>

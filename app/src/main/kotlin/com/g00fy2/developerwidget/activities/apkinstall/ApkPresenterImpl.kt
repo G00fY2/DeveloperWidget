@@ -1,13 +1,16 @@
 package com.g00fy2.developerwidget.activities.apkinstall
 
 import android.Manifest
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import androidx.lifecycle.Lifecycle.Event
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.lifecycleScope
+import com.g00fy2.developerwidget.activities.apkinstall.controllers.StorageDirsController
 import com.g00fy2.developerwidget.base.BasePresenterImpl
 import com.g00fy2.developerwidget.controllers.IntentController
 import com.g00fy2.developerwidget.controllers.PermissionController
-import com.g00fy2.developerwidget.controllers.StorageDirsController
+import com.g00fy2.developerwidget.controllers.PreferenceController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -18,46 +21,66 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
 
   @Inject
   lateinit var view: ApkContract.ApkView
+
   @Inject
   lateinit var intentController: IntentController
+
   @Inject
   lateinit var permissionController: PermissionController
+
   @Inject
   lateinit var storageDirsController: StorageDirsController
+
   @Inject
   lateinit var apkFileBuilder: ApkFile.ApkFileBuilder
 
+  @Inject
+  lateinit var preferenceController: PreferenceController
+
   @OnLifecycleEvent(Event.ON_CREATE)
-  fun requestPermission() {
-    permissionController.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+  fun scanStoreageIfPermissionGranted() {
+    permissionController.requestPermissions(
+      Manifest.permission.WRITE_EXTERNAL_STORAGE,
+      onGranted = { scanStorageForApks() },
+      onDenied = { view.toggleResultView(emptyList(), true) })
   }
 
-  @OnLifecycleEvent(Event.ON_RESUME)
-  fun scanStorageForApks() {
-    if (permissionController.hasPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-      view.lifecycleScope.launch {
-        withContext(Dispatchers.IO) {
-          mutableSetOf<ApkFile>().apply {
-            for (dir in storageDirsController.getStorageDirectories()) {
-              addAll(searchAPKs(dir))
-            }
+  private fun scanStorageForApks() {
+    var depth: Int
+    view.lifecycleScope.launch {
+      withContext(Dispatchers.IO) {
+        depth = preferenceController.get(PreferenceController.SEARCH_DEPTH, 2)
+        mutableSetOf<ApkFile>().apply {
+          for (dir in storageDirsController.getStorageDirectories()) {
+            addAll(searchAPKs(dir, depth))
           }
-        }.let {
-          view.toggleResultView(it.sorted(), false)
-        }
+        }.sorted()
+      }.let {
+        view.toggleResultView(it, false, depth)
       }
-    } else {
-      view.toggleResultView(emptyList(), true)
     }
   }
 
-  private fun searchAPKs(dir: File): Collection<ApkFile> {
+  private fun searchAPKs(dir: File, depth: Int): Collection<ApkFile> {
     return dir.walk()
-      .filter { !it.isDirectory }
+      .maxDepth(depth)
       .filter { it.extension.equals("apk", true) }
+      .filterNot { it.isDirectory }
       .map { apkFileBuilder.build(it) }
       .filter { it.valid }
       .toList()
+  }
+
+  override fun installOrShowPermissionWarning(apkFile: ApkFile?) {
+    apkFile?.let {
+      if (VERSION.SDK_INT >= VERSION_CODES.M && it.targetSdkVersion < VERSION_CODES.M
+        && it.dangerousPermissions.isNotEmpty()
+      ) {
+        view.showPermissionWarning(it)
+      } else {
+        installApk(it)
+      }
+    }
   }
 
   override fun installApk(apkFile: ApkFile?) {
@@ -65,8 +88,7 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
   }
 
   override fun deleteApkFiles(apkFiles: List<ApkFile>?) {
-    if (permissionController.hasPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE))
-    ) {
+    if (permissionController.hasPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
       view.lifecycleScope.launch {
         withContext(Dispatchers.IO) {
           apkFiles?.let { files ->

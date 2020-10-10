@@ -1,7 +1,8 @@
 package com.g00fy2.developerwidget.activities.apkinstall
 
-import android.content.Context
 import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
+import android.content.pm.PermissionInfo
 import android.graphics.drawable.AdaptiveIconDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.InsetDrawable
@@ -11,6 +12,7 @@ import android.os.Build.VERSION_CODES
 import android.text.format.DateFormat
 import androidx.core.content.FileProvider
 import androidx.core.content.pm.PackageInfoCompat
+import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.di.annotations.ACTIVITY
 import timber.log.Timber
 import java.io.File
@@ -45,6 +47,10 @@ class ApkFile private constructor() : Comparable<ApkFile> {
     private set
   var fileUri: Uri? = null
     private set
+  var dangerousPermissions: List<Pair<String, String?>> = emptyList()
+    private set
+  var targetSdkVersion: Int = 0
+    private set
 
   override fun compareTo(other: ApkFile) = compareValues(other.lastModifiedTimestamp, lastModifiedTimestamp)
 
@@ -53,11 +59,11 @@ class ApkFile private constructor() : Comparable<ApkFile> {
     fun build(file: File): ApkFile
   }
 
-  class ApkFileBuilderImpl @Inject constructor(@Named(ACTIVITY) private val context: Context) : ApkFileBuilder {
+  class ApkFileBuilderImpl @Inject constructor(@Named(ACTIVITY) private val activity: BaseActivity) : ApkFileBuilder {
 
-    private val dateFormat = DateFormat.getDateFormat(context)
-    private val timeFormat = DateFormat.getTimeFormat(context)
-    private val packageManager = context.packageManager
+    private val dateFormat = DateFormat.getDateFormat(activity)
+    private val timeFormat = DateFormat.getTimeFormat(activity)
+    private val packageManager = activity.packageManager
 
     override fun build(file: File): ApkFile {
       return ApkFile().apply {
@@ -67,12 +73,14 @@ class ApkFile private constructor() : Comparable<ApkFile> {
         size = getFormattedSize(file.length())
 
         file.absolutePath.let { filePath ->
-          packageManager.getPackageArchiveInfo(filePath, 0)?.let { packageInfo ->
+          packageManager.getPackageArchiveInfo(filePath, PackageManager.GET_PERMISSIONS)?.let { packageInfo ->
             packageInfo.versionName?.let { versionName = it }
             PackageInfoCompat.getLongVersionCode(packageInfo).let { versionCode = it.toString() }
+            dangerousPermissions = extractDangerousPermissions(packageInfo.requestedPermissions)
             packageInfo.applicationInfo
           }?.let { appInfo ->
             valid = true
+            targetSdkVersion = appInfo.targetSdkVersion
             appInfo.sourceDir = filePath
             appInfo.publicSourceDir = filePath
             packageManager.getApplicationLabel(appInfo).let { appName = it.toString() }
@@ -90,13 +98,38 @@ class ApkFile private constructor() : Comparable<ApkFile> {
         filePath = file.path
         try {
           fileUri = if (VERSION.SDK_INT >= VERSION_CODES.N) {
-            FileProvider.getUriForFile(context, context.applicationContext.packageName + ".fileprovider", file)
+            FileProvider.getUriForFile(activity, activity.applicationContext.packageName + ".fileprovider", file)
           } else {
             Uri.fromFile(file)
           }
         } catch (e: IllegalArgumentException) {
           Timber.e(e)
         }
+      }
+    }
+
+    private fun extractDangerousPermissions(requestedPermissions: Array<String>?): List<Pair<String, String?>> {
+      return mutableListOf<Pair<String, String?>>().apply {
+        requestedPermissions?.distinct()?.forEach { permission ->
+          try {
+            packageManager.getPermissionInfo(permission, 0).let {
+              if (it.hasDangerousPermissions()) {
+                add(Pair(it.name.substringAfterLast("."), it.loadDescription(packageManager)?.toString()))
+              }
+            }
+          } catch (e: Exception) {
+            // unknown permission qualifier
+          }
+        }
+      }
+    }
+
+    private fun PermissionInfo.hasDangerousPermissions(): Boolean {
+      return if (VERSION.SDK_INT >= VERSION_CODES.P) {
+        protection == PermissionInfo.PROTECTION_DANGEROUS
+      } else {
+        @Suppress("DEPRECATION")
+        protectionLevel == PermissionInfo.PROTECTION_DANGEROUS
       }
     }
 

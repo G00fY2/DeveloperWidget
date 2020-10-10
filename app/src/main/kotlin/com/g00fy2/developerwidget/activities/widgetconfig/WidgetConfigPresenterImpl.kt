@@ -102,8 +102,8 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
   override fun shareDeviceData() {
     view.lifecycleScope.launch {
       withContext(Dispatchers.IO) {
-        getDeviceData()
-      }.let { intentController.shareDeviceData(formatDeviceDataString(it)) }
+        formatDeviceDataString(getDeviceData())
+      }.let { intentController.shareDeviceData(it) }
     }
   }
 

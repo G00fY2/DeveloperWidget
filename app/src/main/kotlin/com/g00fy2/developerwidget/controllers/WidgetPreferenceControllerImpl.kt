@@ -2,6 +2,7 @@ package com.g00fy2.developerwidget.controllers
 
 import android.content.Context
 import androidx.core.content.edit
+import com.g00fy2.developerwidget.base.BaseActivity
 import com.g00fy2.developerwidget.di.annotations.ACTIVITY
 import com.g00fy2.developerwidget.di.annotations.WIDGET_ID
 import javax.inject.Inject
@@ -11,13 +12,13 @@ class WidgetPreferenceControllerImpl @Inject constructor() : WidgetPreferenceCon
 
   @Inject
   @Named(ACTIVITY)
-  lateinit var context: Context
+  lateinit var activity: BaseActivity
   @Inject
   @Named(WIDGET_ID)
   lateinit var widgetId: String
 
   private val sharedPreference by lazy {
-    context.getSharedPreferences(context.packageName + ".preferences_" + widgetId, Context.MODE_PRIVATE)
+    activity.getSharedPreferences(activity.packageName + ".preferences_" + widgetId, Context.MODE_PRIVATE)
   }
 
   override fun getAppFilters(): MutableList<String> {

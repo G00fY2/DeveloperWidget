@@ -31,10 +31,11 @@ class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>(ApksDiffUtilsCallback()) 
         binding.fileDateTextview.text = item.lastModified
         binding.appIconImageview.setImageDrawable(item.appIcon)
         if (VERSION.SDK_INT >= VERSION_CODES.O) {
-          binding.appIconImageview.setBackgroundResource(if (item.appIcon is InsetDrawable) R.drawable.bg_adaptive_launcher_icon else 0)
+          binding.appIconImageview
+            .setBackgroundResource(if (item.appIcon is InsetDrawable) R.drawable.bg_adaptive_launcher_icon else 0)
         }
       }
-      setSelected(adapterPosition)
+      setSelected(bindingAdapterPosition)
     }
 
     fun setSelected(position: Int) {
@@ -49,7 +50,7 @@ class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>(ApksDiffUtilsCallback()) 
     return ApkViewHolder(ApkItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)).apply {
       addRipple()
       itemView.setOnClickListener {
-        adapterPosition.let {
+        bindingAdapterPosition.let {
           if (selectedPositions.isNotEmpty()) {
             if (selectedPositions.contains(it)) {
               selectedPositions.remove(it)
@@ -64,7 +65,7 @@ class ApkAdapter : BaseAdapter<ApkFile, ApkViewHolder>(ApksDiffUtilsCallback()) 
         }
       }
       itemView.setOnLongClickListener {
-        adapterPosition.let {
+        bindingAdapterPosition.let {
           if (selectedPositions.contains(it)) {
             selectedPositions.remove(it)
           } else {

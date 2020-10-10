@@ -4,11 +4,15 @@ import android.content.res.Configuration
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import androidx.annotation.RequiresApi
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.viewbinding.ViewBinding
+import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.controllers.DayNightController
 import com.g00fy2.developerwidget.ktx.doOnApplyWindowInsets
 import dagger.android.support.DaggerAppCompatActivity
@@ -20,20 +24,22 @@ abstract class BaseActivity(private val isDialogActivity: Boolean = false) : Dag
   @Inject
   lateinit var dayNightController: DayNightController
 
+  protected abstract val binding: ViewBinding
+
   override fun onCreate(savedInstanceState: Bundle?) {
     Timber.d("Lifecycle: %s1 onCreate %s2", localClassName, hashCode())
 
     if (isDialogActivity) {
       requestWindowFeature(Window.FEATURE_NO_TITLE)
       super.onCreate(savedInstanceState)
-      setContentView(setViewBinding().root)
+      setContentView(binding.root)
 
       val width = (resources.displayMetrics.widthPixels * 0.95).toInt()
       val height = (resources.displayMetrics.heightPixels * 0.80).toInt()
       window.setLayout(width, height)
     } else {
       super.onCreate(savedInstanceState)
-      setContentView(setViewBinding().root)
+      setContentView(binding.root)
     }
 
     dayNightController.loadCustomDefaultMode()
@@ -49,12 +55,17 @@ abstract class BaseActivity(private val isDialogActivity: Boolean = false) : Dag
     lifecycle.removeObserver(providePresenter())
   }
 
-  // TODO check if there will be a fix for https://issuetracker.google.com/issues/139738913 in AppCompatActivity or next Android release
-  override fun onBackPressed() {
-    if (VERSION.SDK_INT == VERSION_CODES.Q && isTaskRoot && supportFragmentManager.backStackEntryCount == 0) {
-      finishAfterTransition()
-    } else {
-      super.onBackPressed()
+  inline fun <T : ViewBinding> DaggerAppCompatActivity.viewBinding(crossinline bindingInflater: (LayoutInflater) -> T) =
+    lazy(LazyThreadSafetyMode.NONE) { bindingInflater.invoke(layoutInflater) }
+
+  @RequiresApi(VERSION_CODES.Q)
+  override fun onAttachedToWindow() {
+    super.onAttachedToWindow()
+    if (isGesturalNavMode()) {
+      getColor(R.color.transparent).let {
+        window.navigationBarColor = it
+        window.navigationBarDividerColor = it
+      }
     }
   }
 
@@ -73,25 +84,37 @@ abstract class BaseActivity(private val isDialogActivity: Boolean = false) : Dag
     }
   }
 
+  protected fun isGesturalNavMode(): Boolean {
+    return resources.getIdentifier("config_navBarInteractionMode", "integer", "android")
+      .takeIf { it != 0 }?.let { resources.getInteger(it) == 2 } ?: false
+  }
+
   private fun initGestureNavigation() {
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
+      // TODO check how to use API 30 features
+      @Suppress("DEPRECATION")
       window.decorView.let {
         it.systemUiVisibility.let { flags ->
           it.systemUiVisibility =
             flags or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         }
       }
+
       findViewById<View>(Window.ID_ANDROID_CONTENT)?.let {
         it.doOnApplyWindowInsets { view, insets, padding, _ ->
-          view.updatePadding(top = padding.top + insets.systemWindowInsetTop)
+          view.updatePadding(
+            top = padding.top + WindowInsetsCompat.toWindowInsetsCompat(insets)
+              .getInsets(WindowInsetsCompat.Type.systemBars()).top
+          )
         }
       }
     }
   }
 
+  @Suppress("DEPRECATION")
   private fun initCompatNavigationBar() {
     // api 27+ allow applying flag via xml (windowLightNavigationBar)
-    if (VERSION.SDK_INT == VERSION_CODES.O && isInNightMode()) {
+    if (VERSION.SDK_INT == VERSION_CODES.O && !isNightMode()) {
       window.decorView.let {
         it.systemUiVisibility.let { flags ->
           it.systemUiVisibility = flags or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
@@ -100,13 +123,10 @@ abstract class BaseActivity(private val isDialogActivity: Boolean = false) : Dag
     }
   }
 
-  // TODO move back to controller if https://issuetracker.google.com/issues/134379747 should get fixed
-  private fun isInNightMode() =
-    resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_NO
+  private fun isNightMode() =
+    resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
 
   abstract fun providePresenter(): BaseContract.BasePresenter
-
-  abstract fun setViewBinding(): ViewBinding
 
   abstract fun initView()
 }
