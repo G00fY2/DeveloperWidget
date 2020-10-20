@@ -96,7 +96,7 @@ dependencies {
 
   // Misc
   implementation("com.jakewharton.timber:timber:4.7.1")
-  implementation("com.g00fy2:versioncompare:1.3.5")
+  implementation("com.g00fy2:versioncompare:1.3.7")
 
   // Dagger
   implementation("com.google.dagger:dagger:2.29.1")
