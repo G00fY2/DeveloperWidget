@@ -61,6 +61,9 @@ android {
   dependenciesInfo {
     includeInApk = false
   }
+  packagingOptions {
+    exclude("DebugProbesKt.bin")
+  }
 }
 
 versioning {
