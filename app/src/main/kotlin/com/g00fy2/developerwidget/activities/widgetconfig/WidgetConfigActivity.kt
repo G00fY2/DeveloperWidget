@@ -131,16 +131,10 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
     binding.shareFab.setOnClickListener { presenter.shareDeviceData() }
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
       binding.widgetConfigRootScrollview.doOnApplyWindowInsets { view, insets, padding, _ ->
-        view.updatePadding(
-          bottom = padding.bottom + WindowInsetsCompat.toWindowInsetsCompat(insets)
-            .getInsets(WindowInsetsCompat.Type.systemBars()).bottom
-        )
+        view.updatePadding(bottom = padding.bottom + insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom)
       }
       binding.shareFab.doOnApplyWindowInsets { view, insets, _, margin ->
-        view.updateMargin(
-          bottom = margin.bottom + WindowInsetsCompat.toWindowInsetsCompat(insets)
-            .getInsets(WindowInsetsCompat.Type.systemBars()).bottom
-        )
+        view.updateMargin(bottom = margin.bottom + insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom)
       }
     }
   }
