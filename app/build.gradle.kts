@@ -95,7 +95,7 @@ dependencies {
   implementation("androidx.vectordrawable:vectordrawable:1.2.0-alpha02")
 
   // UI
-  implementation("com.google.android.material:material:1.3.0-alpha03")
+  implementation("com.google.android.material:material:1.3.0-alpha04")
 
   // Misc
   implementation("com.jakewharton.timber:timber:4.7.1")
