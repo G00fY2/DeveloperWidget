@@ -15,6 +15,7 @@ android {
     versionCode = versioning.getVersionCode()
     versionName = versioning.getVersionName()
 
+    resConfigs("en")
     vectorDrawables.useSupportLibrary = true
     setProperty("archivesBaseName", "developerwidget")
   }
