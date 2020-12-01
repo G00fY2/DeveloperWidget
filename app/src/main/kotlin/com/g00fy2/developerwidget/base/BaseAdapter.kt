@@ -3,8 +3,8 @@ package com.g00fy2.developerwidget.base
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 
-abstract class BaseAdapter<T, VH : BaseViewHolder<T>> constructor(diffCallback: DiffUtil.ItemCallback<T>?) :
-  ListAdapter<T, VH>(diffCallback ?: EmptyDiffUtil<T>()) {
+abstract class BaseAdapter<T, VH : BaseViewHolder<T>> constructor(diffCallback: DiffUtil.ItemCallback<T>) :
+  ListAdapter<T, VH>(diffCallback) {
 
   private var commitCallback: Runnable? = null
 
@@ -22,10 +22,5 @@ abstract class BaseAdapter<T, VH : BaseViewHolder<T>> constructor(diffCallback: 
 
   fun setCommitCallback(commitCallback: Runnable) {
     this.commitCallback = commitCallback
-  }
-
-  class EmptyDiffUtil<T> : DiffUtil.ItemCallback<T>() {
-    override fun areItemsTheSame(oldItem: T, newItem: T) = false
-    override fun areContentsTheSame(oldItem: T, newItem: T) = false
   }
 }

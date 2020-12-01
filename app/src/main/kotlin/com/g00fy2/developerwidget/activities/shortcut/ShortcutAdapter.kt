@@ -5,6 +5,7 @@ import android.os.Build.VERSION_CODES
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.DiffUtil
 import com.g00fy2.developerwidget.activities.shortcut.ShortcutAdapter.ShortcutViewHolder
 import com.g00fy2.developerwidget.base.BaseAdapter
 import com.g00fy2.developerwidget.base.BaseViewHolder
@@ -33,4 +34,10 @@ class ShortcutAdapter : BaseAdapter<ShortcutInfo, ShortcutViewHolder>(ShortcutDi
   fun setOnShortcutSelected(onShortcutSelected: (Int) -> Unit) {
     this.onShortcutSelected = onShortcutSelected
   }
+}
+
+class ShortcutDiffUtilsCallback : DiffUtil.ItemCallback<ShortcutInfo>() {
+
+  override fun areItemsTheSame(oldItem: ShortcutInfo, newItem: ShortcutInfo) = false
+  override fun areContentsTheSame(oldItem: ShortcutInfo, newItem: ShortcutInfo) = false
 }
