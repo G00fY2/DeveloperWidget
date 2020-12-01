@@ -1,17 +1,17 @@
 plugins {
-  id("com.android.application")
-  kotlin("android")
-  kotlin("kapt")
-  id("de.nanogiants.android-versioning")
+  id(Plugins.Android.application)
+  id(Plugins.Kotlin.android)
+  id(Plugins.Kotlin.kapt)
+  id(Plugins.Misc.androidVersioning) version Versions.androidVersioning
 }
 
 android {
-  compileSdkVersion(29)
-  buildToolsVersion = "30.0.2"
+  compileSdkVersion(Config.androidCompileSdkVersion)
+  buildToolsVersion = Config.buildToolsVersion
   defaultConfig {
-    applicationId = "com.g00fy2.developerwidget"
-    minSdkVersion(14)
-    targetSdkVersion(29)
+    applicationId = Config.applicationId
+    minSdkVersion(Config.androidMinSdkVersion)
+    targetSdkVersion(Config.androidTargetSdkVersion)
     versionCode = versioning.getVersionCode()
     versionName = versioning.getVersionName()
 
@@ -62,8 +62,8 @@ android {
   dependenciesInfo {
     includeInApk = false
   }
-  packagingOptions {
-    exclude("DebugProbesKt.bin")
+  packagingOptions.resources {
+    excludes += "DebugProbesKt.bin"
   }
 }
 
@@ -82,30 +82,25 @@ repositories {
   }
 }
 dependencies {
-  // Kotlin
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1")
+  implementation(Deps.Kotlin.coroutines)
 
-  // AndroidX
-  implementation("androidx.appcompat:appcompat:1.3.0-alpha02")
-  implementation("androidx.core:core-ktx:1.5.0-alpha05")
-  implementation("androidx.activity:activity:1.2.0-beta01")
-  implementation("androidx.fragment:fragment:1.3.0-beta01")
-  implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-beta01")
-  implementation("androidx.recyclerview:recyclerview:1.2.0-alpha06")
-  implementation("androidx.constraintlayout:constraintlayout:2.1.0-alpha1")
-  implementation("androidx.vectordrawable:vectordrawable:1.2.0-alpha02")
+  implementation(Deps.AndroidX.appcompat)
+  implementation(Deps.AndroidX.core)
+  implementation(Deps.AndroidX.activity)
+  implementation(Deps.AndroidX.fragment)
+  implementation(Deps.AndroidX.lifecycle)
+  implementation(Deps.AndroidX.recyclerView)
+  implementation(Deps.AndroidX.constraintLayout)
+  implementation(Deps.AndroidX.vectorDrawable)
 
-  // UI
-  implementation("com.google.android.material:material:1.3.0-alpha04")
+  implementation(Deps.UI.materialDesign)
 
-  // Misc
-  implementation("com.jakewharton.timber:timber:4.7.1")
-  implementation("com.g00fy2:versioncompare:1.3.7")
+  implementation(Deps.Misc.timber)
+  implementation(Deps.Misc.versionCompare)
 
-  // Dagger
-  implementation("com.google.dagger:dagger:2.30.1")
-  kapt("com.google.dagger:dagger-compiler:2.30.1")
-  implementation("com.google.dagger:dagger-android:2.30.1")
-  implementation("com.google.dagger:dagger-android-support:2.30.1")
-  kapt("com.google.dagger:dagger-android-processor:2.30.1")
+  implementation(Deps.Dagger.dagger)
+  kapt(Deps.Dagger.daggerCompiler)
+  implementation(Deps.Dagger.daggerAndroid)
+  implementation(Deps.Dagger.daggerAndroidSupport)
+  kapt(Deps.Dagger.daggerAndroidProcessor)
 }
