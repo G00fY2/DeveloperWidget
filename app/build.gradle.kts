@@ -35,7 +35,7 @@ android {
       signingConfig = signingConfigs.getByName("release")
       isShrinkResources = true
       isMinifyEnabled = true
-      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
     }
   }
   buildFeatures {
@@ -53,7 +53,9 @@ android {
     targetCompatibility = JavaVersion.VERSION_1_8
   }
   kotlinOptions {
+    allWarningsAsErrors = true
     jvmTarget = JavaVersion.VERSION_1_8.toString()
+    freeCompilerArgs = listOf("-progressive")
     useIR = true
   }
   lintOptions {
