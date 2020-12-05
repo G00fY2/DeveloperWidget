@@ -1,6 +1,6 @@
 object Versions {
 
-  const val androidGradle = "7.0.0-alpha01"
+  const val androidGradle = "7.0.0-alpha02"
   const val kotlin = "1.4.20"
 
   const val gradleVersions = "0.36.0"
@@ -10,10 +10,10 @@ object Versions {
 
   const val appcompat = "1.3.0-alpha02"
   const val core = "1.5.0-alpha05"
-  const val activity = "1.2.0-beta01"
-  const val fragment = "1.3.0-beta01"
+  const val activity = "1.2.0-beta02"
+  const val fragment = "1.3.0-beta02"
   const val lifecycle = "2.3.0-beta01"
-  const val recyclerView = "1.2.0-alpha06"
+  const val recyclerView = "1.2.0-beta01"
   const val constraintLayout = "2.1.0-alpha1"
   const val vectorDrawable = "1.2.0-alpha02"
 
