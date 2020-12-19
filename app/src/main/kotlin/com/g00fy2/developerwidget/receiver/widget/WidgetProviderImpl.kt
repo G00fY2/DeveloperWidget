@@ -1,5 +1,6 @@
 package com.g00fy2.developerwidget.receiver.widget
 
+import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
@@ -23,12 +24,12 @@ import com.g00fy2.developerwidget.data.DeviceDataSource
 import com.g00fy2.developerwidget.data.DeviceDataSourceImpl
 import com.g00fy2.developerwidget.data.WidgetsPreferencesDataSource
 import dagger.android.AndroidInjection
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
-import javax.inject.Inject
 
 class WidgetProviderImpl : AppWidgetProvider() {
 
@@ -133,6 +134,7 @@ class WidgetProviderImpl : AppWidgetProvider() {
     )
   }
 
+  @SuppressLint("UnspecifiedImmutableFlag")
   private fun updateWidgetButtonIntents(widgetId: Int, views: RemoteViews) {
     val configIntent = Intent(context, WidgetConfigActivity::class.java).apply {
       putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
