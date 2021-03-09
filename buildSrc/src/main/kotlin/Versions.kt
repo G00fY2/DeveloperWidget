@@ -4,10 +4,10 @@ object Versions {
   const val buildToolsVersion = "31.0.0-rc1"
   const val kotlin = "1.4.31"
 
-  const val gradleVersions = "0.36.0"
+  const val gradleVersions = "0.38.0"
   const val androidVersioning = "2.4.0"
 
-  const val coroutines = "1.4.2"
+  const val coroutines = "1.4.3"
 
   const val appcompat = "1.3.0-beta01"
   const val core = "1.5.0-beta02"
