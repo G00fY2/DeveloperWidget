@@ -58,7 +58,7 @@ android {
     freeCompilerArgs = listOf("-progressive")
     useIR = true
   }
-  lintOptions {
+  lint {
     isCheckReleaseBuilds = false // TODO remove when https://issuetracker.google.com/issues/141126614 is fixed
   }
   dependenciesInfo {
