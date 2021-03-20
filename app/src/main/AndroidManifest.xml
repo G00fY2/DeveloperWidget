@@ -36,6 +36,7 @@
 
     <activity
         android:name=".activities.widgetconfig.ConfigLauncherActivity"
+        android:exported="true"
         android:launchMode="singleTask"
         android:taskAffinity=""
         android:theme="@android:style/Theme.Translucent.NoTitleBar">
@@ -53,6 +54,7 @@
     <activity
         android:name=".activities.widgetconfig.WidgetConfigActivity"
         android:autoRemoveFromRecents="true"
+        android:exported="true"
         android:screenOrientation="portrait"
         tools:targetApi="lollipop">
       <intent-filter>
@@ -68,6 +70,7 @@
     <activity
         android:name=".activities.shortcut.CreateShortcutActivity"
         android:enabled="@bool/shortcut_support"
+        android:exported="true"
         android:label="@string/create_shortcut"
         android:screenOrientation="portrait">
       <intent-filter>
