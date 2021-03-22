@@ -21,7 +21,7 @@ object Versions {
   const val materialDesign = "1.4.0-alpha01"
 
   const val timber = "4.7.1"
-  const val versionCompare = "1.3.7"
+  const val versionCompare = "1.4.0"
 
   const val dagger = "2.33"
 }

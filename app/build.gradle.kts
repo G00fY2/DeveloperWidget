@@ -78,7 +78,6 @@ repositories {
   mavenCentral()
   jcenter {
     content {
-      includeModule("com.g00fy2", "versioncompare")
       includeModule("org.jetbrains.trove4j", "trove4j") // required by com.android.tools.lint:lint-gradle
     }
   }

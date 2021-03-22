@@ -21,7 +21,7 @@ object Deps {
 
   object Misc {
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
-    const val versionCompare = "com.g00fy2:versioncompare:${Versions.versionCompare}"
+    const val versionCompare = "io.github.g00fy2:versioncompare:${Versions.versionCompare}"
   }
 
   object Dagger {
