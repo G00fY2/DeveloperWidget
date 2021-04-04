@@ -73,15 +73,6 @@ versioning {
   keepOriginalMappingFile = false
 }
 
-repositories {
-  google()
-  mavenCentral()
-  jcenter {
-    content {
-      includeModule("org.jetbrains.trove4j", "trove4j") // required by com.android.tools.lint:lint-gradle
-    }
-  }
-}
 dependencies {
   implementation(Deps.Kotlin.coroutines)
 

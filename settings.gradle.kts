@@ -12,6 +12,19 @@ pluginManagement {
   }
 }
 
+dependencyResolutionManagement {
+  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+  repositories {
+    google()
+    mavenCentral()
+    jcenter {
+      content {
+        includeModule("org.jetbrains.trove4j", "trove4j")
+      }
+    }
+  }
+}
+
 plugins {
   id("com.gradle.enterprise") version "3.6"
 }
