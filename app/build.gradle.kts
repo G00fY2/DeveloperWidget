@@ -58,9 +58,6 @@ android {
     freeCompilerArgs = listOf("-progressive")
     useIR = true
   }
-  lint {
-    isCheckReleaseBuilds = false // TODO remove when https://issuetracker.google.com/issues/141126614 is fixed
-  }
   dependenciesInfo {
     includeInApk = false
   }
@@ -74,11 +71,6 @@ versioning {
 }
 
 dependencies {
-  modules {
-    module(Deps.Misc.jetbrainsTrove4j) {
-      replacedBy(Deps.Misc.jetbrainsIntellijTrove4j)
-    }
-  }
   implementation(Deps.Kotlin.coroutines)
 
   implementation(Deps.AndroidX.appcompat)

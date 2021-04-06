@@ -22,8 +22,6 @@ object Deps {
   }
 
   object Misc {
-    const val jetbrainsTrove4j = "org.jetbrains.trove4j:trove4j"
-    const val jetbrainsIntellijTrove4j = "org.jetbrains.intellij.deps:trove4j"
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     const val versionCompare = "io.github.g00fy2:versioncompare:${Versions.versionCompare}"
   }
