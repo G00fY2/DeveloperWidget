@@ -74,6 +74,11 @@ versioning {
 }
 
 dependencies {
+  modules {
+    module(Deps.Misc.jetbrainsTrove4j) {
+      replacedBy(Deps.Misc.jetbrainsIntellijTrove4j)
+    }
+  }
   implementation(Deps.Kotlin.coroutines)
 
   implementation(Deps.AndroidX.appcompat)
