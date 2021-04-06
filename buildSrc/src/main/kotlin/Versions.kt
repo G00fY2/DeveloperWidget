@@ -1,8 +1,8 @@
 object Versions {
 
-  const val androidGradle = "7.0.0-alpha12"
+  const val androidGradle = "7.0.0-alpha13"
   const val buildToolsVersion = "31.0.0-rc2"
-  const val kotlin = "1.5.0-M1"
+  const val kotlin = "1.5.0-M2"
 
   const val gradleVersions = "0.38.0"
   const val androidVersioning = "2.4.0"
