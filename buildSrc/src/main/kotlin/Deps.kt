@@ -13,8 +13,6 @@ object Deps {
 
   object Kotlin {
     const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
-    // TODO remove when https://github.com/google/dagger/issues/2515 is fixed
-    const val jvmMetadata = "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.2.0"
   }
 
   object UI {

@@ -92,5 +92,4 @@ dependencies {
   implementation(Deps.Dagger.daggerAndroid)
   implementation(Deps.Dagger.daggerAndroidSupport)
   kapt(Deps.Dagger.daggerAndroidProcessor)
-  kapt(Deps.Kotlin.jvmMetadata)
 }

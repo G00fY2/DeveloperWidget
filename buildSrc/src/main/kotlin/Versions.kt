@@ -23,5 +23,5 @@ object Versions {
   const val timber = "4.7.1"
   const val versionCompare = "1.4.1"
 
-  const val dagger = "2.33"
+  const val dagger = "2.34"
 }
