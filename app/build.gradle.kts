@@ -56,7 +56,6 @@ android {
     allWarningsAsErrors = true
     jvmTarget = JavaVersion.VERSION_1_8.toString()
     freeCompilerArgs = listOf("-progressive")
-    useIR = true
   }
   dependenciesInfo {
     includeInApk = false
