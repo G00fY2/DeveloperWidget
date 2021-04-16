@@ -10,7 +10,7 @@ object Versions {
   const val coroutines = "1.4.3"
 
   const val appcompat = "1.3.0-rc01"
-  const val core = "1.6.0-alpha01"
+  const val core = "1.6.0-alpha02"
   const val activity = "1.3.0-alpha06"
   const val fragment = "1.3.2"
   const val lifecycle = "2.4.0-alpha01"
