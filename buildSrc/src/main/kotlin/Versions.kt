@@ -2,7 +2,7 @@ object Versions {
 
   const val androidGradle = "7.0.0-alpha14"
   const val buildToolsVersion = "31.0.0-rc3"
-  const val kotlin = "1.5.0-RC"
+  const val kotlin = "1.5.0"
 
   const val gradleVersions = "0.38.0"
   const val androidVersioning = "2.4.0"
