@@ -25,6 +25,7 @@ import com.g00fy2.developerwidget.data.DeviceDataSourceImpl
 import com.g00fy2.developerwidget.data.WidgetsPreferencesDataSource
 import dagger.android.AndroidInjection
 import javax.inject.Inject
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -73,6 +74,7 @@ class WidgetProviderImpl : AppWidgetProvider() {
   }
 
   override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
+    @OptIn(DelicateCoroutinesApi::class)
     GlobalScope.launch {
       withContext(Dispatchers.IO) {
         val data = deviceDataSource.getStaticDeviceData()
