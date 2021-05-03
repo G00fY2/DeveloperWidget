@@ -6,16 +6,16 @@ plugins {
 }
 
 android {
-  compileSdkVersion(Config.androidCompileSdkVersion)
+  compileSdk = Config.androidCompileSdkVersion
   buildToolsVersion = Versions.buildToolsVersion
   defaultConfig {
     applicationId = Config.applicationId
-    minSdkVersion(Config.androidMinSdkVersion)
-    targetSdkVersion(Config.androidTargetSdkVersion)
+    minSdk = Config.androidMinSdkVersion
+    targetSdk = Config.androidTargetSdkVersion
     versionCode = versioning.getVersionCode()
     versionName = versioning.getVersionName()
 
-    resConfigs("en")
+    resourceConfigurations.add("en")
     vectorDrawables.useSupportLibrary = true
     setProperty("archivesBaseName", "developerwidget")
   }
@@ -33,7 +33,7 @@ android {
     }
     getByName("release") {
       signingConfig = signingConfigs.getByName("release")
-      isShrinkResources = true
+      // isShrinkResources = true TODO https://issuetracker.google.com/issues/186862578
       isMinifyEnabled = true
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
     }
