@@ -18,7 +18,7 @@ object Versions {
   const val constraintLayout = "2.1.0-beta02"
   const val vectorDrawable = "1.2.0-alpha02"
 
-  const val materialDesign = "1.4.0-alpha02"
+  const val materialDesign = "1.4.0-beta01"
 
   const val timber = "4.7.1"
   const val versionCompare = "1.4.1"
