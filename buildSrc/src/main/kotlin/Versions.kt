@@ -7,7 +7,7 @@ object Versions {
   const val gradleVersions = "0.38.0"
   const val androidVersioning = "2.4.0"
 
-  const val coroutines = "1.5.0-RC"
+  const val coroutines = "1.5.0"
 
   const val appcompat = "1.3.0-rc01"
   const val core = "1.6.0-alpha03"
