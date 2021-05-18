@@ -33,7 +33,7 @@ android {
     }
     getByName("release") {
       signingConfig = signingConfigs.getByName("release")
-      // isShrinkResources = true TODO https://issuetracker.google.com/issues/186862578
+      isShrinkResources = true
       isMinifyEnabled = true
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
     }
