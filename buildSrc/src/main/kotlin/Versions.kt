@@ -1,8 +1,8 @@
 object Versions {
 
   const val androidGradle = "7.1.0-alpha02"
-  const val buildToolsVersion = "31.0.0-rc4"
-  const val kotlin = "1.5.20-M1"
+  const val buildToolsVersion = "31.0.0-rc5"
+  const val kotlin = "1.5.20-RC"
 
   const val gradleVersions = "0.39.0"
   const val androidVersioning = "2.4.0"
@@ -23,5 +23,5 @@ object Versions {
   const val timber = "4.7.1"
   const val versionCompare = "1.4.1"
 
-  const val dagger = "2.36"
+  const val dagger = "2.37"
 }
