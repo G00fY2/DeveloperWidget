@@ -101,6 +101,7 @@
           android:maxLines="1"
           android:text="@string/app_settings"
           android:textColor="@color/widgetTextColor_day"
+          android:textSize="16dp"
           style="@style/TextAppearance.AppCompat.Subhead"
           />
     </LinearLayout>
@@ -131,6 +132,7 @@
           android:maxLines="1"
           android:text="@string/install_apk"
           android:textColor="@color/widgetTextColor_day"
+          android:textSize="16dp"
           style="@style/TextAppearance.AppCompat.Subhead"
           />
     </LinearLayout>
