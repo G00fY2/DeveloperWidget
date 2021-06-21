@@ -55,7 +55,7 @@ android {
   kotlinOptions {
     allWarningsAsErrors = true
     jvmTarget = JavaVersion.VERSION_1_8.toString()
-    freeCompilerArgs = freeCompilerArgs + arrayOf("-progressive", "-Xopt-in=kotlin.RequiresOptIn")
+    freeCompilerArgs = freeCompilerArgs + arrayOf("-progressive")
   }
   dependenciesInfo {
     includeInApk = false

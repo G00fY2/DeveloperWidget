@@ -91,7 +91,6 @@ abstract class BaseActivity(private val isDialogActivity: Boolean = false) : Dag
 
   private fun initGestureNavigation() {
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
-      // TODO check how to use API 30 features
       @Suppress("DEPRECATION")
       window.decorView.let {
         it.systemUiVisibility.let { flags ->

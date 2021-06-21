@@ -1,6 +1,5 @@
 package com.g00fy2.developerwidget.activities.widgetconfig
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
@@ -262,7 +261,6 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
     finish()
   }
 
-  @SuppressLint("UnspecifiedImmutableFlag")
   private fun pinAppWidget() {
     var supported = false
     if (VERSION.SDK_INT >= VERSION_CODES.O) {
@@ -275,7 +273,7 @@ class WidgetConfigActivity : BaseActivity(), WidgetConfigContract.WidgetConfigVi
               putExtra(EXTRA_APPWIDGET_FROM_PIN_APP, true)
               putExtra(EXTRA_APPWIDGET_CUSTOM_DEVICE_NAME, binding.deviceTitleEdittextview.text.toString())
             },
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
           )
           appWidgetManager.requestPinAppWidget(
             ComponentName(applicationContext, WidgetProviderImpl::class.java),

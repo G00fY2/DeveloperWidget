@@ -1,12 +1,13 @@
 package com.g00fy2.developerwidget.receiver.widget
 
-import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.os.Build.VERSION
+import android.os.Build.VERSION_CODES
 import android.util.SparseArray
 import android.widget.RemoteViews
 import androidx.appcompat.app.AppCompatDelegate
@@ -44,6 +45,7 @@ class WidgetProviderImpl : AppWidgetProvider() {
   private lateinit var appWidgetManager: AppWidgetManager
   private lateinit var context: Context
 
+  @DelicateCoroutinesApi
   override fun onReceive(context: Context, intent: Intent) {
     AndroidInjection.inject(this, context)
     this.context = context
@@ -73,8 +75,8 @@ class WidgetProviderImpl : AppWidgetProvider() {
     }
   }
 
+  @DelicateCoroutinesApi
   override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-    @OptIn(DelicateCoroutinesApi::class)
     GlobalScope.launch {
       withContext(Dispatchers.IO) {
         val data = deviceDataSource.getStaticDeviceData()
@@ -136,26 +138,31 @@ class WidgetProviderImpl : AppWidgetProvider() {
     )
   }
 
-  @SuppressLint("UnspecifiedImmutableFlag")
   private fun updateWidgetButtonIntents(widgetId: Int, views: RemoteViews) {
     val configIntent = Intent(context, WidgetConfigActivity::class.java).apply {
       putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId)
       putExtra(WidgetConfigActivity.EXTRA_APPWIDGET_UPDATE_EXISTING, true)
       flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
     }
-    val configPendingIntent =
-      PendingIntent.getActivity(context, widgetId, configIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+    val configPendingIntent = PendingIntent.getActivity(context, widgetId, configIntent, immutableUpdateCurrentFlags())
     views.setOnClickPendingIntent(R.id.device_info_linearlayout, configPendingIntent)
 
     val appIntent =
       Intent(context, AppsActivity::class.java).apply { putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId) }
-    val appPendingIntent =
-      PendingIntent.getActivity(context, widgetId, appIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+    val appPendingIntent = PendingIntent.getActivity(context, widgetId, appIntent, immutableUpdateCurrentFlags())
     views.setOnClickPendingIntent(R.id.manage_apps_linearlayout, appPendingIntent)
 
     val apkIntent = Intent(context, ApkActivity::class.java)
-    val apkPendingIntent = PendingIntent.getActivity(context, widgetId, apkIntent, 0)
+    val apkPendingIntent = PendingIntent.getActivity(context, widgetId, apkIntent, immutableUpdateCurrentFlags())
     views.setOnClickPendingIntent(R.id.install_apk_linearlayout, apkPendingIntent)
+  }
+
+  private fun immutableUpdateCurrentFlags(): Int {
+    return if (VERSION.SDK_INT >= VERSION_CODES.M) {
+      PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+    } else {
+      PendingIntent.FLAG_UPDATE_CURRENT
+    }
   }
 
   companion object {
