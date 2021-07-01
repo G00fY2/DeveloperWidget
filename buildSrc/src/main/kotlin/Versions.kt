@@ -9,10 +9,10 @@ object Versions {
 
   const val coroutines = "1.5.0"
 
-  const val appcompat = "1.4.0-alpha02"
-  const val core = "1.6.0-rc01"
+  const val appcompat = "1.4.0-alpha03"
+  const val core = "1.7.0-alpha01"
   const val activity = "1.3.0-beta02"
-  const val fragment = "1.4.0-alpha03"
+  const val fragment = "1.4.0-alpha04"
   const val lifecycle = "2.4.0-alpha02"
   const val recyclerView = "1.2.1"
   const val constraintLayout = "2.1.0-beta02"
