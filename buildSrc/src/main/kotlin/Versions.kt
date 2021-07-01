@@ -9,10 +9,10 @@ object Versions {
 
   const val coroutines = "1.5.0"
 
-  const val appcompat = "1.4.0-alpha03"
-  const val core = "1.7.0-alpha01"
+  const val appcompat = "1.3.0"
+  const val core = "1.6.0"
   const val activity = "1.3.0-beta02"
-  const val fragment = "1.4.0-alpha04"
+  const val fragment = "1.3.5"
   const val lifecycle = "2.4.0-alpha02"
   const val recyclerView = "1.2.1"
   const val constraintLayout = "2.1.0-beta02"
@@ -24,4 +24,12 @@ object Versions {
   const val versionCompare = "1.4.1"
 
   const val dagger = "2.37"
+
+  fun maturityLevel(version: String): Int {
+    val levels = listOf("alpha", "beta", "m", "rc")
+    levels.forEachIndexed { index, s ->
+      if (version.matches(".*[.\\-]$s[.\\-\\d]*".toRegex(RegexOption.IGNORE_CASE))) return index
+    }
+    return levels.size
+  }
 }

@@ -4,6 +4,10 @@ plugins {
   id(Plugins.Misc.gradleVersions) version Versions.gradleVersions
 }
 
+tasks.dependencyUpdates.configure {
+  rejectVersionIf { Versions.maturityLevel(candidate.version) < Versions.maturityLevel(currentVersion) }
+}
+
 tasks.register<Delete>("clean") {
   delete(buildDir)
 }
