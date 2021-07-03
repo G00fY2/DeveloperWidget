@@ -45,12 +45,6 @@ The main feature of the app is an 4x1 (horizontally resizable) homescreen widget
 * Written in Kotlin using Coroutines and Dagger
 * No internet permission
 
-#### Planned Features
-* Customize the displayed device data of the widget
-* Allow changing the button shortcuts
-* Show more information in the APK install view
-  * currently installed version, filepath, certificates ...
-
 ## Release Notes
 
 Check out the [Release Notes](https://github.com/G00fY2/DeveloperWidget/releases) to find out what changed
