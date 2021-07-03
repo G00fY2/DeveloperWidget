@@ -6,12 +6,12 @@ plugins {
 }
 
 android {
-  compileSdk = Config.androidCompileSdkVersion
-  buildToolsVersion = Versions.buildToolsVersion
+  compileSdk = Versions.androidCompileSdk
+  buildToolsVersion = Versions.androidBuildTools
   defaultConfig {
-    applicationId = Config.applicationId
-    minSdk = Config.androidMinSdkVersion
-    targetSdk = Config.androidTargetSdkVersion
+    applicationId = "com.g00fy2.developerwidget"
+    minSdk = Versions.androidMinSdk
+    targetSdk = Versions.androidTargetSdk
     versionCode = versioning.getVersionCode()
     versionName = versioning.getVersionName()
 
