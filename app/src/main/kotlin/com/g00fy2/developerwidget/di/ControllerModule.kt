@@ -18,7 +18,6 @@ import com.g00fy2.developerwidget.di.annotations.ActivityScope
 import dagger.Binds
 import dagger.Module
 import dagger.Reusable
-import javax.inject.Singleton
 
 @Module
 abstract class GlobalControllerModule {
@@ -26,10 +25,6 @@ abstract class GlobalControllerModule {
   @Binds
   @Reusable
   abstract fun providesDayNightController(dayNightControllerImpl: DayNightControllerImpl): DayNightController
-
-  @Binds
-  @Singleton
-  abstract fun provideToastController(toastControllerImpl: ToastControllerImpl): ToastController
 }
 
 @Module
@@ -54,4 +49,8 @@ abstract class ActivityControllerModule {
   @Binds
   @ActivityScope
   abstract fun providePreferenceController(preferenceControllerImpl: PreferenceControllerImpl): PreferenceController
+
+  @Binds
+  @ActivityScope
+  abstract fun provideToastController(toastControllerImpl: ToastControllerImpl): ToastController
 }

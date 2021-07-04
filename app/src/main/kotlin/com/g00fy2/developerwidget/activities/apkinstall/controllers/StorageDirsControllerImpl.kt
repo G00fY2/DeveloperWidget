@@ -21,10 +21,7 @@ class StorageDirsControllerImpl @Inject constructor() : StorageDirsController {
   @Named(ACTIVITY)
   lateinit var activity: BaseActivity
 
-  /**
-   * Return all storage directories.
-   * Inspired by AOSP (API 18) and the Amaze File Manager sourcecode
-   */
+  // return all storage directories (inspired by AOSP API 18 and the Amaze File Manager sourcecode)
   override fun getStorageDirectories(): Collection<File> {
     return mutableSetOf<File>().apply {
       if (VERSION.SDK_INT < VERSION_CODES.M) {
@@ -37,7 +34,9 @@ class StorageDirsControllerImpl @Inject constructor() : StorageDirsController {
   }
 
   @Suppress("DEPRECATION")
-  // TODO replace getExternalStorageDirectory calls when target API > 29
+  // TODO getExternalStorageDirectory and requestLegacyExternalStorage only work with targetSdk <= 29
+  //  If we want to raise the targetSdk we would have to switch to Androids Scoped storage API, which doesn not
+  //  offer access to all folders
   private fun getExtSdCardPathsDeprecated(): Collection<File> {
     val dirs = mutableListOf<File>()
     val rawExternalStorage = System.getenv("EXTERNAL_STORAGE")
