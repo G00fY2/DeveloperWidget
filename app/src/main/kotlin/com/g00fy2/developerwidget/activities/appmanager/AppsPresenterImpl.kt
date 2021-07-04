@@ -17,10 +17,13 @@ class AppsPresenterImpl @Inject constructor() : BasePresenterImpl(), AppsContrac
 
   @Inject
   lateinit var view: AppsContract.AppsView
+
   @Inject
   lateinit var appInfoBuilder: AppInfo.AppInfoBuilder
+
   @Inject
   lateinit var intentController: IntentController
+
   @Inject
   lateinit var widgetPreferenceController: WidgetPreferenceController
 

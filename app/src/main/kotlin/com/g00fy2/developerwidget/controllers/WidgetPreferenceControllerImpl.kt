@@ -13,6 +13,7 @@ class WidgetPreferenceControllerImpl @Inject constructor() : WidgetPreferenceCon
   @Inject
   @Named(ACTIVITY)
   lateinit var activity: BaseActivity
+
   @Inject
   @Named(WIDGET_ID)
   lateinit var widgetId: String

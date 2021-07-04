@@ -25,20 +25,22 @@ import com.g00fy2.developerwidget.data.DeviceDataSource
 import com.g00fy2.developerwidget.data.DeviceDataSourceImpl
 import com.g00fy2.developerwidget.data.WidgetsPreferencesDataSource
 import dagger.android.AndroidInjection
-import javax.inject.Inject
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import javax.inject.Inject
 
 class WidgetProviderImpl : AppWidgetProvider() {
 
   @Inject
   lateinit var deviceDataSource: DeviceDataSource
+
   @Inject
   lateinit var widgetsPreferencesDataSource: WidgetsPreferencesDataSource
+
   @Inject
   lateinit var dayNightController: DayNightController
 

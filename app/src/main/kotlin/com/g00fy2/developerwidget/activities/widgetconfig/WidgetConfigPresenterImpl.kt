@@ -21,14 +21,19 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
 
   @Inject
   lateinit var view: WidgetConfigContract.WidgetConfigView
+
   @Inject
   lateinit var deviceDataSource: DeviceDataSource
+
   @Inject
   lateinit var stringController: StringController
+
   @Inject
   lateinit var widgetPreferenceController: WidgetPreferenceController
+
   @Inject
   lateinit var toastController: ToastController
+
   @Inject
   lateinit var intentController: IntentController
 

@@ -17,6 +17,7 @@ class DayNightControllerImpl @Inject constructor() : DayNightController {
   @Inject
   @Named(APPLICATION)
   lateinit var context: Context
+
   @Inject
   lateinit var toastController: ToastController
 
