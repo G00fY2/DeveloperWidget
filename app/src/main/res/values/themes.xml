@@ -29,6 +29,10 @@
     <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
   </style>
 
+  <style name="AppTheme.CustomAnimation">
+    <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
+  </style>
+
   <style name="DialogTheme" parent="Theme.MaterialComponents.DayNight.Dialog">
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
