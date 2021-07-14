@@ -37,11 +37,4 @@
     <item name="android:textAllCaps">false</item>
     <item name="android:textSize">15sp</item>
   </style>
-
-  <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
-    <item name="android:activityOpenEnterAnimation">@anim/anim_slide_in_from_left</item>
-    <item name="android:activityOpenExitAnimation">@anim/anim_slide_out_to_left</item>
-    <item name="android:activityCloseEnterAnimation">@anim/anim_slide_in_from_right</item>
-    <item name="android:activityCloseExitAnimation">@anim/anim_slide_out_to_right</item>
-  </style>
 </resources>
