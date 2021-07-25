@@ -62,10 +62,7 @@ class CreateShortcutActivity : BaseActivity(), CreateShortcutContract.CreateShor
     adapter.setOnShortcutSelected { shortcutPosition -> onItemClick(shortcutPosition) }
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
       binding.root.doOnApplyWindowInsets { view, insets, padding, _ ->
-        view.updatePadding(
-          bottom = padding.bottom + WindowInsetsCompat.toWindowInsetsCompat(insets)
-            .getInsets(WindowInsetsCompat.Type.systemBars()).bottom
-        )
+        view.updatePadding(bottom = padding.bottom + insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom)
       }
     }
   }

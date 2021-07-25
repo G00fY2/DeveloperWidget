@@ -7,7 +7,7 @@ import android.content.pm.PackageManager.NameNotFoundException
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import android.webkit.WebView
-import com.g00fy2.versioncompare.Version
+import io.github.g00fy2.versioncompare.Version
 
 object SystemAppsDataProvider {
 

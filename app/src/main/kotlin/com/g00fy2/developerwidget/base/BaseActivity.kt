@@ -91,7 +91,6 @@ abstract class BaseActivity(private val isDialogActivity: Boolean = false) : Dag
 
   private fun initGestureNavigation() {
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
-      // TODO check how to use API 30 features
       @Suppress("DEPRECATION")
       window.decorView.let {
         it.systemUiVisibility.let { flags ->
@@ -102,10 +101,7 @@ abstract class BaseActivity(private val isDialogActivity: Boolean = false) : Dag
 
       findViewById<View>(Window.ID_ANDROID_CONTENT)?.let {
         it.doOnApplyWindowInsets { view, insets, padding, _ ->
-          view.updatePadding(
-            top = padding.top + WindowInsetsCompat.toWindowInsetsCompat(insets)
-              .getInsets(WindowInsetsCompat.Type.systemBars()).top
-          )
+          view.updatePadding(top = padding.top + insets.getInsets(WindowInsetsCompat.Type.systemBars()).top)
         }
       }
     }

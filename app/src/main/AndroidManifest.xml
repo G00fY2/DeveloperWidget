@@ -36,6 +36,7 @@
 
     <activity
         android:name=".activities.widgetconfig.ConfigLauncherActivity"
+        android:exported="true"
         android:launchMode="singleTask"
         android:taskAffinity=""
         android:theme="@android:style/Theme.Translucent.NoTitleBar">
@@ -53,7 +54,9 @@
     <activity
         android:name=".activities.widgetconfig.WidgetConfigActivity"
         android:autoRemoveFromRecents="true"
+        android:exported="true"
         android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.CustomAnimation"
         tools:targetApi="lollipop">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
@@ -63,11 +66,13 @@
     <activity
         android:name=".activities.about.AboutActivity"
         android:label="@string/about"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme.CustomAnimation"/>
 
     <activity
         android:name=".activities.shortcut.CreateShortcutActivity"
         android:enabled="@bool/shortcut_support"
+        android:exported="true"
         android:label="@string/create_shortcut"
         android:screenOrientation="portrait">
       <intent-filter>
@@ -82,7 +87,9 @@
         android:taskAffinity=""
         android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
-    <receiver android:name=".receiver.widget.WidgetProviderImpl">
+    <receiver
+        android:name=".receiver.widget.WidgetProviderImpl"
+        android:exported="false">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
       </intent-filter>
@@ -104,4 +111,3 @@
   </application>
 
 </manifest>
-

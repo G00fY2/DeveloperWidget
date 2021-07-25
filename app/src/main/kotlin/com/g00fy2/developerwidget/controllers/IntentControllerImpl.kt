@@ -22,6 +22,7 @@ class IntentControllerImpl @Inject constructor() : IntentController {
   @Inject
   @Named(ACTIVITY)
   lateinit var activity: BaseActivity
+
   @Inject
   lateinit var toastController: ToastController
 

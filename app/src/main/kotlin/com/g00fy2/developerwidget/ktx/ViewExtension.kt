@@ -5,10 +5,11 @@ import android.os.Build.VERSION_CODES
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsets
 import androidx.annotation.Px
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.marginBottom
 import androidx.core.view.marginLeft
 import androidx.core.view.marginRight
@@ -37,10 +38,10 @@ fun View.updateMargin(
 }
 
 @RequiresApi(VERSION_CODES.KITKAT_WATCH)
-fun View.doOnApplyWindowInsets(f: (View, WindowInsets, InitialPadding, InitialMargin) -> Unit) {
+fun View.doOnApplyWindowInsets(f: (View, WindowInsetsCompat, InitialPadding, InitialMargin) -> Unit) {
   val initialPadding = recordInitialPaddingForView(this)
   val initialMargin = recordInitialMarginForView(this)
-  setOnApplyWindowInsetsListener { v, insets ->
+  ViewCompat.setOnApplyWindowInsetsListener(this) { v, insets ->
     f(v, insets, initialPadding, initialMargin)
     insets
   }

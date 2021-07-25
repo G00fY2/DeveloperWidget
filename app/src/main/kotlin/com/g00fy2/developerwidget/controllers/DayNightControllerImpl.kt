@@ -6,7 +6,6 @@ import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
-import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.di.annotations.APPLICATION
 import com.g00fy2.developerwidget.receiver.widget.WidgetProviderImpl
 import javax.inject.Inject
@@ -17,8 +16,6 @@ class DayNightControllerImpl @Inject constructor() : DayNightController {
   @Inject
   @Named(APPLICATION)
   lateinit var context: Context
-  @Inject
-  lateinit var toastController: ToastController
 
   private val defaultMode =
     if (VERSION.SDK_INT >= VERSION_CODES.P) AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM else AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY
@@ -38,8 +35,6 @@ class DayNightControllerImpl @Inject constructor() : DayNightController {
       AppCompatDelegate.MODE_NIGHT_NO -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
       else -> AppCompatDelegate.MODE_NIGHT_YES
     }.let {
-      // TODO remove if https://issuetracker.google.com/issues/131851825 is fixed
-      if (VERSION.SDK_INT <= VERSION_CODES.M) toastController.showToast(R.string.day_night_issue)
       saveCustomDefaultMode(it)
       applyMode(it)
       updateWidgetTheme()

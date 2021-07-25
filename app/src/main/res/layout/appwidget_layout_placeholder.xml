@@ -12,7 +12,7 @@
   <LinearLayout
       android:layout_width="0dp"
       android:layout_height="match_parent"
-      android:layout_margin="4dp"
+      android:layout_margin="8dp"
       android:layout_weight="1"
       android:background="@drawable/bg_widget_inner_shape"
       android:gravity="center_vertical"
@@ -28,8 +28,8 @@
         android:layout_weight="1"
         android:alpha="0.5"
         android:ellipsize="end"
-        android:maxLines="1"
         android:gravity="center_vertical"
+        android:maxLines="1"
         android:text="@string/loading_data"
         android:textColor="@color/widgetTextColor"
         android:textSize="16dp"
@@ -40,10 +40,10 @@
   <LinearLayout
       android:layout_width="0dp"
       android:layout_height="match_parent"
-      android:layout_marginBottom="4dp"
-      android:layout_marginEnd="4dp"
-      android:layout_marginRight="4dp"
-      android:layout_marginTop="4dp"
+      android:layout_marginBottom="8dp"
+      android:layout_marginEnd="8dp"
+      android:layout_marginRight="8dp"
+      android:layout_marginTop="8dp"
       android:layout_weight="1"
       android:background="@drawable/bg_widget_inner_shape"
       android:orientation="vertical"
@@ -66,10 +66,11 @@
           android:layout_marginLeft="32dp"
           android:layout_marginStart="32dp"
           android:ellipsize="end"
-          android:maxLines="1"
           android:enabled="false"
+          android:maxLines="1"
           android:text="@string/app_settings"
           android:textColor="@color/widgetTextColor"
+          android:textSize="16dp"
           style="@style/TextAppearance.AppCompat.Subhead"
           />
     </LinearLayout>
@@ -94,6 +95,7 @@
           android:maxLines="1"
           android:text="@string/install_apk"
           android:textColor="@color/widgetTextColor"
+          android:textSize="16dp"
           style="@style/TextAppearance.AppCompat.Subhead"
           />
     </LinearLayout>

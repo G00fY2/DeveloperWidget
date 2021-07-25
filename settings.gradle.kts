@@ -1,29 +1,28 @@
 include("app")
 
 pluginManagement {
-  val kotlinVersion: String by settings
-  val androidGradlePluginVersion: String by settings
-  val nanogiantsVersioning: String by settings
-  val gradleEnterpriseVersion: String by settings
   repositories {
     google()
     gradlePluginPortal()
-    mavenCentral()
   }
   resolutionStrategy {
     eachPlugin {
-      when (requested.id.id) {
-        "com.android.application" -> useModule("com.android.tools.build:gradle:$androidGradlePluginVersion")
-        "de.nanogiants.android-versioning" -> useVersion(nanogiantsVersioning)
-        "com.gradle.enterprise" -> useVersion(gradleEnterpriseVersion)
-      }
-      if (requested.id.namespace == "org.jetbrains.kotlin") useVersion(kotlinVersion)
+      if (requested.id.namespace == "com.android") useModule("com.android.tools.build:gradle:${requested.version}")
     }
   }
 }
 
+@Suppress("UnstableApiUsage")
+dependencyResolutionManagement {
+  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+  repositories {
+    google()
+    mavenCentral()
+  }
+}
+
 plugins {
-  id("com.gradle.enterprise")
+  id("com.gradle.enterprise") version "3.6.3"
 }
 
 gradleEnterprise {

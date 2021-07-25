@@ -125,10 +125,7 @@ class AboutActivity : BaseActivity(), AboutContract.AboutView {
     if (VERSION.SDK_INT >= VERSION_CODES.O_MR1) {
       binding.aboutRootScrollview.apply {
         doOnApplyWindowInsets { _, insets, padding, _ ->
-          updatePadding(
-            bottom = padding.bottom + WindowInsetsCompat.toWindowInsetsCompat(insets)
-              .getInsets(WindowInsetsCompat.Type.systemBars()).bottom
-          )
+          updatePadding(bottom = padding.bottom + insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom)
         }
         viewTreeObserver.addOnScrollChangedListener {
           val scrollableRange = getChildAt(0).bottom - height + paddingBottom

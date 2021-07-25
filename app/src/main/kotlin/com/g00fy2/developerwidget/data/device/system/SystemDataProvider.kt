@@ -1,9 +1,9 @@
 package com.g00fy2.developerwidget.data.device.system
 
-import android.annotation.SuppressLint
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
-import com.g00fy2.versioncompare.Version
+import io.github.g00fy2.versioncompare.Version
+import java.util.Locale
 
 object SystemDataProvider {
 
@@ -13,13 +13,12 @@ object SystemDataProvider {
 
   fun getCodename(): String = VERSION.CODENAME
 
-  @SuppressLint("DefaultLocale")
   fun getSDKLevel(): String {
     getCodename().let {
       return if (it.isBlank() || it.equals("REL", true)) {
         VERSION.SDK_INT.toString()
       } else {
-        it.toUpperCase()
+        it.uppercase(Locale.getDefault())
       }
     }
   }

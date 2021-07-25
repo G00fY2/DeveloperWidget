@@ -1,17 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-
-  <style name="AppTheme" parent="BaseAppTheme">
-    <!--api 23-->
-    <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
-    <!--api 27-->
-    <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
-  </style>
-
-  <style name="ActionBarAccent" parent="ThemeOverlay.AppCompat.ActionBar">
-    <item name="android:textColorPrimary">@color/textPrimary</item>
-    <item name="colorControlNormal">@color/iconTintColor</item>
-  </style>
+<resources>
 
   <style name="ActionBarBackground" parent="Widget.AppCompat.ActionBar.Solid"/>
 
