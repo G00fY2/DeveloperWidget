@@ -13,13 +13,13 @@ object Versions {
 
   const val coroutines = "1.5.1"
 
-  const val appcompat = "1.3.0"
+  const val appcompat = "1.3.1"
   const val core = "1.6.0"
-  const val activity = "1.2.3"
-  const val fragment = "1.3.5"
+  const val activity = "1.2.4"
+  const val fragment = "1.3.6"
   const val lifecycle = "2.3.1"
   const val recyclerView = "1.2.1"
-  const val constraintLayout = "2.1.0-beta02"
+  const val constraintLayout = "2.1.0-rc01"
   const val vectorDrawable = "1.1.0"
 
   const val materialDesign = "1.4.0"
