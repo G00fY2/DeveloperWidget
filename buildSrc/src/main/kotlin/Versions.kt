@@ -5,7 +5,7 @@ object Versions {
   const val androidTargetSdk = 29
 
   const val androidBuildTools = "31.0.0"
-  const val androidGradle = "7.0.0-rc01"
+  const val androidGradle = "7.0.0"
   const val kotlin = "1.5.21"
 
   const val gradleVersions = "0.39.0"
@@ -27,7 +27,7 @@ object Versions {
   const val timber = "4.7.1"
   const val versionCompare = "1.4.1"
 
-  const val dagger = "2.38"
+  const val dagger = "2.38.1"
 
   fun maturityLevel(version: String): Int {
     val levels = listOf("alpha", "beta", "m", "rc")
