@@ -19,7 +19,7 @@ object Versions {
   const val fragment = "1.3.6"
   const val lifecycle = "2.3.1"
   const val recyclerView = "1.2.1"
-  const val constraintLayout = "2.1.0-rc01"
+  const val constraintLayout = "2.1.0"
   const val vectorDrawable = "1.1.0"
 
   const val materialDesign = "1.4.0"
