@@ -25,7 +25,6 @@ import com.g00fy2.developerwidget.data.DeviceDataSource
 import com.g00fy2.developerwidget.data.DeviceDataSourceImpl
 import com.g00fy2.developerwidget.data.WidgetsPreferencesDataSource
 import dagger.android.AndroidInjection
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -47,7 +46,6 @@ class WidgetProviderImpl : AppWidgetProvider() {
   private lateinit var appWidgetManager: AppWidgetManager
   private lateinit var context: Context
 
-  @DelicateCoroutinesApi
   override fun onReceive(context: Context, intent: Intent) {
     AndroidInjection.inject(this, context)
     this.context = context
@@ -77,7 +75,6 @@ class WidgetProviderImpl : AppWidgetProvider() {
     }
   }
 
-  @DelicateCoroutinesApi
   override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
     GlobalScope.launch {
       withContext(Dispatchers.IO) {
