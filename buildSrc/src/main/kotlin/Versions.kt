@@ -27,7 +27,7 @@ object Versions {
   const val timber = "5.0.1"
   const val versionCompare = "1.4.1"
 
-  const val dagger = "2.39"
+  const val dagger = "2.39.1"
 
   fun maturityLevel(version: String): Int {
     val levels = listOf("alpha", "beta", "m", "rc")
