@@ -5,11 +5,6 @@ pluginManagement {
     google()
     gradlePluginPortal()
   }
-  resolutionStrategy {
-    eachPlugin {
-      if (requested.id.namespace == "com.android") useModule("com.android.tools.build:gradle:${requested.version}")
-    }
-  }
 }
 
 @Suppress("UnstableApiUsage")
@@ -22,7 +17,7 @@ dependencyResolutionManagement {
 }
 
 plugins {
-  id("com.gradle.enterprise") version "3.7"
+  id("com.gradle.enterprise") version "3.8"
 }
 
 gradleEnterprise {

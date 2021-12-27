@@ -1,7 +1,6 @@
 package com.g00fy2.developerwidget.activities.widgetconfig
 
-import androidx.lifecycle.Lifecycle.Event
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BasePresenterImpl
@@ -39,7 +38,11 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
 
   private val defaultDeviceName by lazy { deviceDataSource.getCombinedDeviceName() }
 
-  @OnLifecycleEvent(Event.ON_CREATE)
+  override fun onCreate(owner: LifecycleOwner) {
+    loadDeviceData()
+    loadCustomDeviceName()
+  }
+
   override fun loadDeviceData() {
     view.lifecycleScope.launch {
       withContext(Dispatchers.IO) {
@@ -50,7 +53,6 @@ class WidgetConfigPresenterImpl @Inject constructor() : BasePresenterImpl(),
     }
   }
 
-  @OnLifecycleEvent(Event.ON_CREATE)
   override fun loadCustomDeviceName() {
     view.lifecycleScope.launch {
       withContext(Dispatchers.IO) {

@@ -1,7 +1,6 @@
 package com.g00fy2.developerwidget.activities.about
 
-import androidx.lifecycle.Lifecycle.Event
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.g00fy2.developerwidget.R
 import com.g00fy2.developerwidget.base.BasePresenterImpl
@@ -36,6 +35,10 @@ class AboutPresenterImpl @Inject constructor() : BasePresenterImpl(), AboutContr
   private var clickCount = 0
   private var clickStart: Long = 0
 
+  override fun onCreate(owner: LifecycleOwner) {
+    updateSearchDepth()
+  }
+
   override fun openUrl(url: String) = intentController.openWebsite(url, url.startsWith(GITHUB_PROJECT_IO))
 
   override fun sendFeedbackMail() = intentController.sendMailToDeveloper()
@@ -63,7 +66,6 @@ class AboutPresenterImpl @Inject constructor() : BasePresenterImpl(), AboutContr
 
   override fun showRebootNotice() = toastController.showToast(R.string.reboot_notice)
 
-  @OnLifecycleEvent(Event.ON_CREATE)
   override fun updateSearchDepth() {
     view.lifecycleScope.launch {
       val actualDepth = preferenceController.get(PreferenceController.SEARCH_DEPTH, 2)

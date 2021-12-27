@@ -24,6 +24,7 @@ object HardwareFeatureProvider {
     return if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN_MR2) {
       context.getSystemService<BluetoothManager>()?.adapter?.let { true } ?: false
     } else {
+      @Suppress("DEPRECATION")
       BluetoothAdapter.getDefaultAdapter()?.let { true } ?: false
     }
   }

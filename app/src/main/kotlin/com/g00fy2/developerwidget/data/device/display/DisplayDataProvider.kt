@@ -12,13 +12,13 @@ import kotlin.math.roundToInt
 object DisplayDataProvider {
 
   @SuppressLint("NewApi")
+  @Suppress("DEPRECATION")
   fun getResolution(context: Context): Point? {
     getDisplay(context)?.let { windowManager ->
       Point().let { point ->
         try {
           windowManager.getRealSize(point)
         } catch (e: NoSuchMethodError) {
-          @Suppress("DEPRECATION")
           windowManager.getSize(point)
         }
         return point
@@ -28,13 +28,13 @@ object DisplayDataProvider {
   }
 
   @SuppressLint("NewApi")
+  @Suppress("DEPRECATION")
   fun geDisplayDpi(context: Context): String {
     getDisplay(context)?.let { windowManager ->
       DisplayMetrics().let { displayMetrics ->
         try {
           windowManager.getRealMetrics(displayMetrics)
         } catch (e: NoSuchMethodError) {
-          @Suppress("DEPRECATION")
           windowManager.getMetrics(displayMetrics)
         }
         return displayMetrics.xdpi.roundToInt().toString() + " / " + displayMetrics.ydpi.roundToInt() + " dpi"
@@ -69,6 +69,7 @@ object DisplayDataProvider {
     return result + if (altResult.isBlank()) "" else " ($altResult)"
   }
 
+  @Suppress("DEPRECATION")
   private fun getDisplay(context: Context) = context.getSystemService<WindowManager>()?.defaultDisplay
 
   private fun gcd(p: Int, q: Int): Int {

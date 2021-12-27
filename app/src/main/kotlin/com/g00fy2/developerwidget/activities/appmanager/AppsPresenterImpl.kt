@@ -2,8 +2,7 @@ package com.g00fy2.developerwidget.activities.appmanager
 
 import android.content.pm.ApplicationInfo
 import android.text.Editable
-import androidx.lifecycle.Lifecycle.Event
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.g00fy2.developerwidget.base.BasePresenterImpl
 import com.g00fy2.developerwidget.controllers.IntentController
@@ -29,13 +28,16 @@ class AppsPresenterImpl @Inject constructor() : BasePresenterImpl(), AppsContrac
 
   private val appFilter by lazy { widgetPreferenceController.getAppFilters() }
 
-  @OnLifecycleEvent(Event.ON_RESUME)
-  fun setFilterIconState() {
+  override fun onResume(owner: LifecycleOwner) {
+    setFilterIconState()
+    scanApps()
+  }
+
+  private fun setFilterIconState() {
     view.updateFilterIcon(appFilter.isNotEmpty())
   }
 
-  @OnLifecycleEvent(Event.ON_RESUME)
-  fun scanApps() {
+  private fun scanApps() {
     view.lifecycleScope.launch {
       withContext(Dispatchers.IO) {
         getInstalledUserApps()

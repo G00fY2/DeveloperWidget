@@ -21,6 +21,6 @@ class PermissionControllerImpl @Inject constructor() : PermissionController {
   override fun requestPermissions(vararg permissions: String, onGranted: (() -> Unit), onDenied: () -> Unit) {
     activity.registerForActivityResult(RequestMultiplePermissions()) { result ->
       if (result.all { it.value }) onGranted() else onDenied()
-    }.launch(permissions)
+    }.launch(arrayOf(*permissions))
   }
 }

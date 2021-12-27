@@ -3,8 +3,7 @@ package com.g00fy2.developerwidget.activities.apkinstall
 import android.Manifest
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
-import androidx.lifecycle.Lifecycle.Event
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.g00fy2.developerwidget.activities.apkinstall.controllers.StorageDirsController
 import com.g00fy2.developerwidget.base.BasePresenterImpl
@@ -37,8 +36,11 @@ class ApkPresenterImpl @Inject constructor() : BasePresenterImpl(), ApkContract.
   @Inject
   lateinit var preferenceController: PreferenceController
 
-  @OnLifecycleEvent(Event.ON_CREATE)
-  fun scanStoreageIfPermissionGranted() {
+  override fun onCreate(owner: LifecycleOwner) {
+    scanStoreageIfPermissionGranted()
+  }
+
+  private fun scanStoreageIfPermissionGranted() {
     permissionController.requestPermissions(
       Manifest.permission.WRITE_EXTERNAL_STORAGE,
       onGranted = { scanStorageForApks() },
