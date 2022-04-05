@@ -11,7 +11,6 @@ object Plugins {
   }
 
   object Misc {
-    const val androidVersioning = "de.nanogiants.android-versioning"
     const val gradleVersions = "com.github.ben-manes.versions"
   }
 }

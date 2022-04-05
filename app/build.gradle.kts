@@ -2,7 +2,6 @@ plugins {
   id(Plugins.Android.application)
   id(Plugins.Kotlin.android)
   id(Plugins.Kotlin.kapt)
-  id(Plugins.Misc.androidVersioning) version Versions.androidVersioning
 }
 
 android {
@@ -12,12 +11,12 @@ android {
     applicationId = "com.g00fy2.developerwidget"
     minSdk = Versions.androidMinSdk
     targetSdk = Versions.androidTargetSdk
-    versionCode = versioning.getVersionCode()
-    versionName = versioning.getVersionName()
+    versionName = GitUtils.gitTag
+    versionCode = GitUtils.gitCommitCount
 
     resourceConfigurations.add("en")
     vectorDrawables.useSupportLibrary = true
-    setProperty("archivesBaseName", "developerwidget")
+    setProperty("archivesBaseName", "developerwidget-${GitUtils.gitTag}-${GitUtils.gitCommitCount}")
   }
   signingConfigs {
     create("release") {
@@ -60,10 +59,6 @@ android {
   packagingOptions.resources {
     excludes += listOf("DebugProbesKt.bin", "**/*.kotlin_*")
   }
-}
-
-versioning {
-  keepOriginalMappingFile = false
 }
 
 dependencies {
