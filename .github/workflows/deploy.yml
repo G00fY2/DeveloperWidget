@@ -6,7 +6,7 @@ on:
       - '*.*.*'
 
 jobs:
-  build_release:
+  create_release:
     name: Build and create release
     runs-on: ubuntu-latest
 
@@ -34,7 +34,7 @@ jobs:
           KEYALIAS: ${{secrets.KEYALIAS}}
           KEYPASS: ${{secrets.KEYPASS}}
 
-      - name: Create github release
+      - name: Create GitHub pre-release
         run: gh release create ${{github.ref_name}} -p -n "Generated release from GitHub Actions"
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
