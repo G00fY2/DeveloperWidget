@@ -9,7 +9,6 @@ object Versions {
   const val kotlin = "1.6.20"
 
   const val gradleVersions = "0.42.0"
-  const val androidVersioning = "2.4.0"
 
   const val coroutines = "1.6.1"
 
