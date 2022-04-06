@@ -57,7 +57,7 @@ android {
     includeInApk = false
   }
   packagingOptions.resources {
-    excludes += listOf("DebugProbesKt.bin", "**/*.kotlin_*")
+    excludes += listOf("DebugProbesKt.bin", "**/*.kotlin_*", "kotlin-tooling-metadata.json")
   }
 }
 
