@@ -37,7 +37,7 @@ jobs:
       - name: Create GitHub pre-release
         run: gh release create ${{github.ref_name}} -p -n "Generated release from GitHub Actions"
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
 
       - name: Upload artifacts
         run: |
@@ -45,4 +45,4 @@ jobs:
           gh release upload ${{github.ref_name}} app/build/outputs/bundle/release/*.aab
           gh release upload ${{github.ref_name}} app/build/outputs/mapping/release/mapping.txt
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.PERSONAL_ACCESS_TOKEN}}
