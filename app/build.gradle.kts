@@ -16,7 +16,7 @@ android {
 
     resourceConfigurations.add("en")
     vectorDrawables.useSupportLibrary = true
-    setProperty("archivesBaseName", "developerwidget-${GitUtils.gitTag}-${GitUtils.gitCommitCount}")
+    setProperty("archivesBaseName", "developerwidget-$versionName-$versionCode")
   }
   signingConfigs {
     create("release") {
