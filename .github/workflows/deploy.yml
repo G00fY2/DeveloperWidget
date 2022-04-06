@@ -28,7 +28,7 @@ jobs:
       - name: Build release artifacts
         run: |
           ./gradlew assembleRelease -Pmy_storepass=$STOREPASS -Pmy_keyalias=$KEYALIAS -Pmy_keypass=$KEYPASS
-          ./gradlew :app:bundleRelease -Pmy_storepass=$STOREPASS -Pmy_keyalias=$KEYALIAS -Pmy_keypass=$KEYPASS
+          ./gradlew bundleRelease -Pmy_storepass=$STOREPASS -Pmy_keyalias=$KEYALIAS -Pmy_keypass=$KEYPASS
         env:
           STOREPASS: ${{secrets.STOREPASS}}
           KEYALIAS: ${{secrets.KEYALIAS}}
