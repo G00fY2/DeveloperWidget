@@ -27,9 +27,6 @@ class AboutPresenterImpl @Inject constructor() : BasePresenterImpl(), AboutContr
   lateinit var dayNightController: DayNightController
 
   @Inject
-  lateinit var stringController: StringController
-
-  @Inject
   lateinit var preferenceController: PreferenceController
 
   private var clickCount = 0
