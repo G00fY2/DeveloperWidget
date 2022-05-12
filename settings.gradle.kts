@@ -3,6 +3,7 @@ include("app")
 pluginManagement {
   repositories {
     google()
+    mavenCentral()
     gradlePluginPortal()
   }
 }
@@ -17,7 +18,7 @@ dependencyResolutionManagement {
 }
 
 plugins {
-  id("com.gradle.enterprise") version "3.9"
+  id("com.gradle.enterprise") version "3.10"
 }
 
 gradleEnterprise {

@@ -1,11 +1,11 @@
 object Versions {
 
   const val androidMinSdk = 14
-  const val androidCompileSdk = 31
+  const val androidCompileSdk = 32
   const val androidTargetSdk = 29
 
   const val androidBuildTools = "32.0.0"
-  const val androidGradle = "7.1.3"
+  const val androidGradle = "7.2.0"
   const val kotlin = "1.6.21"
 
   const val gradleVersions = "0.42.0"
@@ -21,12 +21,12 @@ object Versions {
   const val constraintLayout = "2.1.3"
   const val vectorDrawable = "1.1.0"
 
-  const val materialDesign = "1.5.0"
+  const val materialDesign = "1.6.0"
 
   const val timber = "5.0.1"
   const val versionCompare = "1.5.0"
 
-  const val dagger = "2.41"
+  const val dagger = "2.42"
 
   private val sortedReleaseQualifiers = listOf("alpha", "beta", "m", "rc")
 
