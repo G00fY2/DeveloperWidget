@@ -7,7 +7,6 @@ import com.g00fy2.developerwidget.base.BasePresenterImpl
 import com.g00fy2.developerwidget.controllers.DayNightController
 import com.g00fy2.developerwidget.controllers.IntentController
 import com.g00fy2.developerwidget.controllers.PreferenceController
-import com.g00fy2.developerwidget.controllers.StringController
 import com.g00fy2.developerwidget.controllers.ToastController
 import kotlinx.coroutines.launch
 import javax.inject.Inject
