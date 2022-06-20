@@ -14,7 +14,7 @@ class PermissionsAdapter : BaseAdapter<Pair<String, String?>, PermissionViewHold
     override fun onBind(item: Pair<String, String?>) {
       item.run {
         binding.permissionTitle.text = item.first
-        binding.permissionDescription.text = item.second ?: ""
+        binding.permissionDescription.text = item.second.orEmpty()
       }
     }
   }

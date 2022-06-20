@@ -41,7 +41,7 @@ object RamDataProvider {
 
   fun hasLowRamFlag(context: Context): String {
     return if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
-      context.getSystemService<ActivityManager>()?.isLowRamDevice?.toString() ?: ""
+      context.getSystemService<ActivityManager>()?.isLowRamDevice?.toString().orEmpty()
     } else {
       ""
     }

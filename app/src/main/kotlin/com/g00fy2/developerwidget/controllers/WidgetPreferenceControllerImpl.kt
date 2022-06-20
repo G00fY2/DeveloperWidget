@@ -23,7 +23,7 @@ class WidgetPreferenceControllerImpl @Inject constructor() : WidgetPreferenceCon
   }
 
   override fun getAppFilters(): MutableList<String> {
-    return (sharedPreference.getString(FILTERS, "") ?: "")
+    return sharedPreference.getString(FILTERS, "").orEmpty()
       .split(DELIMITER)
       .filterNot { it.isEmpty() }
       .distinct()
@@ -36,7 +36,7 @@ class WidgetPreferenceControllerImpl @Inject constructor() : WidgetPreferenceCon
   override fun saveCustomDeviceName(deviceName: String) =
     sharedPreference.edit().putString(CUSTOM_DEVICE_NAME, deviceName.trim()).commit()
 
-  override fun getCustomDeviceName() = (sharedPreference.getString(CUSTOM_DEVICE_NAME, "") ?: "")
+  override fun getCustomDeviceName() = sharedPreference.getString(CUSTOM_DEVICE_NAME, "").orEmpty()
 
   companion object {
     const val CUSTOM_DEVICE_NAME = "CUSTOM_DEVICE_NAME"

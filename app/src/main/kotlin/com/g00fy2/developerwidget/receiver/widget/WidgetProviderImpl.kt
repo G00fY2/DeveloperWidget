@@ -55,7 +55,7 @@ class WidgetProviderImpl : AppWidgetProvider() {
 
     if (intent.extras?.getBoolean(WidgetConfigActivity.EXTRA_APPWIDGET_FROM_PIN_APP) == true) {
       val widgetId = intent.extras?.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID) ?: AppWidgetManager.INVALID_APPWIDGET_ID
-      val customDeviceName = intent.extras?.getString(WidgetConfigActivity.EXTRA_APPWIDGET_CUSTOM_DEVICE_NAME) ?: ""
+      val customDeviceName = intent.extras?.getString(WidgetConfigActivity.EXTRA_APPWIDGET_CUSTOM_DEVICE_NAME).orEmpty()
       if (widgetId != AppWidgetManager.INVALID_APPWIDGET_ID && customDeviceName.isNotBlank()) {
         widgetsPreferencesDataSource.saveCustomDeviceName(widgetId, customDeviceName)
       }
@@ -108,7 +108,7 @@ class WidgetProviderImpl : AppWidgetProvider() {
         appWidgetManager.updateAppWidget(widgetId, it)
       }
       RemoteViews(context.packageName, layout).let {
-        updateWidgetDeviceData(data, customDeviceNames.get(widgetId) ?: "", it)
+        updateWidgetDeviceData(data, customDeviceNames.get(widgetId).orEmpty(), it)
         updateWidgetButtonIntents(widgetId, it)
         appWidgetManager.updateAppWidget(widgetId, it)
       }

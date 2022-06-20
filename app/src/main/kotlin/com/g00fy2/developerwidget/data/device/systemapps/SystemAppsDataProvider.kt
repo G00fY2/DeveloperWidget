@@ -25,7 +25,7 @@ object SystemAppsDataProvider {
       VERSION.SDK_INT >= VERSION_CODES.O -> {
         WebView.getCurrentWebViewPackage()?.let {
           context.packageManager.getApplicationLabel(it.applicationInfo).toString() + " " + it.versionName
-        } ?: ""
+        }.orEmpty()
       }
       VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP -> {
         try {
@@ -33,8 +33,7 @@ object SystemAppsDataProvider {
             .getMethod("getLoadedPackageInfo")
             .invoke(null) as PackageInfo?)?.let {
             context.packageManager.getApplicationLabel(it.applicationInfo).toString() + " " + it.versionName
-          }
-            ?: ""
+          }.orEmpty()
         } catch (t: Throwable) {
           ""
         }
@@ -46,7 +45,7 @@ object SystemAppsDataProvider {
       } catch (e: NameNotFoundException) {
         null
       }?.let { context.packageManager.getApplicationLabel(it.applicationInfo).toString() + " " + it.versionName }
-        ?: ""
+        .orEmpty()
     }
   }
 }

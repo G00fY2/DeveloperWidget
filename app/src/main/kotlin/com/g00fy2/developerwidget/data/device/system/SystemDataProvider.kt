@@ -45,5 +45,5 @@ object SystemDataProvider {
     return "$vmName $vmVersion"
   }
 
-  fun getKernelVersion(): String = System.getProperty("os.version") ?: ""
+  fun getKernelVersion(): String = System.getProperty("os.version").orEmpty()
 }

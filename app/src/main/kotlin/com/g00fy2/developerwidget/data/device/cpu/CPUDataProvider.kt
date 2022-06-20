@@ -16,7 +16,7 @@ object CPUDataProvider {
 
   fun getPrimaryABI(): String {
     return if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
-      Build.SUPPORTED_ABIS.firstOrNull() ?: ""
+      Build.SUPPORTED_ABIS.firstOrNull().orEmpty()
     } else {
       @Suppress("DEPRECATION")
       Build.CPU_ABI
