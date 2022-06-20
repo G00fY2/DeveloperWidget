@@ -5,6 +5,7 @@ plugins {
 }
 
 tasks.dependencyUpdates.configure {
+  gradleReleaseChannel = "current"
   rejectVersionIf { Versions.maturityLevel(candidate.version) < Versions.maturityLevel(currentVersion) }
 }
 
