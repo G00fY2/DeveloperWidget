@@ -5,7 +5,7 @@ object Versions {
   const val androidTargetSdk = 29
 
   const val androidBuildTools = "32.0.0"
-  const val androidGradle = "7.2.1"
+  const val androidGradle = "7.2.2"
   const val kotlin = "1.7.10"
 
   const val gradleVersions = "0.42.0"
@@ -26,7 +26,7 @@ object Versions {
   const val timber = "5.0.1"
   const val versionCompare = "1.5.0"
 
-  const val dagger = "2.43.1"
+  const val dagger = "2.43.2"
 
   private val sortedReleaseQualifiers = listOf("alpha", "beta", "m", "rc")
 
