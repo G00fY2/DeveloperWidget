@@ -1,6 +1,7 @@
 package com.g00fy2.developerwidget.activities.appmanager
 
 import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.graphics.drawable.AdaptiveIconDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.InsetDrawable
@@ -60,7 +61,12 @@ class AppInfo private constructor() : Comparable<AppInfo> {
     private val packageManager = activity.packageManager
 
     override fun getInstalledPackages(): List<PackageInfo> {
-      return packageManager.getInstalledPackages(0)
+      return if (VERSION.SDK_INT >= VERSION_CODES.TIRAMISU) {
+        packageManager.getInstalledPackages(PackageManager.PackageInfoFlags.of(0))
+      } else {
+        @Suppress("DEPRECATION")
+        packageManager.getInstalledPackages(0)
+      }
     }
 
     override fun build(packageInfo: PackageInfo): AppInfo {

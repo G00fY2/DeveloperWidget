@@ -3,6 +3,7 @@ package com.g00fy2.developerwidget.data.device.systemapps
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.content.pm.PackageManager.NameNotFoundException
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
@@ -13,7 +14,7 @@ object SystemAppsDataProvider {
 
   fun getGooglePlayServicesVersion(context: Context): String {
     return try {
-      context.packageManager.getPackageInfo("com.google.android.gms", 0).versionName
+      context.getPackageInfo("com.google.android.gms").versionName
     } catch (e: NameNotFoundException) {
       ""
     }
@@ -41,11 +42,22 @@ object SystemAppsDataProvider {
       Version(VERSION.RELEASE).isAtLeast("4.4.3") -> "WebView v33.0.0.0"
       VERSION.SDK_INT >= VERSION_CODES.KITKAT -> "WebView v30.0.0.0"
       else -> try {
-        context.packageManager.getPackageInfo("com.google.android.webview", 0)
+        context.getPackageInfo("com.google.android.webview")
       } catch (e: NameNotFoundException) {
         null
       }?.let { context.packageManager.getApplicationLabel(it.applicationInfo).toString() + " " + it.versionName }
         .orEmpty()
+    }
+  }
+
+  private fun Context.getPackageInfo(packageName: String): PackageInfo {
+    return packageManager.run {
+      if (VERSION.SDK_INT >= VERSION_CODES.TIRAMISU) {
+        getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0))
+      } else {
+        @Suppress("DEPRECATION")
+        getPackageInfo(packageName, 0)
+      }
     }
   }
 }

@@ -73,7 +73,15 @@ class ApkFile private constructor() : Comparable<ApkFile> {
         size = getFormattedSize(file.length())
 
         file.absolutePath.let { filePath ->
-          packageManager.getPackageArchiveInfo(filePath, PackageManager.GET_PERMISSIONS)?.let { packageInfo ->
+          if (VERSION.SDK_INT >= VERSION_CODES.TIRAMISU) {
+            packageManager.getPackageArchiveInfo(
+              filePath,
+              PackageManager.PackageInfoFlags.of(PackageManager.GET_PERMISSIONS.toLong())
+            )
+          } else {
+            @Suppress("DEPRECATION")
+            packageManager.getPackageArchiveInfo(filePath, PackageManager.GET_PERMISSIONS)
+          }?.let { packageInfo ->
             packageInfo.versionName?.let { versionName = it }
             PackageInfoCompat.getLongVersionCode(packageInfo).let { versionCode = it.toString() }
             dangerousPermissions = extractDangerousPermissions(packageInfo.requestedPermissions)
