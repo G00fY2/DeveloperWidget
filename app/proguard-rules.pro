@@ -15,3 +15,15 @@
 	public static void throwIllegalArgument(...);
 	public static void throwIllegalState(...);
 }
+
+# Remove Android Logging
+# https://community.guardsquare.com/t/how-to-remove-debug-logging-with-proguard/360
+-assumenosideeffects class android.util.Log {
+    public static boolean isLoggable(java.lang.String, int);
+    public static int v(...);
+    public static int i(...);
+    public static int w(...);
+    public static int d(...);
+    public static int e(...);
+    public static int wtf(...);
+}
